@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UISOCIAL Login</title>
+<style>
+    /* Reset & base */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f0f0f0;
+    }
+
+    .container {
+        display: flex;
+        width: 900px;
+        height: 600px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* Left panel */
+    .left-panel {
+        flex: 1;
+        background: url('https://images.unsplash.com/photo-1601279245633-d5e9f3e9b27c?auto=format&fit=crop&w=800&q=80') no-repeat center center/cover;
+        position: relative;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    .left-panel .top {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+    }
+
+    .left-panel .bottom {
+        display: flex;
+        align-items: center;
+    }
+
+    .left-panel .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: url('https://randomuser.me/api/portraits/men/32.jpg') no-repeat center center/cover;
+        margin-right: 10px;
+    }
+
+    .nav-arrows {
+        margin-left: auto;
+        display: flex;
+        gap: 10px;
+    }
+
+    .nav-arrows button {
+        background: rgba(255,255,255,0.3);
+        border: none;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    /* Right panel */
+    .right-panel {
+        flex: 1;
+        background: #fff;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    .right-panel h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .right-panel p {
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    .right-panel input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+    .right-panel .forgot {
+        text-align: right;
+        font-size: 12px;
+        color: #f55;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+    .right-panel button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: #ff3b3b;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        margin-bottom: 15px;
+    }
+
+    .right-panel .social-login {
+        border: 1px solid #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    .right-panel .signup {
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .right-panel .signup a {
+        color: #f55;
+        text-decoration: none;
+    }
+
+    .right-panel .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .right-panel .social-icons i {
+        font-size: 20px;
+        cursor: pointer;
+        color: #555;
+    }
+</style>
+<!-- Using font-awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="top">
+                <span>Selected Works</span>
+                <div>
+                    <button>Sign Up</button>
+                    <button style="border:1px solid white;">Join Us</button>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="avatar"></div>
+                <div>
+                    <div><strong>Andrew.ui</strong></div>
+                    <div>UI & Illustration</div>
+                </div>
+                <div class="nav-arrows">
+                    <button>&larr;</button>
+                    <button>&rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <h1>Hi Designer</h1>
+            <p>Welcome to UISOCIAL</p>
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <div class="forgot">Forgot password?</div>
+            <div class="social-login">
+                <i class="fa-brands fa-google"></i>&nbsp; Login with Google
+            </div>
+            <button>Login</button>
+            <div class="signup">
+                Don't have an account? <a href="#">Sign up</a>
+            </div>
+            <div class="social-icons">
+                <i class="fa-brands fa-facebook-f"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-linkedin-in"></i>
+                <i class="fa-brands fa-instagram"></i>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

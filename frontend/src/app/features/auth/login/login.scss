@@ -201,10 +201,11 @@
 
        .title .brand {
            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+           background-clip: text;
            -webkit-background-clip: text;
            -webkit-text-fill-color: transparent;
+           color: transparent;
        }
-
 
        .subtitle {
            color: #6b7280;

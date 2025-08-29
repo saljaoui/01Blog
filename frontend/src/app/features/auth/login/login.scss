@@ -154,10 +154,10 @@
            justify-content: center;
            color: white;
            font-weight: bold;
-           
+
        }
 
-        .logo-icon::before {
+       .logo-icon::before {
            content: '';
            width: 12px;
            height: 12px;
@@ -168,7 +168,7 @@
            justify-content: center;
            animation: innerPulse 2s ease-in-out infinite;
        }
-       
+
 
        .logo-text {
            font-size: 20px;
@@ -190,20 +190,20 @@
            font-weight: 500;
        }
 
-.title {
-    font-size: 28px;
-    font-weight: 700;
-    color: #111827;
-    margin-bottom: 24px;
-    letter-spacing: 0.5px;
-    font-family: 'Inter', sans-serif;
-}
+       .title {
+           font-size: 28px;
+           font-weight: 700;
+           color: #111827;
+           margin-bottom: 24px;
+           letter-spacing: 0.5px;
+           font-family: 'Inter', sans-serif;
+       }
 
-.title .brand {
-    background: linear-gradient(90deg, #4f46e5, #7c3aed);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+       .title .brand {
+           background: linear-gradient(90deg, #4f46e5, #7c3aed);
+           -webkit-background-clip: text;
+           -webkit-text-fill-color: transparent;
+       }
 
 
        .subtitle {
@@ -254,7 +254,7 @@
            color: #9ca3af;
        }
 
-        .form-input:hover {
+       .form-input:hover {
            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
        }
 

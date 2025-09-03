@@ -2,10 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-app-login {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: url("./assets/images/bg.jpg") no-repeat center/cover;
+app-login,
+app-register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+app-dashboard {
+  min-height: 100vh;
+}
+
+body {
+  background-image: url("./assets/images/bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
 }

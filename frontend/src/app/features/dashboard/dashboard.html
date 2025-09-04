@@ -1,42 +1,87 @@
-  <!-- Header -->
+<div class="flex flex-col h-screen">
+    <!-- Header -->
     <header class="bg-white shadow-sm border-b border-gray-200">
-        <div class="flex items-center justify-between px-6 py-4">
+        <div class="flex items-center justify-between px-4 py-1">
             <!-- Logo -->
             <div class="flex items-center">
-                <div class="w-4 h-4 mr-1 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-[0_15px_30px_rgba(79,70,229,0.3)] animate-spin-slow animate-pulse-soft">
-                    <div class="w-2 h-2 bg-white rounded-full animate-pulse-inner"></div>
+                <div
+                    class="w-4 h-4 mr-1 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-[0_15px_30px_rgba(79,70,229,0.3)] animate-spin-slow animate-pulse-soft">
+                    <div
+                        class="w-2 h-2 bg-white rounded-full animate-pulse-inner"></div>
                 </div>
                 <div class="text-xl font-medium text-gray-800">1Blog</div>
             </div>
-            
-            <!-- Search Bar -->
-            <div class="flex-1 max-w-md mx-8">
-                <div class="relative">
-                    <input type="text" 
-                           placeholder="Search posts..." 
-                           class="w-full px-4 py-2 pl-10 border-2 border-gray-200 rounded-xl text-base transition-all duration-300 bg-white placeholder-gray-400 focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200">
-                    <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" 
-                         xmlns="http://www.w3.org/2000/svg" 
-                         fill="none" 
-                         stroke="currentColor" 
-                         stroke-width="2" 
-                         stroke-linecap="round" 
-                         stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
+
+            <!-- Middle Navigation -->
+            <div class="flex items-center space-x-6">
+                <!-- Home -->
+                <button
+                    class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 9.75L12 3l9 6.75V21a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 21V9.75z" />
                     </svg>
-                </div>
+                </button>
+
+                <!-- Profile -->
+                <button
+                    class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M5.121 17.804A8.967 8.967 0 0112 15c2.21 0 4.21.804 5.879 2.137M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </button>
+
+                <!-- Notifications -->
+                <button
+                    class="text-gray-600 hover:text-indigo-600 transition-colors duration-200 relative">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C8.67 6.165 8 7.388 8 9v5.159c0 .538-.214 1.055-.595 1.436L6 17h9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M13 21h-2" />
+                    </svg>
+                    <!-- Red dot for new notifications -->
+                    <span
+                        class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full"></span>
+                </button>
             </div>
-            
+
             <!-- Logout -->
-            <button class="flex items-center px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-all duration-200">
-                <svg class="w-5 h-5 mr-2" 
-                     xmlns="http://www.w3.org/2000/svg" 
-                     fill="none" 
-                     stroke="currentColor" 
-                     stroke-width="2" 
-                     stroke-linecap="round" 
-                     stroke-linejoin="round">
+            <button
+                class="flex items-center px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-all duration-200">
+                <svg
+                    class="w-5 h-5 mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                     <polyline points="16,17 21,12 16,7"></polyline>
                     <line x1="21" y1="12" x2="9" y2="12"></line>
@@ -47,74 +92,118 @@
     </header>
 
     <!-- Main Layout -->
-    <div class="flex">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-white shadow-sm border-r border-gray-200 min-h-[calc(100vh-73px)]">
-            <nav class="p-6">
-                <ul class="space-y-2">
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors duration-200">
-                            <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                <polyline points="9,22 9,12 15,12 15,22"></polyline>
-                            </svg>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors duration-200">
-                            <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-                                <polyline points="14,2 14,8 20,8"></polyline>
-                            </svg>
-                            My Posts
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-indigo-600 bg-indigo-50 rounded-lg">
-                            <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 20h9"></path>
-                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                            </svg>
-                            Create Post
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors duration-200">
-                            <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                            Profile
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors duration-200">
-                            <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="3"></circle>
-                                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
-                            </svg>
-                            Settings
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+    <div class="w-full h-screen p-4">
+        <div class="max-w-6xl mx-auto h-full flex gap-4">
 
-        <!-- Main Content -->
-        <main class="flex-1 p-8">
-            <!-- Content Area - Empty for your custom design -->
-            <div class="bg-white rounded-3xl shadow-lg p-8 min-h-[600px]">
-                <div class="text-center text-gray-500 py-20">
-                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center">
-                        <svg class="w-8 h-8 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 20h9"></path>
-                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-medium text-gray-800 mb-2">Content Area</h3>
-                    <p class="text-gray-600">This area is ready for your custom design and content</p>
+            <div class="w-[25%] section">
+                 <div class="profile-card bg-white rounded-2xl shadow-md overflow-hidden max-w-xs mx-auto">
+        <!-- Cover Image Area -->
+        <div class="h-20 bg-gradient-to-r from-orange-200 via-amber-100 to-orange-300 relative">
+            <!-- Profile Picture -->
+            <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
+                <div class="w-16 h-16 bg-yellow-400 rounded-full border-4 border-white"></div>
+            </div>
+        </div>
+        
+        <!-- Profile Content -->
+        <div class="pt-12 pb-6 px-6 text-center">
+            <h2 class="text-lg font-bold text-gray-900 mb-1">Reinhard Van Zry</h2>
+            <p class="text-gray-500 text-sm mb-6">@Reinhard...</p>
+            
+            <!-- Stats -->
+            <div class="flex justify-around mb-6">
+                <div class="text-center">
+                    <p class="text-xl font-bold text-gray-900">250</p>
+                    <p class="text-xs text-gray-500">Post</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-xl font-bold text-gray-900">2022</p>
+                    <p class="text-xs text-gray-500">Followers</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-xl font-bold text-gray-900">500</p>
+                    <p class="text-xs text-gray-500">Following</p>
                 </div>
             </div>
-        </main>
+            
+            <!-- Action Button -->
+            <button class="w-full bg-blue-500 text-white py-3 px-4 rounded-xl font-medium hover:bg-blue-600 transition-colors">
+                My Profile
+            </button>
+        </div>
     </div>
+            </div>
+            <div class="w-[45%] section flex flex-col gap-4">
+                <!-- Create Post Section -->
+                <div class="bg-white shadow-md rounded-xl p-4 max-w-lg mx-auto">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-white font-semibold">U</span>
+                        </div>
+                        <input
+                            type="text"
+                            class="flex-1 bg-gray-100 rounded-full px-4 py-2 text-gray-600 cursor-pointer hover:bg-gray-200 transition-colors"
+                            placeholder="What's on your mind?"
+                            readonly />
+                    </div>
+
+                    <hr class="border-gray-200 mb-4">
+
+                    <div class="flex justify-around">
+                        <button
+                            class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <span class="text-red-500 text-xl">📹</span>
+                            <span class="text-gray-700 font-medium">Live
+                                Video</span>
+                        </button>
+
+                        <button
+                            class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <span class="text-green-500 text-xl">📷</span>
+                            <span
+                                class="text-gray-700 font-medium">Photo/Video</span>
+                        </button>
+
+                        <button
+                            class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <span class="text-yellow-500 text-xl">😊</span>
+                            <span
+                                class="text-gray-700 font-medium">Feeling/Activity</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Posts Feed -->
+                <div class="flex-1 space-y-4 overflow-y-auto">
+                    <!-- Post 1 -->
+                    <div
+                        class="bg-white shadow-md rounded-xl p-4 max-w-lg mx-auto">
+                        <div class="flex items-center mb-3">
+                            <div
+                                class="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
+                            <div>
+                                <p class="font-medium text-gray-800">User
+                                    Name</p>
+                                <p class="text-xs text-gray-500">2 hours ago</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-3">Post content goes
+                            here...</p>
+                        <div class="flex space-x-4 text-sm text-gray-500">
+                            <button class="hover:text-blue-600">Like</button>
+                            <button class="hover:text-blue-600">Comment</button>
+                            <button class="hover:text-blue-600">Share</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div
+                class="w-[30%] section bg-white shadow-md rounded-xl p-4 max-w-lg mx-auto">sidebar</div>
+
+        </div>
+    </div>
+
+</div>

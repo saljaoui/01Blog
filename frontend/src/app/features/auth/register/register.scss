@@ -1,0 +1,33 @@
+  @keyframes pulseSoft {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 15px 30px rgba(79,70,229,0.3);
+    }
+    50% {
+      transform: scale(1.06);
+      box-shadow: 0 20px 40px rgba(79,70,229,0.5);
+    }
+  }
+
+  @keyframes pulseInner {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.93);
+      opacity: 0.95;
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin 6s linear infinite;
+  }
+
+  .animate-pulse-soft {
+    animation: pulseSoft 2s ease-in-out infinite;
+  }
+
+  .animate-pulse-inner {
+    animation: pulseInner 2s ease-in-out infinite;
+  }

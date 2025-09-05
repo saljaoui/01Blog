@@ -1,13 +1,12 @@
 <div class="flex flex-col h-screen">
     <!-- Header -->
     <header class="bg-white shadow-sm border-b border-gray-200">
-        <div class="flex items-center justify-between px-4 py-1">
+        <div class="flex items-center justify-between py-1 max-w-6xl mx-auto">
             <!-- Logo -->
-            <div class="flex items-center">
+            <div class="flex items-center justify-center">
                 <div
-                    class="w-4 h-4 mr-1 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-[0_15px_30px_rgba(79,70,229,0.3)] animate-spin-slow animate-pulse-soft">
-                    <div
-                        class="w-2 h-2 bg-white rounded-full animate-pulse-inner"></div>
+                    class="w-4 h-4 mr-0.5 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-[0_15px_30px_rgba(79,70,229,0.3)] animate-spin-slow animate-pulse-soft">
+                    <div class="w-2 h-2 bg-white rounded-full animate-pulse-inner"></div>
                 </div>
                 <div class="text-xl font-medium text-gray-800">1Blog</div>
             </div>
@@ -15,73 +14,41 @@
             <!-- Middle Navigation -->
             <div class="flex items-center space-x-6">
                 <!-- Home -->
-                <button
-                    class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-6 h-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                <button class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
                             d="M3 9.75L12 3l9 6.75V21a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 21V9.75z" />
                     </svg>
                 </button>
 
                 <!-- Profile -->
-                <button
-                    class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-6 h-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                <button class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
                             d="M5.121 17.804A8.967 8.967 0 0112 15c2.21 0 4.21.804 5.879 2.137M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                 </button>
 
                 <!-- Notifications -->
-                <button
-                    class="text-gray-600 hover:text-indigo-600 transition-colors duration-200 relative">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-6 h-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C8.67 6.165 8 7.388 8 9v5.159c0 .538-.214 1.055-.595 1.436L6 17h9z" />
+                <button class="text-gray-600 hover:text-indigo-600 transition-colors duration-200 relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M13 21h-2" />
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C8.67 6.165 8 7.388 8 9v5.159c0 .538-.214 1.055-.595 1.436L6 17h9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 21h-2" />
                     </svg>
                     <!-- Red dot for new notifications -->
-                    <span
-                        class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full"></span>
+                    <span class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full"></span>
                 </button>
             </div>
 
             <!-- Logout -->
             <button
                 class="flex items-center px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-all duration-200">
-                <svg
-                    class="w-5 h-5 mr-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round">
+                <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                     <polyline points="16,17 21,12 16,7"></polyline>
                     <line x1="21" y1="12" x2="9" y2="12"></line>
@@ -92,60 +59,57 @@
     </header>
 
     <!-- Main Layout -->
-    <div class="w-full h-screen p-4">
-        <div class="max-w-6xl mx-auto h-full flex gap-4">
+    <div class="w-full h-screen p-6">
+        <div class="max-w-6xl mx-auto h-full flex gap-6">
 
-            <div class="w-[25%] section">
-                 <div class="profile-card bg-white rounded-2xl shadow-md overflow-hidden max-w-xs mx-auto">
-        <!-- Cover Image Area -->
-        <div class="h-20 bg-gradient-to-r from-orange-200 via-amber-100 to-orange-300 relative">
-            <!-- Profile Picture -->
-            <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
-                <div class="w-16 h-16 bg-yellow-400 rounded-full border-4 border-white"></div>
-            </div>
-        </div>
-        
-        <!-- Profile Content -->
-        <div class="pt-12 pb-6 px-6 text-center">
-            <h2 class="text-lg font-bold text-gray-900 mb-1">Reinhard Van Zry</h2>
-            <p class="text-gray-500 text-sm mb-6">@Reinhard...</p>
-            
-            <!-- Stats -->
-            <div class="flex justify-around mb-6">
-                <div class="text-center">
-                    <p class="text-xl font-bold text-gray-900">250</p>
-                    <p class="text-xs text-gray-500">Post</p>
+            <div class="w-[20%] section">
+                <div class="profile-card bg-white rounded-2xl shadow-md overflow-hidden max-w-xs mx-auto">
+                    <!-- Cover Image Area -->
+                    <div class="h-20 bg-gradient-to-r from-indigo-300 via-indigo-200 to-indigo-300 relative">
+                        <!-- Profile Picture -->
+                        <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
+                            <div class="w-16 h-16 bg-indigo-500 rounded-full border-4 border-white"></div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Content -->
+                    <div class="p-4 pt-8 text-center">
+                        <h2 class="text-lg font-bold text-gray-900 mb-0.5">Reinhard Van Zry</h2>
+                        <p class="text-gray-500 text-sm mb-4">@Reinhard...</p>
+
+                        <!-- Stats -->
+                        <div class="flex justify-around mb-4">
+                            <div class="text-center">
+                                <p class="text-base font-bold text-gray-900">2022</p>
+                                <p class="text-xs text-gray-500">Followers</p>
+                            </div>
+                            <div class="w-px bg-gray-300"></div>
+                            <div class="text-center">
+                                <p class="text-base font-bold text-gray-900">500</p>
+                                <p class="text-xs text-gray-500">Following</p>
+                            </div>
+                        </div>
+
+
+                        <!-- Action Button -->
+                        <button
+                            class="w-full bg-indigo-600 text-white py-2 px-4 rounded-xl font-medium hover:bg-indigo-700 transition-colors duration-200 shadow-md hover:shadow-lg">
+                            My Profile
+                        </button>
+                    </div>
                 </div>
-                <div class="text-center">
-                    <p class="text-xl font-bold text-gray-900">2022</p>
-                    <p class="text-xs text-gray-500">Followers</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-xl font-bold text-gray-900">500</p>
-                    <p class="text-xs text-gray-500">Following</p>
-                </div>
             </div>
-            
-            <!-- Action Button -->
-            <button class="w-full bg-blue-500 text-white py-3 px-4 rounded-xl font-medium hover:bg-blue-600 transition-colors">
-                My Profile
-            </button>
-        </div>
-    </div>
-            </div>
-            <div class="w-[45%] section flex flex-col gap-4">
+            <div class="w-[50%] section flex flex-col gap-2">
                 <!-- Create Post Section -->
-                <div class="bg-white shadow-md rounded-xl p-4 max-w-lg mx-auto">
+                <div class="bg-white shadow-md rounded-xl p-4 mb-4 w-full">
                     <div class="flex items-center mb-4">
                         <div
-                            class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-3">
-                            <span class="text-white font-semibold">U</span>
+                            class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center mr-4 shadow-sm">
+                            <span class="text-white font-bold text-lg">U</span>
                         </div>
-                        <input
-                            type="text"
-                            class="flex-1 bg-gray-100 rounded-full px-4 py-2 text-gray-600 cursor-pointer hover:bg-gray-200 transition-colors"
-                            placeholder="What's on your mind?"
-                            readonly />
+                        <input type="text"
+                            class="flex-1 bg-gray-50 rounded-full px-5 py-3 text-gray-600 cursor-pointer hover:bg-gray-100 transition-colors duration-200 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            placeholder="What's on your mind?" readonly />
                     </div>
 
                     <hr class="border-gray-200 mb-4">
@@ -161,27 +125,101 @@
                         <button
                             class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors">
                             <span class="text-green-500 text-xl">📷</span>
-                            <span
-                                class="text-gray-700 font-medium">Photo/Video</span>
+                            <span class="text-gray-700 font-medium">Photo/Video</span>
                         </button>
 
                         <button
                             class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors">
                             <span class="text-yellow-500 text-xl">😊</span>
-                            <span
-                                class="text-gray-700 font-medium">Feeling/Activity</span>
+                            <span class="text-gray-700 font-medium">Feeling/Activity</span>
                         </button>
                     </div>
                 </div>
 
                 <!-- Posts Feed -->
-                <div class="flex-1 space-y-4 overflow-y-auto">
+                <div class="flex-1 space-y-2 overflow-y-auto">
                     <!-- Post 1 -->
-                    <div
-                        class="bg-white shadow-md rounded-xl p-4 max-w-lg mx-auto">
+                    <div class="bg-white shadow-md rounded-xl p-4 w-full">
                         <div class="flex items-center mb-3">
-                            <div
-                                class="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
+                            <div class="w-10 h-10 bg-indigo-600 rounded-full mr-3"></div>
+                            <div>
+                                <p class="font-medium text-gray-800">User
+                                    Name</p>
+                                <p class="text-xs text-gray-500">2 hours ago</p>
+                            </div>
+                        </div>
+                        <!-- Post Content -->
+                        <div class="px-2 pb-3">
+                            <p class="text-gray-800 text-sm">
+                                Beautiful art! 🎨
+                                <span class="text-blue-500">#art #aesthetics #wallstreet #wallpaper #photography</span>
+                            </p>
+                        </div>
+
+                        <!-- Post Image -->
+                        <div class="relative rounded-xl overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&auto=format"
+                                alt="Street art mural" class="w-full h-64 object-cover">
+                        </div>
+
+                        <!-- Engagement Section -->
+                        <div class="mt-2">
+                            <!-- Reaction Stats -->
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center space-x-4">
+                                    <button
+                                        class="flex items-center space-x-1 hover:bg-red-50 px-2 py-1 rounded-lg transition-colors">
+                                        <div class="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
+                                            <span class="text-white text-xs">❤</span>
+                                        </div>
+                                        <span class="text-gray-600 text-sm font-medium">320k</span>
+                                    </button>
+
+                                    <button
+                                        class="flex items-center space-x-1 hover:bg-blue-50 px-2 py-1 rounded-lg transition-colors">
+                                        <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                                            <span class="text-white text-xs">💬</span>
+                                        </div>
+                                        <span class="text-gray-600 text-sm font-medium">120</span>
+                                    </button>
+
+                                    <button
+                                        class="flex items-center space-x-1 hover:bg-green-50 px-2 py-1 rounded-lg transition-colors">
+                                        <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                                            <span class="text-white text-xs">↗</span>
+                                        </div>
+                                        <span class="text-gray-600 text-sm font-medium">148</span>
+                                    </button>
+                                </div>
+
+                                <button class="hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <hr class="border-gray-200 mb-3">
+
+                            <!-- Comment Section -->
+                            <div class="flex items-center space-x-2">
+                                <div
+                                    class="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center shadow-sm">
+                                    <span class="text-white font-bold text-xs">U</span>
+                                </div>
+                                <input type="text" placeholder="Write your comment"
+                                    class="flex-1 bg-gray-50 rounded-full px-4 py-2 text-sm text-gray-600 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-300 hover:bg-gray-100 transition-colors">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 2 -->
+                    <div class="bg-white shadow-md rounded-xl p-4 w-full">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
                             <div>
                                 <p class="font-medium text-gray-800">User
                                     Name</p>
@@ -198,10 +236,10 @@
                     </div>
 
                 </div>
+
             </div>
 
-            <div
-                class="w-[30%] section bg-white shadow-md rounded-xl p-4 max-w-lg mx-auto">sidebar</div>
+            <div class="w-[30%] section bg-white shadow-md rounded-xl p-4 max-w-lg mx-auto">sidebar</div>
 
         </div>
     </div>

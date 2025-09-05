@@ -15,29 +15,36 @@
             <div class="flex items-center space-x-6">
                 <!-- Home -->
                 <button class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M3 9.75L12 3l9 6.75V21a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 21V9.75z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <g fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M2 12.204c0-2.289 0-3.433.52-4.381c.518-.949 1.467-1.537 3.364-2.715l2-1.241C9.889 2.622 10.892 2 12 2c1.108 0 2.11.622 4.116 1.867l2 1.241c1.897 1.178 2.846 1.766 3.365 2.715c.519.948.519 2.092.519 4.38v1.522c0 3.9 0 5.851-1.172 7.063C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.212C2 19.576 2 17.626 2 13.725v-1.521Z" />
+                            <path stroke-linecap="round" d="M12 15v3" />
+                        </g>
                     </svg>
                 </button>
 
                 <!-- Profile -->
                 <button class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M5.121 17.804A8.967 8.967 0 0112 15c2.21 0 4.21.804 5.879 2.137M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5" color="currentColor">
+                            <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12s4.477 10 10 10s10-4.477 10-10" />
+                            <path
+                                d="m12.401 8.298l2.92-.973c.886-.296 1.33-.443 1.564-.21c.233.234.086.677-.21 1.564l-.973 2.92c-.503 1.51-.755 2.265-1.297 2.806c-.541.542-1.296.794-2.806 1.297l-2.92.973c-.887.296-1.33.444-1.564.21s-.086-.678.21-1.564l.973-2.92c.503-1.51.755-2.265 1.297-2.806c.541-.542 1.296-.794 2.806-1.297M12 12l-.006.006" />
+                        </g>
                     </svg>
                 </button>
 
                 <!-- Notifications -->
                 <button class="text-gray-600 hover:text-indigo-600 transition-colors duration-200 relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C8.67 6.165 8 7.388 8 9v5.159c0 .538-.214 1.055-.595 1.436L6 17h9z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 21h-2" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <g fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M18.75 9.71v-.705C18.75 5.136 15.726 2 12 2S5.25 5.136 5.25 9.005v.705a4.4 4.4 0 0 1-.692 2.375L3.45 13.81c-1.011 1.575-.239 3.716 1.52 4.214a25.775 25.775 0 0 0 14.06 0c1.759-.498 2.531-2.639 1.52-4.213l-1.108-1.725a4.4 4.4 0 0 1-.693-2.375Z" />
+                            <path stroke-linecap="round"
+                                d="M7.5 19c.655 1.748 2.422 3 4.5 3s3.845-1.252 4.5-3M12 6v4" />
+                        </g>
                     </svg>
                     <!-- Red dot for new notifications -->
                     <span class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full"></span>
@@ -45,16 +52,9 @@
             </div>
 
             <!-- Logout -->
-            <button
-                class="flex items-center px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-all duration-200">
-                <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                    <polyline points="16,17 21,12 16,7"></polyline>
-                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                </svg>
-                Logout
-            </button>
+            <div class="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center shadow-sm m-1">
+                <span class="text-white font-bold text-xs">U</span>
+            </div>
         </div>
     </header>
 
@@ -117,21 +117,29 @@
                     <div class="flex justify-around">
                         <button
                             class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors">
-                            <span class="text-red-500 text-xl">📹</span>
-                            <span class="text-gray-700 font-medium">Live
-                                Video</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path
+                                        d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z" />
+                                    <circle cx="16" cy="8" r="2" />
+                                    <path stroke-linecap="round"
+                                        d="m2 12.5l1.752-1.533a2.3 2.3 0 0 1 3.14.105l4.29 4.29a2 2 0 0 0 2.564.222l.299-.21a3 3 0 0 1 3.731.225L21 18.5" />
+                                </g>
+                            </svg>
+                            <span class="text-gray-700 font-medium">Photo</span>
                         </button>
 
                         <button
                             class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors">
-                            <span class="text-green-500 text-xl">📷</span>
-                            <span class="text-gray-700 font-medium">Photo/Video</span>
-                        </button>
-
-                        <button
-                            class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors">
-                            <span class="text-yellow-500 text-xl">😊</span>
-                            <span class="text-gray-700 font-medium">Feeling/Activity</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path
+                                        d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z" />
+                                    <path stroke-linecap="round"
+                                        d="M21.5 8h-19m8-5.5L7 8m10-5.5L13.5 8m1.5 6.5c0-.633-.662-1.06-1.986-1.915c-1.342-.866-2.013-1.299-2.514-.98c-.5.317-.5 1.176-.5 2.895s0 2.578.5 2.896c.5.318 1.172-.115 2.514-.981C14.338 15.56 15 15.133 15 14.5Z" />
+                                </g>
+                            </svg>
+                            <span class="text-gray-700 font-medium">Video</span>
                         </button>
                     </div>
                 </div>
@@ -158,7 +166,7 @@
 
                         <!-- Post Image -->
                         <div class="relative rounded-xl overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&auto=format"
+                            <img src="https://vangoghsf.com/wp-content/uploads/2020/10/84366-1-2048x1280.jpg"
                                 alt="Street art mural" class="w-full h-64 object-cover">
                         </div>
 
@@ -169,37 +177,27 @@
                                 <div class="flex items-center space-x-4">
                                     <button
                                         class="flex items-center space-x-1 hover:bg-red-50 px-2 py-1 rounded-lg transition-colors">
-                                        <div class="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
-                                            <span class="text-white text-xs">❤</span>
-                                        </div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="m8.962 18.91l.464-.588l-.464.589ZM12 5.5l-.54.52a.75.75 0 0 0 1.08 0L12 5.5Zm3.038 13.41l.465.59l-.465-.59Zm-5.612-.588C7.91 17.127 6.253 15.96 4.938 14.48C3.65 13.028 2.75 11.334 2.75 9.137h-1.5c0 2.666 1.11 4.7 2.567 6.339c1.43 1.61 3.254 2.9 4.68 4.024l.93-1.178ZM2.75 9.137c0-2.15 1.215-3.954 2.874-4.713c1.612-.737 3.778-.541 5.836 1.597l1.08-1.04C10.1 2.444 7.264 2.025 5 3.06C2.786 4.073 1.25 6.425 1.25 9.137h1.5ZM8.497 19.5c.513.404 1.063.834 1.62 1.16c.557.325 1.193.59 1.883.59v-1.5c-.31 0-.674-.12-1.126-.385c-.453-.264-.922-.628-1.448-1.043L8.497 19.5Zm7.006 0c1.426-1.125 3.25-2.413 4.68-4.024c1.457-1.64 2.567-3.673 2.567-6.339h-1.5c0 2.197-.9 3.891-2.188 5.343c-1.315 1.48-2.972 2.647-4.488 3.842l.929 1.178ZM22.75 9.137c0-2.712-1.535-5.064-3.75-6.077c-2.264-1.035-5.098-.616-7.54 1.92l1.08 1.04c2.058-2.137 4.224-2.333 5.836-1.596c1.659.759 2.874 2.562 2.874 4.713h1.5Zm-8.176 9.185c-.526.415-.995.779-1.448 1.043c-.452.264-.816.385-1.126.385v1.5c.69 0 1.326-.265 1.883-.59c.558-.326 1.107-.756 1.62-1.16l-.929-1.178Z" />
+                                        </svg>
                                         <span class="text-gray-600 text-sm font-medium">320k</span>
                                     </button>
 
                                     <button
                                         class="flex items-center space-x-1 hover:bg-blue-50 px-2 py-1 rounded-lg transition-colors">
-                                        <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                                            <span class="text-white text-xs">💬</span>
-                                        </div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                                <path
+                                                    d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.591l2.226-.595a1.634 1.634 0 0 1 1.149.133A9.958 9.958 0 0 0 12 22Z" />
+                                                <path stroke-linecap="round" d="M8 10.5h8M8 14h5.5" />
+                                            </g>
+                                        </svg>
                                         <span class="text-gray-600 text-sm font-medium">120</span>
                                     </button>
-
-                                    <button
-                                        class="flex items-center space-x-1 hover:bg-green-50 px-2 py-1 rounded-lg transition-colors">
-                                        <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                                            <span class="text-white text-xs">↗</span>
-                                        </div>
-                                        <span class="text-gray-600 text-sm font-medium">148</span>
-                                    </button>
                                 </div>
-
-                                <button class="hover:bg-gray-50 p-2 rounded-lg transition-colors">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z">
-                                        </path>
-                                    </svg>
-                                </button>
                             </div>
 
                             <hr class="border-gray-200 mb-3">
@@ -219,19 +217,50 @@
                     <!-- Post 2 -->
                     <div class="bg-white shadow-md rounded-xl p-4 w-full">
                         <div class="flex items-center mb-3">
-                            <div class="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
+                            <div class="w-10 h-10 bg-indigo-600 rounded-full mr-3"></div>
                             <div>
                                 <p class="font-medium text-gray-800">User
                                     Name</p>
                                 <p class="text-xs text-gray-500">2 hours ago</p>
                             </div>
                         </div>
-                        <p class="text-gray-700 mb-3">Post content goes
-                            here...</p>
-                        <div class="flex space-x-4 text-sm text-gray-500">
-                            <button class="hover:text-blue-600">Like</button>
-                            <button class="hover:text-blue-600">Comment</button>
-                            <button class="hover:text-blue-600">Share</button>
+                        <!-- Post Content -->
+                        <div class="px-2 pb-3">
+                            <p class="text-gray-800 text-sm">
+                                Beautiful art! 🎨
+                                <span class="text-blue-500">#art #aesthetics #wallstreet #wallpaper #photography</span>
+                            </p>
+                        </div>
+
+                        <!-- Engagement Section -->
+                        <div class="mt-2">
+                            <!-- Reaction Stats -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <button
+                                        class="flex items-center space-x-1 hover:bg-red-50 px-2 py-1 rounded-lg transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="m8.962 18.91l.464-.588l-.464.589ZM12 5.5l-.54.52a.75.75 0 0 0 1.08 0L12 5.5Zm3.038 13.41l.465.59l-.465-.59Zm-5.612-.588C7.91 17.127 6.253 15.96 4.938 14.48C3.65 13.028 2.75 11.334 2.75 9.137h-1.5c0 2.666 1.11 4.7 2.567 6.339c1.43 1.61 3.254 2.9 4.68 4.024l.93-1.178ZM2.75 9.137c0-2.15 1.215-3.954 2.874-4.713c1.612-.737 3.778-.541 5.836 1.597l1.08-1.04C10.1 2.444 7.264 2.025 5 3.06C2.786 4.073 1.25 6.425 1.25 9.137h1.5ZM8.497 19.5c.513.404 1.063.834 1.62 1.16c.557.325 1.193.59 1.883.59v-1.5c-.31 0-.674-.12-1.126-.385c-.453-.264-.922-.628-1.448-1.043L8.497 19.5Zm7.006 0c1.426-1.125 3.25-2.413 4.68-4.024c1.457-1.64 2.567-3.673 2.567-6.339h-1.5c0 2.197-.9 3.891-2.188 5.343c-1.315 1.48-2.972 2.647-4.488 3.842l.929 1.178ZM22.75 9.137c0-2.712-1.535-5.064-3.75-6.077c-2.264-1.035-5.098-.616-7.54 1.92l1.08 1.04c2.058-2.137 4.224-2.333 5.836-1.596c1.659.759 2.874 2.562 2.874 4.713h1.5Zm-8.176 9.185c-.526.415-.995.779-1.448 1.043c-.452.264-.816.385-1.126.385v1.5c.69 0 1.326-.265 1.883-.59c.558-.326 1.107-.756 1.62-1.16l-.929-1.178Z" />
+                                        </svg>
+                                        <span class="text-gray-600 text-sm font-medium">320k</span>
+                                    </button>
+
+                                    <button
+                                        class="flex items-center space-x-1 hover:bg-blue-50 px-2 py-1 rounded-lg transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                                <path
+                                                    d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.591l2.226-.595a1.634 1.634 0 0 1 1.149.133A9.958 9.958 0 0 0 12 22Z" />
+                                                <path stroke-linecap="round" d="M8 10.5h8M8 14h5.5" />
+                                            </g>
+                                        </svg>
+                                        <span class="text-gray-600 text-sm font-medium">120</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

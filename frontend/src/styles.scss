@@ -21,3 +21,25 @@ body {
   background-size: cover;
   min-height: 100vh;
 }
+
+.section {
+  overflow-y: scroll;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: #4f46e5 #f0f0f0;
+}
+
+.section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.section::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.section::-webkit-scrollbar-thumb {
+  background-color: #4f46e5;
+  border-radius: 4px;
+  border: 2px solid #f0f0f0;
+}

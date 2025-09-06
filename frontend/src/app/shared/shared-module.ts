@@ -6,6 +6,7 @@ import { Header } from './components/header/header';
 import { PostCard } from './components/post-card/post-card';
 import { ProfileCard } from './components/profile-card/profile-card';
 import { CreatePostSection } from './components/create-post-section/create-post-section';
+import { SidebarUser } from './components/sidebar-user/sidebar-user';
 
 @NgModule({
   declarations: [],
@@ -14,13 +15,15 @@ import { CreatePostSection } from './components/create-post-section/create-post-
     Header,
     PostCard,
     ProfileCard,
-    CreatePostSection
+    CreatePostSection,
+    SidebarUser
   ],
   exports: [
     Header,
     PostCard,
     ProfileCard,
-    CreatePostSection
+    CreatePostSection,
+    SidebarUser
   ]
 })
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com._blog.backend.user.User;
 // import com._blog.backend.auth.;;
+import com._blog.backend.util.UUIDUtil;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,13 +22,10 @@ public class AuthController {
     @PostMapping("/register")
     public List<User> register(@RequestBody Map<String, String> body) {
         
-
-
         String username = body.get("username");
         String password = body.get("password");
-        User user = new User((long) users.size() ,username, password);
+        User user = new User(UUIDUtil.generateUUID() ,username, password);
 
-        // JwtKeys key = new JwtKeys();
         JwtUtil jwtUtil = new JwtUtil();
         String token = jwtUtil.generateToken(user);
 

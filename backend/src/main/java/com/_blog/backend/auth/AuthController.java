@@ -24,7 +24,8 @@ public class AuthController {
         
         String username = body.get("username");
         String password = body.get("password");
-        User user = new User(UUIDUtil.generateUUID() ,username, password);
+        String email = body.get("email");
+        User user = User.builder().username(username).email(email).password(password).build();
 
         JwtUtil jwtUtil = new JwtUtil();
         String token = jwtUtil.generateToken(user);

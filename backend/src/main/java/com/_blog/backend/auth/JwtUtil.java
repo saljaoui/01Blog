@@ -32,7 +32,8 @@ public class JwtUtil {
         SecretKey key = getSigningKey();
 
         return Jwts.builder()
-                .subject(user.getId().toString())
+                // .subject(user.getId().toString())
+                .subject("777")
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(now.plusSeconds(jwtExpirationMs)))
                 .signWith(key)

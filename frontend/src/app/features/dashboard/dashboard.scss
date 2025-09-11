@@ -1,0 +1,111 @@
+       .main-layout {
+            width: 100%;
+            height: calc(100vh - 50px);
+            padding: 1.5rem;
+            padding-bottom: 0.25rem;
+        }
+
+        .section {
+            /* This class matches your original "section" styling */
+        }
+
+        .left-sidebar {
+            width: 20%;
+        }
+
+        .main-content {
+            width: 50%;
+            gap: 0.5rem;
+        }
+
+        .right-sidebar {
+            width: 30%;
+        }
+
+        .post-card {
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        .posts-feed {
+            flex: 1;
+        }
+
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+
+        .avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #4f46e5;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+        }
+
+        .username {
+            font-weight: 500;
+            color: #1f2937;
+            margin: 0;
+        }
+
+        .timestamp {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .post-content {
+            padding: 0 0.5rem 0.75rem 0;
+            color: #1f2937;
+            font-size: 0.875rem;
+        }
+
+        .hashtags {
+            color: #3b82f6;
+        }
+
+        .reaction-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .reaction-btn:hover.heart-btn {
+            background-color: #fef2f2;
+        }
+
+        .reaction-btn:hover.comment-btn {
+            background-color: #eff6ff;
+        }
+
+        .reaction-count {
+            color: #4b5563;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .reaction-icon {
+            width: 24px;
+            height: 24px;
+            color: #6b7280;
+        }
+
+        .container-custom {
+            max-width: 72rem;
+            margin: 0 auto;
+            height: 100%;
+        }
+
+        .gap-6 {
+            gap: 1.5rem;
+        }

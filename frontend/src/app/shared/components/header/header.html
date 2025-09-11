@@ -1,29 +1,28 @@
-    <header class="bg-white shadow-sm border-b border-gray-200">
-        <div class="flex items-center justify-between py-1 max-w-6xl mx-auto">
+ <header class="header-custom">
+        <div class="header-container">
             <!-- Logo -->
-            <div class="flex items-center justify-center">
-                <div
-                    class="w-4 h-4 mr-0.5 bg-gradient-to-br from-indigo-600 to-indigo-400 rounded-full flex items-center justify-center shadow-[0_15px_30px_rgba(79,70,229,0.3)] animate-spin-slow animate-pulse-soft">
-                    <div class="w-2 h-2 bg-white rounded-full animate-pulse-inner"></div>
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="logo-circle-header d-flex align-items-center justify-content-center">
+                    <div class="logo-inner-header"></div>
                 </div>
-                <div class="text-xl font-medium text-gray-800">1Blog</div>
+                <div class="logo-text-header">1Blog</div>
             </div>
 
             <!-- Middle Navigation -->
-            <div class="flex items-center space-x-6">
+            <div class="d-flex align-items-center nav-links">
                 <!-- Home -->
-<a href="/" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <g fill="none" stroke="currentColor" stroke-width="1.5">
-            <path
-                d="M2 12.204c0-2.289 0-3.433.52-4.381c.518-.949 1.467-1.537 3.364-2.715l2-1.241C9.889 2.622 10.892 2 12 2c1.108 0 2.11.622 4.116 1.867l2 1.241c1.897 1.178 2.846 1.766 3.365 2.715c.519.948.519 2.092.519 4.38v1.522c0 3.9 0 5.851-1.172 7.063C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.212C2 19.576 2 17.626 2 13.725v-1.521Z" />
-            <path stroke-linecap="round" d="M12 15v3" />
-        </g>
-    </svg>
-</a>
+                <a href="/" class="nav-link-custom">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <g fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M2 12.204c0-2.289 0-3.433.52-4.381c.518-.949 1.467-1.537 3.364-2.715l2-1.241C9.889 2.622 10.892 2 12 2c1.108 0 2.11.622 4.116 1.867l2 1.241c1.897 1.178 2.846 1.766 3.365 2.715c.519.948.519 2.092.519 4.38v1.522c0 3.9 0 5.851-1.172 7.063C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.212C2 19.576 2 17.626 2 13.725v-1.521Z" />
+                            <path stroke-linecap="round" d="M12 15v3" />
+                        </g>
+                    </svg>
+                </a>
 
                 <!-- Profile -->
-                <button class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
+                <button class="nav-btn-custom">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                             stroke-width="1.5" color="currentColor">
@@ -35,7 +34,7 @@
                 </button>
 
                 <!-- Notifications -->
-                <button class="text-gray-600 hover:text-indigo-600 transition-colors duration-200 relative">
+                <button class="nav-btn-custom notification-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <g fill="none" stroke="currentColor" stroke-width="1.5">
                             <path
@@ -45,13 +44,13 @@
                         </g>
                     </svg>
                     <!-- Red dot for new notifications -->
-                    <span class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full"></span>
+                    <span class="notification-dot"></span>
                 </button>
             </div>
 
-            <!-- Logout -->
-            <div class="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center shadow-sm m-1">
-                <span class="text-white font-bold text-xs">U</span>
+            <!-- User Avatar -->
+            <div class="user-avatar d-flex align-items-center justify-content-center">
+                <span class="user-initial">U</span>
             </div>
         </div>
     </header>

@@ -1,97 +1,71 @@
-<div
-    class="bg-white rounded-3xl shadow-2xl overflow-hidden min-h-[500px] flex relative w-[800px] max-h-[700px]">
-    <!-- Left Section -->
-    <div
-        class="flex-1 p-6 bg-gradient-to-br from-indigo-100 via-indigo-200 to-indigo-300 flex items-center justify-center relative overflow-hidden m-2 rounded-2xl">
-        <!-- Shapes -->
-        <div
-            class="absolute w-[120px] h-[120px] bg-gradient-to-tr from-indigo-600 to-purple-600 top-[50px] right-[70px] rotate-45 opacity-80 rounded-2xl"></div>
-        <div
-            class="absolute w-[80px] h-[80px] bg-white bottom-[80px] left-[60px] rounded-full opacity-90"></div>
-        <div
-            class="absolute w-[60px] h-[60px] bg-gradient-to-tr from-cyan-500 to-cyan-700 top-[140px] left-[40px] rotate-[30deg] opacity-70 rounded-2xl"></div>
+<div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
+        <div class="main-container d-flex position-relative">
+            <!-- Left Section -->
+            <div class="left-section d-flex align-items-center justify-content-center flex-fill">
+                <!-- Shapes -->
+                <div class="shape-1"></div>
+                <div class="shape-2"></div>
+                <div class="shape-3"></div>
 
-        <!-- Illustration -->
-        <div class="relative z-10">
-            <div
-                class="w-[200px] h-[200px] bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-[0_15px_30px_rgba(79,70,229,0.3)] animate-spin-slow animate-pulse-soft">
-                <div
-                    class="w-[120px] h-[120px] bg-white rounded-full animate-pulse-inner"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Right Section -->
-    <div class="flex-1 px-12 pb-14 pt-8 flex flex-col justify-center">
-        <!-- Logo -->
-        <div class="flex items-center mb-10">
-            <div
-                class="w-4 h-4 mr-1 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-[0_15px_30px_rgba(79,70,229,0.3)]">
-                <div
-                    class="w-2 h-2 bg-white rounded-full animate-pulse-inner"></div>
-            </div>
-            <div class="text-xl font-medium text-gray-800">1Blog</div>
-        </div>
-
-        <div class="text-gray-400 text-sm font-medium mb-4">SIGN UP AND START SHARING</div>
-
-        <form>
-            <!-- Full Name -->
-            <div class="mb-4">
-                <label for="fullname"
-                    class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                <input type="text" id="fullname" placeholder="John Doe"
-                    required
-                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-base transition-all duration-300 bg-white placeholder-gray-400 focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 hover:ring-2 hover:ring-indigo-200">
-            </div>
-
-            <!-- Email -->
-            <div class="mb-4">
-                <label for="email"
-                    class="block text-sm font-medium text-gray-700 mb-2">E-Mail</label>
-                <input type="email" id="email" placeholder="yourname@gmail.com"
-                    required
-                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-base transition-all duration-300 bg-white placeholder-gray-400 focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 hover:ring-2 hover:ring-indigo-200">
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mb-5">
-                <label for="confirmPassword"
-                    class="block text-sm font-medium text-gray-700 mb-2">Your Password</label>
-                <div class="relative">
-                    <input type="password" id="confirmPassword"
-                        placeholder="••••••••••••" required
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-base transition-all duration-300 bg-white placeholder-gray-400 focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 hover:ring-2 hover:ring-indigo-200">
-                    <button type="button"
-                        class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                        <!-- Eye SVG -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
-                            fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path
-                                d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                            <circle cx="12" cy="12" r="3"></circle>
-                        </svg>
-                    </button>
+                <!-- Main Circle -->
+                <div class="main-circle d-flex align-items-center justify-content-center">
+                    <div class="inner-circle"></div>
                 </div>
             </div>
 
-            <!-- Button -->
-            <button type="submit"
-                class="relative w-full bg-gradient-to-br from-indigo-600 to-purple-600 text-white py-4 rounded-xl text-base font-semibold cursor-pointer transition-all duration-200 mt-2 shadow-lg hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 overflow-hidden">
-                SIGN UP
-            </button>
+            <!-- Right Section -->
+            <div class="right-section flex-fill d-flex flex-column justify-content-center">
+                <!-- Logo -->
+                <div class="d-flex align-items-center mb-custom-10">
+                    <div class="logo-circle d-flex align-items-center justify-content-center">
+                        <div class="logo-inner"></div>
+                    </div>
+                    <div class="logo-text">1Blog</div>
+                </div>
 
-        </form>
+                <div class="start-text">SIGN UP AND START SHARING</div>
 
-        <p class="text-gray-500 text-sm mt-3">Already have an account?
-            <a href="/login"
-                class="text-indigo-600 font-medium hover:underline">Sign In</a>
-        </p>
+                <form>
+                    <!-- Full Name -->
+                    <div class="mb-custom-4">
+                        <label for="fullname" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="fullname" placeholder="John Doe" required>
+                    </div>
 
-        <div class="text-center mt-6 text-xs text-gray-400">
-            By signing up, you agree to our Terms & Privacy Policy
+                    <!-- Email -->
+                    <div class="mb-custom-4">
+                        <label for="email" class="form-label">E-Mail</label>
+                        <input type="email" class="form-control" id="email" placeholder="yourname@gmail.com" required>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-custom-5">
+                        <label for="confirmPassword" class="form-label">Your Password</label>
+                        <div class="position-relative">
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="••••••••••••" required>
+                            <button type="button" class="eye-icon" onclick="togglePassword()">
+                                <!-- Eye SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <button type="submit" class="btn btn-primary-custom w-100">
+                        SIGN UP
+                    </button>
+                </form>
+
+                <p class="signin-text">Already have an account?
+                    <a href="/login" class="text-indigo fw-medium">Sign In</a>
+                </p>
+
+                <div class="text-center terms-text">
+                    By signing up, you agree to our Terms & Privacy Policy
+                </div>
+            </div>
         </div>
     </div>
-</div>

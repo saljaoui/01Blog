@@ -1,185 +1,144 @@
-<div class="w-full h-max bg-white shadow-md rounded-2xl p-4 max-w-lg mx-auto border border-gray-100/50 glass-effect animate-slide-up">
-    <div class="mb-3">
-        <!-- Enhanced Header with Icon and Stats -->
-        <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center space-x-3">
-                <div class="p-2 bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-xl shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                        class="text-white">
-                        <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <div class="user-card">
+        <div class="mb-3">
+            <!-- Enhanced Header with Icon and Stats -->
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <div class="d-flex align-items-center">
+                    <div class="header-icon me-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <circle cx="12" cy="6" r="4" />
-                            <path stroke-linecap="round"
-                                d="M18 9c1.657 0 3-1.12 3-2.5S19.657 4 18 4M6 9C4.343 9 3 7.88 3 6.5S4.343 4 6 4" />
+                            <path stroke-linecap="round" d="M18 9c1.657 0 3-1.12 3-2.5S19.657 4 18 4M6 9C4.343 9 3 7.88 3 6.5S4.343 4 6 4" />
                             <ellipse cx="12" cy="17" rx="6" ry="4" />
-                            <path stroke-linecap="round"
-                                d="M20 19c1.754-.385 3-1.359 3-2.5s-1.246-2.115-3-2.5M4 19c-1.754-.385-3-1.359-3-2.5s1.246-2.115 3-2.5" />
-                        </g>
-                    </svg>
+                            <path stroke-linecap="round" d="M20 19c1.754-.385 3-1.359-3-2.5s-1.246-2.115-3-2.5M4 19c-1.754-.385-3-1.359-3-2.5s1.246-2.115 3-2.5" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="h5 mb-1 text-dark">Users</h2>
+                        <p class="stats-text">
+                            <span id="onlineCount">4</span> online • <span id="totalCount">6</span> total
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <h2 class="text-lg font-semibold text-gray-800">Users</h2>
-                    <p class="text-xs text-gray-500">
-                        <span id="onlineCount">4</span> online • <span id="totalCount">6</span> total
-                    </p>
+                <div class="d-flex align-items-center">
+                    <button class="refresh-btn" title="Refresh">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                    </button>
                 </div>
             </div>
-            <div class="flex items-center space-x-2">
-                <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200" title="Refresh">
-                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                </button>
+
+            <!-- Enhanced Search Input -->
+            <div class="search-container">
+                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="text" class="search-input" placeholder="Search by name..." />
+                <div id="searchSpinner" class="search-spinner d-none"></div>
             </div>
         </div>
 
-        <!-- Enhanced Search Input -->
-        <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <svg class="h-5 w-5 text-gray-400 transition-colors duration-200" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+        <!-- Enhanced Users List -->
+        <div class="users-list">
+            <!-- User 1 -->
+            <a href="/user-profile" class="user-item">
+                <div class="user-avatar">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop&crop=face" alt="Sarah">
+                    <div class="status-indicator online"></div>
+                </div>
+                <div class="flex-fill ms-3">
+                    <h3 class="user-name">Sarah Johnson</h3>
+                </div>
+                <div class="text-end">
+                    <div class="user-time">2m ago</div>
+                    <div class="user-status online">
+                        <div class="status-dot online"></div>
+                        Active
+                    </div>
+                </div>
+            </a>
+
+            <!-- User 2 -->
+            <div class="user-item">
+                <div class="user-avatar offline">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face" alt="Emma">
+                    <div class="status-indicator offline"></div>
+                </div>
+                <div class="flex-fill ms-3">
+                    <h3 class="user-name">Emma Williams</h3>
+                </div>
+                <div class="text-end">
+                    <div class="user-time">1h ago</div>
+                    <div class="user-status offline">
+                        <div class="status-dot offline"></div>
+                        Away
+                    </div>
+                </div>
             </div>
-            <input type="text" placeholder="Search by name..."
-                class="w-full pl-10 pr-2 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:ring-0 focus:border-blue-400 transition-all duration-300 bg-gray-50/50 focus:bg-white search-focus text-sm placeholder-gray-400" />
-            <div class="absolute inset-y-0 right-0 pr-4 flex items-center">
-                <div id="searchSpinner" class="hidden">
-                    <div class="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin">
+
+            <!-- User 3 -->
+            <div class="user-item">
+                <div class="user-avatar offline">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face" alt="Emma">
+                    <div class="status-indicator offline"></div>
+                </div>
+                <div class="flex-fill ms-3">
+                    <h3 class="user-name">Emma Williams</h3>
+                </div>
+                <div class="text-end">
+                    <div class="user-time">1h ago</div>
+                    <div class="user-status offline">
+                        <div class="status-dot offline"></div>
+                        Away
+                    </div>
+                </div>
+            </div>
+
+            <!-- User 4 -->
+            <div class="user-item">
+                <div class="user-avatar">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop&crop=face" alt="Sarah">
+                    <div class="status-indicator online"></div>
+                </div>
+                <div class="flex-fill ms-3">
+                    <h3 class="user-name">Sarah Johnson</h3>
+                </div>
+                <div class="text-end">
+                    <div class="user-time">2m ago</div>
+                    <div class="user-status online">
+                        <div class="status-dot online"></div>
+                        Active
+                    </div>
+                </div>
+            </div>
+
+            <!-- User 5 -->
+            <div class="user-item">
+                <div class="user-avatar offline">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face" alt="Emma">
+                    <div class="status-indicator offline"></div>
+                </div>
+                <div class="flex-fill ms-3">
+                    <h3 class="user-name">Emma Williams</h3>
+                </div>
+                <div class="text-end">
+                    <div class="user-time">1h ago</div>
+                    <div class="user-status offline">
+                        <div class="status-dot offline"></div>
+                        Away
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Enhanced Users List -->
-    <div class="space-y-2">
-        <!-- User 1 -->
-         <a href="/user-profile">
-        <div class="user-item flex items-center p-2 rounded-2xl hover:bg-gradient-to-r hover:from-indigo-50 hover:to-indigo-100 transition-all duration-300 cursor-pointer border border-transparent hover:border-indigo-200/50 hover:shadow-md"
-            data-status="online" data-name="Sarah Johnson" data-role="Product Designer">
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop&crop=face"
-                    alt="Sarah" class="w-10 h-10 rounded-full object-cover shadow-md">
-                <div
-                    class="absolute -bottom-0 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-sm animate-pulse-soft">
-                </div>
+        <!-- Enhanced No Results Message -->
+        <div id="noResults" class="no-results d-none">
+            <div class="no-results-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
             </div>
-            <div class="ml-4 flex-1">
-                <h3 class="text-sm font-semibold text-gray-900 mb-1">Sarah Johnson</h3>
-            </div>
-            <div class="text-right">
-                <div class="text-xs text-gray-400 mb-1">2m ago</div>
-                <div class="flex items-center text-xs text-green-600">
-                    <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1"></div>
-                    Active
-                </div>
-            </div>
-        </div>
-        </a>
-
-        <!-- User 2 -->
-        <div class="user-item flex items-center p-2 rounded-2xl hover:bg-gradient-to-r hover:from-indigo-50 hover:to-indigo-100 transition-all duration-300 cursor-pointer border border-transparent hover:border-indigo-200/50 hover:shadow-md"
-            data-status="offline" data-name="Emma Williams" data-role="UX Researcher">
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
-                    alt="Emma" class="w-10 h-10 rounded-full object-cover shadow-md opacity-90">
-                <div
-                    class="absolute -bottom-0 -right-1 w-4 h-4 bg-gray-400 rounded-full border-2 border-white shadow-sm">
-                </div>
-            </div>
-            <div class="ml-4 flex-1">
-                <h3 class="text-sm font-semibold text-gray-900 mb-1">Emma Williams</h3>
-            </div>
-            <div class="text-right">
-                <div class="text-xs text-gray-400 mb-1">1h ago</div>
-                <div class="flex items-center text-xs text-gray-500">
-                    <div class="w-1.5 h-1.5 bg-gray-400 rounded-full mr-1"></div>
-                    Away
-                </div>
-            </div>
-        </div>
-
-        <!-- User 4 -->
-        <div class="user-item flex items-center p-2 rounded-2xl hover:bg-gradient-to-r hover:from-indigo-50 hover:to-indigo-100 transition-all duration-300 cursor-pointer border border-transparent hover:border-indigo-200/50 hover:shadow-md"
-            data-status="offline" data-name="Emma Williams" data-role="UX Researcher">
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
-                    alt="Emma" class="w-10 h-10 rounded-full object-cover shadow-md opacity-90">
-                <div
-                    class="absolute -bottom-0 -right-1 w-4 h-4 bg-gray-400 rounded-full border-2 border-white shadow-sm">
-                </div>
-            </div>
-            <div class="ml-4 flex-1">
-                <h3 class="text-sm font-semibold text-gray-900 mb-1">Emma Williams</h3>
-            </div>
-            <div class="text-right">
-                <div class="text-xs text-gray-400 mb-1">1h ago</div>
-                <div class="flex items-center text-xs text-gray-500">
-                    <div class="w-1.5 h-1.5 bg-gray-400 rounded-full mr-1"></div>
-                    Away
-                </div>
-            </div>
-        </div>
-
-        <!-- User 5 -->
-        <div class="user-item flex items-center p-2 rounded-2xl hover:bg-gradient-to-r hover:from-indigo-50 hover:to-indigo-100 transition-all duration-300 cursor-pointer border border-transparent hover:border-indigo-200/50 hover:shadow-md"
-            data-status="online" data-name="Sarah Johnson" data-role="Product Designer">
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop&crop=face"
-                    alt="Sarah" class="w-10 h-10 rounded-full object-cover shadow-md">
-                <div
-                    class="absolute -bottom-0 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-sm animate-pulse-soft">
-                </div>
-            </div>
-            <div class="ml-4 flex-1">
-                <h3 class="text-sm font-semibold text-gray-900 mb-1">Sarah Johnson</h3>
-            </div>
-            <div class="text-right">
-                <div class="text-xs text-gray-400 mb-1">2m ago</div>
-                <div class="flex items-center text-xs text-green-600">
-                    <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1"></div>
-                    Active
-                </div>
-            </div>
-        </div>
-
-        <!-- User 6 -->
-        <div class="user-item flex items-center p-2 rounded-2xl hover:bg-gradient-to-r hover:from-indigo-50 hover:to-indigo-100 transition-all duration-300 cursor-pointer border border-transparent hover:border-indigo-200/50 hover:shadow-md"
-            data-status="offline" data-name="Emma Williams" data-role="UX Researcher">
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
-                    alt="Emma" class="w-10 h-10 rounded-full object-cover shadow-md opacity-90">
-                <div
-                    class="absolute -bottom-0 -right-1 w-4 h-4 bg-gray-400 rounded-full border-2 border-white shadow-sm">
-                </div>
-            </div>
-            <div class="ml-4 flex-1">
-                <h3 class="text-sm font-semibold text-gray-900 mb-1">Emma Williams</h3>
-            </div>
-            <div class="text-right">
-                <div class="text-xs text-gray-400 mb-1">1h ago</div>
-                <div class="flex items-center text-xs text-gray-500">
-                    <div class="w-1.5 h-1.5 bg-gray-400 rounded-full mr-1"></div>
-                    Away
-                </div>
-            </div>
+            <h3>No users found</h3>
+            <p>Try adjusting your search or filter criteria</p>
         </div>
     </div>
 
-    <!-- Enhanced No Results Message -->
-    <div id="noResults" class="hidden text-center py-12 animate-fade-in">
-
-
-
-        <div class="mx-auto w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-4">
-            <svg class="h-8 w-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-        </div>
-        <h3 class="text-sm font-medium text-gray-900 mb-2">No users found</h3>
-        <p class="text-xs text-gray-500">Try adjusting your search or filter criteria</p>
-    </div>
-</div>

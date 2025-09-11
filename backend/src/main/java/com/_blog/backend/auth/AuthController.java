@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com._blog.backend.user.User;
 // import com._blog.backend.auth.;;
-import com._blog.backend.util.UUIDUtil;
+// import com._blog.backend.util.UUIDUtil;
 
 @RestController
 @RequestMapping("/auth")

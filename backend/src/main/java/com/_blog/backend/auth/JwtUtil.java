@@ -8,7 +8,6 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com._blog.backend.user.User;
 import com._blog.backend.user.dto.UserResponse;
 
 import io.jsonwebtoken.Jwts;

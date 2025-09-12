@@ -1,9 +1,5 @@
 package com._blog.backend.user;
 
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.GeneratedValue;
-
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;

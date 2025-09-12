@@ -4,36 +4,43 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com._blog.backend.user.User;
-// import com._blog.backend.auth.;;
-// import com._blog.backend.util.UUIDUtil;
+import com._blog.backend.user.UserService;
+import com._blog.backend.user.dto.UserRequest;
+import com._blog.backend.user.dto.UserResponse;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     private List<User> users = new ArrayList<>();
 
+    private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @PostMapping("/register")
-    public List<User> register(@RequestBody Map<String, String> body) {
-        
-        String username = body.get("username");
-        String password = body.get("password");
-        String email = body.get("email");
-        User user = User.builder().username(username).email(email).password(password).build();
+    public Map<String, String> register(@RequestBody UserRequest request) {
 
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
+        UserResponse savedUser = userService.createUser(request);
         JwtUtil jwtUtil = new JwtUtil();
-        String token = jwtUtil.generateToken(user);
+        String token = jwtUtil.generateToken(savedUser);
 
-        System.out.println(token);
+        // System.out.println(token);
 
-        users.add(user);
-        return users;
+        return Map.of(
+            "message", "Login successful",
+            "token", token
+        );
     }
 
     @PostMapping("/login")

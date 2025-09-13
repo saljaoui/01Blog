@@ -24,4 +24,8 @@ public class AuthService {
         String token = jwtUtil.generateToken(savedUser);
         return new AuthResponse("Registration successful", token);
     }
+    
+    public AuthResponse login(UserRequest userRequest) {
+        return new AuthResponse();
+    }
 }

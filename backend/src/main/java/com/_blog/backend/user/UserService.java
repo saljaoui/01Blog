@@ -33,13 +33,4 @@ public class UserService {
         userRepository.save(user);
         return user;
     }
-
-    private UserResponse toResponse(User user) {
-        UserResponse response = new UserResponse();
-        response.setUuid(user.getUuid());
-        response.setUsername(user.getUsername());
-        response.setEmail(user.getEmail());
-        return response;
-    }
-    
 }

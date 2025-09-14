@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com._blog.backend.user.dto.UserRequest;
-import com._blog.backend.user.dto.UserResponse;
 
 import lombok.RequiredArgsConstructor;
 

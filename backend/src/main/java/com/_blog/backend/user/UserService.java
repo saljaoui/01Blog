@@ -5,8 +5,6 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.user.dto.UserRequest;
-import com._blog.backend.user.dto.UserResponse;
-
 import lombok.RequiredArgsConstructor;
 
 @Service

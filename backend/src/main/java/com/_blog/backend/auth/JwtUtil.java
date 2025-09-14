@@ -8,7 +8,7 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com._blog.backend.user.dto.UserResponse;
+import com._blog.backend.user.User;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -27,12 +27,12 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
     }
 
-    public String generateToken(UserResponse userResponse) {
+    public String generateToken(User user) {
         Instant now = Instant.now();
         SecretKey key = getSigningKey();
 
         return Jwts.builder()
-                .subject(userResponse.getUuid().toString())
+                .subject(user.getUuid().toString())
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(now.plusSeconds(jwtExpirationMs)))
                 .signWith(key)

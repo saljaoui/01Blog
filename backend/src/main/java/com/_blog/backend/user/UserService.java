@@ -15,7 +15,7 @@ public class UserService {
     
     private final UserRepository userRepository;
 
-    public UserResponse createUser(UserRequest request) {
+    public User createUser(UserRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new RuntimeException("Username exists");
         }
@@ -31,7 +31,7 @@ public class UserService {
                 .build();
 
         userRepository.save(user);
-        return toResponse(user);
+        return user;
     }
 
     private UserResponse toResponse(User user) {

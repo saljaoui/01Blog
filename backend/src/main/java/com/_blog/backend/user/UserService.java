@@ -10,17 +10,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    
+
     private final UserRepository userRepository;
 
     public User createUser(UserRequest request) {
-        if (userRepository.existsByUsername(request.getUsername())) {
-            throw new RuntimeException("Username exists");
-        }
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email exists");
-        }
-
         User user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())

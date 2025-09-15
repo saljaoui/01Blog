@@ -8,6 +8,7 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com._blog.backend.role.RoleEnum;
 import com._blog.backend.user.User;
 
 import io.jsonwebtoken.Jwts;
@@ -35,6 +36,7 @@ public class JwtUtil {
                 .subject(user.getUuid().toString())
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(now.plusSeconds(jwtExpirationMs)))
+                .claim("role", RoleEnum.User)
                 .signWith(key)
                 .compact();
     }

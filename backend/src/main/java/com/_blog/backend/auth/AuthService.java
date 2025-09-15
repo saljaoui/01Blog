@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.dto.AuthResponse;
+import com._blog.backend.exception.InvalidCredentialsException;
 import com._blog.backend.exception.UserAlreadyExistsException;
 import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
@@ -49,12 +50,11 @@ public class AuthService {
 
         if (user.isPresent() && passwordEncoder.matches(userRequest.getPassword(), user.get().getPassword())) {
             String accessToken = jwtUtil.generateToken(user.get());
+            RefreshToken refreshToken = refreshTokenService.create(user.get());
 
-        RefreshToken refreshToken = refreshTokenService.create(user.get());
-
-        return new AuthResponse("Registration successful", accessToken, refreshToken.getTokenHash());
+            return new AuthResponse("Registration successful", accessToken, refreshToken.getTokenHash());
         } else {
-            throw new  UserAlreadyExistsException("password or the userName is wrong");
+            throw new InvalidCredentialsException("Invalid email or password");
         }
     }
 }

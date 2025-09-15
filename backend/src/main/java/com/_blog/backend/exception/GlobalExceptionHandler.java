@@ -1,6 +1,5 @@
 package com._blog.backend.exception;
 
-import java.time.Instant;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +13,22 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleUserAlreadyExists(UserAlreadyExistsException ex, HttpServletRequest req) {
         ErrorResponse err = new ErrorResponse(
-            Instant.now().toString(),
             HttpStatus.CONFLICT.value(),
             "Conflict",
             ex.getMessage(),
             req.getRequestURI()
         );
         return new ResponseEntity<>(err, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidCredentials(InvalidCredentialsException ex, HttpServletRequest req) {
+        ErrorResponse err = new ErrorResponse(
+            HttpStatus.UNAUTHORIZED.value(),
+            "Unauthorized",
+            ex.getMessage(),
+            req.getRequestURI()
+        );
+        return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
     }
 }

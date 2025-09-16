@@ -1,6 +1,8 @@
 package com._blog.backend.auth;
 
 import java.util.Optional;
+
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ public class AuthService {
     private final RefreshTokenService refreshTokenService;
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
+    private final AuthenticationManager authenticationManager;
 
     public AuthResponse register(UserRequest userRequest) {
 

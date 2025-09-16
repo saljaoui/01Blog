@@ -3,6 +3,7 @@ package com._blog.backend.auth;
 import java.util.Optional;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -50,15 +51,27 @@ public class AuthService {
     }
 
     public AuthResponse login(UserRequest userRequest) {
-        Optional<User> user = userRepository.findByUsername(userRequest.getUsername());
+        // Optional<User> user = userRepository.findByUsername(userRequest.getUsername());
 
-        if (user.isPresent() && passwordEncoder.matches(userRequest.getPassword(), user.get().getPassword())) {
-            String accessToken = jwtUtil.generateToken(user.get());
-            RefreshToken refreshToken = refreshTokenService.create(user.get());
+        // if (user.isPresent() && passwordEncoder.matches(userRequest.getPassword(), user.get().getPassword())) {
+        //     String accessToken = jwtUtil.generateToken(user.get());
+        //     RefreshToken refreshToken = refreshTokenService.create(user.get());
+
+        //     return new AuthResponse("Registration successful", accessToken, refreshToken.getTokenHash());
+        // } else {
+        //     throw new InvalidCredentialsException("Invalid email or password");
+        // }
+
+         authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                userRequest.getUsername(),
+                userRequest.getPassword())
+                );
+
+            User user = userRepository.findByUsername(userRequest.getUsername()).get();
+            String accessToken = jwtUtil.generateToken(user);
+            RefreshToken refreshToken = refreshTokenService.create(user);
 
             return new AuthResponse("Registration successful", accessToken, refreshToken.getTokenHash());
-        } else {
-            throw new InvalidCredentialsException("Invalid email or password");
-        }
     }
 }

@@ -13,6 +13,7 @@ import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
 import com._blog.backend.user.UserService;
 import com._blog.backend.user.dto.UserRequest;
+import com._blog.backend.user.dto.UserResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +29,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse register(UserRequest userRequest) {
-
+        System.out.println(userRequest);
         if (userRepository.existsByUsername(userRequest.getUsername())) {
             throw new UserAlreadyExistsException("Username is already taken");
         }

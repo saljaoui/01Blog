@@ -22,7 +22,7 @@ import lombok.Setter;
 public class User {
 
     @Id
-    private UUID uuid;
+    private UUID id;
 
     @Column(nullable = false, unique = true, length = 50)
     private String username;

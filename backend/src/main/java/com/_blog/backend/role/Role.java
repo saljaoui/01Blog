@@ -19,7 +19,7 @@ import lombok.*;
 @Table(name = "roles")
 public class Role {
     @Id
-    private UUID uuid;
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)

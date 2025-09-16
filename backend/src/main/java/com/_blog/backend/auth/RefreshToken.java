@@ -28,7 +28,7 @@ import lombok.Setter;
 public class RefreshToken {
 
     @Id
-    private UUID uuid;
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

@@ -17,7 +17,7 @@ public class RefreshTokenService {
 
     public RefreshToken create(User user) {
         RefreshToken token = RefreshToken.builder()
-                .uuid(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .user(user)
                 .tokenHash(UUID.randomUUID().toString())
                 .createdAt(Instant.now())

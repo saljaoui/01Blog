@@ -18,7 +18,7 @@ public class UserService {
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(request.getPassword())
-                .uuid(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .build();
 
         userRepository.save(user);

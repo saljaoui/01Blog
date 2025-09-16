@@ -14,6 +14,7 @@ import com._blog.backend.user.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.NoArgsConstructor;
 
 @Component
 public class JwtUtil {
@@ -28,12 +29,17 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
     }
 
+    public String extractUserName(String Token) {
+        System.out.println(Token);
+        return "";
+    }
+
     public String generateToken(User user) {
         Instant now = Instant.now();
         SecretKey key = getSigningKey();
 
         return Jwts.builder()
-                .subject(user.getUuid().toString())
+                .subject(user.getId().toString())
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(now.plusSeconds(jwtExpirationMs)))
                 .claim("role", RoleEnum.User)

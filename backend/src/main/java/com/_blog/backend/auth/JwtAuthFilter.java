@@ -1,7 +1,10 @@
 package com._blog.backend.auth;
 
 import java.io.IOException;
+import java.util.Optional;
+import java.util.UUID;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com._blog.backend.user.User;
+import com._blog.backend.user.UserRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -20,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
-    private final UserDetailsService userDetailsService;
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(
@@ -31,12 +37,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String accessToken = authHeader.substring(7);
-            String id = jwtUtil.extractUserId(accessToken);
-            if (id != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(id);
-                if (jwtUtil.isTokenValid(accessToken, userDetails)) {
+            String userId = jwtUtil.extractUserId(accessToken);
+            UUID uuid = UUID.fromString(userId);
+            Optional<User> userOptional = userRepository.findById(uuid);
+            
+            if (userOptional.isPresent() && SecurityContextHolder.getContext().getAuthentication() == null) {
+                User user = userOptional.get();
+                if (jwtUtil.isTokenValid(accessToken, user)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                            userDetails, null, userDetails.getAuthorities());
+                            user, null, user.getAuthorities());
                     authToken.setDetails(
                             new WebAuthenticationDetailsSource().buildDetails(req));
                     SecurityContextHolder.getContext().setAuthentication(authToken);

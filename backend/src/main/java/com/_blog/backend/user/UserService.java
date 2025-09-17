@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com._blog.backend.role.Role;
 import com._blog.backend.user.dto.UserRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +20,7 @@ public class UserService {
                 .email(request.getEmail())
                 .password(request.getPassword())
                 .id(UUID.randomUUID())
+                .role(Role.User)
                 .build();
 
         userRepository.save(user);

@@ -52,14 +52,14 @@ public class JwtUtil {
                 .subject(user.getId().toString())
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(now.plus(jwtExpirationMs, ChronoUnit.MINUTES)))
-                .claim("role", Role.User)
+                .claim("role", user.getRole())
                 .signWith(key)
                 .compact();
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails) {
+    public boolean isTokenValid(String token, User user) {
         String userid = extractUserId(token);
-        return userid.equals(userDetails.getUsername()) && isTokenExpired(token);
+        return userid.equals(user.getId().toString()) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {

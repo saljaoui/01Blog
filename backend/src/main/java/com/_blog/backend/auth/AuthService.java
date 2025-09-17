@@ -8,13 +8,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.dto.AuthResponse;
-import com._blog.backend.exception.InvalidCredentialsException;
 import com._blog.backend.exception.UserAlreadyExistsException;
 import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
 import com._blog.backend.user.UserService;
 import com._blog.backend.user.dto.UserRequest;
-import com._blog.backend.user.dto.UserResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -51,27 +49,16 @@ public class AuthService {
     }
 
     public AuthResponse login(UserRequest userRequest) {
-        // Optional<User> user = userRepository.findByUsername(userRequest.getUsername());
 
-        // if (user.isPresent() && passwordEncoder.matches(userRequest.getPassword(), user.get().getPassword())) {
-        //     String accessToken = jwtUtil.generateToken(user.get());
-        //     RefreshToken refreshToken = refreshTokenService.create(user.get());
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        userRequest.getUsername(),
+                        userRequest.getPassword()));
 
-        //     return new AuthResponse("Registration successful", accessToken, refreshToken.getTokenHash());
-        // } else {
-        //     throw new InvalidCredentialsException("Invalid email or password");
-        // }
+        User user = userRepository.findByUsername(userRequest.getUsername()).get();
+        String accessToken = jwtUtil.generateToken(user);
+        RefreshToken refreshToken = refreshTokenService.create(user);
 
-         authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                userRequest.getUsername(),
-                userRequest.getPassword())
-                );
-
-            User user = userRepository.findByUsername(userRequest.getUsername()).get();
-            String accessToken = jwtUtil.generateToken(user);
-            RefreshToken refreshToken = refreshTokenService.create(user);
-
-            return new AuthResponse("Registration successful", accessToken, refreshToken.getTokenHash());
+        return new AuthResponse("Registration successful", accessToken, refreshToken.getTokenHash());
     }
 }

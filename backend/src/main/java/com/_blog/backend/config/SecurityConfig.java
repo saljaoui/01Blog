@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 
     private final UserRepository userRepository;
-    private final JwtUtil jwtUtil; // just the util, not the filter
+    private final JwtUtil jwtUtil;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -38,8 +38,8 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return id -> userRepository.findById(UUID.fromString(id))
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + id));
+        return username -> userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + username));
     }
 
     @Bean
@@ -56,12 +56,13 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JwtAuthFilter jwtAuthFilter(UserDetailsService userDetailsService) {
-        return new JwtAuthFilter(jwtUtil, userDetailsService);
+    public JwtAuthFilter jwtAuthFilter(UserRepository userRepository) {
+        return new JwtAuthFilter(jwtUtil, userRepository);
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter, AuthenticationProvider authenticationProvider) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter,
+            AuthenticationProvider authenticationProvider) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()

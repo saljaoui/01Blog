@@ -1,18 +1,16 @@
 package com._blog.backend.auth;
 
-import java.util.Optional;
-
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com._blog.backend.auth.dto.AuthResponse;
 import com._blog.backend.exception.UserAlreadyExistsException;
-import com._blog.backend.user.User;
+import com._blog.backend.auth.dto.AuthResponse;
+import com._blog.backend.user.dto.UserRequest;
 import com._blog.backend.user.UserRepository;
 import com._blog.backend.user.UserService;
-import com._blog.backend.user.dto.UserRequest;
+import com._blog.backend.user.User;
 
 import lombok.RequiredArgsConstructor;
 

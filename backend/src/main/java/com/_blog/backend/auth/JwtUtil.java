@@ -1,23 +1,20 @@
 package com._blog.backend.auth;
 
-import java.time.Instant;
+import com._blog.backend.user.User;
+
 import java.time.temporal.ChronoUnit;
+import java.time.Instant;
 import java.util.Date;
 
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com._blog.backend.role.Role;
-import com._blog.backend.user.User;
-
+import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-
 
 @Component
 public class JwtUtil {

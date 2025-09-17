@@ -10,7 +10,6 @@ import com._blog.backend.post.dto.PostResponse;
 @RestController
 @RequestMapping("/posts")
 public class PostController {
-
     @GetMapping
     public ResponseEntity<PostResponse> createPost() {
         return ResponseEntity.ok(new PostResponse("is workinkg"));

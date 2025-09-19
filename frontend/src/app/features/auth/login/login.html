@@ -1,65 +1,77 @@
-  <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
-        <div class="main-container d-flex position-relative">
-            <!-- Left Section -->
-            <div class="left-section d-flex align-items-center justify-content-center flex-fill">
-                <!-- Shapes -->
-                <div class="shape-1"></div>
-                <div class="shape-2"></div>
-                <div class="shape-3"></div>
+ <div
+    class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
+    <div class="main-container d-flex position-relative">
+        <!-- Left Section -->
+        <div
+            class="left-section d-flex align-items-center justify-content-center flex-fill">
+            <!-- Shapes -->
+            <div class="shape-1"></div>
+            <div class="shape-2"></div>
+            <div class="shape-3"></div>
 
-                <!-- Main Circle -->
-                <div class="main-circle d-flex align-items-center justify-content-center">
-                    <div class="inner-circle"></div>
+            <!-- Main Circle -->
+            <div
+                class="main-circle d-flex align-items-center justify-content-center">
+                <div class="inner-circle"></div>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div
+            class="right-section flex-fill d-flex flex-column justify-content-center">
+            <!-- Logo -->
+            <div class="d-flex align-items-center mb-4">
+                <div
+                    class="logo-circle d-flex align-items-center justify-content-center">
+                    <div class="logo-inner"></div>
                 </div>
+                <div class="logo-text">1Blog</div>
             </div>
 
-            <!-- Right Section -->
-            <div class="right-section flex-fill d-flex flex-column justify-content-center">
-                <!-- Logo -->
-                <div class="d-flex align-items-center mb-4">
-                    <div class="logo-circle d-flex align-items-center justify-content-center">
-                        <div class="logo-inner"></div>
-                    </div>
-                    <div class="logo-text">1Blog</div>
+            <div class="start-text">START SHARING YOUR JOURNEY</div>
+
+            <form>
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">E-Mail</label>
+                    <input type="email" class="form-control" id="email"
+                        placeholder="yourname@gmail.com" required>
                 </div>
 
-                <div class="start-text">START SHARING YOUR JOURNEY</div>
-
-                <form>
-                    <!-- Email -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">E-Mail</label>
-                        <input type="email" class="form-control" id="email" placeholder="yourname@gmail.com" required>
+                <!-- Password -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="position-relative">
+                        <input type="password" class="form-control"
+                            id="password" placeholder="••••••••••••" required>
+                        <button type="button" class="eye-icon"
+                            onclick="togglePassword()">
+                            <!-- Eye SVG -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
                     </div>
-
-                    <!-- Password -->
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <div class="position-relative">
-                            <input type="password" class="form-control" id="password" placeholder="••••••••••••" required>
-                            <button type="button" class="eye-icon" onclick="togglePassword()">
-                                <!-- Eye SVG -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Button -->
-                    <button type="submit" class="btn btn-primary-custom w-100">
-                        SIGN IN
-                    </button>
-                </form>
-
-                <p class="signup-text">Don't have an account?
-                    <a href="/register" class="text-indigo fw-medium">Sign Up</a>
-                </p>
-
-                <div class="text-center terms-text">
-                    By signing in, you agree to our Terms & Privacy Policy
                 </div>
+
+                <!-- Button -->
+                <button type="submit" class="btn btn-primary-custom w-100">
+                    SIGN IN
+                </button>
+            </form>
+
+            <p class="signup-text">Don't have an account?
+                <a href="/register" class="text-indigo fw-medium">Sign Up</a>
+            </p>
+
+            <div class="text-center terms-text">
+                By signing in, you agree to our Terms & Privacy Policy
             </div>
         </div>
     </div>
+</div>

@@ -1,106 +1,88 @@
  .profile-card {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            max-width: 20rem;
-            margin: 0 auto;
-        }
+     background: white;
+     border-radius: 1rem;
+     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+     overflow: hidden;
+     max-width: 20rem;
+     margin: 0 auto;
+ }
 
-        .cover-image {
-            height: 5rem;
-            background: linear-gradient(to right, #a5b4fc, #c7d2fe, #a5b4fc);
-            position: relative;
-        }
+ .cover-image {
+     height: 5rem;
+     background: linear-gradient(to right, #a5b4fc, #c7d2fe, #a5b4fc);
+     position: relative;
+ }
 
-        .profile-picture-container {
-            position: absolute;
-            bottom: -2rem;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+ .profile-picture-container {
+     position: absolute;
+     bottom: -2rem;
+     left: 50%;
+     transform: translateX(-50%);
+ }
 
-        .profile-picture {
-            width: 4rem;
-            height: 4rem;
-            background: linear-gradient(to right, #4f46e5, #4f46e5);
-            border-radius: 50%;
-            border: 2px solid white;
-        }
+ .profile-picture {
+     width: 4rem;
+     height: 4rem;
+     background: linear-gradient(to right, #4f46e5, #4f46e5);
+     border-radius: 50%;
+     border: 2px solid white;
+ }
 
-        .profile-initial {
-            color: white;
-            font-weight: 600;
-            font-size: 1rem;
-        }
+ .profile-initial {
+     color: white;
+     font-weight: 600;
+     font-size: 1rem;
+ }
 
-        .profile-content {
-            padding: 1rem;
-            padding-top: 2rem;
-            text-align: center;
-        }
+ .profile-content {
+     padding: 1rem;
+     padding-top: 2rem;
+     text-align: center;
+ }
 
-        .profile-name {
-            font-size: 1.125rem;
-            font-weight: bold;
-            color: #111827;
-            margin-bottom: 0.125rem;
-        }
+ .profile-name {
+     font-size: 1.125rem;
+     font-weight: bold;
+     color: #111827;
+     margin-bottom: 0.125rem;
+ }
 
-        .profile-username {
-            color: #6b7280;
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
-        }
+ .profile-username {
+     color: #6b7280;
+     font-size: 0.875rem;
+     margin-bottom: 1rem;
+ }
 
-        .stats-container {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 1rem;
-        }
+ .stats-container {
+     display: flex;
+     justify-content: space-around;
+     margin-bottom: 1rem;
+ }
 
-        .stats-item {
-            text-align: center;
-        }
+ .stats-item {
+     text-align: center;
+ }
 
-        .stats-number {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #111827;
-            margin: 0;
-        }
+ .stats-number {
+     font-size: 1rem;
+     font-weight: bold;
+     color: #111827;
+     margin: 0;
+ }
 
-        .stats-label {
-            font-size: 0.75rem;
-            color: #6b7280;
-            margin: 0;
-        }
+ .stats-label {
+     font-size: 0.75rem;
+     color: #6b7280;
+     margin: 0;
+ }
 
-        .stats-divider {
-            width: 1px;
-            background: #d1d5db;
-            height: 2rem;
-            align-self: center;
-        }
+ .stats-divider {
+     width: 1px;
+     background: #d1d5db;
+     height: 2rem;
+     align-self: center;
+ }
 
-        .profile-button {
-            width: 100%;
-            background: linear-gradient(to right, #4f46e5, #4f46e5);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s ease;
-            border: none;
-        }
-
-        .profile-button:hover {
-            background: linear-gradient(to right, #4338ca, #4338ca);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            color: white;
-        }
-
-        .mb-custom-05 {
-            margin-bottom: 0.125rem;
-        }
+ .mb-custom-05 {
+     margin-bottom: 0.125rem;
+ }

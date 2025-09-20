@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { Header } from '../../../shared/components/header/header';
 
 @Component({
   selector: 'app-create-post',
-  imports: [],
+  imports: [ Header ],
   templateUrl: './create-post.html',
   styleUrl: './create-post.scss'
 })

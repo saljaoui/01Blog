@@ -1,0 +1,148 @@
+// .btn {
+//     border: none;
+// }
+
+.btn-primary {
+    border: solid 2px #4f46e5;
+}
+
+.btn-secondary {
+    border: solid 2px #adb5bd;
+}
+
+.btn-primary:hover {
+  background-color: #4338ca;
+  border: solid 2px #4338ca;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+}
+
+.btn-primary:active {
+  background-color: #3730a3;
+  border-color: #3730a3;
+  transform: translateY(0);
+}
+
+.btn-secondary:hover {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+  color: #495057;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary:active {
+  background-color: #e9ecef;
+  border-color: #6c757d;
+  transform: translateY(0);
+}
+
+.form-control.title {
+  border: none;
+  padding: 1rem 1.5rem;
+  font-size: 2.1rem;
+  min-height: 3rem;
+}
+
+input {
+  border: none;
+  border-left: 2px solid #6c757d;
+  overflow: hidden;
+  padding: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  box-shadow: none;
+  outline: none;
+  border-radius: 2px;
+  background: #fff;  
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus {
+    border-left-color: #6610f2;
+    box-shadow: none;
+  background: #fdfdfd;
+}
+
+textarea.form-control.content {
+  border: none;
+  border-left: 2px solid #6c757d;
+  resize: none;
+  overflow: hidden;
+  min-height: 200px;
+  padding: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  box-shadow: none;
+  outline: none;
+  background: #fff;  
+  border-radius: 2px;
+  transition: all 0.2s ease-in-out;
+}
+
+textarea.form-control.content:focus {
+  border-left-color: #6610f2;
+  background: #fdfdfd;
+}
+
+
+.btn-outline-primary {
+  border: solid 2px #4f46e5;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.75rem;
+  width: 100%;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  color: #4f46e5;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-primary:hover {
+  background-color: #4f46e5;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+}
+
+.btn-outline-primary:active {
+  background-color: #3730a3;
+  border-color: #3730a3;
+  transform: translateY(0);
+}
+
+.remove-btn {
+  background: #fff;
+  border: 2px solid #dc3545;
+  color: #dc3545;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 32px;
+  height: 32px;
+  line-height: 1; 
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.remove-btn:hover {
+  background: #dc3545;
+  color: #fff;
+}
+
+.remove-btn:active {
+  transform: scale(0.95);
+}
+
+.main-content{
+  height: max-content;
+  min-height: 100%;
+}
+
+.svg {
+  fill: #6c757d;
+}

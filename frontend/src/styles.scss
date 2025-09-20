@@ -52,7 +52,6 @@ body {
 .right-sidebar {
   width: 20%;
   overflow-y: hidden;
-  height: max-content;
 }
 
 .main-content {
@@ -62,7 +61,6 @@ body {
 
 .btn-primary {
   background-color: #4f46e5;
-
   font-weight: 600;
   width: 100%;
   color: #fff;
@@ -73,18 +71,8 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-.btn-primary:hover {
-  background-color: #4338ca;
-  border-color: #4338ca;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
-}
 
-.btn-primary:active {
-  background-color: #3730a3;
-  border-color: #3730a3;
-  transform: translateY(0);
-}
+
 
 .btn-secondary {
   color: #6c757d;
@@ -98,16 +86,32 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-.btn-secondary:hover {
-  background-color: #f8f9fa;
-  border-color: #adb5bd;
-  color: #495057;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
+
 
 .btn-secondary:active {
   background-color: #e9ecef;
   border-color: #6c757d;
   transform: translateY(0);
+}
+
+
+.btn-primary-custom {
+  background: #4f46e5;
+  color: white;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.btn-primary-custom:hover {
+  background-color: #4338ca;
+  border-color: #4338ca;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
 }

@@ -86,3 +86,20 @@
  .mb-custom-05 {
      margin-bottom: 0.125rem;
  }
+
+ .btn-primary {
+    border: solid 2px #4f46e5;
+ }
+
+ .btn-primary:hover {
+  background-color: #4338ca;
+  border: solid 2px #4338ca;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+}
+
+.btn-primary:active {
+  background-color: #3730a3;
+  border-color: #3730a3;
+  transform: translateY(0);
+}

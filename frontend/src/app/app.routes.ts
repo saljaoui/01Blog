@@ -6,6 +6,7 @@ import { Admin } from './features/admin/admin';
 import { MyProfile } from './features/profile/my-profile/my-profile';
 import { UserProfile } from './features/profile/user-profile/user-profile';
 import { CreatePost } from './features/posts/create-post/create-post';
+import { Notifications } from './features/notifications/notifications';
 
 export const routes: Routes = [
     { path: "", component: Dashboard },
@@ -15,4 +16,5 @@ export const routes: Routes = [
     { path: "my-profile", component: MyProfile },
     { path: "user-profile", component: UserProfile },
     { path: "create-post", component: CreatePost },
+    { path: "notifications", component: Notifications },
 ];

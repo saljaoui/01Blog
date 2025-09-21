@@ -1,5 +1,7 @@
 package com._blog.backend.post;
 
 public class PostService {
-    // public creat
+    // public AuthResponse create(UserRequest userRequest) {
+
+    // }
 }

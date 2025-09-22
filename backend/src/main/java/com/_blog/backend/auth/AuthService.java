@@ -26,7 +26,6 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse register(UserRequest userRequest) {
-        System.out.println(userRequest);
         if (userRepository.existsByUsername(userRequest.getUsername())) {
             throw new UserAlreadyExistsException("Username is already taken");
         }

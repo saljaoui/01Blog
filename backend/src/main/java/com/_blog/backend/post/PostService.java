@@ -3,6 +3,7 @@ package com._blog.backend.post;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.post.dto.PostRequest;

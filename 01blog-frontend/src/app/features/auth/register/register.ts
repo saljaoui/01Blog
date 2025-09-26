@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router';
-import { User } from '../../../core/models/user';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { UserRegister } from '../../../core/models/user';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './register.html',
   styleUrl: '../../../../styles/auth.scss'
 })
 export class Register {
 
   passwordVisible: boolean = false;
-  user: User = {
+  isSubmitting = false;
+  userRegister: UserRegister = {
     username: "",
     email: "",
     password: ""
@@ -22,14 +24,16 @@ export class Register {
   constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit() {
-    this.authService.register(this.user).subscribe({
+    this.authService.register(this.userRegister).subscribe({
       next: (res: any) => {
+        this.isSubmitting = true;
         console.log('Login successful', res);
-        localStorage.setItem('token', res.token);
+        localStorage.setItem('token', res.accessToken);
         // this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         console.error('Login failed', err);
+        this.isSubmitting = false;
       }
     })
   }

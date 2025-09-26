@@ -58,4 +58,10 @@ public class AuthService {
 
         return new AuthResponse("Registration successful", accessToken, refreshToken.getTokenHash());
     }
+
+    public AuthResponse refreshToken(String refreshToken) {
+
+        return new AuthResponse();
+    }
+
 }

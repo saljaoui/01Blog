@@ -13,7 +13,6 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 
 export class Login {
-
   passwordVisible: boolean = false;
   isSubmitting = false;
   userLogin: UserLogin = {

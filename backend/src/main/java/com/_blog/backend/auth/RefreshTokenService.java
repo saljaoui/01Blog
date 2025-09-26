@@ -26,4 +26,16 @@ public class RefreshTokenService {
 
         return refreshTokenRepository.save(token);
     }
+
+    public User validateRefreshToken(String tokenHash) {
+        RefreshToken token = refreshTokenRepository.findByTokenHash(tokenHash)
+                .orElseThrow(() -> new RuntimeException("Refresh token not found"));
+
+        if (token.getExpiresAt().isBefore(Instant.now())) {
+            refreshTokenRepository.delete(token);
+            throw new RuntimeException("Refresh token expired");
+        }
+
+        return token.getUser();
+    }
 }

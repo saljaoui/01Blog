@@ -4,6 +4,7 @@ import { Register } from './features/auth/register/register';
 import { Welcome } from './features/dashboard/welcome/welcome';
 import { AuthLayout } from './layouts/auth-layout/auth-layout';
 import { MainLayout } from './layouts/main-layout/main-layout';
+import { Home } from './features/dashboard/home/home';
 
 export const routes: Routes = [
     {
@@ -11,6 +12,7 @@ export const routes: Routes = [
     component: MainLayout,
     children: [
       { path: '', component: Welcome },
+      { path: 'home', component: Home }
     ]
   },
   {

@@ -1,10 +1,13 @@
 @use "bootstrap" as *;
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+/* --- Slightly more compact, same visual style --- */
+/* I reduced sizes/spacing ~12–15% for a tighter, more professional look. */
+
 body {
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  color: #1a1a1a; 
+  color: #1a1a1a;
   background: #f8f9fa;
   margin: 0;
 }
@@ -13,39 +16,39 @@ body {
 .btn-primary {
   background: #1a1a1a;
   color: #fff;
-  padding: 10px 18px;
+  padding: 8px 16px;              /* from 10px 18px -> tighter */
   border-radius: 9999px;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.85rem;             /* from 0.95rem */
   letter-spacing: 0.3px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;                       /* slightly smaller gap */
   cursor: pointer;
-  transition: all 0.25s ease-in-out;
+  transition: transform 0.22s ease-in-out, box-shadow 0.22s ease-in-out, background 0.22s ease-in-out;
   border: none;
 }
 
 /* Hover */
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(26, 26, 26, 0.2);
+  transform: translateY(-1px);    /* softer lift */
+  box-shadow: 0 5px 12px rgba(26, 26, 26, 0.18); /* slightly reduced shadow */
   background: #2a2a2a;
 }
 
 /* Active */
-.btn-primary:focus:active{
-    background-color: #1a1a1a ;
-    border-color: #1a1a1a ;
-    color: #fff ;
-    transform: translateY(0) ;
-    box-shadow: 0 3px 6px rgba(26, 26, 26, 0.25) ;
+.btn-primary:focus:active {
+  background-color: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #fff;
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(26, 26, 26, 0.22);
 }
 
 /* Focus */
 .btn-primary:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.25);
+  box-shadow: 0 0 0 2.5px rgba(26, 26, 26, 0.22); /* a touch smaller ring */
 }
 
 /* Outline Dark Button */
@@ -53,17 +56,18 @@ body {
   background: #fff;
   color: #1a1a1a;
   border-color: #fff;
-  padding: 10px 18px;
+  padding: 8px 16px;              /* tightened */
   border-radius: 9999px;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.85rem;             /* from 0.95rem */
   letter-spacing: 0.3px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 2px 6px rgba(26, 26, 26, 0.1); /* subtle shadow */
+  transition: all 0.18s ease-in-out;
+  box-shadow: 0 1.5px 5px rgba(26, 26, 26, 0.08); /* subtler base shadow */
+  border: 1px solid#e0e0e0;
 }
 
 /* Hover effect */
@@ -71,7 +75,7 @@ body {
   background: rgba(0, 0, 0, 0.05);
   color: #1a1a1a;
   border-color: #1a1a1a;
-  box-shadow: 0 4px 12px rgba(26, 26, 26, 0.15); /* slightly stronger on hover */
+  box-shadow: 0 3px 10px rgba(26, 26, 26, 0.12); /* slightly stronger on hover */
   transform: translateY(-1px);
 }
 
@@ -79,12 +83,34 @@ body {
 .btn-outline-dark:active {
   background: #2a2a2a;
   color: #fff;
-  box-shadow: 0 2px 6px rgba(26, 26, 26, 0.15);
+  box-shadow: 0 1.5px 5px rgba(26, 26, 26, 0.12);
   transform: translateY(0);
 }
 
 /* Focus state */
 .btn-outline-dark:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+  box-shadow: 0 0 0 2.5px rgba(26, 26, 26, 0.12);
+}
+
+/* Large variant (slightly tightened) */
+.btn-lg {
+  border-radius: 10px;            /* from 12px */
+  padding: 10px 18px;             /* keep comfortable tappable area */
+  font-size: 0.95rem;             /* slightly smaller than default .btn-lg in original */
+}
+
+/* Subtle responsive adjustments for very small screens */
+@media (max-width: 420px) {
+  .btn-primary,
+  .btn-outline-dark {
+    padding: 7px 12px;
+    font-size: 0.8rem;
+    gap: 6px;
+  }
+
+  .btn-lg {
+    padding: 9px 14px;
+    font-size: 0.9rem;
+  }
 }

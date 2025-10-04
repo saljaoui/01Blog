@@ -1,0 +1,83 @@
+/* Sidebar Styles */
+.sidebar {
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 240px;
+  height: 100%;
+  position: relative;
+  z-index: 999;
+}
+
+.sidebar-left {
+  border-right: 1px solid #e9ecef;
+}
+
+/* Navigation Menu */
+
+/* Nav Menu Container */
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Nav Item */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #6b7280;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover effect */
+.nav-item:hover {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+/* Active item */
+.nav-item.active {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+/* Icons */
+.nav-item i {
+  font-size: 1.2rem;
+}
+
+/* Optional: smooth transition for active and hover */
+.nav-item, .nav-item i, .nav-item span {
+  transition: all 0.2s ease-in-out;
+}
+
+
+
+
+
+.social-links .social-icon {
+  background: transparent;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 0 0 transparent;
+}
+
+.social-links .social-icon:hover {
+  color: #1a1a1a;
+}
+
+// .social-icon:hover {
+//   background-color: #1a1a1a;
+// }
+

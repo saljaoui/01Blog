@@ -1,0 +1,108 @@
+
+.small-profile {
+  background: #f8f9fa;
+  border-radius: 16px; /* slightly smaller radius */
+  padding: 10px; /* smaller padding */
+  text-align: center;
+  color: #1a1a1a;
+  margin: 0 auto;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 220px; /* smaller max width */
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+.small-profile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+/* Profile Cover */
+.profile-cover {
+  width: 100%;
+  height: 42px; /* smaller cover */
+  background: #d1d5db;
+  border-radius: 10px;
+  margin-bottom: -20px;
+  position: relative;
+}
+
+/* Avatar */
+.profile-avatar {
+  width: 45px; /* smaller avatar */
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  margin: 0 auto 6px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Name and Username */
+.profile-name {
+  font-size: 14px; /* smaller font */
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1px;
+}
+
+.profile-username {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+/* Stats Section */
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 6px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.stat-value {
+  font-size: 14px; /* smaller font */
+  font-weight: 900;
+  color: #1a1a1a;
+  margin-bottom: 1px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #666;
+  text-transform: capitalize;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.profile-stats div {
+  text-align: center;
+}
+
+.profile-stats strong {
+  display: block;
+  font-size: 12px;
+  color: #1a1a1a;
+}
+
+.profile-stats span {
+  font-size: 12px;
+//   color: #777;
+}
+
+.small-profile:hover .profile-avatar {
+  transform: scale(1.03);
+  transition: transform 0.25s ease;
+}

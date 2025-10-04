@@ -1,0 +1,17 @@
+.main-content {
+  flex: 1;
+  padding: 40px 30px;
+  max-height: calc(100vh - 70px);
+  overflow-y: auto;
+  background-color: #f8f9fa;
+  scroll-behavior: smooth;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-container {
+  min-height: calc(100vh - 59px);
+}

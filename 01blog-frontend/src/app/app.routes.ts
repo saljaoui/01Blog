@@ -5,6 +5,7 @@ import { Welcome } from './features/dashboard/welcome/welcome';
 import { AuthLayout } from './layouts/auth-layout/auth-layout';
 import { MainLayout } from './layouts/main-layout/main-layout';
 import { Home } from './features/dashboard/home/home';
+import { MyProfile } from './features/profile/my-profile/my-profile';
 
 export const routes: Routes = [
     {
@@ -12,7 +13,8 @@ export const routes: Routes = [
     component: MainLayout,
     children: [
       { path: '', component: Welcome },
-      { path: 'home', component: Home }
+      { path: 'home', component: Home },
+      { path: 'profile', component: MyProfile },
     ]
   },
   {

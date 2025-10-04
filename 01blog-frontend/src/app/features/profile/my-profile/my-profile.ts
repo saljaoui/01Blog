@@ -3,11 +3,11 @@ import { SidebarLeft } from '../../../components/sidebar-left/sidebar-left';
 import { SidebarRight } from '../../../components/sidebar-right/sidebar-right';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-my-profile',
   imports: [SidebarLeft, SidebarRight],
-  templateUrl: './home.html',
-  styleUrl: './home.scss'
+  templateUrl: './my-profile.html',
+  styleUrl: './my-profile.scss'
 })
-export class Home {
+export class MyProfile {
 
 }

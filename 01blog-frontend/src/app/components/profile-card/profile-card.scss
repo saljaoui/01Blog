@@ -1,108 +1,107 @@
-
 .small-profile {
-  background: #f8f9fa;
-  border-radius: 16px; /* slightly smaller radius */
-  padding: 10px; /* smaller padding */
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px;
   text-align: center;
   color: #1a1a1a;
   margin: 0 auto;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   width: 100%;
-  max-width: 220px; /* smaller max width */
-  border: 1px solid #e0e0e0;
-  transition: all 0.2s ease;
+  max-width: 220px;
+  border: 1px solid #e9ecef;
+  transition: all 0.25s ease;
 }
 
 .small-profile:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Profile Cover */
+/* Cover Banner */
 .profile-cover {
   width: 100%;
-  height: 42px; /* smaller cover */
-  background: #d1d5db;
+  height: 45px;
+  background: linear-gradient(135deg, #d1d5db, #e5e7eb);
   border-radius: 10px;
-  margin-bottom: -20px;
+  margin-bottom: -25px;
   position: relative;
+  overflow: hidden;
+}
+
+.profile-cover::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.12));
 }
 
 /* Avatar */
 .profile-avatar {
-  width: 45px; /* smaller avatar */
-  height: 45px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
   border: 2px solid #fff;
-  margin: 0 auto 6px;
-  position: relative;
-  z-index: 2;
+  margin: 0 auto 8px;
+  margin-top: -28px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  position: relative;
+  transition: transform 0.25s ease;
 }
 
 .profile-avatar img {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
 }
 
-/* Name and Username */
+.small-profile:hover .profile-avatar {
+  transform: scale(1.05);
+}
+
+/* Name + Username */
 .profile-name {
-  font-size: 14px; /* smaller font */
+  font-size: 14px;
   font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 1px;
+  color: #111827;
+  margin-bottom: 2px;
 }
 
 .profile-username {
   font-size: 12px;
-  color: #666;
-  margin-bottom: 6px;
+  color: #6b7280;
+  margin-bottom: 8px;
 }
 
-/* Stats Section */
+/* Stats */
 .profile-stats {
   display: flex;
   justify-content: space-around;
-  padding-top: 6px;
-  border-top: 1px solid #e0e0e0;
+  padding-top: 8px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .stat-value {
-  font-size: 14px; /* smaller font */
-  font-weight: 900;
+  font-size: 14px;
+  font-weight: 700;
   color: #1a1a1a;
-  margin-bottom: 1px;
 }
 
 .stat-label {
   font-size: 11px;
-  color: #666;
+  color: #9ca3af;
   text-transform: capitalize;
   font-weight: 500;
-  letter-spacing: 0.2px;
-}
-
-.profile-stats div {
-  text-align: center;
-}
-
-.profile-stats strong {
-  display: block;
-  font-size: 12px;
-  color: #1a1a1a;
-}
-
-.profile-stats span {
-  font-size: 12px;
-//   color: #777;
-}
-
-.small-profile:hover .profile-avatar {
-  transform: scale(1.03);
-  transition: transform 0.25s ease;
 }

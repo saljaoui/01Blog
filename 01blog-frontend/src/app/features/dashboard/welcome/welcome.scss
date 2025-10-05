@@ -138,12 +138,3 @@
   color: var(--text-muted);
   font-weight: 500;
 }
-
-/* Subtle responsive tweak: keep things readable on very small screens */
-@media (max-width: 576px) {
-  .hero-title { font-size: 2.2rem; }
-  .hero-subtitle { font-size: 1rem; max-width: 100%; }
-  .btn-lg { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
-  .stat-number { font-size: 1.8rem; }
-  .stat-item { padding: 1rem; }
-}

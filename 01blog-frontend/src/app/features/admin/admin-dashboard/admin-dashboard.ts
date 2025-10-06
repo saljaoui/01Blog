@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { SidebarLeft } from '../../../components/sidebar-left/sidebar-left';
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [],
+  imports: [SidebarLeft],
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.scss'
 })

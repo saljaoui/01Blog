@@ -1,10 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Playfair+Display:wght@700&family=Oswald:wght@600&display=swap");
 
+.welcome-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // align-items: center;
+  height: calc(100vh - 60px);
+}
+
 .hero-section {
   background: transparent;
   position: relative;
   overflow: hidden;
   padding: 48px 0; /* from 60px -> smaller */
+  padding-top: 0;
 }
 
 .hero-content {

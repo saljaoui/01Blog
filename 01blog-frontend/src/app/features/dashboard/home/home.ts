@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { SidebarLeft } from '../../../components/sidebar-left/sidebar-left';
 import { SidebarRight } from '../../../components/sidebar-right/sidebar-right';
 
 @Component({
   selector: 'app-home',
-  imports: [SidebarLeft, SidebarRight],
+  imports: [SidebarRight],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })

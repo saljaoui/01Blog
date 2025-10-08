@@ -1,60 +1,101 @@
-<div class="d-flex flex-column">
+<div class="admin-reports-page d-flex flex-column">
 
+  <!-- Filter Bar -->
+  <div class="filters mb-4">
+    <select class="form-select w-auto">
+      <option selected>Filter by Status</option>
+      <option value="all">All</option>
+      <option value="pending">Pending</option>
+      <option value="resolved">Resolved</option>
+    </select>
 
+    <select class="form-select w-auto">
+      <option selected>Filter by Type</option>
+      <option value="all">All</option>
+      <option value="user">User</option>
+      <option value="post">Post</option>
+    </select>
 
-
-    <!-- Search Bar -->
-    <div class="search-container mb-4">
-      <input type="text" id class="search-input" placeholder="Search by Username..." />
-    </div>
-
-    <!-- Users Table -->
-    <div class="users-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Avatar</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="user-avatar">
-                <img src="https://i.pravatar.cc/150?img=1" alt="avatar">
-              </div>
-            </td>
-            <td>John Doe</td>
-            <td>john@example.com</td>
-            <td>
-              <span class="status active">Active</span>
-            </td>
-            <td>
-              <span class="btn-action">Ban</span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="user-avatar">
-                <img src="https://i.pravatar.cc/150?img=2" alt="avatar">
-              </div>
-            </td>
-            <td>Jane Smith</td>
-            <td>jane@example.com</td>
-            <td>
-              <span class="status banned">Banned</span>
-            </td>
-            <td>
-              <span class="btn-action">Unban</span>
-            </td>
-          </tr>
-          <!-- Add more users as needed -->
-        </tbody>
-      </table>
+    <div class="search-container ms-auto">
+      <input type="text" class="search-input" placeholder="Search reports..." />
     </div>
   </div>
 
+  <!-- Reports Table -->
+  <div class="reports-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Reporter</th>
+          <th>Reported Entity</th>
+          <th>Reason</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
 
+      <tbody>
+        <!-- Example Row 1: User Report -->
+        <tr>
+          <td>alex123</td>
+          <td>@john_doe (User)</td>
+          <td>Offensive comments in bio</td>
+          <td>2025-10-07</td>
+          <td><span class="status pending">Pending</span></td>
+          <td>
+            <span class="btn-action me-1">View</span>
+            <span class="btn-action me-1">Ban User</span>
+            <span class="btn-action">Dismiss</span>
+          </td>
+        </tr>
+
+        <!-- Example Row 2: Post Report -->
+        <tr>
+          <td>lina_dev</td>
+          <td>Post #243</td>
+          <td>Inappropriate image content</td>
+          <td>2025-10-06</td>
+          <td><span class="status resolved">Resolved</span></td>
+          <td>
+            <span class="btn-action me-1">View</span>
+            <span class="btn-action me-1">Delete Post</span>
+            <span class="btn-action">Dismiss</span>
+          </td>
+        </tr>
+
+        <!-- Example Row 3 -->
+        <tr>
+          <td>mark_s</td>
+          <td>@sara_blog (User)</td>
+          <td>Spam and repetitive posts</td>
+          <td>2025-10-05</td>
+          <td><span class="status pending">Pending</span></td>
+          <td>
+            <span class="btn-action me-1">View</span>
+            <span class="btn-action me-1">Ban User</span>
+            <span class="btn-action">Dismiss</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <nav class="mt-4">
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link">Previous</a>
+      </li>
+      <li class="page-item active">
+        <a class="page-link">1</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link">2</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>

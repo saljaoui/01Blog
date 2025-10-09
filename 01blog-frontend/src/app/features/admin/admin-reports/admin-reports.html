@@ -1,34 +1,26 @@
-<div class="admin-reports-page container py-4">
+<div class="admin-reports-page container p-4">
   <!-- Header -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h4 class="fw-bold mb-0">Reports Management</h4>
-    <div class="filters d-flex gap-2">
-      <select class="form-select form-select-sm">
-        <option selected>All Status</option>
+
+    <!-- Filter -->
+    <div class="d-flex align-items-center gap-2">
+      <label class="fw-semibold small me-1">Status:</label>
+      <select class="form-select form-select-sm w-auto">
+        <option>All</option>
         <option>Pending</option>
         <option>Resolved</option>
       </select>
-      <select class="form-select form-select-sm">
-        <option selected>All Types</option>
-        <option>User</option>
-        <option>Post</option>
-      </select>
-      <input
-        type="text"
-        class="form-control form-control-sm"
-        placeholder="Search by username or post ID"
-      />
     </div>
   </div>
 
   <!-- Reports Table -->
-  <div class="table-responsive shadow-sm rounded-3">
+  <div class="reports-table table-responsive shadow-sm rounded-3 bg-white">
     <table class="table align-middle mb-0 table-hover">
       <thead class="table-light">
         <tr>
-          <th>#</th>
           <th>Reporter</th>
-          <th>Reported Entity</th>
+          <th>Reported User/Post</th>
           <th>Reason</th>
           <th>Date</th>
           <th>Status</th>
@@ -36,50 +28,65 @@
         </tr>
       </thead>
       <tbody>
+        <!-- PENDING Report -->
         <tr>
-          <td>1</td>
           <td>@studentA</td>
-          <td>Post #124</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-info">Post</span>
+              <span>by @authorName</span>
+            </div>
+          </td>
           <td>Inappropriate language</td>
           <td>Oct 8, 2025</td>
           <td><span class="badge bg-warning text-dark">Pending</span></td>
           <td class="text-end">
-            <button class="btn btn-sm btn-outline-primary me-1">
-              View
-            </button>
-            <button class="btn btn-sm btn-outline-danger me-1">
-              Delete Post
-            </button>
-            <button class="btn btn-sm btn-outline-success">
-              Dismiss
-            </button>
+            <button class="btn btn-sm btn-outline-primary me-1">View</button>
+            <button class="btn btn-sm btn-outline-danger me-1">Delete Post</button>
+            <button class="btn btn-sm btn-outline-secondary">Dismiss</button>
           </td>
         </tr>
 
+        <!-- PENDING Report (User) -->
         <tr>
-          <td>2</td>
           <td>@learnerZ</td>
-          <td>@userXYZ</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-primary">User</span>
+              <span>@userXYZ</span>
+            </div>
+          </td>
           <td>Spam behavior</td>
           <td>Oct 7, 2025</td>
+          <td><span class="badge bg-warning text-dark">Pending</span></td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-primary me-1">View</button>
+            <button class="btn btn-sm btn-outline-danger me-1">Ban User</button>
+            <button class="btn btn-sm btn-outline-secondary">Dismiss</button>
+          </td>
+        </tr>
+
+        <!-- RESOLVED Report -->
+        <tr>
+          <td>@student99</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-primary">User</span>
+              <span>@spammer</span>
+            </div>
+          </td>
+          <td>Offensive content</td>
+          <td>Oct 5, 2025</td>
           <td><span class="badge bg-success">Resolved</span></td>
           <td class="text-end">
-            <button class="btn btn-sm btn-outline-primary me-1">
-              View
-            </button>
-            <button class="btn btn-sm btn-outline-danger me-1">
-              Ban User
-            </button>
-            <button class="btn btn-sm btn-outline-success">
-              Dismiss
-            </button>
+            <button class="btn btn-sm btn-outline-primary">View</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Pagination (Optional) -->
+  <!-- Pagination -->
   <nav class="mt-4 d-flex justify-content-end">
     <ul class="pagination pagination-sm mb-0">
       <li class="page-item disabled"><a class="page-link">Previous</a></li>

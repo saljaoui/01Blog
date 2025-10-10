@@ -1,0 +1,82 @@
+ <header class="create-header">
+      <div class="container-fluid">
+        <div class="header-actions">
+          <button class="back-btn" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i>
+          </button>
+          
+          <div class="header-buttons">
+            <button class="btn-draft" (click)="saveDraft()">
+              <i class="bi bi-bookmark"></i>
+              <span class="ms-1">Draft</span>
+            </button>
+            <button class="btn-publish" (click)="publishPost()">
+              Publish
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="editor-container">
+      <!-- Title -->
+      <textarea 
+        class="title-input" 
+        placeholder="Title"
+        [(ngModel)]="title"
+        rows="1"
+        (input)="autoResize($event)"></textarea>
+
+      <!-- Category -->
+      <select class="category-select" [(ngModel)]="category">
+        <option value="">Add a category...</option>
+        <option value="learning">📚 Learning Experience</option>
+        <option value="progress">📈 Progress Update</option>
+        <option value="discovery">💡 Discovery</option>
+        <option value="tutorial">🎓 Tutorial</option>
+        <option value="question">❓ Question</option>
+        <option value="achievement">🏆 Achievement</option>
+      </select>
+
+      <!-- Toolbar -->
+      <div class="editor-toolbar">
+        <button type="button" (click)="formatText('bold')" title="Bold (Ctrl+B)">
+          <i class="bi bi-type-bold"></i>
+        </button>
+        <button type="button" (click)="formatText('italic')" title="Italic (Ctrl+I)">
+          <i class="bi bi-type-italic"></i>
+        </button>
+        <button type="button" (click)="formatText('underline')" title="Underline (Ctrl+U)">
+          <i class="bi bi-type-underline"></i>
+        </button>
+        <div class="toolbar-divider"></div>
+        <button type="button" (click)="formatText('insertOrderedList')" title="Numbered List">
+          <i class="bi bi-list-ol"></i>
+        </button>
+        <button type="button" (click)="formatText('insertUnorderedList')" title="Bullet List">
+          <i class="bi bi-list-ul"></i>
+        </button>
+        <div class="toolbar-divider"></div>
+        <button type="button" (click)="addLink()" title="Add Link">
+          <i class="bi bi-link-45deg"></i>
+        </button>
+        <button type="button" (click)="triggerImageUpload()" title="Add Image">
+          <i class="bi bi-image"></i>
+        </button>
+        <input 
+          type="file" 
+          #fileInput
+          accept="image/*"
+          (change)="handleImageUpload($event)"
+          style="display: none;">
+      </div>
+
+      <!-- Content Editor -->
+      <div 
+        class="content-editor"
+        contenteditable="true"
+        #editor
+        (input)="onContentChange($event)"
+        [attr.data-placeholder]="'Start writing your story...'">
+      </div>
+    </div>

@@ -170,7 +170,7 @@
 
 .profile-avatar:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    // box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
 .profile-avatar img {
@@ -188,16 +188,17 @@
 
 /* Dropdown Menu */
 .dropdown-menu {
-    border: none;
+    border: 1px solid #e9ecef;;
+    display: block;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    margin-top: 10px;
+    margin-top: 24px;
     margin-left: -60px;
     min-width: 220px;
     padding: 4px 0;
     background: #fff;
     overflow: hidden;
-    opacity: 0;
+    opacity: 1;
     transform: translateY(-10px);
     transition: all 0.2s ease;
 }
@@ -222,17 +223,22 @@
     font-size: 13px;
     display: flex;
     align-items: center;
-    transition: background-color 0.16s ease, transform 0.12s ease, color 0.16s ease;
+    transition: all 0.2s ease;
 }
 
 .dropdown-item i {
     margin-right: 8px;
-    transition: color 0.16s ease;
+    transition: color 0.2s ease;
 }
 
 .dropdown-item:hover {
     background-color: rgba(0, 0, 0, 0.04);
-    transform: translateX(2px);
+    font-weight: 600;
+}
+
+.dropdown-item:active {
+    background-color: rgba(0, 0, 0, 0.06);
+    color: #1a1a1a;
 }
 
 

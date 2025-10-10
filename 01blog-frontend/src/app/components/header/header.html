@@ -1,98 +1,78 @@
-<header class="app-header">
-    <div class="container-fluid">
+    <header class="app-header">
+      <div class="container-fluid">
         <div class="row align-items-center py-1 justify-content-between">
-            <!-- Logo Section (Left) -->
-            <div class="col-auto">
-                <div class="d-flex align-items-center logo-container">
-                    <div
-                        class="logo-circle d-flex align-items-center justify-content-center">
-                        <div class="logo-inner"></div>
-                    </div>
-                    <h1 class="logo-text mb-0">1Blog</h1>
-                </div>
+          <!-- Logo Section -->
+          <div class="col-auto">
+            <div class="d-flex align-items-center logo-container">
+              <div class="logo-circle d-flex align-items-center justify-content-center">
+                <div class="logo-inner"></div>
+              </div>
+              <h1 class="logo-text mb-0">1Blog</h1>
             </div>
+          </div>
 
+          <!-- Actions Section -->
+          <div class="col-auto">
+            <div class="d-flex align-items-center gap-2">
+              <!-- Notifications -->
+              <button class="btn-notifications position-relative" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <g fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18.75 9.71v-.705C18.75 5.136 15.726 2 12 2S5.25 5.136 5.25 9.005v.705a4.4 4.4 0 0 1-.692 2.375L3.45 13.81c-1.011 1.575-.239 3.716 1.52 4.214a25.775 25.775 0 0 0 14.06 0c1.759-.498 2.531-2.639 1.52-4.213l-1.108-1.725a4.4 4.4 0 0 1-.693-2.375Z" />
+                    <path stroke-linecap="round" d="M7.5 19c.655 1.748 2.422 3 4.5 3s3.845-1.252 4.5-3M12 6v4" />
+                  </g>
+                </svg>
+                <span class="notification-dot"></span>
+              </button>
 
+              <!-- Create Post Button -->
+              <button class="btn btn-create d-none d-md-flex align-items-center" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <g fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 11c0-3.771 0-5.657 1.172-6.828C5.343 3 7.229 3 11 3h2c3.771 0 5.657 0 6.828 1.172C21 5.343 21 7.229 21 11v2c0 3.771 0 5.657-1.172 6.828C18.657 21 16.771 21 13 21h-2c-3.771 0-5.657 0-6.828-1.172C3 18.657 3 16.771 3 13z" />
+                    <path stroke-linecap="square" stroke-linejoin="round" d="M12 8v8m4-4H8" />
+                  </g>
+                </svg>
+                New Post
+              </button>
 
-            <!-- Actions Section (Right) -->
-            <div class="col-auto">
-                <div class="d-flex align-items-center gap-2">
-                    <!-- Notifications -->
-                    <button class="btn-notifications position-relative"
-                        type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" viewBox="0 0 24 24">
-                            <g fill="none" stroke="currentColor"
-                                stroke-width="1.5">
-                                <path
-                                    d="M18.75 9.71v-.705C18.75 5.136 15.726 2 12 2S5.25 5.136 5.25 9.005v.705a4.4 4.4 0 0 1-.692 2.375L3.45 13.81c-1.011 1.575-.239 3.716 1.52 4.214a25.775 25.775 0 0 0 14.06 0c1.759-.498 2.531-2.639 1.52-4.213l-1.108-1.725a4.4 4.4 0 0 1-.693-2.375Z" />
-                                <path stroke-linecap="round"
-                                    d="M7.5 19c.655 1.748 2.422 3 4.5 3s3.845-1.252 4.5-3M12 6v4" />
-                            </g>
-                        </svg>
-
-                        <!-- Red dot for new notifications -->
-                        <span class="notification-dot"></span>
-                    </button>
-
-                    <!-- Create Post Button -->
-                    <button
-                        class="btn btn-create d-none d-md-flex align-items-center"
-                        type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" viewBox="0 0 24 24">
-                            <g fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path
-                                    d="M3 11c0-3.771 0-5.657 1.172-6.828C5.343 3 7.229 3 11 3h2c3.771 0 5.657 0 6.828 1.172C21 5.343 21 7.229 21 11v2c0 3.771 0 5.657-1.172 6.828C18.657 21 16.771 21 13 21h-2c-3.771 0-5.657 0-6.828-1.172C3 18.657 3 16.771 3 13z" />
-                                <path stroke-linecap="square"
-                                    stroke-linejoin="round" d="M12 8v8m4-4H8" />
-                            </g>
-                        </svg>
-                        New Post
-                    </button>
-
-                    <!-- Profile Dropdown -->
-                    <div class="dropdown">
-                        <button
-                            class="btn profile-btn d-flex align-items-center"
-                            type="button" id="profileDropdown"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="profile-avatar">
-                                <img src="https://i.pinimg.com/736x/9d/61/39/9d61392cfa6b5d8ae7c89de50f6aa1f9.jpg" alt="Profile Avatar">
-                            </div>
-                            <span
-                                class="ms-2 d-none d-lg-inline profile-name">Soufian
-                                Alj</span>
-                            <i
-                                class="bi bi-chevron-down ms-2 d-none d-lg-inline"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end"
-                            aria-labelledby="profileDropdown">
-                            <li>
-                                <div class="dropdown-header">
-                                    <strong>John Doe</strong>
-                                    <small
-                                        class="d-block text-muted">john@example.com</small>
-                                </div>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i
-                                        class="bi bi-person me-2"></i>My
-                                    Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i
-                                        class="bi bi-file-text me-2"></i>Privacy</a></li>
-                            <li><a class="dropdown-item" href="#"><i
-                                        class="bi bi-bookmark me-2"></i>About</a></li>
-                            <li><a class="dropdown-item" href="#"><i
-                                        class="bi bi-gear me-2"></i>Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="#"><i
-                                        class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
-                        </ul>
-                    </div>
-                </div>
+              <!-- Profile Dropdown -->
+              <div class="dropdown">
+                <button 
+                  class="btn profile-btn d-flex align-items-center"
+                  type="button"
+                  (click)="toggleDropdown()"
+                  >
+                  <div class="profile-avatar">
+                    <img src="https://i.pinimg.com/736x/9d/61/39/9d61392cfa6b5d8ae7c89de50f6aa1f9.jpg" alt="Profile Avatar">
+                  </div>
+                  <span class="ms-2 d-none d-lg-inline profile-name">Soufian Alj</span>
+                  <i class="bi ms-2 d-none d-lg-inline" 
+                     [class.bi-chevron-down]="!isOpen()"
+                     [class.bi-chevron-up]="isOpen()"></i>
+                </button>
+                
+                @if (isOpen()) {
+                  <ul class="dropdown-menu">
+                    <li>
+                      <div class="dropdown-header">
+                        <strong>Soufian Alj</strong>
+                        <div class="d-block text-muted"></div>
+                      </div>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" routerLink="/privacy"><i class="bi bi-file-text me-2"></i>Privacy</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-bookmark me-2"></i>About</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" 
+                        href="#" 
+                        ><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                  </ul>
+                }
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-</header>
+      </div>
+    </header>

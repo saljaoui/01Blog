@@ -1,112 +1,166 @@
-<div class="admin-posts-page d-flex flex-column">
+ <div class="admin-posts-page">
 
-  <!-- Search Only -->
-  <div class="filters mb-4">
-    <div class="search-container">
-      <input
-        type="text"
-        class="search-input"
-        placeholder="Search by author name..." />
-    </div>
-  </div>
-
-  <!-- Posts Table -->
-  <div class="posts-table table-responsive shadow-sm rounded-3 bg-white">
-    <table class="table align-middle mb-0 table-hover">
-      <thead class="table-light">
-        <tr>
-          <th>Preview</th>
-          <th>Author</th>
-          <th>Content</th>
-          <th>Date</th>
-          <th>Likes</th>
-          <th>Comments</th>
-          <th>Reports</th>
-          <th class="text-center">Actions</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <!-- Normal Post -->
-        <tr>
-          <td>
-            <img src="post-thumbnail.jpg" alt="Post" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
-          </td>
-          <td>@johndoe</td>
-          <td>
-            <span class="text-truncate d-inline-block" style="max-width: 200px;">
-              My learning journey with Spring Boot...
-            </span>
-          </td>
-          <td>Oct 8, 2025</td>
-          <td>124</td>
-          <td>12</td>
-          <td><span class="badge bg-secondary">0</span></td>
-          <td class="text-center">
-            <button class="btn btn-sm btn-outline-primary me-1">View</button>
-            <button class="btn btn-sm btn-outline-danger">Delete</button>
-          </td>
-        </tr>
-
-        <!-- Reported Post -->
-        <tr class="table-warning">
-          <td>
-            <img src="post-thumbnail2.jpg" alt="Post" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
-          </td>
-          <td>@janesmith</td>
-          <td>
-            <span class="text-truncate d-inline-block" style="max-width: 200px;">
-              This post was flagged...
-            </span>
-          </td>
-          <td>Oct 7, 2025</td>
-          <td>67</td>
-          <td>9</td>
-          <td><span class="badge bg-danger">3</span></td>
-          <td class="text-center">
-            <button class="btn btn-sm btn-outline-primary me-1">View</button>
-            <button class="btn btn-sm btn-outline-danger">Delete</button>
-          </td>
-        </tr>
-
-        <!-- Video Post -->
-        <tr>
-          <td>
-            <div class="position-relative">
-              <img src="video-thumbnail.jpg" alt="Video" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
-              <span class="position-absolute top-50 start-50 translate-middle">
-                <i class="bi bi-play-circle-fill text-white fs-4"></i>
-              </span>
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-container">
+                <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Search by author name..." />
             </div>
-          </td>
-          <td>@learner99</td>
-          <td>
-            <span class="text-truncate d-inline-block" style="max-width: 200px;">
-              Check out my Angular project demo!
-            </span>
-          </td>
-          <td>Oct 6, 2025</td>
-          <td>89</td>
-          <td>15</td>
-          <td><span class="badge bg-secondary">0</span></td>
-          <td class="text-center">
-            <button class="btn btn-sm btn-outline-primary me-1">View</button>
-            <button class="btn btn-sm btn-outline-danger">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+        </div>
 
-  <!-- Pagination -->
-  <nav class="mt-4 d-flex justify-content-center">
-    <ul class="pagination pagination-sm mb-0">
-      <li class="page-item disabled"><a class="page-link">Previous</a></li>
-      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
-  </nav>
+        <!-- Posts Table -->
+        <div class="table-card">
+            <div class="table-responsive">
+                <table class="table posts-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Author</th>
+                            <th>Content</th>
+                            <th>Date</th>
+                            <th>Likes</th>
+                            <th>Comments</th>
+                            <th>Reports</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Normal Post -->
+                        <tr>
+                            <td>
+                                <a href="/profile/johndoe" class="author-link">@johndoe</a>
+                            </td>
+                            <td>
+                                <span class="content-preview">
+                                    My learning journey with Spring Boot and microservices...
+                                </span>
+                            </td>
+                            <td>Oct 8, 2025</td>
+                            <td><span class="stat-number">124</span></td>
+                            <td><span class="stat-number">12</span></td>
+                            <td>
+                                <span class="reports-badge zero">0</span>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn action-btn btn-view me-1">View</button>
+                                <button class="btn action-btn btn-delete">Delete</button>
+                            </td>
+                        </tr>
 
-</div>
+                        <!-- Reported Post -->
+                        <tr class="reported-row">
+                            <td>
+                                <a href="/profile/janesmith" class="author-link">@janesmith</a>
+                            </td>
+                            <td>
+                                <span class="content-preview">
+                                    This post was flagged by multiple users for review...
+                                </span>
+                            </td>
+                            <td>Oct 7, 2025</td>
+                            <td><span class="stat-number">67</span></td>
+                            <td><span class="stat-number">9</span></td>
+                            <td>
+                                <span class="reports-badge danger">3</span>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn action-btn btn-view me-1">View</button>
+                                <button class="btn action-btn btn-delete">Delete</button>
+                            </td>
+                        </tr>
+
+                        <!-- Video Post -->
+                        <tr>
+                            <td>
+                                <a href="/profile/learner99" class="author-link">@learner99</a>
+                            </td>
+                            <td>
+                                <span class="content-preview">
+                                    Check out my Angular project demo and tutorial!
+                                </span>
+                            </td>
+                            <td>Oct 6, 2025</td>
+                            <td><span class="stat-number">89</span></td>
+                            <td><span class="stat-number">15</span></td>
+                            <td>
+                                <span class="reports-badge zero">0</span>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn action-btn btn-view me-1">View</button>
+                                <button class="btn action-btn btn-delete">Delete</button>
+                            </td>
+                        </tr>
+
+                        <!-- Another Post -->
+                        <tr>
+                            <td>
+                                <a href="/profile/dev_master" class="author-link">@dev_master</a>
+                            </td>
+                            <td>
+                                <span class="content-preview">
+                                    10 tips for writing clean code in JavaScript...
+                                </span>
+                            </td>
+                            <td>Oct 5, 2025</td>
+                            <td><span class="stat-number">203</span></td>
+                            <td><span class="stat-number">28</span></td>
+                            <td>
+                                <span class="reports-badge zero">0</span>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn action-btn btn-view me-1">View</button>
+                                <button class="btn action-btn btn-delete">Delete</button>
+                            </td>
+                        </tr>
+
+                        <!-- Post with 1 Report -->
+                        <tr>
+                            <td>
+                                <a href="/profile/coder_life" class="author-link">@coder_life</a>
+                            </td>
+                            <td>
+                                <span class="content-preview">
+                                    My thoughts on the latest React updates and features...
+                                </span>
+                            </td>
+                            <td>Oct 4, 2025</td>
+                            <td><span class="stat-number">45</span></td>
+                            <td><span class="stat-number">7</span></td>
+                            <td>
+                                <span class="reports-badge danger">1</span>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn action-btn btn-view me-1">View</button>
+                                <button class="btn action-btn btn-delete">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-wrapper">
+            <nav class="d-flex justify-content-center">
+                <ul class="pagination mb-0">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Previous</a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>

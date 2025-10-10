@@ -15,6 +15,7 @@ import { SavedPosts } from './features/saved-posts/saved-posts';
 import { Privacy } from './features/privacy/privacy';
 import { About } from './features/about/about';
 import { Settings } from './features/settings/settings';
+import { Notifications } from './features/notifications/notifications';
 // import { AdminUsers } from './features/admin/admin-users/admin-users';
 // import { AdminPosts } from './features/admin/admin-posts/admin-posts';
 // import { AdminReports } from './features/admin/admin-reports/admin-reports';
@@ -42,6 +43,8 @@ export const routes: Routes = [
       { path: 'privacy', component: Privacy },
       { path: 'about', component: About },
       { path: 'settings', component: Settings },
+      { path: 'notifications', component: Notifications },
+
 
       {
         path: 'admin',

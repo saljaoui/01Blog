@@ -4,6 +4,18 @@
 /* --- Slightly more compact, same visual style --- */
 /* I reduced sizes/spacing ~12–15% for a tighter, more professional look. */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow: hidden;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
@@ -11,6 +23,27 @@ body {
   background: #f8f9fa;
   margin: 0;
 }
+
+app-my-profile,
+app-home,
+app-admin-dashboard,
+app-admin-layout,
+app-privacy,
+app-about {
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Primary Button */
 .btn-primary {
@@ -115,10 +148,3 @@ body {
   }
 }
 
-app-my-profile,
-app-home,
-app-admin-dashboard,
-app-admin-layout,
-app-privacy {
-  width: 100%;
-}

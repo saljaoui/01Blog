@@ -13,6 +13,7 @@ import { AdminPosts } from './features/admin/admin-posts/admin-posts';
 import { AdminReports } from './features/admin/admin-reports/admin-reports';
 import { SavedPosts } from './features/saved-posts/saved-posts';
 import { Privacy } from './features/privacy/privacy';
+import { About } from './features/about/about';
 // import { AdminUsers } from './features/admin/admin-users/admin-users';
 // import { AdminPosts } from './features/admin/admin-posts/admin-posts';
 // import { AdminReports } from './features/admin/admin-reports/admin-reports';
@@ -38,6 +39,8 @@ export const routes: Routes = [
       { path: 'profile', component: MyProfile },
       { path: 'saved-posts', component: SavedPosts },
       { path: 'privacy', component: Privacy },
+      { path: 'about', component: About },
+
       {
         path: 'admin',
         component: AdminLayout,

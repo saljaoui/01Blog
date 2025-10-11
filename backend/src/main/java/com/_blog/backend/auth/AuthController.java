@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com._blog.backend.auth.dto.AuthResponse;
+import com._blog.backend.auth.dto.RefreshRequest;
 import com._blog.backend.user.User;
 import com._blog.backend.user.dto.UserRequest;
 
@@ -38,12 +39,15 @@ public class AuthController {
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<AuthResponse> refreshToken(@CookieValue("refreshToken") String refreshToken) {
-        User user = refreshTokenService.validateRefreshToken(refreshToken);
+    public ResponseEntity<AuthResponse> refreshToken(@RequestBody RefreshRequest refreshToken) {
+        User user = refreshTokenService.validateRefreshToken(refreshToken.getRefreshToken());
         String newAccessToken = jwtUtil.generateToken(user);
+        String newRefreshToken = refreshTokenService.create(user).getTokenHash();
 
         return ResponseEntity.ok(AuthResponse.builder()
                 .message("Access token refreshed successfully")
-                .accessToken(newAccessToken).build());
+                .refreshToken(newRefreshToken)
+                .accessToken(newAccessToken)
+                .build());
     }
 }

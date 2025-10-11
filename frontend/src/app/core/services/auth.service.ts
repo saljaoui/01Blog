@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class AuthService {
-    private apiUrl = 'http://localhost:8080/auth';
+  private apiUrl = 'http://localhost:8080/auth';
 
   constructor(private http: HttpClient) {}
 
@@ -19,5 +19,11 @@ export class AuthService {
   public login(userLogin: UserLogin): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, userLogin);
   }
-  
+
+  // nsfd post le backend bach n3rf wach refresh good wela la khas nzid n9lb hena
+  public refreshToken() {
+  const refreshToken = localStorage.getItem('refreshToken');
+  return this.http.post(`${this.apiUrl}/refresh`, { refreshToken });
+}
+
 }

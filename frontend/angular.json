@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "frontend": {
+    "01blog-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -30,11 +30,8 @@
               }
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss"
-            ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+              "src/styles.scss",
+              "node_modules/quill/dist/quill.snow.css"
             ]
           },
           "configurations": {
@@ -65,10 +62,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "frontend:build:production"
+              "buildTarget": "01blog-frontend:build:production"
             },
             "development": {
-              "buildTarget": "frontend:build:development"
+              "buildTarget": "01blog-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"

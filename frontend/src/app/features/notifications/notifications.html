@@ -1,95 +1,38 @@
-<div class="d-flex flex-column vh-100">
-    <app-header></app-header>
-    <div class="w-100 p-4 overflow-y-scroll" style="height: calc(100vh - 48px);">
-        <div class="container-custom d-flex gap-4">
-            <div class="left-sidebar">
-                <app-profile-card></app-profile-card>
-            </div>
-            <div class="main-content shadow-sm rounded-4 p-4 bg-white">
+<div class="notifications-container">
+  <h2 class="notifications-title">Notifications</h2>
 
-                <h5 class="fw-semibold text-muted mb-4">Notifications</h5>
+  <div class="notifications-card">
+    <h3>Recent Notifications</h3>
+    <p class="text-muted mb-3" style="font-size: 0.85rem;">
+      View your recent updates and alerts below.
+    </p>
 
-                <!-- Notification item -->
-                <a href="#" class="notification-item unread">
-                    <div class="notification-icon">
-                        <i class="bi bi-chat-left-text"></i>
-                    </div>
-                    <div>
-                        <p class="notification-title mb-1"><strong>John Doe</strong> commented on your post.</p>
-                        <small class="notification-time">5 minutes ago</small>
-                    </div>
-                    <span class="unread-circle"></span>
-                </a>
-
-                <a href="#" class="notification-item unread">
-                    <div class="notification-icon">
-                        <i class="bi bi-chat-left-text"></i>
-                    </div>
-                    <div>
-                        <p class="notification-title mb-1"><strong>John Doe</strong> commented on your post.</p>
-                        <small class="notification-time">5 minutes ago</small>
-                    </div>
-                    <span class="unread-circle"></span>
-                </a>
-
-                <a href="#" class="notification-item">
-                    <div class="notification-icon">
-                        <i class="bi bi-chat-left-text"></i>
-                    </div>
-                    <div>
-                        <p class="notification-title mb-1"><strong>John Doe</strong> commented on your post.</p>
-                        <small class="notification-time">5 minutes ago</small>
-                    </div>
-                </a>
-
-                <a href="#" class="notification-item">
-                    <div class="notification-icon bg-success">
-                        <i class="bi bi-hand-thumbs-up"></i>
-                    </div>
-                    <div>
-                        <p class="notification-title mb-1"><strong>Jane Smith</strong> liked your comment.</p>
-                        <small class="notification-time">10 minutes ago</small>
-                    </div>
-                </a>
-
-                <a href="#" class="notification-item">
-                    <div class="notification-icon bg-warning">
-                        <i class="bi bi-person-plus"></i>
-                    </div>
-                    <div>
-                        <p class="notification-title mb-1"><strong>Mark Lee</strong> started following you.</p>
-                        <small class="notification-time">1 hour ago</small>
-                    </div>
-                </a>
-            </div>
-
-
-            <div class="right-sidebar d-flex flex-column gap-2">
-                <div class="bg-white rounded-4 d-flex flex-column shadow-sm gap-2 p-3">
-                    <h6 class="fw-semibold text-muted mb-2">Filter Notifications:</h6>
-
-                    <button type="button" class="btn btn-outline-primary btn-sm">
-                        All Notifications
-                    </button>
-
-                    <button type="button" class="btn btn-outline-primary btn-sm">
-                        Mentions
-                    </button>
-
-                    <button type="button" class="btn btn-outline-primary btn-sm">
-                        Comments
-                    </button>
-
-                    <button type="button" class="btn btn-outline-primary btn-sm">
-                        Likes
-                    </button>
-
-                    <button type="button" class="btn btn-outline-primary btn-sm">
-                        Follows
-                    </button>
-
-                </div>
-            </div>
+    <ul class="notification-list">
+      <li class="notification-item unread">
+        <div class="notification-content">
+          <h4>Password Changed Successfully</h4>
+          <p>Your password was updated on October 10, 2025.</p>
+          <span class="time">2 hours ago</span>
         </div>
-    </div>
+      </li>
+
+      <li class="notification-item">
+        <div class="notification-content">
+          <h4>New Login Detected</h4>
+          <p>Someone logged into your account from a new device.</p>
+          <span class="time">Yesterday</span>
+        </div>
+      </li>
+
+      <li class="notification-item">
+        <div class="notification-content">
+          <h4>Service Update</h4>
+          <p>We’ve improved performance and security features.</p>
+          <span class="time">3 days ago</span>
+        </div>
+      </li>
+    </ul>
+
+    <button class="clear-btn">Clear All Notifications</button>
+  </div>
 </div>

@@ -1,3 +1,64 @@
-<div class="flex flex-col h-screen">
+<!-- home.component.html -->
+<div class="profile-container d-flex">
+    <!-- Main Content -->
+    <main class="main-content pt-4">
+        <div class="content-wrapper">
+            <div class="container" >
 
+        <div class="cover-photo"></div>
+        
+        <div class="profile-image-wrapper">
+            <div class="profile-image">
+                <img src="https://i.pinimg.com/736x/9d/61/39/9d61392cfa6b5d8ae7c89de50f6aa1f9.jpg" alt="Profile image">
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <h1 class="profile-name">Soufian Alj</h1>
+            <p class="profile-username">@Salj_</p>
+            <p class="profile-bio">
+                Full-stack developer passionate about creating smooth user experiences. 
+                Always exploring modern tech like Angular, Node.js, and AI tools.
+            </p>
+
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-number">540</span>
+                    <span class="stat-label">Followers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">320</span>
+                    <span class="stat-label">Following</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">45</span>
+                    <span class="stat-label">Posts</span>
+                </div>
+            </div>
+
+            <button class="follow-btn">
+                <i class="fas fa-user-plus"></i> Follow
+            </button>
+
+            <div class="social-links">
+                <div class="social-icon">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <div class="social-icon">
+                    <i class="fab fa-linkedin"></i>
+                </div>
+                <div class="social-icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <div class="social-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+            </div>
+        </div>
+</div>
+        </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <app-sidebar-right></app-sidebar-right>
 </div>

@@ -27,8 +27,6 @@ export class Login {
       next: (res: any) => {
         this.isSubmitting = true;
         console.log('Login successful', res);
-        localStorage.setItem('accessToken', res.accessToken);
-        localStorage.setItem('refreshToken', res.refreshToken);
         // this.router.navigate(['/dashboard']);
       },
       error: (err) => {

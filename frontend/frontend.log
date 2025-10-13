@@ -5,14 +5,61 @@
 ❯ Building...
 ✔ Building...
 Initial chunk files | Names         |  Raw size
-main.js             | main          | 396.98 kB | 
+main.js             | main          | 397.88 kB | 
 styles.css          | styles        | 314.23 kB | 
 polyfills.js        | polyfills     |  95 bytes | 
 
-                    | Initial total | 711.30 kB
+                    | Initial total | 712.21 kB
 
-Application bundle generation complete. [11.738 seconds] - 2025-10-13T04:45:11.952Z
+Application bundle generation complete. [9.412 seconds] - 2025-10-13T05:26:43.864Z
 
 Watch mode enabled. Watching for file changes...
 NOTE: Raw file sizes do not reflect development server per-request transformations.
   ➜  Local:   http://localhost:4200/
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 397.89 kB | 
+
+Application bundle generation complete. [1.115 seconds] - 2025-10-13T05:29:36.794Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.523 seconds] - 2025-10-13T05:29:57.088Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2304: Cannot find name 'UserR'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/core/services/auth.service.ts:16:29:
+[37m      16 │   public register(userLogin: [32mUserR[37m): Observable<any> {
+         ╵                              [32m~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names         |  Raw size
+main.js             | main          | 397.89 kB | 
+styles.css          | styles        | 314.23 kB | 
+polyfills.js        | polyfills     |  95 bytes | 
+
+                    | Initial total | 712.21 kB
+
+Application bundle generation complete. [0.335 seconds] - 2025-10-13T05:29:58.012Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 397.89 kB | 
+
+Application bundle generation complete. [0.299 seconds] - 2025-10-13T05:30:07.352Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 397.89 kB | 
+
+Application bundle generation complete. [0.276 seconds] - 2025-10-13T05:30:10.267Z
+
+Page reload sent to client(s).

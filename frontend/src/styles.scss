@@ -4,6 +4,25 @@
 /* --- Slightly more compact, same visual style --- */
 /* I reduced sizes/spacing ~12–15% for a tighter, more professional look. */
 
+::view-transition-old(*) {
+  animation: fadeOut 300ms forwards;
+}
+
+::view-transition-new(*) {
+  animation: fadeIn 300ms forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+
 :root {
   --text-color: #1a1a1a;
   --bg-white: #ffffff;

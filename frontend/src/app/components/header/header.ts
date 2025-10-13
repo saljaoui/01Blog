@@ -28,6 +28,7 @@ export class Header {
   logout() {
     console.log('Logout clicked');
     this.isOpen.set(false);
+    console.log('Logging out user');
     this.authService.logout();
   }
 }

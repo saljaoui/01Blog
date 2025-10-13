@@ -5,14 +5,106 @@
 ❯ Building...
 ✔ Building...
 Initial chunk files | Names         |  Raw size
-main.js             | main          | 400.92 kB | 
-styles.css          | styles        | 314.23 kB | 
+main.js             | main          | 401.74 kB | 
+styles.css          | styles        | 314.52 kB | 
 polyfills.js        | polyfills     |  95 bytes | 
 
-                    | Initial total | 715.24 kB
+                    | Initial total | 716.35 kB
 
-Application bundle generation complete. [9.173 seconds] - 2025-10-13T15:48:35.153Z
+Application bundle generation complete. [11.418 seconds] - 2025-10-13T16:38:38.921Z
 
 Watch mode enabled. Watching for file changes...
 NOTE: Raw file sizes do not reflect development server per-request transformations.
   ➜  Local:   http://localhost:4200/
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 401.72 kB | 
+
+Application bundle generation complete. [2.171 seconds] - 2025-10-13T16:39:39.901Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 401.97 kB | 
+
+Application bundle generation complete. [0.525 seconds] - 2025-10-13T16:39:40.778Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+
+No output file changes.
+
+Application bundle generation complete. [0.500 seconds] - 2025-10-13T16:39:43.085Z
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 402.01 kB | 
+
+Application bundle generation complete. [0.413 seconds] - 2025-10-13T16:40:11.656Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 402.01 kB | 
+
+Application bundle generation complete. [0.319 seconds] - 2025-10-13T16:40:15.642Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 401.97 kB | 
+
+Application bundle generation complete. [0.540 seconds] - 2025-10-13T16:41:50.237Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 401.94 kB | 
+
+Application bundle generation complete. [0.296 seconds] - 2025-10-13T16:41:53.477Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 401.90 kB | 
+
+Application bundle generation complete. [0.267 seconds] - 2025-10-13T16:41:57.327Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.285 seconds] - 2025-10-13T16:42:19.787Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2552: Cannot find name 'withViewTransitions'. Did you mean 'ViewTransition'?[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.config.ts:12:26:
+[37m      12 │     provideRouter(routes, [32mwithViewTransitions[37m()),
+         ╵                           [32m~~~~~~~~~~~~~~~~~~~[0m
+
+  'ViewTransition' is declared here.
+
+    node_modules/typescript/lib/lib.dom.d.ts:24210:12:
+[37m      24210 │ declare var [32mViewTransition[37m: {
+            ╵             [32m~~~~~~~~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names         |  Raw size
+main.js             | main          | 401.39 kB | 
+styles.css          | styles        | 314.52 kB | 
+polyfills.js        | polyfills     |  95 bytes | 
+
+                    | Initial total | 716.00 kB
+
+Application bundle generation complete. [0.529 seconds] - 2025-10-13T16:42:21.550Z
+
+Page reload sent to client(s).

@@ -27,7 +27,11 @@ export class Login {
       next: (res: any) => {
         this.isSubmitting = true;
         console.log('Login successful', res);
-        // this.router.navigate(['/dashboard']);
+
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 500);
+
       },
       error: (err) => {
         console.error('Login failed', err);

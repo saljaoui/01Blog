@@ -11,7 +11,7 @@ import { UserLogin, UserRegister } from '../models/user';
 export class AuthService {
   private readonly apiUrl = 'http://localhost:8080/auth';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   public register(userRegister: UserRegister): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, userRegister).pipe(
@@ -23,9 +23,10 @@ export class AuthService {
     );
   }
 
-    public login(userLogin: UserLogin): Observable<any> {
+  public login(userLogin: UserLogin): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, userLogin).pipe(
       tap((response: any) => {
+        console.log('Login response access_token:', response.accessToken);
         localStorage.setItem('access_token', response.accessToken);
         localStorage.setItem('refresh_token', response.refreshToken);
       }),
@@ -34,11 +35,18 @@ export class AuthService {
   }
 
   public refreshToken(): Observable<any> {
-    const refreshToken = localStorage.getItem('refresh_token');
-    return this.http.post<any>(`${this.apiUrl}/refresh`, { refreshToken }).pipe(
-      tap((response: any) => {
-        localStorage.setItem('access_token', response.accessToken);
-        localStorage.setItem('refresh_token', response.refreshToken);
+    const refreshToken = this.getRefreshToken();
+    if (!refreshToken) {
+      return throwError(() => new Error('No refresh token available'));
+    }
+
+    return this.http.post(`${this.apiUrl}/refresh`, { refreshToken }).pipe(
+      tap((res: any) => {
+        localStorage.setItem('access_token', res.accessToken);
+      }),
+      catchError(error => {
+        this.logout();
+        return throwError(() => error);
       })
     );
   }
@@ -56,4 +64,21 @@ export class AuthService {
   public getAccessToken(): string | null {
     return localStorage.getItem('access_token');
   }
-}
+
+  public getRefreshToken(): string | null {
+    return localStorage.getItem('refresh_token');
+  }
+
+  public isAdmin(): boolean {
+    const token = this.getAccessToken();
+    if (!token) return false;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role === 'ADMIN';
+    } catch {
+      return false;
+    }
+  }
+
+} 

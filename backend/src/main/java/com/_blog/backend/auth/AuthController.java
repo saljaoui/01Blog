@@ -38,15 +38,13 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(request));
     }
 
-    @PostMapping("/refresh-token")
+    @PostMapping("/refresh")
     public ResponseEntity<AuthResponse> refreshToken(@RequestBody RefreshRequest refreshToken) {
         User user = refreshTokenService.validateRefreshToken(refreshToken.getRefreshToken());
         String newAccessToken = jwtUtil.generateToken(user);
-        String newRefreshToken = refreshTokenService.create(user).getTokenHash();
 
         return ResponseEntity.ok(AuthResponse.builder()
                 .message("Access token refreshed successfully")
-                .refreshToken(newRefreshToken)
                 .accessToken(newAccessToken)
                 .build());
     }

@@ -56,11 +56,10 @@ public class AuthService {
         String accessToken = jwtUtil.generateToken(user);
         RefreshToken refreshToken = refreshTokenService.create(user);
 
-        return new AuthResponse("Registration successful", accessToken, refreshToken.getTokenHash());
+        return new AuthResponse("login successful", accessToken, refreshToken.getTokenHash());
     }
 
     public AuthResponse refreshToken(String refreshToken) {
-
         return new AuthResponse();
     }
 

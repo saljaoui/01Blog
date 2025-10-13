@@ -17,12 +17,9 @@ import { About } from './features/about/about';
 import { Settings } from './features/settings/settings';
 import { Notifications } from './features/notifications/notifications';
 import { CreatePost } from './features/create-post/create-post';
-// import { AdminUsers } from './features/admin/admin-users/admin-users';
-// import { AdminPosts } from './features/admin/admin-posts/admin-posts';
-// import { AdminReports } from './features/admin/admin-reports/admin-reports';
-// Import your guards when ready
-// import { AuthGuard } from './guards/auth.guard';
-// import { AdminGuard } from './guards/admin.guard';
+import { authGuard } from './core/guard/auth-guard';
+import { adminGuard } from './core/guard/admin-guard';
+
 
 export const routes: Routes = [
   {
@@ -37,6 +34,7 @@ export const routes: Routes = [
   {
     path: '',
     component: MainLayout,
+    canActivate: [authGuard],
     children: [
       { path: 'home', component: Home },
       { path: 'profile', component: MyProfile },
@@ -51,6 +49,7 @@ export const routes: Routes = [
       {
         path: 'admin',
         component: AdminLayout,
+        canActivate: [authGuard, adminGuard],
         children: [
           { path: '', component: AdminDashboard },
           { path: 'users', component: AdminUsers },
@@ -61,6 +60,5 @@ export const routes: Routes = [
     ]
   },
   
-  // Wildcard route for 404
   { path: '**', redirectTo: '' }
 ];

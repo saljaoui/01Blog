@@ -1,5 +1,6 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,7 @@ import { RouterLink } from '@angular/router';
 })
 export class Header {
   isOpen = signal(false);
+  private authService = inject(AuthService);
 
  toggleDropdown() {
     this.isOpen.update((v: boolean) => !v);
@@ -26,6 +28,6 @@ export class Header {
   logout() {
     console.log('Logout clicked');
     this.isOpen.set(false);
-    // Add your logout logic here
+    this.authService.logout();
   }
 }

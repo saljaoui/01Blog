@@ -27,6 +27,7 @@
     "@angular/platform-browser": "^20.1.0",
     "@angular/router": "^20.1.0",
     "bootstrap": "^5.3.8",
+    "ng": "^0.0.0",
     "ngx-quill": "^28.0.1",
     "quill": "^2.0.3",
     "rxjs": "~7.8.0",

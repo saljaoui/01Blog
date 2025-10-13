@@ -1,0 +1,18 @@
+
+> 01blog-frontend@0.0.0 start
+> ng serve
+
+❯ Building...
+✔ Building...
+Initial chunk files | Names         |  Raw size
+main.js             | main          | 396.98 kB | 
+styles.css          | styles        | 314.23 kB | 
+polyfills.js        | polyfills     |  95 bytes | 
+
+                    | Initial total | 711.30 kB
+
+Application bundle generation complete. [11.738 seconds] - 2025-10-13T04:45:11.952Z
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://localhost:4200/

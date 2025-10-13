@@ -30,7 +30,7 @@ export class Login {
 
         setTimeout(() => {
           this.router.navigate(['/home']);
-        }, 500);
+        }, 300);
 
       },
       error: (err) => {

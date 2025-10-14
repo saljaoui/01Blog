@@ -17,6 +17,8 @@ export class Register {
   isSubmitting = false;
   userRegister: UserRegister = {
     username: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: ""
   }

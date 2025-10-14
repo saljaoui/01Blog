@@ -17,7 +17,6 @@ import com._blog.backend.user.dto.UserRequest;
 
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin(origins = "http://127.0.0.1:4200")
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor

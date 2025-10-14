@@ -19,12 +19,14 @@ import { Notifications } from './features/notifications/notifications';
 import { CreatePost } from './features/create-post/create-post';
 import { authGuard } from './core/guard/auth-guard';
 import { adminGuard } from './core/guard/admin-guard';
+import { noAuthGuard } from './core/guard/no-auth-guard';
 
 
 export const routes: Routes = [
   {
     path: '',
     component: AuthLayout,
+    canActivate: [noAuthGuard],
     children: [
       { path: '', component: Welcome },
       { path: 'register', component: Register },

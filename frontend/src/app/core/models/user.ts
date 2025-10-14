@@ -1,5 +1,7 @@
 export interface UserRegister {
     username: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
 }
@@ -7,4 +9,13 @@ export interface UserRegister {
 export interface UserLogin {
     username: string;
     password: string;
+}
+
+export interface User {
+  id: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
 }

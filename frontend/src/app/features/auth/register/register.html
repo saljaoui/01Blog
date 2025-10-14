@@ -12,38 +12,52 @@
     </div>
 
     <!-- Right Section -->
-    <div class="flex-fill d-flex flex-column justify-content-center p-5">
-      <div class="d-flex align-items-center mb-4">
+    <div class="flex-fill d-flex flex-column justify-content-center p-4">
+      <div class="d-flex align-items-center mb-3">
         <div class="logo-circle d-flex align-items-center justify-content-center">
           <div class="logo-inner"></div>
         </div>
         <h1 class="logo-text">1Blog</h1>
       </div>
 
-      <p class="start-text mb-4">Create Your Account</p>
+      <p class="start-text mb-3">Create Your Account</p>
 
       <!-- ✅ Angular form -->
       <form (ngSubmit)="onSubmit()">
+        <!-- First Name & Last Name -->
+        <div class="row">
+          <div class="col-md-6 form-group mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" id="firstName" name="firstName" class="form-control" 
+              [(ngModel)]="userRegister.firstName" placeholder="John" required>
+          </div>
+          <div class="col-md-6 form-group mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" id="lastName" name="lastName" class="form-control" 
+              [(ngModel)]="userRegister.lastName" placeholder="Doe" required>
+          </div>
+        </div>
+
         <!-- Username -->
         <div class="form-group mb-3">
           <label for="username" class="form-label">Username</label>
-          <input type="text" id="username" name="username" class="form-control" [(ngModel)]="userRegister.username"
-            placeholder="Your username" required>
+          <input type="text" id="username" name="username" class="form-control" 
+            [(ngModel)]="userRegister.username" placeholder="Your username" required>
         </div>
 
         <!-- Email -->
         <div class="form-group mb-3">
           <label for="email" class="form-label">E-Mail</label>
-          <input type="email" id="email" name="email" class="form-control" [(ngModel)]="userRegister.email"
-            placeholder="yourname@gmail.com" required>
+          <input type="email" id="email" name="email" class="form-control" 
+            [(ngModel)]="userRegister.email" placeholder="yourname@gmail.com" required>
         </div>
 
         <!-- Password -->
-        <div class="form-group mb-4">
+        <div class="form-group mb-3">
           <label for="password" class="form-label">Password</label>
           <div class="password-wrapper">
-            <input [type]="passwordVisible ? 'text' : 'password'" id="password" name="password" class="form-control"
-              [(ngModel)]="userRegister.password" placeholder="••••••••••••" required>
+            <input [type]="passwordVisible ? 'text' : 'password'" id="password" name="password" 
+              class="form-control" [(ngModel)]="userRegister.password" placeholder="••••••••••••" required>
             <button type="button" class="eye-icon" (click)="togglePassword()">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -56,14 +70,14 @@
 
         <!-- Submit -->
         <button type="submit" [disabled]="isSubmitting"
-          class="btn-primary-custom d-flex align-items-center justify-content-center mb-4">
+          class="btn-primary-custom d-flex align-items-center justify-content-center mb-3">
           <span *ngIf="!isSubmitting">Sign Up</span>
           <span *ngIf="isSubmitting" class="spinner"></span>
         </button>
       </form>
 
       <!-- Sign In Link -->
-      <p class="signup-text text-center mb-3">
+      <p class="signup-text text-center mb-2">
         Already have an account?
         <a routerLink="/login" class="text-black fw-medium text-decoration-none">Sign In</a>
       </p>

@@ -5,13 +5,13 @@
 ❯ Building...
 ✔ Building...
 Initial chunk files | Names         |  Raw size
-main.js             | main          | 405.29 kB | 
+main.js             | main          | 405.53 kB | 
 styles.css          | styles        | 314.52 kB | 
 polyfills.js        | polyfills     |  95 bytes | 
 
-                    | Initial total | 719.90 kB
+                    | Initial total | 720.14 kB
 
-Application bundle generation complete. [9.552 seconds] - 2025-10-14T00:30:54.485Z
+Application bundle generation complete. [11.407 seconds] - 2025-10-14T11:20:32.904Z
 
 Watch mode enabled. Watching for file changes...
 NOTE: Raw file sizes do not reflect development server per-request transformations.

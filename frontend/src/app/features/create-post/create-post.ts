@@ -1,118 +1,78 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { QuillModule } from 'ngx-quill';
+import { Component } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import EditorJS from '@editorjs/editorjs';
+import Header from '@editorjs/header';
+import Paragraph from '@editorjs/paragraph';
+import ImageTool from '@editorjs/image';
+import { AuthService } from '../../core/services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-post',
-  imports: [CommonModule, FormsModule, QuillModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './create-post.html',
   styleUrl: './create-post.scss'
 })
+
 export class CreatePost {
-   title = signal('');
-  category = signal('');
-  content = signal('');
+  editor?: EditorJS;
 
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService, private http: HttpClient) { }
 
-  autoResize(event: any) {
-    const textarea = event.target;
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
-  }
-
-  formatText(command: string) {
-    document.execCommand(command, false);
-  }
-
-  addLink() {
-    const url = prompt('Enter URL:');
-    if (url) {
-      document.execCommand('createLink', false, url);
-    }
-  }
-
-  triggerImageUpload() {
-    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-    fileInput?.click();
-  }
-
-  handleImageUpload(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        img.style.maxWidth = '100%';
-        img.style.borderRadius = '8px';
-        img.style.margin = '1.5rem 0';
-        
-        const editor = document.querySelector('.content-editor');
-        editor?.appendChild(img);
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-
-  onContentChange(event: any) {
-    this.content.set(event.target.innerHTML);
-  }
-
-  saveDraft() {
-    if (!this.title().trim()) {
-      alert('Please add a title');
-      return;
-    }
-
-    const draft = {
-      title: this.title(),
-      category: this.category(),
-      content: this.content(),
-      savedAt: new Date().toISOString()
-    };
-
-    localStorage.setItem('postDraft', JSON.stringify(draft));
-    alert('✅ Draft saved!');
-    console.log('Draft:', draft);
-  }
-
-  publishPost() {
-    if (!this.title().trim()) {
-      alert('Please add a title');
-      return;
-    }
-
-    if (!this.category()) {
-      alert('Please select a category');
-      return;
-    }
-
-    if (this.content().length < 50) {
-      alert('Please write at least 50 characters');
-      return;
-    }
-
-    const post = {
-      title: this.title(),
-      category: this.category(),
-      content: this.content(),
-      publishedAt: new Date().toISOString()
-    };
-
-    console.log('Publishing:', post);
-    alert('🎉 Post published!');
+  ngOnInit(): void {
+    console.log("this.authService.getAccessToken :", this.authService.getAccessToken());
     
-    // Send to your API:
-    // this.postService.createPost(post).subscribe(...)
-    
-    localStorage.removeItem('postDraft');
-    this.router.navigate(['/']);
+    this.editor = new EditorJS({
+      holder: 'editorjs',
+      placeholder: 'Start writing your post...',
+      tools: {
+        header: Header,
+        paragraph: Paragraph,
+        image: {
+          class: ImageTool,
+          config: {
+            uploader: {
+              uploadByFile: (file: File) => {
+                const formData = new FormData();
+                formData.append('image', file);
+
+                return this.http.post<any>('http://localhost:8080/api/posts/upload-image', formData,
+                  {
+                    headers: {
+                      Authorization: `Bearer ${this.authService.getAccessToken()}`,
+                    }
+                  }
+                )
+                  .toPromise()
+                  .then(response => ({
+                    success: 1,
+                    file: { url: response.file.url }
+                  }))
+                  .catch(() => ({
+                    success: 0
+                  }));
+              }
+            }
+          }
+        }
+      }
+    });
   }
 
-  goBack() {
-    this.router.navigate(['/']);
+  async savePost() {
+    if (!this.editor) return;
+    const output = await this.editor.save();
+    console.log('Post content:', output);
+
+    // Send to backend
+    this.http.post('http://localhost:8080/api/posts', output).subscribe({
+      next: (response) => console.log('Saved!', response),
+      error: (error) => console.error('Error:', error)
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.editor?.destroy();
   }
 }

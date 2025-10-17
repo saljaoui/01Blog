@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>01Blog Editor</title>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fafafa;
+      margin: 0;
+      padding: 0;
+    }
+    .editor-container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      margin: 20px auto;
+      max-width: 700px;
+    }
+    button {
+      background: #1976d2;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #125ca1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="editor-container">
+    <h2 style="text-align:center;margin-bottom:20px;">✍️ Create a New Post</h2>
+    <div id="editorjs"></div>
+  </div>
+
+  <div class="actions">
+    <button id="saveBtn">Publish</button>
+  </div>
+
+  <script>
+    const editor = new EditorJS({
+      holder: 'editorjs',
+      tools: {
+        header: Header,
+        paragraph: Paragraph,
+        image: {
+          class: ImageTool,
+          config: {
+            endpoints: {
+              byFile: 'http://localhost:8080/upload', // upload endpoint
+              byUrl: 'http://localhost:8080/fetchUrl',
+            }
+          }
+        }
+      },
+      placeholder: 'Start writing your story...',
+    });
+
+    document.getElementById('saveBtn').addEventListener('click', async () => {
+      const output = await editor.save();
+      console.log('Post content:', output);
+      alert('✅ Saved! Check console for JSON output.');
+      // send output to backend with fetch('/api/posts', { method: 'POST', body: JSON.stringify(output) })
+    });
+  </script>
+</body>
+</html>

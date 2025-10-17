@@ -1,208 +1,56 @@
- .create-header {
-      background: white;
-      border-bottom: 1px solid #e5e5e5;
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+.create-post-container {
+  padding: 40px 30px;
+  max-height: calc(100vh - 60px);
+  height: 100%;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
 
-    .header-actions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
+.editor-container {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  max-width: 1200px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
 
-    .back-btn {
-      border: none;
-      background: none;
-      color: #1a1a1a;
-      font-size: 1.25rem;
-      cursor: pointer;
-      padding: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
 
-    .back-btn:hover {
-      color: #667eea;
-    }
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
 
-    .header-buttons {
-      display: flex;
-      gap: 0.75rem;
-    }
+button {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    .btn-draft {
-      background: none;
-      border: 1px solid #e5e5e5;
-      color: #1a1a1a;
-      padding: 0.5rem 1.25rem;
-      border-radius: 20px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
+button:hover {
+  background-color: #125ca1;
+}
 
-    .btn-draft:hover {
-      background: #f8f9fa;
-    }
+button.cancel {
+  background-color: #ccc;
+  color: #333;
+}
 
-    .btn-publish {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border: none;
-      color: white;
-      padding: 0.5rem 1.5rem;
-      border-radius: 20px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-
-    .btn-publish:hover {
-      opacity: 0.9;
-    }
-
-    .editor-container {
-      max-width: 740px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem;
-    }
-
-    .title-input {
-      border: none;
-      outline: none;
-      width: 100%;
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #1a1a1a;
-      padding: 0;
-      margin-bottom: 1rem;
-      font-family: inherit;
-      resize: none;
-      overflow: hidden;
-      line-height: 1.2;
-    }
-
-    .title-input::placeholder {
-      color: #ccc;
-    }
-
-    .category-select {
-      border: none;
-      outline: none;
-      background: #f3f4f6;
-      color: #1a1a1a;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-bottom: 2rem;
-      cursor: pointer;
-    }
-
-    .category-select:focus {
-      background: #e5e7eb;
-    }
-
-    .editor-toolbar {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid #e5e5e5;
-      margin-bottom: 2rem;
-      position: sticky;
-      top: 73px;
-      background: white;
-      z-index: 50;
-    }
-
-    .editor-toolbar button {
-      border: none;
-      background: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #1a1a1a;
-      font-size: 1.125rem;
-    }
-
-    .editor-toolbar button:hover {
-      background: #f3f4f6;
-      color: #667eea;
-    }
-
-    .toolbar-divider {
-      width: 1px;
-      height: 24px;
-      background: #e5e5e5;
-      margin: 0 0.5rem;
-    }
-
-    .content-editor {
-      min-height: 400px;
-      outline: none;
-      font-size: 1.125rem;
-      line-height: 1.8;
-      color: #1a1a1a;
-    }
-
-    .content-editor:empty:before {
-      content: attr(data-placeholder);
-      color: #ccc;
-    }
-
-    .content-editor p {
-      margin-bottom: 1.25rem;
-    }
-
-    .content-editor h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 2rem 0 1rem 0;
-    }
-
-    .content-editor h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 1.75rem 0 0.75rem 0;
-    }
-
-    .content-editor img {
-      max-width: 100%;
-      border-radius: 8px;
-      margin: 1.5rem 0;
-      display: block;
-    }
-
-    .content-editor a {
-      color: #667eea;
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .title-input {
-        font-size: 1.75rem;
-      }
-
-      .editor-container {
-        padding: 2rem 1rem;
-      }
-
-      .header-buttons .btn-draft span {
-        display: none;
-      }
-
-      .btn-draft {
-        padding: 0.5rem 0.75rem;
-      }
-    }
+button.cancel:hover {
+  background-color: #aaa;
+}

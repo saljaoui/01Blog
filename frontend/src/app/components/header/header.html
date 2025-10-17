@@ -17,7 +17,7 @@
             <div class="col-auto">
                 <div class="d-flex align-items-center gap-2">
                     <!-- Notifications -->
-                    <a routerLink="/create-post">
+                    <a routerLink="/notifications" class="text-decoration-none">
                         <button class="btn-notifications position-relative" type="button" routerLink="/notifications">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <g fill="none" stroke="currentColor" stroke-width="1.5">
@@ -32,6 +32,7 @@
                     </a>
 
                     <!-- Create Post Button -->
+                    <a routerLink="/create-post" class="text-decoration-none">
                     <button class="btn btn-create d-none d-md-flex align-items-center" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <g fill="none" stroke="currentColor" stroke-width="2">
@@ -42,7 +43,7 @@
                         </svg>
                         New Post
                     </button>
-
+                    </a>
                     <!-- Profile Dropdown -->
                     <div class="dropdown">
                         <button class="btn profile-btn d-flex align-items-center" type="button"

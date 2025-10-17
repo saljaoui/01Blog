@@ -14,9 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PostService {
     public PostResponse create(PostRequest userRequest) {
-
         UUID userId = SecurityUtils.getCurrentUserId();
-
         System.out.println(userId);
         System.out.println(userRequest);
         return new PostResponse("working");

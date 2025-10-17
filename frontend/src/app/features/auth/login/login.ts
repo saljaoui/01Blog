@@ -23,6 +23,7 @@ export class Login {
   constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit() {
+    console.log('click it');
     this.authService.login(this.userLogin).subscribe({
       next: (res: any) => {
         this.isSubmitting = true;

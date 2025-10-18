@@ -1,5 +1,6 @@
 <div class="create-post-container">
-  <div class="editor-container"> <input type="text" placeholder="Title" class="post-title" />
+  <div class="editor-container"> 
+    <input id="post-title" type="text" placeholder="Title" class="post-title" [(ngModel)]="title"/>
     <!-- Editor.js holder -->
     <div id="editorjs"></div> <!-- Actions -->
     <div class="actions"> <button (click)="savePost()">Publish</button> <button class="cancel">Cancel</button> </div>

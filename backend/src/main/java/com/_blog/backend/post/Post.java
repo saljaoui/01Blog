@@ -1,22 +1,24 @@
 package com._blog.backend.post;
 
-import java.util.UUID;
-
 import com._blog.backend.user.User;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "posts")
 public class Post {
@@ -32,16 +34,19 @@ public class Post {
     @Column(nullable = false)
     private String title;
 
-    @Column(name = "body_md", columnDefinition = "TEXT", nullable = false)
-    private String bodyMd;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Block> blocks;
 
     @Column(name = "is_hidden", nullable = false)
-    private boolean isHidden;
+    private boolean isHidden = false;
 
     @Column(name = "is_deleted", nullable = false)
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 
+    @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }

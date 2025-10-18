@@ -17,6 +17,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class CreatePost {
   editor?: EditorJS;
+  title: string = '';
 
   constructor(private authService: AuthService, private http: HttpClient) { }
 
@@ -62,11 +63,19 @@ export class CreatePost {
 
   async savePost() {
     if (!this.editor) return;
-    const output = await this.editor.save();
-    console.log('Post content:', output);
+    const content = await this.editor.save();
+
+  const postData = {
+    title: this.title,
+    time: content.time,
+    version: content.version,
+    blocks: content.blocks,
+  };
+
+    console.log('Post content:', postData);
 
     // Send to backend
-    this.http.post('http://localhost:8080/api/posts', output).subscribe({
+    this.http.post('http://localhost:8080/api/posts', postData).subscribe({
       next: (response) => console.log('Saved!', response),
       error: (error) => console.error('Error:', error)
     });

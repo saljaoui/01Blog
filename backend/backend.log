@@ -34,23 +34,23 @@
 
  :: Spring Boot ::                (v3.5.5)
 
-2025-10-17T15:30:49.029+01:00  INFO 48201 --- [backend] [           main] com._blog.backend.BackendApplication     : Starting BackendApplication using Java 17.0.16 with PID 48201 (/home/saljaoui/01Blog/backend/target/classes started by saljaoui in /home/saljaoui/01Blog/backend)
-2025-10-17T15:30:49.033+01:00  INFO 48201 --- [backend] [           main] com._blog.backend.BackendApplication     : No active profile set, falling back to 1 default profile: "default"
-2025-10-17T15:30:50.039+01:00  INFO 48201 --- [backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-10-17T15:30:50.133+01:00  INFO 48201 --- [backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 76 ms. Found 4 JPA repository interfaces.
-2025-10-17T15:30:50.869+01:00  INFO 48201 --- [backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-10-17T15:30:50.895+01:00  INFO 48201 --- [backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-10-17T15:30:50.895+01:00  INFO 48201 --- [backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
-2025-10-17T15:30:50.969+01:00  INFO 48201 --- [backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-10-17T15:30:50.971+01:00  INFO 48201 --- [backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1870 ms
-2025-10-17T15:30:51.148+01:00  INFO 48201 --- [backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-10-17T15:30:51.203+01:00  INFO 48201 --- [backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
-2025-10-17T15:30:51.239+01:00  INFO 48201 --- [backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-10-17T15:30:51.540+01:00  INFO 48201 --- [backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-10-17T15:30:51.580+01:00  INFO 48201 --- [backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-10-17T15:30:51.928+01:00  INFO 48201 --- [backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2c9cafa5
-2025-10-17T15:30:51.930+01:00  INFO 48201 --- [backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-10-17T15:30:52.013+01:00  INFO 48201 --- [backend] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2025-10-18T02:37:15.265+01:00  INFO 30617 --- [backend] [           main] com._blog.backend.BackendApplication     : Starting BackendApplication using Java 17.0.16 with PID 30617 (/home/saljaoui/01Blog/backend/target/classes started by saljaoui in /home/saljaoui/01Blog/backend)
+2025-10-18T02:37:15.270+01:00  INFO 30617 --- [backend] [           main] com._blog.backend.BackendApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-10-18T02:37:16.901+01:00  INFO 30617 --- [backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-18T02:37:17.307+01:00  INFO 30617 --- [backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 332 ms. Found 4 JPA repository interfaces.
+2025-10-18T02:37:18.546+01:00  INFO 30617 --- [backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-10-18T02:37:18.586+01:00  INFO 30617 --- [backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-18T02:37:18.587+01:00  INFO 30617 --- [backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-10-18T02:37:18.806+01:00  INFO 30617 --- [backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-18T02:37:18.810+01:00  INFO 30617 --- [backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3443 ms
+2025-10-18T02:37:19.034+01:00  INFO 30617 --- [backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-18T02:37:19.156+01:00  INFO 30617 --- [backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-10-18T02:37:19.241+01:00  INFO 30617 --- [backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-18T02:37:20.084+01:00  INFO 30617 --- [backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-18T02:37:20.173+01:00  INFO 30617 --- [backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-18T02:37:21.074+01:00  INFO 30617 --- [backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2c9cafa5
+2025-10-18T02:37:21.077+01:00  INFO 30617 --- [backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-18T02:37:21.350+01:00  INFO 30617 --- [backend] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 16.10
@@ -58,23 +58,28 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-10-17T15:30:53.304+01:00  INFO 48201 --- [backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-10-17T15:30:53.896+01:00  INFO 48201 --- [backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-10-17T15:30:54.481+01:00  INFO 48201 --- [backend] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-10-17T15:30:54.482+01:00  WARN 48201 --- [backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-10-17T15:30:55.480+01:00  INFO 48201 --- [backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-10-17T15:30:55.497+01:00  INFO 48201 --- [backend] [           main] com._blog.backend.BackendApplication     : Started BackendApplication in 7.044 seconds (process running for 7.434)
-2025-10-17T15:31:22.397+01:00  INFO 48201 --- [backend] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-10-17T15:31:22.399+01:00  INFO 48201 --- [backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-10-17T15:31:22.401+01:00  INFO 48201 --- [backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-10-18T02:37:25.389+01:00  INFO 30617 --- [backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: create table blocks (id uuid not null, data TEXT not null, position integer not null, type varchar(255) not null check (type in ('HEADING','PARAGRAPH','IMAGE')), post_id uuid not null, primary key (id))
+Hibernate: create table follows (id bigint generated by default as identity, follower_id uuid not null, following_id uuid not null, primary key (id))
+Hibernate: create table posts (id uuid not null, created_at timestamp(6) not null, is_deleted boolean not null, is_hidden boolean not null, title varchar(255) not null, updated_at timestamp(6), author_id uuid not null, primary key (id))
+Hibernate: alter table if exists blocks add constraint FK2uxjvf15jqrjcif625qf325sg foreign key (post_id) references posts
+Hibernate: alter table if exists follows add constraint FKqnkw0cwwh6572nyhvdjqlr163 foreign key (follower_id) references users
+Hibernate: alter table if exists follows add constraint FKonkdkae2ngtx70jqhsh7ol6uq foreign key (following_id) references users
+Hibernate: alter table if exists posts add constraint FK6xvn0811tkyo3nfjk2xvqx6ns foreign key (author_id) references users
+2025-10-18T02:37:26.013+01:00  INFO 30617 --- [backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-18T02:37:27.362+01:00  INFO 30617 --- [backend] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-10-18T02:37:27.364+01:00  WARN 30617 --- [backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-10-18T02:37:29.000+01:00  INFO 30617 --- [backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-10-18T02:37:29.043+01:00  INFO 30617 --- [backend] [           main] com._blog.backend.BackendApplication     : Started BackendApplication in 15.054 seconds (process running for 15.768)
+2025-10-18T02:37:48.345+01:00  INFO 30617 --- [backend] [nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-18T02:37:48.348+01:00  INFO 30617 --- [backend] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-18T02:37:48.353+01:00  INFO 30617 --- [backend] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
 Hibernate: select u1_0.id,u1_0.email,u1_0.first_name,u1_0.last_name,u1_0.password,u1_0.role,u1_0.username from users u1_0 where u1_0.id=?
-🔹 [CONTROLLER] User from context: com._blog.backend.user.User@161fd630
+🔹 [CONTROLLER] User from context: com._blog.backend.user.User@2c10e651
 Hibernate: select u1_0.id,u1_0.email,u1_0.first_name,u1_0.last_name,u1_0.password,u1_0.role,u1_0.username from users u1_0 where u1_0.id=?
+Hibernate: select p1_0.id,p1_0.created_at,p1_0.is_deleted,p1_0.is_hidden,p1_0.title,p1_0.updated_at,p1_0.author_id,u1_0.id,u1_0.email,u1_0.first_name,u1_0.last_name,u1_0.password,u1_0.role,u1_0.username,b1_0.post_id,b1_0.id,b1_0.data,b1_0.position,b1_0.type from posts p1_0 join users u1_0 on u1_0.id=p1_0.author_id left join blocks b1_0 on p1_0.id=b1_0.post_id where p1_0.id=?
 Hibernate: select u1_0.id,u1_0.email,u1_0.first_name,u1_0.last_name,u1_0.password,u1_0.role,u1_0.username from users u1_0 where u1_0.id=?
-f766c220-af9f-4ca3-a1c5-0802e6644b86
-PostRequest(title=null, postBlocks=null)
-2025-10-17T15:34:59.790+01:00  INFO 48201 --- [backend] [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-10-17T15:34:59.803+01:00  INFO 48201 --- [backend] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-10-17T15:34:59.811+01:00  INFO 48201 --- [backend] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-10-17T15:34:59.815+01:00  INFO 48201 --- [backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-10-17T15:34:59.834+01:00  INFO 48201 --- [backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+Hibernate: select b1_0.id,b1_0.data,b1_0.position,b1_0.post_id,p1_0.id,p1_0.created_at,p1_0.is_deleted,p1_0.is_hidden,p1_0.title,p1_0.updated_at,p1_0.author_id,u1_0.id,u1_0.email,u1_0.first_name,u1_0.last_name,u1_0.password,u1_0.role,u1_0.username,b1_0.type from blocks b1_0 join posts p1_0 on p1_0.id=b1_0.post_id join users u1_0 on u1_0.id=p1_0.author_id where b1_0.id=?
+Hibernate: insert into posts (created_at,is_deleted,is_hidden,title,updated_at,author_id,id) values (?,?,?,?,?,?,?)
+Hibernate: insert into blocks (data,position,post_id,type,id) values (?,?,?,?,?)
+Hibernate: update posts set is_deleted=?,is_hidden=?,title=?,updated_at=?,author_id=? where id=?

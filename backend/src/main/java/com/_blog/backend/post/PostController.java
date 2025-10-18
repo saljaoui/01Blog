@@ -35,7 +35,6 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<PostResponse> getPosts() {
-        
         return ResponseEntity.ok(new PostResponse("is workinkg"));
     }
 

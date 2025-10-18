@@ -1,7 +1,7 @@
 package com._blog.backend.post;
 
 public enum BlockType {
-    HEADING,
+    HEADER,
     PARAGRAPH,
     IMAGE
 }

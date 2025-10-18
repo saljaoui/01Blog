@@ -3,7 +3,6 @@ package com._blog.backend.post;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,6 @@ import com._blog.backend.post.dto.BlockRequest;
 import com._blog.backend.post.dto.PostRequest;
 import com._blog.backend.post.dto.PostResponse;
 import com._blog.backend.user.User;
-import com._blog.backend.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -24,20 +22,15 @@ public class PostService {
     private final ObjectMapper objectMapper;
 
     public PostResponse create(PostRequest postRequest) {
-
         User user = SecurityUtils.getCurrentUser();
-
         Post post = new Post();
-
         post.setId(UUID.randomUUID());
         post.setUser(user);
-
         if (postRequest.getTitle() != null && !postRequest.getTitle().isEmpty()) {
             post.setTitle(postRequest.getTitle());
         } else {
             post.setTitle("Untitled Post");
         }
-
         if (postRequest.getBlocks() != null && !postRequest.getBlocks().isEmpty()) {
             List<Block> blocks = new ArrayList<>();
             for (int i = 0; i < postRequest.getBlocks().size(); i++) {

@@ -32,7 +32,6 @@ public class PostController {
     @Autowired
     private PostService postService;
     
-
     @GetMapping
     public ResponseEntity<PostResponse> getPosts() {
         return ResponseEntity.ok(new PostResponse("is workinkg"));

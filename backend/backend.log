@@ -96,3 +96,8 @@ Hibernate: insert into blocks (data,position,post_id,type,id) values (?,?,?,?,?)
 Hibernate: insert into blocks (data,position,post_id,type,id) values (?,?,?,?,?)
 Hibernate: insert into blocks (data,position,post_id,type,id) values (?,?,?,?,?)
 Hibernate: update posts set is_deleted=?,is_hidden=?,title=?,updated_at=?,author_id=? where id=?
+2025-10-18T02:47:13.665+01:00  INFO 30617 --- [backend] [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-18T02:47:13.727+01:00  INFO 30617 --- [backend] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-10-18T02:47:13.807+01:00  INFO 30617 --- [backend] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-18T02:47:13.822+01:00  INFO 30617 --- [backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-18T02:47:14.131+01:00  INFO 30617 --- [backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -6,8 +6,9 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com._blog.backend.user.User;
+
 @Repository
 public interface PostRepository extends JpaRepository<Post, UUID> {
-    List<Post> findByIsHiddenFalseAndIsDeletedFalse();
-    List<Post> findByUserId(UUID userId); 
+    List<Post> findByUser(User user);
 }

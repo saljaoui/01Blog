@@ -37,12 +37,6 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Block> blocks;
 
-    @Column(name = "is_hidden", nullable = false)
-    private boolean isHidden = false;
-
-    @Column(name = "is_deleted", nullable = false)
-    private boolean isDeleted = false;
-
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;

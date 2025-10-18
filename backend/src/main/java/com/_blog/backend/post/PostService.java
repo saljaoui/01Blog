@@ -65,4 +65,11 @@ public class PostService {
 
         return new PostResponse("Post created successfully");
     }
+    
+    public PostResponse getAllPosts() {
+        List<Post> posts = postRepository.findAll();
+        System.out.println(posts);
+        // You can map posts to DTOs if needed
+        return new PostResponse("Fetched " + posts.size() + " posts");
+    }
 }

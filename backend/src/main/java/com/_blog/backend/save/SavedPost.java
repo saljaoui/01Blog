@@ -22,7 +22,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "saves")
+@Table(name = "saveds")
 public class SavedPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -31,10 +31,10 @@ public class PostController {
     private static final String UPLOAD_FOLDER = "uploads/images/";
     @Autowired
     private PostService postService;
-    
+
     @GetMapping
     public ResponseEntity<PostResponse> getPosts() {
-        return ResponseEntity.ok(new PostResponse("is workinkg"));
+        return ResponseEntity.ok(postService.getAllPosts());
     }
 
     @PostMapping
@@ -42,9 +42,9 @@ public class PostController {
         return ResponseEntity.ok(postService.create(postRequest));
     }
 
-     @PostMapping("/upload-image")
+    @PostMapping("/upload-image")
     public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam("image") MultipartFile file) {
-        
+
         try {
             // 1. Create folder if doesn't exist
             File uploadDir = new File(UPLOAD_FOLDER);
@@ -66,26 +66,23 @@ public class PostController {
 
             // 5. Return response in EditorJS format
             Map<String, Object> response = Map.of(
-                "success", 1,
-                "file", Map.of("url", imageUrl)
-            );
-            
+                    "success", 1,
+                    "file", Map.of("url", imageUrl));
+
             System.out.println("Upload success! URL: " + imageUrl); // Debug log
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(Map.of(
-                "success", 0,
-                "message", "Upload failed: " + e.getMessage()
-            ));
+                    "success", 0,
+                    "message", "Upload failed: " + e.getMessage()));
         }
     }
 
-
-@GetMapping("/images/{filename}")
+    @GetMapping("/images/{filename}")
     public ResponseEntity<byte[]> getImage(@PathVariable String filename) {
-        
+
         try {
             // 1. Read file from disk
             Path filePath = Paths.get(UPLOAD_FOLDER + filename);

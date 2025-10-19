@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 
-export class PostPostService {
+export class PostService {
   private http = inject(HttpClient);
   private apiUrl = environment.api.posts;
 

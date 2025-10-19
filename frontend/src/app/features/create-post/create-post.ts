@@ -63,13 +63,11 @@ export class CreatePost {
 
   async savePost() {
     if (!this.editor) return;
-    const content = await this.editor.save();
+    const output = await this.editor.save();
 
   const postData = {
     title: this.title,
-    time: content.time,
-    version: content.version,
-    blocks: content.blocks,
+    content: JSON.stringify(output.blocks),
   };
 
     console.log('Post content:', postData);

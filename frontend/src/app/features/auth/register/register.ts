@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: '../../../../styles/auth.scss'
 })
 export class Register {
-
+  
   passwordVisible: boolean = false;
   isSubmitting = false;
   userRegister: UserRegister = {

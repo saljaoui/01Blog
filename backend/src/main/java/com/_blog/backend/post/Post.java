@@ -34,11 +34,11 @@ public class Post {
     @Column(nullable = false)
     private String title;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Block> blocks;
+    @Column(columnDefinition = "TEXT")
+    private String content;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    // @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

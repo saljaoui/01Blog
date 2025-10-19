@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.query.Page;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.SecurityUtils;
@@ -34,10 +37,23 @@ public class PostService {
         return new PostResponse();
     }
     
-    public PostResponse getAllPosts() {
-        List<Post> posts = postRepository.findAll();
-        System.out.println(posts);
-        // You can map posts to DTOs if needed
-        return new PostResponse() ;
+    public List<PostResponse> getAllPosts() {
+        UUID currentUserId = SecurityUtils.getCurrentUser().getId();
+
+        return postRepository.findAll().stream()
+            .map(post -> PostResponse
+            .builder()
+            .id(post.getId())
+            .title(post.getTitle())
+            .content(post.getContent())
+            .authorId(post.getUser().getId())
+            .authorFirstName(post.getUser().getFirstName())
+            .authorLastName(post.getUser().getLastName())
+            .createdAt(post.getCreatedAt())
+            .updatedAt(post.getUpdatedAt())
+            .isOwner(post.getUser().getId().equals(currentUserId))
+            .build()
+            )
+            .toList();
     }
 }

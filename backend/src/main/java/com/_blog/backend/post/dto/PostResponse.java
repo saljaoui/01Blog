@@ -24,14 +24,9 @@ public class PostResponse {
     private UUID authorId;
     private String authorFirstName;
     private String authorLastName;
-    
-    // Engagement
-    private Long likesCount;
-    private Long commentsCount;
-    private Long savedsCount;
+    private boolean isOwner;
     
     // Time
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String timeAgo;
 }

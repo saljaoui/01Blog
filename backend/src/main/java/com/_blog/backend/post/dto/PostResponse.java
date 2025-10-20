@@ -19,12 +19,14 @@ public class PostResponse {
     private UUID id;
     private String title;
     private String content;             // Full EditorJS JSON
+    private long likesCount;            // Full EditorJS JSON
+    private boolean liked;
     
     // Author info
     private UUID authorId;
     private String authorFirstName;
     private String authorLastName;
-    private boolean isOwner;
+    private boolean owner;
     
     // Time
     private LocalDateTime createdAt;

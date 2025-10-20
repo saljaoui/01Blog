@@ -5,14 +5,173 @@
 ❯ Building...
 ✔ Building...
 Initial chunk files | Names         |  Raw size
-main.js             | main          | 393.15 kB | 
+main.js             | main          | 402.97 kB | 
 styles.css          | styles        | 284.18 kB | 
 polyfills.js        | polyfills     |  95 bytes | 
 
-                    | Initial total | 677.42 kB
+                    | Initial total | 687.24 kB
 
-Application bundle generation complete. [11.455 seconds] - 2025-10-19T11:17:39.529Z
+Application bundle generation complete. [10.803 seconds] - 2025-10-20T12:24:51.492Z
 
 Watch mode enabled. Watching for file changes...
 NOTE: Raw file sizes do not reflect development server per-request transformations.
   ➜  Local:   http://localhost:4200/
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 402.95 kB | 
+
+Application bundle generation complete. [3.525 seconds] - 2025-10-20T12:28:30.450Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.534 seconds] - 2025-10-20T12:32:16.437Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'onLike' does not exist on type 'PostCard'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/post-card/post-card.html:37:59:
+[37m      37 │ ...             <div class="action-item like" (click)="[32monLike[37m(post)">
+         ╵                                                        [32m~~~~~~[0m
+
+  Error occurs in the template of component PostCard.
+
+    src/app/components/post-card/post-card.ts:7:15:
+[37m      7 │   templateUrl: [32m'./post-card.html'[37m,
+        ╵                [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.560 seconds] - 2025-10-20T12:32:55.527Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'onLike' does not exist on type 'PostCard'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/post-card/post-card.html:37:59:
+[37m      37 │ ...             <div class="action-item like" (click)="[32monLike[37m(post)">
+         ╵                                                        [32m~~~~~~[0m
+
+  Error occurs in the template of component PostCard.
+
+    src/app/components/post-card/post-card.ts:7:15:
+[37m      7 │   templateUrl: [32m'./post-card.html'[37m,
+        ╵                [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.675 seconds] - 2025-10-20T12:33:01.184Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS1128: Declaration or statement expected.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/post-card/post-card.ts:68:2:
+[37m      68 │   [32mprivate[37m stripHtml(s: string): string {
+         ╵   [32m~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names         |  Raw size
+main.js             | main          | 403.33 kB | 
+styles.css          | styles        | 284.18 kB | 
+polyfills.js        | polyfills     |  95 bytes | 
+
+                    | Initial total | 687.60 kB
+
+Application bundle generation complete. [0.335 seconds] - 2025-10-20T12:33:09.222Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+
+No output file changes.
+
+Application bundle generation complete. [0.916 seconds] - 2025-10-20T12:33:36.786Z
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 403.34 kB | 
+
+Application bundle generation complete. [0.437 seconds] - 2025-10-20T12:33:39.851Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.414 seconds] - 2025-10-20T12:33:48.124Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2554: Expected 0 arguments, but got 2.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/post-card/post-card.ts:67:10:
+[37m      67 │     print([32m'PostCard: onLike called for post', post[37m);
+         ╵           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.298 seconds] - 2025-10-20T12:33:55.435Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2554: Expected 0 arguments, but got 2.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/post-card/post-card.ts:67:10:
+[37m      67 │     print([32m'PostCard: onLike called for post', post[37m);
+         ╵           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.335 seconds] - 2025-10-20T12:34:05.499Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2554: Expected 0 arguments, but got 1.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/post-card/post-card.ts:67:10:
+[37m      67 │     print([32m'PostCard: onLike called for post'[37m);
+         ╵           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.670 seconds] - 2025-10-20T12:34:11.360Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2304: Cannot find name 'l'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/post-card/post-card.ts:67:4:
+[37m      67 │     [32ml[37m('PostCard: onLike called for post');
+         ╵     [32m^[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names         |  Raw size
+main.js             | main          | 403.39 kB | 
+styles.css          | styles        | 284.18 kB | 
+polyfills.js        | polyfills     |  95 bytes | 
+
+                    | Initial total | 687.66 kB
+
+Application bundle generation complete. [0.369 seconds] - 2025-10-20T12:34:13.036Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 403.38 kB | 
+
+Application bundle generation complete. [0.336 seconds] - 2025-10-20T12:34:16.273Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+
+No output file changes.
+
+Application bundle generation complete. [0.824 seconds] - 2025-10-20T12:34:20.947Z
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Initial chunk files | Names |  Raw size
+main.js             | main  | 403.33 kB | 
+
+Application bundle generation complete. [0.344 seconds] - 2025-10-20T12:36:15.979Z
+
+Page reload sent to client(s).

@@ -60,7 +60,7 @@ public class LikeService {
                 .liked(isLiked)
                 .likesCount(likesCount)
                 .build();
-    }  
+    }
 
     public long getLikeCount(UUID postId) {
         Post post = postRepository.findById(postId)

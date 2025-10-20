@@ -40,13 +40,28 @@ public class SavedPostService {
             savedPostRepository.save(saved);
         }
 
-        long savedCount = savedPostRepository.countByPost(post); // optional
+        long savedCount = savedPostRepository.countByPost(post);
 
         return SavedPostResponse.builder()
                 .saved(!alreadySaved)
                 .savedCount(savedCount)
                 .build();
     }
+
+    public SavedPostResponse getLikeStatus(UUID postId) {
+        User user = SecurityUtils.getCurrentUser();
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        boolean isSaved = savedPostRepository.existsByPostAndUser(post, user);
+        long savedsCount = savedPostRepository.countByPost(post);
+
+        return SavedPostResponse.builder()
+                .saved(isSaved)
+                .savedCount(savedsCount)
+                .build();
+    }  
 
     public boolean isSavedByUser(Post post, User user) {
         return savedPostRepository.existsByPostAndUser(post, user);

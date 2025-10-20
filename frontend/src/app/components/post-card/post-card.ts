@@ -1,21 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LikeService } from '../../core/services/like.service';
+import { Post } from '../../core/models/post';
 
 @Component({
   selector: 'app-post-card',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './post-card.html',
   styleUrls: ['./post-card.scss']
 })
+
 export class PostCard implements OnInit {
-  @Input() post: any;
+  @Input() post!: Post; // Use definite assignment assertion
+
+  constructor(private likeService: LikeService) {}
 
   authorName: string = '';
   authorAvatar?: string | null;
   excerpt: string = '';
   imageUrl?: string | null;
-  createdAt?: string | null;
 
   ngOnInit(): void {
     // safe guards
@@ -27,16 +30,13 @@ export class PostCard implements OnInit {
     this.authorName = `${first} ${last}`.trim() || (this.post.authorName ?? ''); 
     this.authorAvatar = this.post.authorAvatar ?? this.post.authorImage ?? null;
 
-    // createdAt
-    this.createdAt = this.post.createdAt ?? null;
-
     // get blocks: support both array and { blocks: [...] } formats
     let blocks: any[] = [];
     if (this.post.parsedContent?.blocks && Array.isArray(this.post.parsedContent.blocks)) {
       blocks = this.post.parsedContent.blocks;
     } else {
       try {
-        const parsed = JSON.parse(this.post.content);
+        const parsed = JSON.parse(this.post.content || '');
         blocks = Array.isArray(parsed) ? parsed : parsed?.blocks ?? [];
       } catch (e) {
         blocks = [];
@@ -57,10 +57,26 @@ export class PostCard implements OnInit {
       this.excerpt = headerBlock ? this.stripHtml(headerBlock.data.text).trim() : (this.post.title ?? '');
     }
 
-    // limit excerpt length for card (won't change style)
+    // limit excerpt length for card
     if (this.excerpt.length > 200) {
       this.excerpt = this.excerpt.slice(0, 197).trim() + '...';
     }
+
+    console.log("post>>>>>", this.post);
+    console.log("Should be colored:", this.post.liked === true ? "YES ✅" : "NO ❌");
+  }
+
+  onLike(): void {
+    if (!this.post) return;
+    this.likeService.toggleLike(this.post.id).subscribe({
+      next: (res: any) => {
+        if (this.post) {
+          this.post.liked = res.liked;
+          this.post.likesCount = res.likesCount;
+        }
+      },
+      error: (err) => console.error('Like error', err)
+    });
   }
 
   private stripHtml(s: string): string {

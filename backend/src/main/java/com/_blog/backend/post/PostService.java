@@ -1,19 +1,15 @@
 package com._blog.backend.post;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.query.Page;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.SecurityUtils;
+import com._blog.backend.like.LikeRepository;
 import com._blog.backend.post.dto.PostRequest;
 import com._blog.backend.post.dto.PostResponse;
 import com._blog.backend.user.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
-    private final ObjectMapper objectMapper;
+    private final LikeRepository likeRepository;
 
     public PostResponse create(PostRequest postRequest) {
         User user = SecurityUtils.getCurrentUser();
@@ -38,7 +34,8 @@ public class PostService {
     }
     
     public List<PostResponse> getAllPosts() {
-        UUID currentUserId = SecurityUtils.getCurrentUser().getId();
+        User user = SecurityUtils.getCurrentUser();
+        UUID currentUserId = user.getId();
 
         return postRepository.findAll().stream()
             .map(post -> PostResponse
@@ -46,12 +43,14 @@ public class PostService {
             .id(post.getId())
             .title(post.getTitle())
             .content(post.getContent())
+            .likesCount(likeRepository.countByPost(post))
+            .liked(likeRepository.existsByPostAndUser(post, user))
             .authorId(post.getUser().getId())
             .authorFirstName(post.getUser().getFirstName())
             .authorLastName(post.getUser().getLastName())
             .createdAt(post.getCreatedAt())
             .updatedAt(post.getUpdatedAt())
-            .isOwner(post.getUser().getId().equals(currentUserId))
+            .owner(post.getUser().getId().equals(currentUserId))
             .build()
             )
             .toList();

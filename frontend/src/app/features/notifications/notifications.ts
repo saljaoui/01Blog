@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { SidebarRight } from '../../components/sidebar-right/sidebar-right';
 
 @Component({
   selector: 'app-notifications',
-  imports: [],
+  imports: [SidebarRight],
   templateUrl: './notifications.html',
   styleUrl: './notifications.scss'
 })

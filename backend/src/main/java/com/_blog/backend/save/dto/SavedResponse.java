@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SavedPostResponse {
+public class SavedResponse {
     private boolean saved;
     private long savedCount;
 }

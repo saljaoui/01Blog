@@ -5,6 +5,6 @@ export const environment = {
     likes: 'http://localhost:8080/api/likes',
     auth: 'http://localhost:8080/api/auth',
     users: 'http://localhost:8080/api/users',
-    saved: 'http://localhost:8080/api/saved',
+    saved: 'http://localhost:8080/api/saveds',
   }
 };

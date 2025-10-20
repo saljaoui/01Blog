@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SavedResponse {
     private boolean saved;
-    private long savedCount;
+    private long savesCount;
 }

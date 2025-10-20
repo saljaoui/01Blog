@@ -169,6 +169,13 @@
   }
 }
 
+.action-item.saved {
+  color: #1a1a1a;
+  svg path {
+    fill: #1a1a1a;
+  }
+}
+
 
 .action-item:hover svg {
   transform: scale(1.1);

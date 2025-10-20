@@ -5,7 +5,6 @@ import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com._blog.backend.like.dto.LikeResponse;
 import com._blog.backend.save.dto.SavedRequest;
 import com._blog.backend.save.dto.SavedResponse;
 

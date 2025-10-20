@@ -8,6 +8,8 @@ export interface Post {
   createdAt?: string;
   liked?: boolean;
   likesCount?: number;
+  saved?: boolean;
+  savesCount?: number;
   content?: string;
   parsedContent?: any;
   title?: string;

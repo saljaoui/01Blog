@@ -23,12 +23,9 @@
 
             <div class="card-footer">
                 <div class="card-meta">
-                    <!-- <span *ngIf="createdAt">{{ createdAt | date: 'MMM d' }}</span> -->
+                    <span>{{ createdAt }}</span>
                     <div class="meta-dot"></div>
-                    <span> <!-- optional read time placeholder -->
-                        <!-- {{ post.readTime ?? '—' }} -->
-                    </span>
-                    <div class="meta-dot"></div>
+                    <span class="card-category" >Blog</span>
                 </div>
 
                 <div class="card-actions">
@@ -55,7 +52,7 @@
                         <!-- <span class="action-count">{{ post.commentsCount ?? 0 }}</span> -->
                     </div>
 
-                    <div class="action-item">
+                    <div class="action-item" (click)="onSive()" [class.saved]="post.saved">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <g fill="none" stroke="currentColor" stroke-width="1.5">
                                 <path
@@ -63,7 +60,7 @@
                                 <path stroke-linecap="round" d="M15 6H9" />
                             </g>
                         </svg>
-                        <!-- <span class="action-count">{{ post.saves ?? 0 }}</span> -->
+                        <span class="action-count">{{ post.savesCount ?? 0 }}</span>
                     </div>
                 </div>
             </div>

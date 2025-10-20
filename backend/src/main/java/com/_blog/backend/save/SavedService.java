@@ -44,7 +44,7 @@ public class SavedService {
 
         return SavedResponse.builder()
                 .saved(!alreadySaved)
-                .savedCount(savedCount)
+                .savesCount(savedCount)
                 .build();
     }
 
@@ -59,7 +59,7 @@ public class SavedService {
 
         return SavedResponse.builder()
                 .saved(isSaved)
-                .savedCount(savedsCount)
+                .savesCount(savedsCount)
                 .build();
     }  
 

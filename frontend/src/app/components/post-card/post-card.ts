@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LikeService } from '../../core/services/like.service';
 import { Post } from '../../core/models/post';
+import { saveService } from '../../core/services/save.service';
+import { DateUtilsService } from '../../core/services/utils/DateUtil.service';
 
 @Component({
   selector: 'app-post-card',
@@ -13,12 +15,16 @@ import { Post } from '../../core/models/post';
 export class PostCard implements OnInit {
   @Input() post!: Post; // Use definite assignment assertion
 
-  constructor(private likeService: LikeService) { }
+  constructor(private likeService: LikeService
+    , private saveService: saveService
+    , private dateUtils: DateUtilsService
+  ) { }
 
   authorName: string = '';
   authorAvatar?: string | null;
   excerpt: string = '';
   imageUrl?: string | null;
+  createdAt?: string;
 
   ngOnInit(): void {
     // safe guards
@@ -29,6 +35,7 @@ export class PostCard implements OnInit {
     const last = this.post.authorLastName ?? '';
     this.authorName = `${first} ${last}`.trim() || (this.post.authorName ?? '');
     this.authorAvatar = this.post.authorAvatar ?? this.post.authorImage ?? null;
+    this.createdAt = this.dateUtils.getTimeAgo(this.post.createdAt);
 
     // get blocks: support both array and { blocks: [...] } formats
     let blocks: any[] = [];
@@ -73,6 +80,19 @@ export class PostCard implements OnInit {
         }
       },
       error: (err) => console.error('Like error', err)
+    });
+  }
+
+  onSive(): void {
+    if (!this.post) return;
+    this.saveService.toggleSave(this.post.id).subscribe({
+      next: (res: any) => {
+        if (this.post) {
+          this.post.saved = res.saved;
+          this.post.savesCount = res.savesCount;
+        }
+      },
+      error: (err) => console.error('Save error', err)
     });
   }
 

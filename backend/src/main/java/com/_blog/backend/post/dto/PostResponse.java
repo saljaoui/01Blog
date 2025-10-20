@@ -21,6 +21,8 @@ public class PostResponse {
     private String content;             // Full EditorJS JSON
     private long likesCount;            // Full EditorJS JSON
     private boolean liked;
+    private long savesCount;            // Full EditorJS JSON
+    private boolean saved;
     
     // Author info
     private UUID authorId;

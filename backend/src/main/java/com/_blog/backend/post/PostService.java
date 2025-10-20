@@ -9,6 +9,7 @@ import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.like.LikeRepository;
 import com._blog.backend.post.dto.PostRequest;
 import com._blog.backend.post.dto.PostResponse;
+import com._blog.backend.save.SavedRepository;
 import com._blog.backend.user.User;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class PostService {
     private final PostRepository postRepository;
     private final LikeRepository likeRepository;
+    private final SavedRepository savedRepository;
 
     public PostResponse create(PostRequest postRequest) {
         User user = SecurityUtils.getCurrentUser();
@@ -45,6 +47,8 @@ public class PostService {
             .content(post.getContent())
             .likesCount(likeRepository.countByPost(post))
             .liked(likeRepository.existsByPostAndUser(post, user))
+            .savesCount(savedRepository.countByPost(post))
+            .saved(savedRepository.existsByPostAndUser(post, user))
             .authorId(post.getUser().getId())
             .authorFirstName(post.getUser().getFirstName())
             .authorLastName(post.getUser().getLastName())

@@ -42,9 +42,11 @@ export class AuthService {
 
     return this.http.post(`${this.apiUrl}/refresh`, { refreshToken }).pipe(
       tap((res: any) => {
+        console.log("✅ [AUTH SERVICE] Token refreshed successfully");
         localStorage.setItem('access_token', res.accessToken);
       }),
       catchError(error => {
+        console.log("🔴 [AUTH SERVICE] Refresh token failed:", error);
         this.logout();
         return throwError(() => error);
       })

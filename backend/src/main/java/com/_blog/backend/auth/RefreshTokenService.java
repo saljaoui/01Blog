@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com._blog.backend.user.User;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -27,15 +28,15 @@ public class RefreshTokenService {
         return refreshTokenRepository.save(token);
     }
 
+    @Transactional
     public User validateRefreshToken(String tokenHash) {
-        RefreshToken token = refreshTokenRepository.findByTokenHash(tokenHash)
+        RefreshToken token = refreshTokenRepository.findByTokenHashWithUser(tokenHash)
                 .orElseThrow(() -> new RuntimeException("Refresh token not found"));
 
         if (token.getExpiresAt().isBefore(Instant.now())) {
             refreshTokenRepository.delete(token);
             throw new RuntimeException("Refresh token expired");
         }
-
         return token.getUser();
     }
 }

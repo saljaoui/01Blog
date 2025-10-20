@@ -17,7 +17,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Add token to request
   const accessToken = authService.getAccessToken();
-  // console.log('🔵 [INTERCEPTOR] accessToken:', accessToken);
+  console.log('🔵 [INTERCEPTOR] accessToken:', accessToken);
   if (accessToken) {
     req = req.clone({
       setHeaders: {
@@ -26,27 +26,52 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     });
   }
 
-  return next(req).pipe(
+return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      // If 401 error, try to refresh token
+      console.log("🔴 [INTERCEPTOR] Error:", error);
+      
       if (error.status === 401) {
-        return authService.refreshToken().pipe(
-          switchMap((response: any) => {
-            // Retry the original request with new token
-            const newToken = authService.getAccessToken();
-            const clonedRequest = req.clone({
-              setHeaders: {
-                Authorization: `Bearer ${newToken}`
+        const errorType = error.error?.error || '';
+        
+        // Check if it's JWT expired error
+        if (errorType === 'JWT_EXPIRED') {
+          console.log("🟡 [INTERCEPTOR] JWT expired, attempting refresh...");
+          
+          return authService.refreshToken().pipe(
+            switchMap((response: any) => {
+              console.log("✅ [INTERCEPTOR] Token refreshed successfully");
+              
+              // Retry the original request with new token
+              const newToken = authService.getAccessToken();
+              const clonedRequest = req.clone({
+                setHeaders: {
+                  Authorization: `Bearer ${newToken}`
+                }
+              });
+              return next(clonedRequest);
+            }),
+            catchError((refreshError: HttpErrorResponse) => {
+              // Check if refresh token expired
+              const refreshErrorType = refreshError.error?.error || '';
+              
+              if (refreshErrorType === 'REFRESH_TOKEN_EXPIRED') {
+                console.log("🔴 [INTERCEPTOR] Refresh token expired - logging out");
+              } else {
+                console.log("🔴 [INTERCEPTOR] Refresh failed - logging out");
               }
-            });
-            return next(clonedRequest);
-          }),
-          catchError((refreshError) => {
-            // Refresh failed, logout user
-            authService.logout();
-            return throwError(() => refreshError);
-          })
-        );
+              
+              // Logout user
+              authService.logout();
+              return throwError(() => refreshError);
+            })
+          );
+        } 
+        // If JWT is invalid or any other 401 error
+        else {
+          console.log("🔴 [INTERCEPTOR] Invalid token - logging out");
+          authService.logout();
+          return throwError(() => error);
+        }
       }
 
       return throwError(() => error);

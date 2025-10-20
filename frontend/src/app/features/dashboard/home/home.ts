@@ -23,8 +23,6 @@ export class Home implements OnInit {
           ...post,
           parsedContent: parseEditorJsContent(post.content)
         }));
-
-        console.log('Posts fetched successfully', this.posts);
       },
       error: (err) => {
         console.error('Failed to fetch posts', err);

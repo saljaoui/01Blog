@@ -22,10 +22,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
-    private RefreshTokenService refreshTokenService;
-    private JwtUtil jwtUtil;
+    private final AuthService authService;
+    private final RefreshTokenService refreshTokenService;
+    private final JwtUtil jwtUtil;
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody UserRequest request) {

@@ -13,7 +13,7 @@ import { Post } from '../../core/models/post';
 export class PostCard implements OnInit {
   @Input() post!: Post; // Use definite assignment assertion
 
-  constructor(private likeService: LikeService) {}
+  constructor(private likeService: LikeService) { }
 
   authorName: string = '';
   authorAvatar?: string | null;
@@ -27,7 +27,7 @@ export class PostCard implements OnInit {
     // author
     const first = this.post.authorFirstName ?? '';
     const last = this.post.authorLastName ?? '';
-    this.authorName = `${first} ${last}`.trim() || (this.post.authorName ?? ''); 
+    this.authorName = `${first} ${last}`.trim() || (this.post.authorName ?? '');
     this.authorAvatar = this.post.authorAvatar ?? this.post.authorImage ?? null;
 
     // get blocks: support both array and { blocks: [...] } formats
@@ -61,9 +61,6 @@ export class PostCard implements OnInit {
     if (this.excerpt.length > 200) {
       this.excerpt = this.excerpt.slice(0, 197).trim() + '...';
     }
-
-    console.log("post>>>>>", this.post);
-    console.log("Should be colored:", this.post.liked === true ? "YES ✅" : "NO ❌");
   }
 
   onLike(): void {

@@ -15,7 +15,6 @@ export class ProfileCard implements OnInit {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
         this.user = user;
-        console.log('Current user:', user);
       },
       error: (err) => {
         console.error('Error fetching user:', err);

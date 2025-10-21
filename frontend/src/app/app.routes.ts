@@ -16,10 +16,11 @@ import { Privacy } from './features/privacy/privacy';
 import { About } from './features/about/about';
 import { Settings } from './features/settings/settings';
 import { Notifications } from './features/notifications/notifications';
-import { CreatePost } from './features/create-post/create-post';
 import { authGuard } from './core/guard/auth-guard';
 import { adminGuard } from './core/guard/admin-guard';
 import { noAuthGuard } from './core/guard/no-auth-guard';
+import { CreatePost } from './features/posts/create-post/create-post';
+import { PostDetail } from './features/posts/post-detail/post-detail';
 
 
 export const routes: Routes = [
@@ -46,6 +47,7 @@ export const routes: Routes = [
       { path: 'settings', component: Settings },
       { path: 'notifications', component: Notifications },
       { path: 'create-post', component: CreatePost },
+      { path: 'post-detail', component: PostDetail },
 
 
       {

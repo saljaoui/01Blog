@@ -5,8 +5,8 @@ import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import Paragraph from '@editorjs/paragraph';
 import ImageTool from '@editorjs/image';
-import { AuthService } from '../../core/services/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-create-post',

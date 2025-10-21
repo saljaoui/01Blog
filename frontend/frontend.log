@@ -4,174 +4,245 @@
 
 ❯ Building...
 ✔ Building...
+Application bundle generation failed. [12.944 seconds] - 2025-10-20T23:44:07.224Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '../../core/services/auth.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:8:28:
+[37m      8 │ import { AuthService } from [32m'../../core/services/auth.service'[37m;
+        ╵                             [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG2003: No suitable injection token for parameter 'authService' of class 'CreatePost'.
+  Consider using the @Inject decorator to specify an injection token.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:22:22:
+[37m      22 │   constructor(private [32mauthService[37m: AuthService, private http: Http...
+         ╵                       [32m~~~~~~~~~~~[0m
+
+  This type does not have a value, so it cannot be used as injection token.
+
+    src/app/features/posts/create-post/create-post.ts:22:35:
+[37m      22 │ ...ctor(private authService: [32mAuthService[37m, private http: HttpClient...
+         ╵                              [32m~~~~~~~~~~~[0m
+
+
+Watch mode enabled. Watching for file changes...
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [1.741 seconds] - 2025-10-20T23:45:12.741Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '../../core/services/auth.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:8:28:
+[37m      8 │ import { AuthService } from [32m'../../core/services/auth.service'[37m;
+        ╵                             [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG2003: No suitable injection token for parameter 'authService' of class 'CreatePost'.
+  Consider using the @Inject decorator to specify an injection token.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:22:22:
+[37m      22 │   constructor(private [32mauthService[37m: AuthService, private http: Http...
+         ╵                       [32m~~~~~~~~~~~[0m
+
+  This type does not have a value, so it cannot be used as injection token.
+
+    src/app/features/posts/create-post/create-post.ts:22:35:
+[37m      22 │ ...ctor(private authService: [32mAuthService[37m, private http: HttpClient...
+         ╵                              [32m~~~~~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.503 seconds] - 2025-10-20T23:45:17.971Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '../../core/services/auth.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:8:28:
+[37m      8 │ import { AuthService } from [32m'../../core/services/auth.service'[37m;
+        ╵                             [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG2003: No suitable injection token for parameter 'authService' of class 'CreatePost'.
+  Consider using the @Inject decorator to specify an injection token.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:22:22:
+[37m      22 │   constructor(private [32mauthService[37m: AuthService, private http: Http...
+         ╵                       [32m~~~~~~~~~~~[0m
+
+  This type does not have a value, so it cannot be used as injection token.
+
+    src/app/features/posts/create-post/create-post.ts:22:35:
+[37m      22 │ ...ctor(private authService: [32mAuthService[37m, private http: HttpClient...
+         ╵                              [32m~~~~~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.401 seconds] - 2025-10-20T23:45:22.833Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '../../core/services/auth.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:8:28:
+[37m      8 │ import { AuthService } from [32m'../../core/services/auth.service'[37m;
+        ╵                             [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG2003: No suitable injection token for parameter 'authService' of class 'CreatePost'.
+  Consider using the @Inject decorator to specify an injection token.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:22:22:
+[37m      22 │   constructor(private [32mauthService[37m: AuthService, private http: Http...
+         ╵                       [32m~~~~~~~~~~~[0m
+
+  This type does not have a value, so it cannot be used as injection token.
+
+    src/app/features/posts/create-post/create-post.ts:22:35:
+[37m      22 │ ...ctor(private authService: [32mAuthService[37m, private http: HttpClient...
+         ╵                              [32m~~~~~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [1.195 seconds] - 2025-10-20T23:45:29.332Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2304: Cannot find name 'Post'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.routes.ts:49:40:
+[37m      49 │       { path: 'post-detail', component: [32mPost[37m },
+         ╵                                         [32m~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '../../core/services/auth.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:8:28:
+[37m      8 │ import { AuthService } from [32m'../../core/services/auth.service'[37m;
+        ╵                             [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG2003: No suitable injection token for parameter 'authService' of class 'CreatePost'.
+  Consider using the @Inject decorator to specify an injection token.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:22:22:
+[37m      22 │   constructor(private [32mauthService[37m: AuthService, private http: Http...
+         ╵                       [32m~~~~~~~~~~~[0m
+
+  This type does not have a value, so it cannot be used as injection token.
+
+    src/app/features/posts/create-post/create-post.ts:22:35:
+[37m      22 │ ...ctor(private authService: [32mAuthService[37m, private http: HttpClient...
+         ╵                              [32m~~~~~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.646 seconds] - 2025-10-20T23:45:31.359Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '../../core/services/auth.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:8:28:
+[37m      8 │ import { AuthService } from [32m'../../core/services/auth.service'[37m;
+        ╵                             [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG2003: No suitable injection token for parameter 'authService' of class 'CreatePost'.
+  Consider using the @Inject decorator to specify an injection token.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:22:22:
+[37m      22 │   constructor(private [32mauthService[37m: AuthService, private http: Http...
+         ╵                       [32m~~~~~~~~~~~[0m
+
+  This type does not have a value, so it cannot be used as injection token.
+
+    src/app/features/posts/create-post/create-post.ts:22:35:
+[37m      22 │ ...ctor(private authService: [32mAuthService[37m, private http: HttpClient...
+         ╵                              [32m~~~~~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [1.090 seconds] - 2025-10-20T23:48:28.178Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG2003: No suitable injection token for parameter 'authService' of class 'CreatePost'.
+  Consider using the @Inject decorator to specify an injection token.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:21:22:
+[37m      21 │   constructor(private [32mauthService[37m: AuthService, private http: Http...
+         ╵                       [32m~~~~~~~~~~~[0m
+
+  This type does not have a value, so it cannot be used as injection token.
+
+    src/app/features/posts/create-post/create-post.ts:21:35:
+[37m      21 │ ...ctor(private authService: [32mAuthService[37m, private http: HttpClient...
+         ╵                              [32m~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2304: Cannot find name 'AuthService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/posts/create-post/create-post.ts:21:35:
+[37m      21 │ ...ctor(private authService: [32mAuthService[37m, private http: HttpClient...
+         ╵                              [32m~~~~~~~~~~~[0m
+
+
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
 Initial chunk files | Names         |  Raw size
-main.js             | main          | 402.97 kB | 
+main.js             | main          | 435.63 kB | 
 styles.css          | styles        | 284.18 kB | 
 polyfills.js        | polyfills     |  95 bytes | 
 
-                    | Initial total | 687.24 kB
+                    | Initial total | 719.90 kB
 
-Application bundle generation complete. [10.803 seconds] - 2025-10-20T12:24:51.492Z
+Application bundle generation complete. [1.826 seconds] - 2025-10-20T23:48:36.985Z
 
-Watch mode enabled. Watching for file changes...
 NOTE: Raw file sizes do not reflect development server per-request transformations.
   ➜  Local:   http://localhost:4200/
 ❯ Changes detected. Rebuilding...
 ✔ Changes detected. Rebuilding...
 Initial chunk files | Names |  Raw size
-main.js             | main  | 402.95 kB | 
+main.js             | main  | 425.23 kB | 
 
-Application bundle generation complete. [3.525 seconds] - 2025-10-20T12:28:30.450Z
+Application bundle generation complete. [1.489 seconds] - 2025-10-20T23:52:12.408Z
 
-Page reload sent to client(s).
+Component update sent to client(s).
 ❯ Changes detected. Rebuilding...
 ✔ Changes detected. Rebuilding...
-Application bundle generation failed. [0.534 seconds] - 2025-10-20T12:32:16.437Z
+Initial chunk files | Names |  Raw size
+main.js             | main  | 421.72 kB | 
 
-[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'onLike' does not exist on type 'PostCard'.[0m [1m[35m[plugin angular-compiler][0m
+Application bundle generation complete. [1.300 seconds] - 2025-10-20T23:52:33.114Z
 
-    src/app/components/post-card/post-card.html:37:59:
-[37m      37 │ ...             <div class="action-item like" (click)="[32monLike[37m(post)">
-         ╵                                                        [32m~~~~~~[0m
-
-  Error occurs in the template of component PostCard.
-
-    src/app/components/post-card/post-card.ts:7:15:
-[37m      7 │   templateUrl: [32m'./post-card.html'[37m,
-        ╵                [32m~~~~~~~~~~~~~~~~~~[0m
-
-
+Component update sent to client(s).
 ❯ Changes detected. Rebuilding...
 ✔ Changes detected. Rebuilding...
-Application bundle generation failed. [0.560 seconds] - 2025-10-20T12:32:55.527Z
+Initial chunk files | Names |  Raw size
+main.js             | main  | 422.89 kB | 
 
-[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'onLike' does not exist on type 'PostCard'.[0m [1m[35m[plugin angular-compiler][0m
+Application bundle generation complete. [1.047 seconds] - 2025-10-20T23:54:29.638Z
 
-    src/app/components/post-card/post-card.html:37:59:
-[37m      37 │ ...             <div class="action-item like" (click)="[32monLike[37m(post)">
-         ╵                                                        [32m~~~~~~[0m
-
-  Error occurs in the template of component PostCard.
-
-    src/app/components/post-card/post-card.ts:7:15:
-[37m      7 │   templateUrl: [32m'./post-card.html'[37m,
-        ╵                [32m~~~~~~~~~~~~~~~~~~[0m
-
-
+Component update sent to client(s).
 ❯ Changes detected. Rebuilding...
 ✔ Changes detected. Rebuilding...
-Application bundle generation failed. [0.675 seconds] - 2025-10-20T12:33:01.184Z
+Application bundle generation failed. [0.866 seconds] - 2025-10-20T23:55:01.957Z
 
-[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS1128: Declaration or statement expected.[0m [1m[35m[plugin angular-compiler][0m
-
-    src/app/components/post-card/post-card.ts:68:2:
-[37m      68 │   [32mprivate[37m stripHtml(s: string): string {
-         ╵   [32m~~~~~~~[0m
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mexpected "{".
+  ╷
+1 │ <!-- Post Detail -->
+  │  ^
+  ╵
+  src/app/features/posts/post-detail/post-detail.scss 1:2  root stylesheet[0m [1m[35m[plugin angular-sass][0m
 
 
 ❯ Changes detected. Rebuilding...
 ✔ Changes detected. Rebuilding...
 Initial chunk files | Names         |  Raw size
-main.js             | main          | 403.33 kB | 
+main.js             | main          | 427.00 kB | 
 styles.css          | styles        | 284.18 kB | 
 polyfills.js        | polyfills     |  95 bytes | 
 
-                    | Initial total | 687.60 kB
+                    | Initial total | 711.27 kB
 
-Application bundle generation complete. [0.335 seconds] - 2025-10-20T12:33:09.222Z
-
-Page reload sent to client(s).
-❯ Changes detected. Rebuilding...
-✔ Changes detected. Rebuilding...
-
-No output file changes.
-
-Application bundle generation complete. [0.916 seconds] - 2025-10-20T12:33:36.786Z
-
-❯ Changes detected. Rebuilding...
-✔ Changes detected. Rebuilding...
-Initial chunk files | Names |  Raw size
-main.js             | main  | 403.34 kB | 
-
-Application bundle generation complete. [0.437 seconds] - 2025-10-20T12:33:39.851Z
-
-Page reload sent to client(s).
-❯ Changes detected. Rebuilding...
-✔ Changes detected. Rebuilding...
-Application bundle generation failed. [0.414 seconds] - 2025-10-20T12:33:48.124Z
-
-[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2554: Expected 0 arguments, but got 2.[0m [1m[35m[plugin angular-compiler][0m
-
-    src/app/components/post-card/post-card.ts:67:10:
-[37m      67 │     print([32m'PostCard: onLike called for post', post[37m);
-         ╵           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
-
-
-❯ Changes detected. Rebuilding...
-✔ Changes detected. Rebuilding...
-Application bundle generation failed. [0.298 seconds] - 2025-10-20T12:33:55.435Z
-
-[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2554: Expected 0 arguments, but got 2.[0m [1m[35m[plugin angular-compiler][0m
-
-    src/app/components/post-card/post-card.ts:67:10:
-[37m      67 │     print([32m'PostCard: onLike called for post', post[37m);
-         ╵           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
-
-
-❯ Changes detected. Rebuilding...
-✔ Changes detected. Rebuilding...
-Application bundle generation failed. [0.335 seconds] - 2025-10-20T12:34:05.499Z
-
-[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2554: Expected 0 arguments, but got 1.[0m [1m[35m[plugin angular-compiler][0m
-
-    src/app/components/post-card/post-card.ts:67:10:
-[37m      67 │     print([32m'PostCard: onLike called for post'[37m);
-         ╵           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
-
-
-❯ Changes detected. Rebuilding...
-✔ Changes detected. Rebuilding...
-Application bundle generation failed. [0.670 seconds] - 2025-10-20T12:34:11.360Z
-
-[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2304: Cannot find name 'l'.[0m [1m[35m[plugin angular-compiler][0m
-
-    src/app/components/post-card/post-card.ts:67:4:
-[37m      67 │     [32ml[37m('PostCard: onLike called for post');
-         ╵     [32m^[0m
-
-
-❯ Changes detected. Rebuilding...
-✔ Changes detected. Rebuilding...
-Initial chunk files | Names         |  Raw size
-main.js             | main          | 403.39 kB | 
-styles.css          | styles        | 284.18 kB | 
-polyfills.js        | polyfills     |  95 bytes | 
-
-                    | Initial total | 687.66 kB
-
-Application bundle generation complete. [0.369 seconds] - 2025-10-20T12:34:13.036Z
-
-Page reload sent to client(s).
-❯ Changes detected. Rebuilding...
-✔ Changes detected. Rebuilding...
-Initial chunk files | Names |  Raw size
-main.js             | main  | 403.38 kB | 
-
-Application bundle generation complete. [0.336 seconds] - 2025-10-20T12:34:16.273Z
-
-Page reload sent to client(s).
-❯ Changes detected. Rebuilding...
-✔ Changes detected. Rebuilding...
-
-No output file changes.
-
-Application bundle generation complete. [0.824 seconds] - 2025-10-20T12:34:20.947Z
-
-❯ Changes detected. Rebuilding...
-✔ Changes detected. Rebuilding...
-Initial chunk files | Names |  Raw size
-main.js             | main  | 403.33 kB | 
-
-Application bundle generation complete. [0.344 seconds] - 2025-10-20T12:36:15.979Z
+Application bundle generation complete. [0.752 seconds] - 2025-10-20T23:55:22.603Z
 
 Page reload sent to client(s).

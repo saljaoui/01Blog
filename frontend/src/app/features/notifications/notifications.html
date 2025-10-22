@@ -1,40 +1,62 @@
-<div>
-<div class="notifications-container">
-  <h2 class="notifications-title">Notifications</h2>
-  <div class="notifications-card">
-    <h3>Recent Notifications</h3>
-    <p class="text-muted mb-3" style="font-size: 0.85rem;">
-      View your recent updates and alerts below.
-    </p>
+<div class="page d-flex">
+  <div class="notifications-container">    
+    <div class="notifications-card">
+      <h3>Recent Notifications</h3>
+      <p class="text-muted mb-3">
+        View your recent updates and alerts below.
+      </p>
 
-    <ul class="notification-list">
-      <li class="notification-item unread">
-        <div class="notification-content">
-          <h4>Password Changed Successfully</h4>
-          <p>Your password was updated on October 10, 2025.</p>
-          <span class="time">2 hours ago</span>
-        </div>
-      </li>
+      <ul class="notification-list">
+        <li class="notification-item unread">
+          <div class="notification-avatar">
+            <img src="https://i.pravatar.cc/150?img=1" alt="Profile">
+          </div>
+          <div class="notification-content">
+            <h4>Password Changed Successfully</h4>
+            <p>Your password was updated on October 10, 2025.</p>
+            <span class="time">2 hours ago</span>
+          </div>
+          <div class="notification-toggle"></div>
+        </li>
 
-      <li class="notification-item">
-        <div class="notification-content">
-          <h4>New Login Detected</h4>
-          <p>Someone logged into your account from a new device.</p>
-          <span class="time">Yesterday</span>
-        </div>
-      </li>
+        <li class="notification-item unread">
+          <div class="notification-avatar">
+            <img src="https://i.pravatar.cc/150?img=2" alt="Profile">
+          </div>
+          <div class="notification-content">
+            <h4>New Login Detected</h4>
+            <p>Someone logged into your account from a new device.</p>
+            <span class="time">Yesterday</span>
+          </div>
+          <div class="notification-toggle"></div>
+        </li>
 
-      <li class="notification-item">
-        <div class="notification-content">
-          <h4>Service Update</h4>
-          <p>We’ve improved performance and security features.</p>
-          <span class="time">3 days ago</span>
-        </div>
-      </li>
-    </ul>
+        <li class="notification-item">
+          <div class="notification-avatar">
+            <img src="https://i.pravatar.cc/150?img=3" alt="Profile">
+          </div>
+          <div class="notification-content">
+            <h4>Service Update</h4>
+            <p>We've improved performance and security features.</p>
+            <span class="time">3 days ago</span>
+          </div>
+        </li>
 
-    <button class="clear-btn">Clear All Notifications</button>
+        <li class="notification-item">
+          <div class="notification-avatar">
+            <img src="https://i.pravatar.cc/150?img=4" alt="Profile">
+          </div>
+          <div class="notification-content">
+            <h4>Profile Completed</h4>
+            <p>Your profile setup is now 100% complete. Great job!</p>
+            <span class="time">1 week ago</span>
+          </div>
+        </li>
+      </ul>
+
+      <button class="clear-btn">Clear All</button>
+    </div>
   </div>
-</div>
-<app-sidebar-right></app-sidebar-right>
+  
+  <app-sidebar-right></app-sidebar-right>
 </div>

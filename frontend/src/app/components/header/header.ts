@@ -10,18 +10,39 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class Header {
   isOpen = signal(false);
+  isNotificationsOpen = signal(false);
   private authService = inject(AuthService);
 
- toggleDropdown() {
+  toggleDropdown() {
     this.isOpen.update((v: boolean) => !v);
+    // Close notifications when opening profile dropdown
+    if (this.isOpen()) {
+      this.isNotificationsOpen.set(false);
+    }
     console.log(this.isOpen());
+  }
+
+  toggleNotifications() {
+    this.isNotificationsOpen.update((v: boolean) => !v);
+    // Close profile dropdown when opening notifications
+    if (this.isNotificationsOpen()) {
+      this.isOpen.set(false);
+    }
+    console.log('Notifications open:', this.isNotificationsOpen());
   }
 
   @HostListener('document:click', ['$event'])
   closeDropdown(event: MouseEvent) {
     const target = event.target as HTMLElement;
+    
+    // Close profile dropdown if click is outside
     if (!target.closest('.dropdown')) {
       this.isOpen.set(false);
+    }
+    
+    // Close notifications dropdown if click is outside
+    if (!target.closest('.notifications-dropdown')) {
+      this.isNotificationsOpen.set(false);
     }
   }
 

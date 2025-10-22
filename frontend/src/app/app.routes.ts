@@ -47,7 +47,7 @@ export const routes: Routes = [
       { path: 'settings', component: Settings },
       { path: 'notifications', component: Notifications },
       { path: 'create-post', component: CreatePost },
-      { path: 'post-detail', component: PostDetail },
+      { path: 'posts/:id', component: PostDetail },
 
 
       {

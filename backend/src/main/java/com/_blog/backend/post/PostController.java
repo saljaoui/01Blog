@@ -43,6 +43,18 @@ public class PostController {
         return ResponseEntity.ok(postService.create(postRequest));
     }
 
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostResponse> getPostById(@PathVariable UUID postId) {
+         System.out.println(">>>>>>>>>>> postId: " + postId);
+        PostResponse post = postService.getPostById(postId);
+       
+        if (post != null) {
+            return ResponseEntity.ok(post);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/upload-image")
     public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam("image") MultipartFile file) {
 

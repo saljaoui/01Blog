@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.scss'
 })
 export class Home implements OnInit {
-  posts: any[] = []; // store posts with parsed content
+  posts: any[] = [];
 
   constructor(private postService: PostService) {}
 

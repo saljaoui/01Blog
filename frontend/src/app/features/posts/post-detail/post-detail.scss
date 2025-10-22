@@ -1,27 +1,23 @@
  
 
 .page {
-  background: linear-gradient(135deg, #f5f7fa 0%, #f0f2f5 100%);
-  min-height: 100vh;
-  padding: 60px 20px;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  padding: 25px;
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
 }
 
 .container {
-  max-width: 750px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
 .card {
+  padding: 30px 40px;
   background: #fff;
-  padding: 60px;
-  border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.3s ease;
-}
-
-.card:hover {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 .title {
@@ -74,6 +70,11 @@
   height: 1px;
   background: linear-gradient(90deg, transparent, #e5e5e5, transparent);
   margin: 32px 0;
+}
+
+.line-1 {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e5e5e5, transparent);
 }
 
 .featured {
@@ -146,48 +147,58 @@
   gap: 10px;
 }
 
-.action-btn {
+.card-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  background: #fafafa;
-  border: 1px solid #e5e5e5;
-  border-radius: 24px;
+  gap: 16px;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #555;
   cursor: pointer;
-  color: #525252;
-  font-size: 15px;
-  font-weight: 600;
   transition: all 0.2s ease;
-  font-family: inherit;
 }
 
-.action-btn:hover {
-  background: #f0f0f0;
-  border-color: #d4d4d4;
-  transform: translateY(-1px);
+.action-item svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.action-btn:active {
-  transform: translateY(0);
+.action-item:hover {
+  color: #1a1a1a;
 }
 
-.action-btn svg {
-  transition: transform 0.2s ease;
+.action-item.like:hover {
+  color: #e74c3c;
+}
+.action-item.like.liked {
+  color: #e74c3c;
+  svg path {
+    fill: #e74c3c;
+  }
 }
 
-.action-btn:hover svg {
+.action-item.saved {
+  color: #1a1a1a;
+  svg path {
+    fill: #1a1a1a;
+  }
+}
+
+
+.action-item:hover svg {
   transform: scale(1.1);
 }
 
-.action-btn span {
-  color: #0f0f0f;
-  font-weight: 600;
+.action-count {
+  font-weight: 500;
 }
 
-.bookmark {
-  padding: 12px 16px;
-}
 
 @media (max-width: 768px) {
   .page {

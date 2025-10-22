@@ -1,4 +1,4 @@
-<div class="blog-card">
+<div class="blog-card ">
     <div class="author-section">
         <ng-container *ngIf="authorAvatar; else avatarPlaceholder">
             <img [src]="authorAvatar" alt="Avatar" class="author-avatar">
@@ -12,14 +12,12 @@
 
     <div class="card-content">
         <div class="text-content">
+            <a [routerLink]="['/posts', post.id]" class="text-decoration-none">
             <h2 class="card-title">{{ post.title }}</h2>
-
-            <p class="card-excerpt" *ngIf="excerpt; else noExcerpt">
+            <p class="card-excerpt">
                 {{ excerpt }}
             </p>
-            <ng-template #noExcerpt>
-                <p class="card-excerpt">{{ post.title }}</p>
-            </ng-template>
+            </a>
 
             <div class="card-footer">
                 <div class="card-meta">
@@ -49,7 +47,7 @@
                                     d="M8 9h8m-8 3.5h5.5" />
                             </g>
                         </svg>
-                        <!-- <span class="action-count">{{ post.commentsCount ?? 0 }}</span> -->
+                        <span class="action-count">{{ post.commentsCount ?? 0 }}</span>
                     </div>
 
                     <div class="action-item" (click)="onSive()" [class.saved]="post.saved">

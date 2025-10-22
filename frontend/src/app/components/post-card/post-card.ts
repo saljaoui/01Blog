@@ -4,10 +4,11 @@ import { LikeService } from '../../core/services/like.service';
 import { Post } from '../../core/models/post';
 import { saveService } from '../../core/services/save.service';
 import { DateUtilsService } from '../../core/services/utils/DateUtil.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-post-card',
-  imports: [CommonModule],
+  imports: [RouterLink, CommonModule],
   templateUrl: './post-card.html',
   styleUrls: ['./post-card.scss']
 })

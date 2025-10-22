@@ -1,16 +1,22 @@
 export interface Post {
   id: string;
-  authorFirstName?: string;
-  authorLastName?: string;
-  authorName?: string;
-  authorAvatar?: string;
-  authorImage?: string;
-  createdAt?: string;
-  liked?: boolean;
-  likesCount?: number;
-  saved?: boolean;
-  savesCount?: number;
+  
+  title?: string;
   content?: string;
   parsedContent?: any;
-  title?: string;
+  
+  authorName?: string;
+  authorFirstName?: string;
+  authorLastName?: string;
+  authorAvatar?: string;
+  authorImage?: string;
+  
+  createdAt?: string;
+  
+  likesCount?: number;
+  commentsCount?: number;
+  savesCount?: number;
+  
+  liked?: boolean;
+  saved?: boolean;
 }

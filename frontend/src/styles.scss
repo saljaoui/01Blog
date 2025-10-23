@@ -31,6 +31,7 @@
   --accent-purple-dark: #764ba2;
 }
 
+
 :host {
   display: block;
   background: var(--bg-white);
@@ -57,7 +58,6 @@ body {
   margin: 0;
 }
 
-app-my-profile,
 app-home,
 app-admin-dashboard,
 app-admin-layout,
@@ -66,7 +66,8 @@ app-about,
 app-settings,
 app-create-post,
 app-post-detail,
-app-notifications {
+app-notifications, 
+app-profile {
   width: 100%;
 }
 

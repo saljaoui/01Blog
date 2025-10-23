@@ -2,7 +2,7 @@
   class="sidebar p-3 pt-4 sidebar-left d-flex flex-column justify-content-between">
   <div class="sidebar-content">
 
-    <app-profile-card></app-profile-card>
+    <app-profile-card [user]="user" ></app-profile-card>
 
     <nav class="nav-menu">
       <a routerLink="/home" routerLinkActive="active" class="nav-item active">
@@ -16,7 +16,7 @@
         </svg>
         <span>Home</span>
       </a>
-      <a routerLink="/profile/me" routerLinkActive="active" class="nav-item">
+      <a [routerLink]="['/profile', user?.username]" routerLinkActive="active" class="nav-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="24"
           height="24" viewBox="0 0 24 24">
           <g fill="none" stroke="currentColor" stroke-width="1.5">

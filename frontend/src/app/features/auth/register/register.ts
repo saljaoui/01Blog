@@ -31,7 +31,9 @@ export class Register {
         this.isSubmitting = true;
         console.log('Login successful', res);
         localStorage.setItem('token', res.accessToken);
-        // this.router.navigate(['/dashboard']);
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 300);
       },
       error: (err) => {
         console.error('Login failed', err);

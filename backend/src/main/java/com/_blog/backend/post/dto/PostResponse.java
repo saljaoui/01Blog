@@ -27,6 +27,7 @@ public class PostResponse {
     
     // Author info
     private UUID authorId;
+    private String authorUsername;
     private String authorFirstName;
     private String authorLastName;
     private boolean owner;

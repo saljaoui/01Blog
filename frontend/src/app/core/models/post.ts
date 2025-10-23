@@ -6,10 +6,12 @@ export interface Post {
   parsedContent?: any;
   
   authorName?: string;
+  authorUsername?: String;
   authorFirstName?: string;
   authorLastName?: string;
   authorAvatar?: string;
   authorImage?: string;
+  authorId?: string;
   
   createdAt?: string;
   

@@ -21,4 +21,5 @@ export interface User {
   followersCount: number;
   followingCount: number;
   postsCount: number;
+  currentUser: boolean;
 }

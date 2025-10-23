@@ -17,7 +17,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Add token to request
   const accessToken = authService.getAccessToken();
-  console.log('🔵 [INTERCEPTOR] accessToken:', accessToken);
   if (accessToken) {
     req = req.clone({
       setHeaders: {
@@ -27,19 +26,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
 return next(req).pipe(
-    catchError((error: HttpErrorResponse) => {
-      console.log("🔴 [INTERCEPTOR] Error:", error);
-      
+    catchError((error: HttpErrorResponse) => {      
       if (error.status === 401) {
         const errorType = error.error?.error || '';
-        
-        // Check if it's JWT expired error
+
         if (errorType === 'JWT_EXPIRED') {
-          console.log("🟡 [INTERCEPTOR] JWT expired, attempting refresh...");
           
           return authService.refreshToken().pipe(
             switchMap((response: any) => {
-              console.log("✅ [INTERCEPTOR] Token refreshed successfully");
               
               // Retry the original request with new token
               const newToken = authService.getAccessToken();

@@ -2,8 +2,10 @@ package com._blog.backend.user;
 
 import java.util.UUID;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.follow.Follow;
 import com._blog.backend.follow.FollowRepository;
 import com._blog.backend.post.PostRepository;
@@ -22,7 +24,7 @@ public class UserService {
     private final PostRepository postRepository;
 
     public User createUser(UserRequest request) {
-        
+
         Role role;
         if ("admin".equals(request.getUsername())) {
             role = Role.ADMIN;
@@ -48,6 +50,9 @@ public class UserService {
         long followersCount = followRepository.countByFollowing(user);
         long followingCount = followRepository.countByFollower(user);
         long postsCount = postRepository.countByUser(user);
+        User currentUser = SecurityUtils.getCurrentUser();
+        boolean isCurrentUser = currentUser != null && currentUser.getId().equals(user.getId());
+
 
         return UserResponse.builder()
                 .id(user.getId())
@@ -56,9 +61,15 @@ public class UserService {
                 .lastName(user.getLastName())
                 .role(user.getRole().name())
                 .bio(user.getBio())
+                .currentUser(isCurrentUser)
                 .followersCount(followersCount)
                 .followingCount(followingCount)
                 .postsCount(postsCount)
                 .build();
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 }

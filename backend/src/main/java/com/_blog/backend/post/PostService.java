@@ -85,4 +85,24 @@ public class PostService {
                 .build())
             .orElse(null);
     }
+
+    public static PostResponse toPostResponse(Post post, User user) {
+        return PostResponse.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .likesCount(0L) // Will be set by caller if needed
+                .liked(false) // Will be set by caller if needed
+                .savesCount(0L) // Will be set by caller if needed
+                .saved(false) // Will be set by caller if needed
+                .commentsCount(0L) // Will be set by caller if needed
+                .authorId(post.getUser().getId())
+                .authorUsername(post.getUser().getUsername())
+                .authorFirstName(post.getUser().getFirstName())
+                .authorLastName(post.getUser().getLastName())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
+                .owner(post.getUser().getId().equals(user.getId()))
+                .build();
+    }
 }

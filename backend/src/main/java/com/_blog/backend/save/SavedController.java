@@ -27,4 +27,20 @@ public class SavedController {
         return ResponseEntity.ok(savedPostService.getLikeStatus(postId));
     }
 
+    @GetMapping("/posts")
+    public ResponseEntity<java.util.List<com._blog.backend.post.dto.PostResponse>> getSavedPosts() {
+        com._blog.backend.user.User user = com._blog.backend.auth.SecurityUtils.getCurrentUser();
+        return ResponseEntity.ok(savedPostService.getSavedPostsByUser(user).stream()
+                .map(post -> {
+                    com._blog.backend.post.dto.PostResponse response = com._blog.backend.post.PostService.toPostResponse(post, user);
+                    response.setLikesCount(savedPostService.getLikeRepository().countByPost(post));
+                    response.setLiked(savedPostService.getLikeRepository().existsByPostAndUser(post, user));
+                    response.setSavesCount(savedPostService.getSavedRepository().countByPost(post));
+                    response.setSaved(savedPostService.getSavedRepository().existsByPostAndUser(post, user));
+                    response.setCommentsCount(savedPostService.getCommentRepository().countByPost(post));
+                    return response;
+                })
+                .toList());
+    }
+
 }

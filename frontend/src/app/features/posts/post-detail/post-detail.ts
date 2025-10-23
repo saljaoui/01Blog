@@ -3,7 +3,7 @@ import { PostService } from '../../../core/services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from '../../../core/models/post';
 import { LikeService } from '../../../core/services/like.service';
-import { saveService } from '../../../core/services/save.service';
+import { SaveService } from '../../../core/services/save.service';
 import { CommonModule } from '@angular/common';
 import { DateUtilsService } from '../../../core/services/utils/DateUtil.service';
 import { parseEditorJsContent } from '../../../core/utils/editorjs-parser';
@@ -20,7 +20,7 @@ export class PostDetail {
 
   constructor(private postService: PostService,
     private likeService: LikeService,
-    private saveService: saveService,
+    private saveService: SaveService,
     private route: ActivatedRoute,
     private dateUtils: DateUtilsService
   ) { }

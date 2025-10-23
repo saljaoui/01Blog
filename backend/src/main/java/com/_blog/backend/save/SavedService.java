@@ -16,9 +16,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class SavedService {
-    
+
     private final SavedRepository savedRepository;
     private final PostRepository postRepository;
+    private final com._blog.backend.like.LikeRepository likeRepository;
+    private final com._blog.backend.comment.CommentRepository commentRepository;
 
     @Transactional
     public SavedResponse toggleSave(UUID postId) {
@@ -65,5 +67,23 @@ public class SavedService {
 
     public boolean isSavedByUser(Post post, User user) {
         return savedRepository.existsByPostAndUser(post, user);
+    }
+
+    public java.util.List<Post> getSavedPostsByUser(User user) {
+        return savedRepository.findByUser(user).stream()
+                .map(Saved::getPost)
+                .toList();
+    }
+
+    public com._blog.backend.like.LikeRepository getLikeRepository() {
+        return likeRepository;
+    }
+
+    public SavedRepository getSavedRepository() {
+        return savedRepository;
+    }
+
+    public com._blog.backend.comment.CommentRepository getCommentRepository() {
+        return commentRepository;
     }
 }

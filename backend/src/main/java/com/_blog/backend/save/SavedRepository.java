@@ -11,4 +11,5 @@ public interface SavedRepository extends JpaRepository<Saved, Long> {
     boolean existsByPostAndUser(Post post, User user);
     void deleteByPostAndUser(Post post, User user);
     long countByPost(Post post);
+    java.util.List<Saved> findByUser(User user);
 }

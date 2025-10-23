@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LikeService } from '../../core/services/like.service';
 import { Post } from '../../core/models/post';
-import { saveService } from '../../core/services/save.service';
+import { SaveService } from '../../core/services/save.service';
 import { DateUtilsService } from '../../core/services/utils/DateUtil.service';
 import { RouterLink } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class PostCard implements OnInit {
   @Input() post!: Post; // Use definite assignment assertion
 
   constructor(private likeService: LikeService
-    , private saveService: saveService
+    , private saveService: SaveService
     , private dateUtils: DateUtilsService
   ) { }
 

@@ -17,8 +17,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/me")
-    public ResponseEntity<UserResponse> getCurrentUser(@AuthenticationPrincipal User user) {
-        System.out.println("🔹 [CONTROLLER] User from context: " + user);
-        return ResponseEntity.ok(userService.mapToResponse(user));
+    public ResponseEntity<UserResponse> getCurrentUserProfile(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(userService.getUserProfileWithStats(user));
     }
 }

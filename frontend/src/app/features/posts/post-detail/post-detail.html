@@ -34,7 +34,6 @@
 
           <div class="img-wrap" *ngIf="block.type === 'image'">
             <img [src]="block.data.file.url" [alt]="block.data.caption || 'Post image'">
-            <p *ngIf="block.data.caption" class="caption">{{ block.data.caption }}</p>
           </div>
 
         </ng-container>

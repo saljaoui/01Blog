@@ -182,33 +182,6 @@ $border-color: #dcdcdc;
   }
 }
 
-// Clear button with gradient hover
-.clear-btn {
-  display: block;
-  margin: 1.25rem auto 0;
-  background: linear-gradient(to right, $text-primary 0%, #2a2a2a 100%);
-  color: #fff;
-  border: none;
-  border-radius: $border-radius-sm;
-  padding: 0.625rem 1.25rem;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.25s ease;
-  font-size: 0.875rem;
-  width: fit-content;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  &:hover {
-    background: linear-gradient(to right, lighten($text-primary, 8%) 0%, #3a3a3a 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-}
-
 // Responsive design
 @media (max-width: 768px) {
   .notifications-container {

@@ -21,6 +21,7 @@ import { adminGuard } from './core/guard/admin-guard';
 import { noAuthGuard } from './core/guard/no-auth-guard';
 import { CreatePost } from './features/posts/create-post/create-post';
 import { PostDetail } from './features/posts/post-detail/post-detail';
+import { UserProfile } from './features/profile/user-profile/user-profile';
 
 
 export const routes: Routes = [
@@ -40,7 +41,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'home', component: Home },
-      { path: 'profile', component: MyProfile },
+      { path: 'profile/me', component: MyProfile },
       { path: 'saved-posts', component: SavedPosts },
       { path: 'privacy', component: Privacy },
       { path: 'about', component: About },
@@ -48,6 +49,7 @@ export const routes: Routes = [
       { path: 'notifications', component: Notifications },
       { path: 'create-post', component: CreatePost },
       { path: 'posts/:id', component: PostDetail },
+      { path: 'profile/:id', component: UserProfile },
 
 
       {

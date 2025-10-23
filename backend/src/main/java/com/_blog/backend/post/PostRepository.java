@@ -11,4 +11,5 @@ import com._blog.backend.user.User;
 @Repository
 public interface PostRepository extends JpaRepository<Post, UUID> {
     List<Post> findByUser(User user);
+    Long countByUser(User user);
 }

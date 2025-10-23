@@ -1,10 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, NgModule, OnInit } from '@angular/core';
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/models/user';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile-card',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './profile-card.html',
   styleUrl: './profile-card.scss'
 })

@@ -36,13 +36,15 @@
                         </div>
                     </div>
 
-                    <button *ngIf="user.currentUser" class="follow-btn">
+                    <button *ngIf="user.currentUser" class="follow-btn" (click)="onFollowClick()">
                         <i class="fas fa-edit"></i> Edit Profile
                     </button>
 
                     <!-- Follow button for other users -->
-                    <button *ngIf="!user.currentUser" class="follow-btn">
-                        <i class="fas fa-user-plus"></i> Follow
+                    <button *ngIf="!user.currentUser" class="follow-btn" (click)="onFollowClick()" [disabled]="isLoading">
+                        <i class="fas fa-user-plus" *ngIf="!isFollowing"></i>
+                        <i class="fas fa-user-check" *ngIf="isFollowing"></i>
+                        {{ isFollowing ? 'Following' : 'Follow' }}
                     </button>
                 </div>
             </div>

@@ -18,4 +18,16 @@ export class UserService {
   getUserByUsername(username: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/${username}`);
   }
+
+  follow(userId: string): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl.replace('/users', '/follows')}/${userId}`, {});
+  }
+
+  unfollow(userId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl.replace('/users', '/follows')}/${userId}`);
+  }
+
+  isFollowing(userId: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl.replace('/users', '/follows')}/${userId}/status`);
+  }
 }

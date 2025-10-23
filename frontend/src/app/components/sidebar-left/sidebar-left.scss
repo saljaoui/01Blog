@@ -7,12 +7,37 @@
   width: 240px;
   height: 100%;
   position: relative;
-  z-index: 999;
+  z-index: 99;
+  transition: transform 0.3s ease-in-out;
 }
 
 .sidebar-left {
   border-right: 1px solid #e0e0e0;
 }
+
+/* Mobile/Tablet Responsive */
+@media (max-width: 1023px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    padding-top: 40px !important;
+  }
+
+  .open {
+    transform: translateX(0) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    width: 280px;
+  }
+}
+
 
 /* Navigation Menu */
 .nav-menu {

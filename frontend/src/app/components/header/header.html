@@ -16,6 +16,15 @@
             <!-- Actions Section -->
             <div class="col-auto">
                 <div class="d-flex align-items-center gap-2">
+                    <!-- Hamburger Menu for Mobile/Tablet -->
+                    <button class="btn-hamburger d-lg-none" type="button" (click)="onToggleSidebar()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+
                     <!-- Notifications -->
                     <a routerLink="/notifications" class="text-decoration-none">
                         <button class="btn-notifications position-relative" type="button" routerLink="/notifications">

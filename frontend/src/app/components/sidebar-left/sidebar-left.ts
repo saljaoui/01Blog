@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input, HostBinding } from '@angular/core';
 import { ProfileCard } from '../profile-card/profile-card';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { User } from '../../core/models/user';
@@ -14,6 +14,14 @@ import { UserService } from '../../core/services/user.service';
 export class SidebarLeft {
   private userService = inject(UserService);
   user?: User;
+
+  @Input() isOpen = false;
+
+  @HostBinding('class.open')
+  get isOpenClass() {
+    return this.isOpen;
+  }
+
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {

@@ -102,7 +102,7 @@ $border-color: #dcdcdc;
     border-color: rgba($primary-blue, 0.1);
 
     &:hover {
-      background: linear-gradient(135deg, darken($bg-unread, 2%) 0%, #e8f2ff 100%);
+      background: linear-gradient(135deg, $bg-unread 0%, #e8f2ff 100%);
       border-color: rgba($primary-blue, 0.15);
     }
 

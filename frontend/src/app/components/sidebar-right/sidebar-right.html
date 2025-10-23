@@ -5,8 +5,7 @@
         <div class="d-flex align-items-center justify-content-between mb-3">
             <div class="d-flex align-items-center">
                 <div class="header-icon me-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="200"
-                        height="200" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24">
                         <g fill="none" stroke="currentColor" stroke-width="1.5">
                             <circle cx="12" cy="6" r="4" />
                             <path stroke-linecap="round"
@@ -24,8 +23,7 @@
             <div class="d-flex align-items-center">
                 <button class="refresh-btn" title="Refresh">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2"
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
                 </button>
@@ -34,30 +32,45 @@
 
         <!-- Enhanced Search Input -->
         <div class="search-container">
-            <svg xmlns="http://www.w3.org/2000/svg" class="search-icon"
-                width="24" height="24"
-                viewBox="0 0 24 24"><g fill="none"
-                    stroke-width="1.5"><circle cx="11.5"
-                        cy="11.5" r="9.5" /><path stroke-linecap="round"
-                        d="m20 20l2 2" /></g></svg>
-            <input type="text" id class="search-input"
-                placeholder="Search by Username..." />
-            <div id="searchSpinner" class="search-spinner d-none"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" width="24" height="24" viewBox="0 0 24 24">
+                <g fill="none" stroke-width="1.5">
+                    <circle cx="11.5" cy="11.5" r="9.5" />
+                    <path stroke-linecap="round" d="m20 20l2 2" />
+                </g>
+            </svg>
+            <input type="text" id="search-input" class="search-input" placeholder="Search by Username..."
+                [(ngModel)]="searchQuery" (input)="onSearchInput($event)" />
+            <div id="searchSpinner" class="search-spinner" [class.d-none]="!isSearching"></div>
         </div>
     </div>
 
     <!-- Enhanced Users List -->
     <div class="users-list">
-        <!-- User 1 -->
-        <a href="/profile" class="user-item">
+        <ng-container *ngIf="users.length === 0 && !isSearching">
+            <div class="no-results">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24">
+                    <g fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m8 12l2-1.5L8 9m8 3l-2-1.5L16 9m0 7l-1.333-1l-1.334 1L12 15l-1.333 1l-1.334-1L8 16" />
+                    </g>
+                </svg>
+                <p>No users found.</p>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="isSearching">
+            <div class="searching">
+                <p>Searching...</p>
+            </div>
+        </ng-container>
+        <a *ngFor="let user of users" [routerLink]="['/profile', user.username]" class="user-item">
             <div class="user-avatar">
-                <img
-                    src="https://i.pinimg.com/736x/1a/ab/17/1aab17124bee3720d418fdc9fd0c9816.jpg"
-                    alt="Sarah">
+                <img src="https://i.pinimg.com/736x/9d/61/39/9d61392cfa6b5d8ae7c89de50f6aa1f9.jpg"
+                    [alt]="user.firstName">
             </div>
             <div class="flex-fill ms-3">
-                <h3 class="name">Sarah Johnson</h3>
-                <div class="user-name">@Sarahjoh</div>
+                <h3 class="name">{{ user.firstName }} {{ user.lastName }}</h3>
+                <div class="user-name">@{{ user.username }}</div>
             </div>
         </a>
     </div>

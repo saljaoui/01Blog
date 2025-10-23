@@ -30,4 +30,8 @@ export class UserService {
   isFollowing(userId: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl.replace('/users', '/follows')}/${userId}/status`);
   }
+
+  searchUsers(username: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/search?username=${username}`);
+  }
 }

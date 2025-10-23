@@ -2,17 +2,10 @@
 > 01blog-frontend@0.0.0 start
 > ng serve
 
-❯ Building...
-✔ Building...
-Initial chunk files | Names         |  Raw size
-main.js             | main          | 437.19 kB | 
-styles.css          | styles        | 284.19 kB | 
-polyfills.js        | polyfills     |  95 bytes | 
-
-                    | Initial total | 721.48 kB
-
-Application bundle generation complete. [12.039 seconds] - 2025-10-22T13:32:09.404Z
-
-Watch mode enabled. Watching for file changes...
-NOTE: Raw file sizes do not reflect development server per-request transformations.
-  ➜  Local:   http://localhost:4200/
+Node packages may not be installed. Try installing with 'npm install'.
+Error: Could not find the '@angular/build:dev-server' builder's node package.
+npm notice
+npm notice New patch version of npm available! 11.6.1 -> 11.6.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.6.2
+npm notice To update run: npm install -g npm@11.6.2
+npm notice

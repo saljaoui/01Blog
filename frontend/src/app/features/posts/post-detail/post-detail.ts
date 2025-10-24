@@ -4,25 +4,32 @@ import { ActivatedRoute } from '@angular/router';
 import { Post } from '../../../core/models/post';
 import { LikeService } from '../../../core/services/like.service';
 import { SaveService } from '../../../core/services/save.service';
+import { CommentService } from '../../../core/services/comment.service';
 import { CommonModule } from '@angular/common';
 import { DateUtilsService } from '../../../core/services/utils/DateUtil.service';
 import { parseEditorJsContent } from '../../../core/utils/editorjs-parser';
+import { Comment, CommentRequest, CommentLikeRequest } from '../../../core/models/comment';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-post-detail',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './post-detail.html',
   styleUrls: ['./post-detail.scss']
 })
 export class PostDetail {
   post!: any;
   createdAt?: string;
+  comments: Comment[] = [];
+  newCommentContent: string = '';
+  showComments: boolean = false;
 
   constructor(private postService: PostService,
     private likeService: LikeService,
     private saveService: SaveService,
+    private commentService: CommentService,
     private route: ActivatedRoute,
-    private dateUtils: DateUtilsService
+    public dateUtils: DateUtilsService
   ) { }
 
   ngOnInit() {
@@ -35,12 +42,95 @@ export class PostDetail {
         };
         this.createdAt = this.dateUtils.formatDate(post.createdAt);
         console.log('Post details:', this.post);
-        
+
       },
       error: (error) => {
         console.error('Error fetching post details:', error);
       }
     });
+  }
+
+  onCommentClick() {
+    if (!this.showComments) {
+      this.loadComments();
+    }
+    this.showComments = !this.showComments;
+  }
+
+  loadComments() {
+    const postId = this.route.snapshot.paramMap.get('id');
+    this.commentService.getCommentsByPostId(postId!).subscribe({
+      next: (comments) => {
+        this.comments = comments;
+        // Load like status for each comment
+        this.comments.forEach(comment => {
+          this.commentService.getCommentLikeStatus(comment.id).subscribe({
+            next: (likeStatus) => {
+              comment.liked = likeStatus.liked;
+              comment.likesCount = likeStatus.likesCount;
+            },
+            error: (err) => console.error('Error fetching comment like status', err)
+          });
+        });
+      },
+      error: (error) => {
+        console.error('Error fetching comments:', error);
+      }
+    });
+  }
+
+  onSubmitComment() {
+    if (!this.newCommentContent.trim()) return;
+
+    const postId = this.route.snapshot.paramMap.get('id');
+    const commentRequest: CommentRequest = { content: this.newCommentContent };
+
+    this.commentService.createComment(postId!, commentRequest).subscribe({
+      next: (newComment) => {
+        this.comments.unshift(newComment); // Add to top
+        this.newCommentContent = '';
+        // Update post comment count
+        if (this.post) {
+          this.post.commentsCount = (this.post.commentsCount || 0) + 1;
+        }
+      },
+      error: (error) => {
+        console.error('Error creating comment:', error);
+      }
+    });
+  }
+
+  onLikeComment(comment: Comment) {
+    const likeRequest: CommentLikeRequest = { commentId: comment.id };
+    this.commentService.toggleCommentLike(likeRequest).subscribe({
+      next: (res) => {
+        comment.liked = res.liked;
+        comment.likesCount = res.likesCount;
+      },
+      error: (err) => console.error('Comment like error', err)
+    });
+  }
+
+  canDeleteComment(comment: Comment): boolean {
+    // For now, allow deletion if the comment belongs to the current user
+    // In a real app, you'd check the current user's ID against comment.authorId
+    return true; // TODO: Implement proper user check
+  }
+
+  onDeleteComment(comment: Comment) {
+    if (confirm('Are you sure you want to delete this comment?')) {
+      this.commentService.deleteComment(comment.id).subscribe({
+        next: () => {
+          // Remove comment from the list
+          this.comments = this.comments.filter(c => c.id !== comment.id);
+          // Update post comment count
+          if (this.post) {
+            this.post.commentsCount = (this.post.commentsCount || 0) - 1;
+          }
+        },
+        error: (err) => console.error('Comment delete error', err)
+      });
+    }
   }
 
   onLike(): void {

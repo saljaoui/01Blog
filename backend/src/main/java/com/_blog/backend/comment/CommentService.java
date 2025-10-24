@@ -3,12 +3,13 @@ package com._blog.backend.comment;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com._blog.backend.auth.SecurityUtils;
+import com._blog.backend.comment.dto.CommentLikeRequest;
+import com._blog.backend.comment.dto.CommentLikeResponse;
 import com._blog.backend.comment.dto.CommentRequest;
 import com._blog.backend.comment.dto.CommentResponse;
 import com._blog.backend.exception.ResourceNotFoundException;
@@ -25,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+    private final CommentLikeRepository commentLikeRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
@@ -40,6 +42,7 @@ public class CommentService {
         
         // Create comment
         Comment comment = Comment.builder()
+        .id(UUID.randomUUID())
         .content(commentRequest.getContent())
         .post(post)
         .user(user)
@@ -100,12 +103,16 @@ public class CommentService {
         // Find comment
         Comment comment = commentRepository.findById(commentId)
             .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
-        
+
         // Check permission: owner or admin
         if (!comment.getUser().getUsername().equals(username)) {
             throw new UnauthorizedException("You don't have permission to delete this comment");
         }
-        
+
+        // Delete all associated likes first
+        commentLikeRepository.deleteAllByComment(comment);
+
+        // Then delete the comment
         commentRepository.delete(comment);
     }
     
@@ -125,6 +132,54 @@ public class CommentService {
         commentRepository.deleteByUserId(userId);
     }
     
+    @Transactional
+    public CommentLikeResponse toggleCommentLike(UUID commentId) {
+        User user = SecurityUtils.getCurrentUser();
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
+
+        boolean alreadyLiked = commentLikeRepository.existsByCommentAndUser(comment, user);
+
+        if (alreadyLiked) {
+            commentLikeRepository.deleteByCommentAndUser(comment, user);
+        } else {
+            CommentLike like = CommentLike.builder()
+                    .comment(comment)
+                    .user(user)
+                    .build();
+            commentLikeRepository.save(like);
+        }
+
+        long likesCount = commentLikeRepository.countByComment(comment);
+
+        return CommentLikeResponse.builder()
+                .liked(!alreadyLiked)
+                .likesCount(likesCount)
+                .build();
+    }
+
+    public CommentLikeResponse getCommentLikeStatus(UUID commentId) {
+        User user = SecurityUtils.getCurrentUser();
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
+
+        boolean isLiked = commentLikeRepository.existsByCommentAndUser(comment, user);
+        long likesCount = commentLikeRepository.countByComment(comment);
+
+        return CommentLikeResponse.builder()
+                .liked(isLiked)
+                .likesCount(likesCount)
+                .build();
+    }
+
+    public long getCommentLikeCount(UUID commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("Comment not found"));
+        return commentLikeRepository.countByComment(comment);
+    }
+
     /**
      * Helper method to map Comment entity to CommentResponse DTO
      */

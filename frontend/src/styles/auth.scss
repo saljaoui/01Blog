@@ -1,12 +1,83 @@
 .main-container {
-  background: #ffffff; 
-  border-radius: 1.5rem;      
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 
+  background: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1),
               0 8px 30px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   width: 90%;
   max-width: 800px;
   margin: 2rem auto;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 767px) {
+  .main-container {
+    width: 95%;
+    max-width: none;
+    margin: 1rem auto;
+    border-radius: 1rem;
+    flex-direction: column !important;
+  }
+
+  .left-section {
+    display: none !important; /* Hide left section on mobile */
+  }
+
+  .flex-fill.d-flex.flex-column.justify-content-center {
+    padding: 2rem 1.5rem !important;
+  }
+
+  .logo-circle {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+
+  .logo-inner {
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+
+  .logo-text {
+    font-size: 1.5rem !important;
+  }
+
+  .form-control {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .btn-primary-custom {
+    padding: 0.875rem 1.5rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .start-text,
+  .signup-text,
+  .terms-text {
+    font-size: 0.8rem !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main-container {
+    width: 85%;
+    max-width: 700px;
+    margin: 1.5rem auto;
+  }
+
+  .left-section {
+    min-width: 200px !important;
+  }
+
+  .main-circle {
+    width: 160px !important;
+    height: 160px !important;
+  }
+
+  .inner-circle {
+    width: 100px !important;
+    height: 100px !important;
+  }
 }
 
 

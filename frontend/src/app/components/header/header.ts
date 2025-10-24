@@ -1,19 +1,53 @@
-import { Component, HostListener, inject, signal, Output, EventEmitter } from '@angular/core';
+import { Component, HostListener, inject, signal, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
+import { NotificationService } from '../../core/services/notification.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
-export class Header {
+export class Header implements OnInit, OnDestroy {
   isOpen = signal(false);
   isNotificationsOpen = signal(false);
   private authService = inject(AuthService);
+  private notificationService = inject(NotificationService);
+  unreadCount = signal(0);
+  private subscription: Subscription = new Subscription();
 
   @Output() toggleSidebar = new EventEmitter<void>();
+
+  ngOnInit() {
+    this.loadUnreadCount();
+    this.subscription.add(
+      this.notificationService.unreadCount$.subscribe(count => {
+        this.unreadCount.set(count);
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  loadUnreadCount() {
+    this.notificationService.getUnreadCount().subscribe({
+      next: (count) => {
+        this.unreadCount.set(count);
+      },
+      error: (error) => {
+        console.error('Error loading unread count:', error);
+      }
+    });
+  }
+
+  refreshUnreadCount() {
+    this.loadUnreadCount();
+  }
 
   toggleDropdown() {
     this.isOpen.update((v: boolean) => !v);

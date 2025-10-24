@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.comment.CommentRepository;
 import com._blog.backend.like.LikeRepository;
+import com._blog.backend.notification.NotificationService;
 import com._blog.backend.post.dto.PostRequest;
 import com._blog.backend.post.dto.PostResponse;
 import com._blog.backend.save.SavedRepository;
@@ -22,6 +23,7 @@ public class PostService {
     private final LikeRepository likeRepository;
     private final SavedRepository savedRepository;
     private final CommentRepository commentRepository;
+    private final NotificationService notificationService;
 
     public PostResponse create(PostRequest postRequest) {
         User user = SecurityUtils.getCurrentUser();
@@ -33,6 +35,9 @@ public class PostService {
                 .build();
       
         postRepository.save(post);
+
+        // Create notifications for followers
+        notificationService.createNewPostNotification(post);
 
         return new PostResponse();
     }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.like.dto.LikeResponse;
+import com._blog.backend.notification.NotificationService;
 import com._blog.backend.post.Post;
 import com._blog.backend.post.PostRepository;
 import com._blog.backend.user.User;
@@ -19,6 +20,7 @@ public class LikeService {
 
     private final LikeRepository likeRepository;
     private final PostRepository postRepository;
+    private final NotificationService notificationService;
 
     @Transactional
     public LikeResponse toggleLike(UUID postId) {
@@ -37,6 +39,9 @@ public class LikeService {
                     .user(user)
                     .build();
             likeRepository.save(like);
+
+            // Create notification for the post author
+            notificationService.createLikeNotification(postId, user.getUsername());
         }
 
         long likesCount = likeRepository.countByPost(post);

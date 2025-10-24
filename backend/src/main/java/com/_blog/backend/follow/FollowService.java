@@ -1,5 +1,6 @@
 package com._blog.backend.follow;
 
+import com._blog.backend.notification.NotificationService;
 import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ public class FollowService {
 
     private final FollowRepository followRepository;
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
     public void follow(User follower, String followingId) {
         User following = getUser(followingId);
@@ -23,6 +25,9 @@ public class FollowService {
                     .follower(follower)
                     .following(following)
                     .build());
+
+            // Create notification for the user being followed
+            notificationService.createFollowNotification(following.getUsername(), follower.getUsername());
         }
     }
 

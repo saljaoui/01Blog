@@ -14,6 +14,7 @@ import com._blog.backend.comment.dto.CommentRequest;
 import com._blog.backend.comment.dto.CommentResponse;
 import com._blog.backend.exception.ResourceNotFoundException;
 import com._blog.backend.exception.UnauthorizedException;
+import com._blog.backend.notification.NotificationService;
 import com._blog.backend.post.Post;
 import com._blog.backend.post.PostRepository;
 import com._blog.backend.user.User;
@@ -29,6 +30,7 @@ public class CommentService {
     private final CommentLikeRepository commentLikeRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
     @Transactional
     public CommentResponse createComment(UUID postId, CommentRequest commentRequest, String username) {
@@ -51,7 +53,10 @@ public class CommentService {
         ;
 
         Comment savedComment = commentRepository.save(comment);
-        
+
+        // Create notification for the post author
+        notificationService.createCommentNotification(postId, username);
+
         return CommentResponse
             .builder()
             .id(savedComment.getId())

@@ -112,9 +112,17 @@ export class PostDetail {
   }
 
   canDeleteComment(comment: Comment): boolean {
-    // For now, allow deletion if the comment belongs to the current user
-    // In a real app, you'd check the current user's ID against comment.authorId
-    return true; // TODO: Implement proper user check
+    // Get current user ID from token
+    const token = localStorage.getItem('access_token');
+    if (!token) return false;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const currentUserId = payload.userId;
+      return comment.authorId === currentUserId;
+    } catch {
+      return false;
+    }
   }
 
   onDeleteComment(comment: Comment) {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PostService } from '../../../core/services/post.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../../../core/models/post';
 import { LikeService } from '../../../core/services/like.service';
 import { SaveService } from '../../../core/services/save.service';
@@ -23,12 +23,14 @@ export class PostDetail {
   comments: Comment[] = [];
   newCommentContent: string = '';
   showComments: boolean = false;
+  showMenu: boolean = false;
 
   constructor(private postService: PostService,
     private likeService: LikeService,
     private saveService: SaveService,
     private commentService: CommentService,
     private route: ActivatedRoute,
+    private router: Router,
     public dateUtils: DateUtilsService
   ) { }
 
@@ -157,6 +159,35 @@ export class PostDetail {
       },
       error: (err) => console.error('Save error', err)
     });
+  }
+
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
+  }
+
+  onReport() {
+    // TODO: Implement report functionality
+    alert('Report functionality not implemented yet.');
+    this.showMenu = false;
+  }
+
+  onDelete() {
+    if (confirm('Are you sure you want to delete this post?')) {
+      const postId = this.route.snapshot.paramMap.get('id');
+      this.postService.deletePost(postId!).subscribe({
+        next: () => {
+          this.router.navigate(['/dashboard']);
+        },
+        error: (err: any) => console.error('Delete post error', err)
+      });
+    }
+    this.showMenu = false;
+  }
+
+  onEdit() {
+    const postId = this.route.snapshot.paramMap.get('id');
+    this.router.navigate(['/posts/edit', postId]);
+    this.showMenu = false;
   }
 
   private stripHtml(s: string): string {

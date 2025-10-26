@@ -1,0 +1,12 @@
+2025-10-26 09:29:42.150 GMT [90686] LOG:  starting PostgreSQL 15.4 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0, 64-bit
+2025-10-26 09:29:42.150 GMT [90686] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-10-26 09:29:42.152 GMT [90686] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-10-26 09:29:42.155 GMT [90689] LOG:  database system was shut down at 2025-10-26 09:28:09 GMT
+2025-10-26 09:29:42.157 GMT [90686] LOG:  database system is ready to accept connections
+2025-10-26 09:29:48.368 GMT [90795] FATAL:  database "blogdb" does not exist
+2025-10-26 09:29:48.951 GMT [90799] FATAL:  database "blogdb" does not exist
+2025-10-26 09:29:49.327 GMT [90800] FATAL:  database "blogdb" does not exist
+2025-10-26 09:31:47.565 GMT [91619] FATAL:  database "saljaoui" does not exist
+2025-10-26 09:31:47.568 GMT [91621] ERROR:  role "saljaoui" already exists
+2025-10-26 09:31:47.568 GMT [91621] STATEMENT:  CREATE ROLE saljaoui SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN;
+2025-10-26 09:34:42.220 GMT [90687] LOG:  checkpoint starting: time

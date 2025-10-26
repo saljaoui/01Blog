@@ -36,12 +36,13 @@
                         </div>
                     </div>
 
-                    <button *ngIf="user.currentUser" class="follow-btn" (click)="onFollowClick()">
+                    <button *ngIf="user.currentUser" class="follow-btn" (click)="onEditProfile()">
                         <i class="fas fa-edit"></i> Edit Profile
                     </button>
 
                     <!-- Follow button for other users -->
-                    <button *ngIf="!user.currentUser" class="follow-btn" (click)="onFollowClick()" [disabled]="isLoading">
+                    <button *ngIf="!user.currentUser" class="follow-btn" (click)="onFollowClick()"
+                        [disabled]="isLoading">
                         <i class="fas fa-user-plus" *ngIf="!isFollowing"></i>
                         <i class="fas fa-user-check" *ngIf="isFollowing"></i>
                         {{ isFollowing ? 'Following' : 'Follow' }}
@@ -51,6 +52,33 @@
         </div>
     </main>
 
-    <!-- Right Sidebar -->
-    <app-sidebar-right></app-sidebar-right>
+    <!-- EDIT PROFILE POPUP -->
+    <div class="edit-profile-popup" *ngIf="showEditPopup">
+        <div class="popup-backdrop" (click)="closeEditPopup()"></div>
+        <div class="popup-content">
+            <h2>Edit Profile</h2>
+            <form (ngSubmit)="submitEditProfile()">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input id="firstName" [(ngModel)]="user.firstName" name="firstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input id="lastName" [(ngModel)]="user.lastName" name="lastName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" [(ngModel)]="user.bio" name="bio"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" (click)="closeEditPopup()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+<!-- Right Sidebar -->
+<app-sidebar-right></app-sidebar-right>
 </div>

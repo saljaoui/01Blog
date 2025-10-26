@@ -3,11 +3,12 @@ import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/models/user';
 import { SidebarRight } from '../../components/sidebar-right/sidebar-right';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, RouterLinkActive, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
-  imports: [SidebarRight, CommonModule],
+  imports: [SidebarRight, CommonModule, FormsModule],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })
@@ -15,11 +16,13 @@ import { ActivatedRoute, RouterLinkActive } from '@angular/router';
 export class Profile implements OnInit {
   private userService = inject(UserService);
   private route = inject(ActivatedRoute);
-  
+  private router = inject(Router);
+
   user?: User;
   currentUsername?: string;
   isFollowing: boolean = false;
   isLoading: boolean = false;
+  showEditPopup: boolean = false;
 
   ngOnInit(): void {
     this.currentUsername = this.route.snapshot.paramMap.get('username') || '';
@@ -85,6 +88,21 @@ export class Profile implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+
+  onEditProfile() {
+    this.showEditPopup = true;
+  }
+
+  closeEditPopup() {
+    this.showEditPopup = false;
+  }
+
+  submitEditProfile(): void {
+    if (!this.user) return;
+    console.log('Profile updated', this.user);
+    this.closeEditPopup();
   }
 
 }

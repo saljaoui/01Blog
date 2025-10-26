@@ -9,5 +9,6 @@ export const environment = {
     users: 'http://localhost:8080/api/users',
     saved: 'http://localhost:8080/api/saveds',
     notifications: 'http://localhost:8080/api/notifications',
+    reports: 'http://localhost:8080/api/reports'
   }
 };

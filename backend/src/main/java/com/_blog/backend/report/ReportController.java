@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com._blog.backend.report.dto.ReportRequest;
 import com._blog.backend.report.dto.ReportResponse;
+import com._blog.backend.report.dto.ReportStatusResponse;
 import com._blog.backend.report.dto.ReportStatusUpdateRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,12 @@ public class ReportController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ReportResponse>> getAllReports() {
         return ResponseEntity.ok(reportService.getAllReports());
+    }
+
+    @GetMapping("/report-status")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ReportStatusResponse> getReportStatus() {
+        return ResponseEntity.ok(reportService.getReportStatus());
     }
 
     @GetMapping("/{id}")

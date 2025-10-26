@@ -1,5 +1,5 @@
 <div class="container py-4">
-  <div class="row g-3 align-items-stretch">
+  <div class="row g-3 align-items-stretch" *ngIf="status">
 
     <!-- Total Users -->
     <div class="col-12 col-sm-6 col-lg-4">
@@ -27,7 +27,7 @@
               <small class="text-muted">All time</small>
             </div>
             <div class="d-flex align-items-center">
-              <h2 class="stat-number mb-0" data-value="12,345">12,345</h2>
+              <h2 class="stat-number mb-0" data-value="12,345">{{status.totalUsers}}</h2>
               <span class="ms-2 badge text-bg-dark">Active</span>
             </div>
             <p class="text-muted small mb-0 mt-2">Active, verified accounts.</p>
@@ -59,7 +59,7 @@
               <small class="text-muted">All time</small>
             </div>
             <div class="d-flex align-items-center">
-              <h2 class="stat-number mb-0" data-value="48,712">48,712</h2>
+              <h2 class="stat-number mb-0" data-value="48,712">{{status.totalPosts}}</h2>
               <span class="ms-2 badge bg-black">new</span>
             </div>
             <p class="text-muted small mb-0 mt-2">Published & draft posts
@@ -92,7 +92,7 @@
               <small class="text-muted">Needs review</small>
             </div>
             <div class="d-flex align-items-center">
-              <h2 class="stat-number mb-0 text-warning" data-value="27">27</h2>
+              <h2 class="stat-number mb-0 text-warning" data-value="27">{{status.totalPendingReports}}</h2>
               <span class="ms-2 badge bg-danger">urgent</span>
             </div>
             <p class="text-muted small mb-0 mt-2">Reports waiting action

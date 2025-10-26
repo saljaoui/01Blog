@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.exception.ResourceNotFoundException;
+import com._blog.backend.post.PostRepository;
 import com._blog.backend.report.dto.ReportRequest;
 import com._blog.backend.report.dto.ReportResponse;
+import com._blog.backend.report.dto.ReportStatusResponse;
 import com._blog.backend.report.dto.ReportStatusUpdateRequest;
 import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
@@ -21,6 +23,7 @@ public class ReportService {
 
     private final ReportRepository reportRepository;
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
 
     public ReportResponse createReport(ReportRequest request) {
         User reporter = SecurityUtils.getCurrentUser();
@@ -48,6 +51,17 @@ public class ReportService {
         return reportRepository.findAll().stream()
                 .map(this::mapToResponse)
                 .toList();
+    }
+
+    public ReportStatusResponse getReportStatus() {
+        Long totalUsers = userRepository.count();
+        Long totalPosts = postRepository.count();
+        Long totalPendingReports = reportRepository.countByStatus(ReportStatus.PENDING);
+        return ReportStatusResponse.builder()
+        .totalUsers(totalUsers)
+        .totalPosts(totalPosts)
+        .totalPendingReports(totalPendingReports)
+        .build();
     }
 
     public ReportResponse getReportById(UUID reportId) {

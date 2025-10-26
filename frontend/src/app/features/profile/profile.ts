@@ -23,6 +23,7 @@ export class Profile implements OnInit {
   isFollowing: boolean = false;
   isLoading: boolean = false;
   showEditPopup: boolean = false;
+  showMenu: boolean = false;
   editForm = {
     firstName: '',
     lastName: '',
@@ -105,6 +106,10 @@ export class Profile implements OnInit {
       };
     }
     this.showEditPopup = true;
+  }
+
+  onMenuKlick() {
+    this.showMenu = !this.showMenu;
   }
 
   closeEditPopup() {

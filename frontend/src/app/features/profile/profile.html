@@ -15,12 +15,12 @@
                     <!-- THREE DOTS MENU -->
                     <div class="profile-actions">
                         <button class="dots-menu-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" (click)="onMenuKlick()" >
                                 <path fill="currentColor"
                                     d="M128 96a32 32 0 1 0 32 32a32 32 0 0 0-32-32Zm0 48a16 16 0 1 1 16-16a16 16 0 0 1-16 16Zm0-64a32 32 0 1 0-32-32a32 32 0 0 0 32 32Zm0-48a16 16 0 1 1-16 16a16 16 0 0 1 16-16Zm0 144a32 32 0 1 0 32 32a32 32 0 0 0-32-32Zm0 48a16 16 0 1 1 16-16a16 16 0 0 1-16 16Z" />
                             </svg>
                         </button>
-                        <div class="dots-menu">
+                        <div class="dots-menu" *ngIf="showMenu">
                             <div class="dots-menu-item">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5">

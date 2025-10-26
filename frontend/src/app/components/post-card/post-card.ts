@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LikeService } from '../../core/services/like.service';
 import { Post } from '../../core/models/post';
 import { SaveService } from '../../core/services/save.service';
 import { DateUtilsService } from '../../core/services/utils/DateUtil.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-post-card',
@@ -14,7 +14,9 @@ import { RouterLink } from '@angular/router';
 })
 
 export class PostCard implements OnInit {
-  @Input() post!: Post; // Use definite assignment assertion
+  @Input() post!: Post;
+
+  private router = inject(Router);
 
   constructor(private likeService: LikeService
     , private saveService: SaveService
@@ -30,6 +32,8 @@ export class PostCard implements OnInit {
   ngOnInit(): void {
     // safe guards
     if (!this.post) return;
+
+
 
     // author
     const first = this.post.authorFirstName ?? '';
@@ -95,6 +99,10 @@ export class PostCard implements OnInit {
       },
       error: (err) => console.error('Save error', err)
     });
+  }
+
+  onComments(): void {
+    this.router.navigate(['/posts', this.post.id])
   }
 
   private stripHtml(s: string): string {

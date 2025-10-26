@@ -60,17 +60,17 @@
             <form (ngSubmit)="submitEditProfile()">
                 <div class="form-group">
                     <label for="firstName">First Name</label>
-                    <input id="firstName" [(ngModel)]="user.firstName" name="firstName" required>
+                    <input id="firstName" [(ngModel)]="editForm.firstName" name="firstName" required>
                 </div>
 
                 <div class="form-group">
                     <label for="lastName">Last Name</label>
-                    <input id="lastName" [(ngModel)]="user.lastName" name="lastName" required>
+                    <input id="lastName" [(ngModel)]="editForm.lastName" name="lastName" required>
                 </div>
 
                 <div class="form-group">
                     <label for="bio">Bio</label>
-                    <textarea id="bio" [(ngModel)]="user.bio" name="bio"></textarea>
+                    <textarea id="bio" [(ngModel)]="editForm.bio" name="bio"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Save</button>

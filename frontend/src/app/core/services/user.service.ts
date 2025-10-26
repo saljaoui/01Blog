@@ -34,4 +34,8 @@ export class UserService {
   searchUsers(username: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/search?username=${username}`);
   }
+
+  updateProfile(profileData: { firstName: string; lastName: string; bio: string }): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/profile`, profileData);
+  }
 }

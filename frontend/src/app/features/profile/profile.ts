@@ -23,6 +23,11 @@ export class Profile implements OnInit {
   isFollowing: boolean = false;
   isLoading: boolean = false;
   showEditPopup: boolean = false;
+  editForm = {
+    firstName: '',
+    lastName: '',
+    bio: ''
+  };
 
   ngOnInit(): void {
     this.currentUsername = this.route.snapshot.paramMap.get('username') || '';
@@ -92,6 +97,13 @@ export class Profile implements OnInit {
 
 
   onEditProfile() {
+    if (this.user) {
+      this.editForm = {
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        bio: this.user.bio || ''
+      };
+    }
     this.showEditPopup = true;
   }
 
@@ -101,8 +113,19 @@ export class Profile implements OnInit {
 
   submitEditProfile(): void {
     if (!this.user) return;
-    console.log('Profile updated', this.user);
-    this.closeEditPopup();
+
+
+    console.log("this.editForm", this.editForm);
+    
+    this.userService.updateProfile(this.editForm).subscribe({
+      next: (updatedUser: User) => {
+        this.user = updatedUser;
+        this.closeEditPopup();
+      },
+      error: (err: any) => {
+        console.error('Error updating profile:', err);
+      }
+    });
   }
 
 }

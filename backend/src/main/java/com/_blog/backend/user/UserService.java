@@ -11,6 +11,7 @@ import com._blog.backend.follow.Follow;
 import com._blog.backend.follow.FollowRepository;
 import com._blog.backend.post.PostRepository;
 import com._blog.backend.role.Role;
+import com._blog.backend.user.dto.UpdateProfileRequest;
 import com._blog.backend.user.dto.UserRequest;
 import com._blog.backend.user.dto.UserResponse;
 
@@ -76,5 +77,12 @@ public class UserService {
 
     public List<User> searchUsersByUsername(String username) {
         return userRepository.findByUsernameContainingIgnoreCase(username);
+    }
+
+    public User updateProfile(User user, UpdateProfileRequest request) {
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setBio(request.getBio());
+        return userRepository.save(user);
     }
 }

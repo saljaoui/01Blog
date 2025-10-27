@@ -38,4 +38,8 @@ export class UserService {
   updateProfile(profileData: { firstName: string; lastName: string; bio: string }): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}/profile`, profileData);
   }
+
+  reportUser(reportedUserId: string, reason: string): Observable<void> {
+    return this.http.post<void>(`${environment.api.reports}`, { reportedUserId, reason });
+  }
 }

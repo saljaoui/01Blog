@@ -18,11 +18,12 @@
                 <div class="d-flex align-items-center gap-2">
                     <!-- Hamburger Menu for Mobile/Tablet -->
                     <button class="btn-hamburger d-lg-none" type="button" (click)="onToggleSidebar()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="3" y1="12" x2="21" y2="12"></line>
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <line x1="3" y1="18" x2="21" y2="18"></line>
-                        </svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.009m3.995 0h.01m3.977 0H16"/>
+        <path stroke-width="1.5" d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/>
+    </g>
+</svg>
                     </button>
 
                     <!-- Notifications -->
@@ -42,7 +43,7 @@
 
                     <!-- Create Post Button -->
                     <a routerLink="/create-post" class="text-decoration-none">
-                    <button class="btn btn-create d-none d-md-flex align-items-center" type="button">
+                    <button class="btn btn-create d-md-flex align-items-center" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <g fill="none" stroke="currentColor" stroke-width="2">
                                 <path

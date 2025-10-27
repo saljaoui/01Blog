@@ -24,10 +24,14 @@ export class Profile implements OnInit {
   isLoading: boolean = false;
   showEditPopup: boolean = false;
   showMenu: boolean = false;
+  showReportPopup: boolean = false;
   editForm = {
     firstName: '',
     lastName: '',
     bio: ''
+  };
+  reportForm = {
+    reason: ''
   };
 
   ngOnInit(): void {
@@ -121,7 +125,7 @@ export class Profile implements OnInit {
 
 
     console.log("this.editForm", this.editForm);
-    
+
     this.userService.updateProfile(this.editForm).subscribe({
       next: (updatedUser: User) => {
         this.user = updatedUser;
@@ -129,6 +133,42 @@ export class Profile implements OnInit {
       },
       error: (err: any) => {
         console.error('Error updating profile:', err);
+      }
+    });
+  }
+
+  onShareClick() {
+    const link = window.location.href;
+
+    navigator.clipboard.writeText(link).then(() => {
+      alert('✅ Link copied to clipboard!');
+      this.showMenu = false;
+    }).catch(err => {
+      console.error('Failed to copy link:', err);
+    });
+  }
+
+  onReportClick() {
+    this.showReportPopup = true;
+    this.showMenu = false;
+  }
+
+  closeReportPopup() {
+    this.showReportPopup = false;
+  }
+
+  submitReportUser() {
+    if (!this.user || !this.reportForm.reason.trim()) return;
+
+    this.userService.reportUser(this.user.id, this.reportForm.reason).subscribe({
+      next: () => {
+        alert('Report submitted successfully!');
+        this.closeReportPopup();
+        this.reportForm.reason = '';
+      },
+      error: (err) => {
+        console.error('Error submitting report:', err);
+        alert('Failed to submit report. Please try again.');
       }
     });
   }

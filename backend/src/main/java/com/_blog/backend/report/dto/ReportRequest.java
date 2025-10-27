@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReportRequest {
     private UUID reportedUserId;
+    private UUID reportedPostId;
     private String reason;
 }

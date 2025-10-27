@@ -29,7 +29,9 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/posts")
 public class PostController {
 
-    private static final String UPLOAD_FOLDER = "uploads/images/";
+    private static final String UPLOAD_FOLDER_IMAGES = "uploads/images/";
+    private static final String UPLOAD_FOLDER_VIDEOS = "uploads/videos/";
+
     @Autowired
     private PostService postService;
 
@@ -55,12 +57,75 @@ public class PostController {
         }
     }
 
+@PostMapping("/upload-video")
+public ResponseEntity<Map<String, Object>> uploadVideo(@RequestParam("video") MultipartFile file) {
+    try {
+        // 1. Create folder if doesn't exist
+        File uploadDir = new File(UPLOAD_FOLDER_VIDEOS);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
+        // 2. Create unique filename
+        String originalName = file.getOriginalFilename();
+        String extension = originalName.substring(originalName.lastIndexOf("."));
+        String newFileName = UUID.randomUUID().toString() + extension;
+
+        // 3. Save file to disk
+        Path filePath = Paths.get(UPLOAD_FOLDER_VIDEOS + newFileName);
+        Files.write(filePath, file.getBytes());
+
+        // 4. Create public URL for the video
+        String videoUrl = "http://localhost:8080/api/posts/videos/" + newFileName;
+
+        // 5. Return EditorJS-compatible response
+        Map<String, Object> response = Map.of(
+            "success", 1,
+            "file", Map.of("url", videoUrl)
+        );
+
+        System.out.println("Video uploaded successfully: " + videoUrl);
+        return ResponseEntity.ok(response);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.badRequest().body(Map.of(
+            "success", 0,
+            "message", "Video upload failed: " + e.getMessage()
+        ));
+    }
+}
+
+@GetMapping("/videos/{filename}")
+public ResponseEntity<byte[]> getVideo(@PathVariable String filename) {
+    try {
+        // 1. Read file from disk
+        Path filePath = Paths.get(UPLOAD_FOLDER_VIDEOS + filename);
+        byte[] videoBytes = Files.readAllBytes(filePath);
+
+        // 2. Determine content type (usually video/mp4 or similar)
+        String contentType = Files.probeContentType(filePath);
+        if (contentType == null) {
+            contentType = "video/mp4"; // default
+        }
+
+        // 3. Return video file
+        return ResponseEntity.ok()
+                .header("Content-Type", contentType)
+                .body(videoBytes);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.notFound().build();
+    }
+}
+
     @PostMapping("/upload-image")
     public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam("image") MultipartFile file) {
 
         try {
             // 1. Create folder if doesn't exist
-            File uploadDir = new File(UPLOAD_FOLDER);
+            File uploadDir = new File(UPLOAD_FOLDER_IMAGES);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
             }
@@ -71,7 +136,7 @@ public class PostController {
             String newFileName = UUID.randomUUID().toString() + extension;
 
             // 3. Save file to disk
-            Path filePath = Paths.get(UPLOAD_FOLDER + newFileName);
+            Path filePath = Paths.get(UPLOAD_FOLDER_IMAGES + newFileName);
             Files.write(filePath, file.getBytes());
 
             // 4. Create URL to access the image
@@ -98,7 +163,7 @@ public class PostController {
 
         try {
             // 1. Read file from disk
-            Path filePath = Paths.get(UPLOAD_FOLDER + filename);
+            Path filePath = Paths.get(UPLOAD_FOLDER_IMAGES + filename);
             byte[] imageBytes = Files.readAllBytes(filePath);
 
             // 2. Determine content type

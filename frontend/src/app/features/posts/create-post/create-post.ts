@@ -5,6 +5,7 @@ import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import Paragraph from '@editorjs/paragraph';
 import ImageTool from '@editorjs/image';
+import VideoTool from 'editorjs-video';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -23,7 +24,7 @@ export class CreatePost {
 
   ngOnInit(): void {
     console.log("this.authService.getAccessToken :", this.authService.getAccessToken());
-    
+
     this.editor = new EditorJS({
       holder: 'editorjs',
       placeholder: 'Start writing your post...',
@@ -56,6 +57,35 @@ export class CreatePost {
               }
             }
           }
+        },
+        video: {
+          class: VideoTool,
+          config: {
+            uploader: {
+              uploadByFile: (file: File) => {
+                const formData = new FormData();
+                formData.append('video', file);
+
+                return this.http.post<any>(
+                  'http://localhost:8080/api/posts/upload-video',
+                  formData,
+                  {
+                    headers: {
+                      Authorization: `Bearer ${this.authService.getAccessToken()}`,
+                    },
+                  }
+                )
+                  .toPromise()
+                  .then((response) => ({
+                    success: 1,
+                    file: { url: response.file.url }, // backend must return { file: { url: '...' } }
+                  }))
+                  .catch(() => ({
+                    success: 0,
+                  }));
+              },
+            }
+          }
         }
       }
     });
@@ -65,10 +95,10 @@ export class CreatePost {
     if (!this.editor) return;
     const output = await this.editor.save();
 
-  const postData = {
-    title: this.title,
-    content: JSON.stringify(output.blocks),
-  };
+    const postData = {
+      title: this.title,
+      content: JSON.stringify(output.blocks),
+    };
 
     console.log('Post content:', postData);
 

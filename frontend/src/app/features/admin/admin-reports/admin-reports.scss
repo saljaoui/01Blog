@@ -1,5 +1,4 @@
-
-        /* Filter Section */
+/* Filter Section */
         .filter-section {
             display: flex;
             align-items: center;
@@ -8,19 +7,19 @@
         }
 
         .filter-label {
-            color: #4a5568;
+            color: #666;
             font-weight: 600;
             font-size: 13px;
             margin-bottom: 0;
         }
 
         .filter-select {
-            border: 2px solid #e2e8f0;
+            border: 2px solid #e5e5e5;
             border-radius: 10px;
             padding: 0.5rem 1rem;
             font-size: 14px;
-            background: #f8fafc;
-            color: #4a5568;
+            background: #fff;
+            color: #1a1a1a;
             font-weight: 500;
             transition: all 0.2s ease;
             cursor: pointer;
@@ -29,9 +28,9 @@
 
         .filter-select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1a1a1a;
             background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
         }
 
         /* Reports Table Card */
@@ -47,20 +46,20 @@
         }
 
         .reports-table th {
-            background: #f8fafc;
-            padding: 1rem 1.25rem;
-            font-size: 12px;
+            background: #f8f8f8;
+            padding: 0.6rem 0.85rem;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #64748b;
-            border-bottom: 2px solid #e2e8f0;
+            color: #666;
+            border-bottom: 2px solid #e5e5e5;
         }
 
         .reports-table td {
-            padding: 1.25rem 1.25rem;
-            font-size: 14px;
-            border-bottom: 1px solid #f1f5f9;
+            padding: 0.8rem 0.85rem;
+            font-size: 12px;
+            border-bottom: 1px solid #f0f0f0;
             vertical-align: middle;
         }
 
@@ -69,7 +68,7 @@
         }
 
         .reports-table tbody tr:hover {
-            background: #f8fafc;
+            background: #fafafa;
         }
 
         .reports-table tbody tr:last-child td {
@@ -78,70 +77,73 @@
 
         /* User Links */
         .user-link {
-            color: #1e293b;
+            color: #1a1a1a;
             text-decoration: none;
             font-weight: 600;
             transition: color 0.2s ease;
         }
 
         .user-link:hover {
-            color: #667eea;
+            color: #000;
+            text-decoration: underline;
         }
 
         /* Type Badges */
         .type-badge {
             display: inline-flex;
             align-items: center;
-            padding: 0.35rem 0.75rem;
-            border-radius: 20px;
-            font-size: 11px;
+            padding: 0.25rem 0.6rem;
+            border-radius: 16px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .type-badge.post {
-            background: #dbeafe;
-            color: #1e40af;
+            background: #1a1a1a;
+            color: #fff;
         }
 
         .type-badge.user {
-            background: #e0e7ff;
-            color: #4338ca;
+            background: #333;
+            color: #fff;
         }
 
         /* Status Badges */
         .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
-            padding: 0.4rem 0.85rem;
-            border-radius: 20px;
-            font-size: 12px;
+            gap: 0.35rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 16px;
+            font-size: 11px;
             font-weight: 600;
             letter-spacing: 0.3px;
         }
 
         .status-badge.pending {
-            background: #fef3c7;
-            color: #92400e;
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
         }
 
         .status-badge.pending::before {
             content: '●';
             font-size: 10px;
-            color: #f59e0b;
+            color: #ffc107;
         }
 
         .status-badge.resolved {
-            background: #d1fae5;
-            color: #065f46;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
 
         .status-badge.resolved::before {
             content: '●';
             font-size: 10px;
-            color: #10b981;
+            color: #28a745;
         }
 
         /* Reported Info */
@@ -153,16 +155,16 @@
 
         /* Reason */
         .reason-text {
-            color: #475569;
+            color: #555;
             font-weight: 500;
         }
 
         /* Action Buttons */
         .action-btn {
-            padding: 0.45rem 1rem;
-            font-size: 13px;
+            padding: 0.4rem 0.8rem;
+            font-size: 12px;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 6px;
             border: 2px solid;
             transition: all 0.2s ease;
             cursor: pointer;
@@ -171,49 +173,53 @@
 
         .btn-view {
             background: transparent;
-            color: #667eea;
-            border-color: #a5b4fc;
+            color: #1a1a1a;
+            border-color: #d0d0d0;
         }
 
         .btn-view:hover {
-            background: #eef2ff;
-            border-color: #667eea;
+            background: #1a1a1a;
+            color: #fff;
+            border-color: #1a1a1a;
             transform: translateY(-1px);
         }
 
         .btn-delete-content {
             background: transparent;
-            color: #dc2626;
-            border-color: #fca5a5;
+            color: #dc3545;
+            border-color: #f5c6cb;
         }
 
         .btn-delete-content:hover {
-            background: #fee2e2;
-            border-color: #dc2626;
+            background: #dc3545;
+            color: #fff;
+            border-color: #dc3545;
             transform: translateY(-1px);
         }
 
         .btn-ban {
             background: transparent;
-            color: #d97706;
-            border-color: #fbbf24;
+            color: #fd7e14;
+            border-color: #ffc9a1;
         }
 
         .btn-ban:hover {
-            background: #fffbeb;
-            border-color: #d97706;
+            background: #fd7e14;
+            color: #fff;
+            border-color: #fd7e14;
             transform: translateY(-1px);
         }
 
         .btn-dismiss {
             background: transparent;
-            color: #64748b;
-            border-color: #cbd5e1;
+            color: #6c757d;
+            border-color: #d0d0d0;
         }
 
         .btn-dismiss:hover {
-            background: #f1f5f9;
-            border-color: #64748b;
+            background: #6c757d;
+            color: #fff;
+            border-color: #6c757d;
             transform: translateY(-1px);
         }
 
@@ -232,8 +238,8 @@
         }
 
         .page-item .page-link {
-            border: 2px solid #e2e8f0;
-            color: #64748b;
+            border: 2px solid #e5e5e5;
+            color: #666;
             padding: 0.5rem 0.9rem;
             font-size: 14px;
             font-weight: 500;
@@ -243,25 +249,32 @@
         }
 
         .page-item .page-link:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
-            color: #334155;
+            background: #f8f8f8;
+            border-color: #d0d0d0;
+            color: #1a1a1a;
         }
 
         .page-item.active .page-link {
-            background: #667eea;
-            border-color: #667eea;
+            background: #1a1a1a;
+            border-color: #1a1a1a;
             color: white;
             font-weight: 600;
         }
 
         .page-item.disabled .page-link {
-            background: #f8fafc;
-            border-color: #e2e8f0;
-            color: #cbd5e1;
+            background: #f8f8f8;
+            border-color: #e5e5e5;
+            color: #ccc;
         }
 
         /* Responsive */
+        @media (max-width: 992px) {
+            .reports-table th:nth-child(4),
+            .reports-table td:nth-child(4) {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {
             .admin-reports-page {
                 padding: 1.5rem 1rem;
@@ -275,15 +288,34 @@
                 font-size: 24px;
             }
 
+            .reports-table {
+                font-size: 12px;
+            }
+
             .reports-table th,
             .reports-table td {
-                padding: 0.85rem 1rem;
-                font-size: 13px;
+                padding: 0.75rem 0.5rem;
+                font-size: 12px;
+            }
+
+            .reports-table th:nth-child(3),
+            .reports-table td:nth-child(3) {
+                display: none;
             }
 
             .action-btn {
-                padding: 0.4rem 0.75rem;
-                font-size: 12px;
+                padding: 0.35rem 0.6rem;
+                font-size: 11px;
+            }
+
+            .type-badge {
+                font-size: 9px;
+                padding: 0.25rem 0.5rem;
+            }
+
+            .status-badge {
+                font-size: 10px;
+                padding: 0.3rem 0.6rem;
             }
 
             .filter-section {
@@ -293,5 +325,32 @@
 
             .filter-select {
                 width: 100%;
+            }
+
+            .reported-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.4rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .reports-table th:nth-child(1),
+            .reports-table td:nth-child(1) {
+                display: none;
+            }
+
+            .action-btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 0.3rem;
+            }
+
+            .action-btn.me-1 {
+                margin-right: 0 !important;
+            }
+
+            .reports-table td:last-child {
+                min-width: 120px;
             }
         }

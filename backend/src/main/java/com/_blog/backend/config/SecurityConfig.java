@@ -65,7 +65,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/api/posts/images/**").permitAll()
-                        .requestMatchers("/api/reports").hasRole("USER")
+                        .requestMatchers("/api/posts/videos/**").permitAll()
+                        // .requestMatchers("/api/reports").hasRole("USER")
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

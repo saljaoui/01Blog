@@ -8,6 +8,7 @@ import ImageTool from '@editorjs/image';
 import VideoTool from 'editorjs-video';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../core/services/auth.service';
+import Delimiter from '@editorjs/delimiter';
 
 @Component({
   selector: 'app-create-post',
@@ -31,6 +32,7 @@ export class CreatePost {
       tools: {
         header: Header,
         paragraph: Paragraph,
+        delimiter: Delimiter,
         image: {
           class: ImageTool,
           config: {

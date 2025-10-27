@@ -24,6 +24,35 @@
   margin-bottom: 32px;
 }
 
+/* Video styling */
+.video-wrap {
+  margin: 20px 0;
+  text-align: center;
+
+  video {
+    width: 100%;       // Full width of container
+    max-width: 800px;  // Optional max width
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    outline: none;
+  }
+}
+
+/* Delimiter styling */
+.delimiter {
+  text-align: center;
+  margin: 40px 0;
+  font-size: 1.9em;
+  color: #1a1a1a;
+  letter-spacing: 0.2em;
+  // font-weight: ;
+}
+
+/* Optional: add spacing above and below */
+.delimiter::before {
+  content: '***';
+}
+
 .dots {
   cursor: pointer;
   position: relative;

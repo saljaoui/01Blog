@@ -163,6 +163,8 @@ export class Profile implements OnInit {
   submitReportUser() {
     if (!this.user || !this.reportForm.reason.trim()) return;
 
+    console.log("Report submitted");
+
     this.reportService.reportUser(this.user.id, this.reportForm.reason).subscribe({
       next: () => {
         alert('Report submitted successfully!');

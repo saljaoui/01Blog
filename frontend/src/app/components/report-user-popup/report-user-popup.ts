@@ -23,9 +23,4 @@ export class ReportUserPopup {
     this.close.emit();
   }
 
-  onSubmit() {
-    if (this.reason.trim()) {
-      this.submit.emit(this.reason);
-    }
-  }
 }

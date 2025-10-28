@@ -11,10 +11,11 @@ import { parseEditorJsContent } from '../../../core/utils/editorjs-parser';
 import { Comment, CommentRequest, CommentLikeRequest } from '../../../core/models/comment';
 import { FormsModule } from '@angular/forms';
 import { ReportService } from '../../../core/services/report.service';
+import { ReportUserPopup } from '../../../components/report-user-popup/report-user-popup';
 
 @Component({
   selector: 'app-post-detail',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReportUserPopup],
   templateUrl: './post-detail.html',
   styleUrls: ['./post-detail.scss']
 })
@@ -191,9 +192,7 @@ reportService = inject(ReportService)
   }
 
   onReport(id: String) {
-    // TODO: Implement report functionality
-    alert('Report functionality not implemented yet.');
-
+    this.showReportPopup = true;
     this.showMenu = false;
   }
 

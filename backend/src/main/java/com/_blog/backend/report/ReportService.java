@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.exception.ResourceNotFoundException;
+import com._blog.backend.post.Post;
 import com._blog.backend.post.PostRepository;
 import com._blog.backend.report.dto.ReportRequest;
 import com._blog.backend.report.dto.ReportResponse;
@@ -25,28 +26,56 @@ public class ReportService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
 
-    public ReportResponse createReport(ReportRequest request) {
-        User reporter = SecurityUtils.getCurrentUser();
+public ReportResponse createReport(ReportRequest request) {
+    User reporter = SecurityUtils.getCurrentUser();
+    
+    Report.ReportBuilder reportBuilder = Report.builder()
+            .reportId(UUID.randomUUID())
+            .reporter(reporter)
+            .reason(request.getReason())
+            .status(ReportStatus.PENDING)
+            .type(request.getType());
+
+    // Handle based on report type
+    if (request.getType() == ReportType.USER) {
+        if (request.getReportedUserId() == null) {
+            throw new IllegalArgumentException("Reported user ID is required for USER reports");
+        }
+        
         User reportedUser = userRepository.findById(request.getReportedUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("Reported user not found"));
-
+        
         // Prevent self-reporting
         if (reporter.getId().equals(reportedUser.getId())) {
             throw new IllegalArgumentException("Cannot report yourself");
         }
-
-        Report report = Report.builder()
-                .reportId(UUID.randomUUID())
-                .reporter(reporter)
-                .reportedUser(reportedUser)
-                .reason(request.getReason())
-                .status(ReportStatus.PENDING)
-                .type(request.getType())
-                .build();
-
-        reportRepository.save(report);
-        return mapToResponse(report);
+        
+        reportBuilder.reportedUser(reportedUser);
+        
+    } else if (request.getType() == ReportType.POST) {
+        if (request.getReportedPostId() == null) {
+            throw new IllegalArgumentException("Reported post ID is required for POST reports");
+        }
+        
+        Post reportedPost = postRepository.findById(request.getReportedPostId())
+                .orElseThrow(() -> new ResourceNotFoundException("Reported post not found"));
+        
+        // Optional: Prevent reporting own posts
+        if (reporter.getId().equals(reportedPost.getUser().getId())) {
+            throw new IllegalArgumentException("Cannot report your own post");
+        }
+        
+        reportBuilder.reportedPost(reportedPost);
+        
+    } else {
+        throw new IllegalArgumentException("Invalid report type");
     }
+
+    Report report = reportBuilder.build();
+    reportRepository.save(report);
+    
+    return mapToResponse(report);
+}
 
     public ReportResponse dismissReport(UUID id) {
         Report report = reportRepository.findById(id)

@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './report-user-popup.html',
   styleUrl: './report-user-popup.scss'
 })
-export class ReportUserPopupComponent {
+export class ReportUserPopup {
   @Input() show: boolean = false;
   @Input() reason: string = '';
   @Output() reasonChange = new EventEmitter<string>();

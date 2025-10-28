@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com._blog.backend.post.Post;
 import com._blog.backend.user.User;
 
 import jakarta.persistence.Column;
@@ -38,9 +39,15 @@ public class Report {
     @JoinColumn(name = "reporter_id", nullable = false)
     private User reporter;
 
+    // For USER reports
     @ManyToOne
-    @JoinColumn(name = "reported_user_id", nullable = false)
+    @JoinColumn(name = "reported_user_id")
     private User reportedUser;
+
+    // For POST reports
+    @ManyToOne
+    @JoinColumn(name = "reported_post_id")
+    private Post reportedPost;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String reason;

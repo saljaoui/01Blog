@@ -2,6 +2,7 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/models/user';
 import { SidebarRight } from '../../components/sidebar-right/sidebar-right';
+import { ReportUserPopupComponent } from '../../components/report-user-popup/report-user-popup';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLinkActive, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +10,7 @@ import { ReportService } from '../../core/services/report.service';
 
 @Component({
   selector: 'app-profile',
-  imports: [SidebarRight, CommonModule, FormsModule],
+  imports: [SidebarRight, ReportUserPopupComponent, CommonModule, FormsModule],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })

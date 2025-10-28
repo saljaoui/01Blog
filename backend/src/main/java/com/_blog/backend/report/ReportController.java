@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com._blog.backend.api.ApiResponse;
 import com._blog.backend.report.dto.ReportRequest;
 import com._blog.backend.report.dto.ReportResponse;
 import com._blog.backend.report.dto.ReportStatusResponse;
@@ -29,7 +30,7 @@ public class ReportController {
     private final ReportService reportService;
 
     @PostMapping
-    public ResponseEntity<ReportResponse> createReport(@RequestBody ReportRequest request) {
+    public ResponseEntity<ApiResponse> createReport(@RequestBody ReportRequest request) {
         return ResponseEntity.ok(reportService.createReport(request));
     }
 

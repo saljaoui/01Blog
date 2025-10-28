@@ -22,5 +22,4 @@ export class ReportUserPopup {
   onClose() {
     this.close.emit();
   }
-
 }

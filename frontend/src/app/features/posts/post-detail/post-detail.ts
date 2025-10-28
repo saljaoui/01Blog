@@ -191,7 +191,7 @@ reportService = inject(ReportService)
     this.showMenu = !this.showMenu;
   }
 
-  onReport(id: String) {
+  onReportClick() {
     this.showReportPopup = true;
     this.showMenu = false;
   }
@@ -213,10 +213,6 @@ reportService = inject(ReportService)
     const postId = this.route.snapshot.paramMap.get('id');
     this.router.navigate(['/posts/edit', postId]);
     this.showMenu = false;
-  }
-
-  private stripHtml(s: string): string {
-    return String(s).replace(/<[^>]*>/g, '');
   }
 
 }

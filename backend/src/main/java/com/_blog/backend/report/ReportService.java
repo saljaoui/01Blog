@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com._blog.backend.api.ApiResponse;
 import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.exception.ResourceNotFoundException;
 import com._blog.backend.post.Post;
@@ -16,6 +17,7 @@ import com._blog.backend.report.dto.ReportStatusUpdateRequest;
 import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -26,7 +28,7 @@ public class ReportService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
 
-public ReportResponse createReport(ReportRequest request) {
+public ApiResponse createReport(ReportRequest request) {
     User reporter = SecurityUtils.getCurrentUser();
     
     Report.ReportBuilder reportBuilder = Report.builder()
@@ -45,7 +47,6 @@ public ReportResponse createReport(ReportRequest request) {
         User reportedUser = userRepository.findById(request.getReportedUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("Reported user not found"));
         
-        // Prevent self-reporting
         if (reporter.getId().equals(reportedUser.getId())) {
             throw new IllegalArgumentException("Cannot report yourself");
         }
@@ -60,7 +61,6 @@ public ReportResponse createReport(ReportRequest request) {
         Post reportedPost = postRepository.findById(request.getReportedPostId())
                 .orElseThrow(() -> new ResourceNotFoundException("Reported post not found"));
         
-        // Optional: Prevent reporting own posts
         if (reporter.getId().equals(reportedPost.getUser().getId())) {
             throw new IllegalArgumentException("Cannot report your own post");
         }
@@ -73,8 +73,12 @@ public ReportResponse createReport(ReportRequest request) {
 
     Report report = reportBuilder.build();
     reportRepository.save(report);
-    
-    return mapToResponse(report);
+
+    // ✅ Return a clean API response
+    return ApiResponse.builder()
+            .success(true)
+            .message("Report created successfully")
+            .build();
 }
 
     public ReportResponse dismissReport(UUID id) {

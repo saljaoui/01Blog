@@ -23,6 +23,7 @@ public class ReportResponse {
     private String reporterUsername;
     private UUID reportedUserId;
     private String reportedUserUsername;
+    private UUID reportedPostId;
     private String reason;
     private LocalDateTime timestamp;
     private ReportStatus status;

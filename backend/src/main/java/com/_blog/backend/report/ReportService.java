@@ -130,17 +130,18 @@ public ApiResponse createReport(ReportRequest request) {
         reportRepository.deleteById(reportId);
     }
 
-    private ReportResponse mapToResponse(Report report) {
-        return ReportResponse.builder()
-                .reportId(report.getReportId())
-                .reporterId(report.getReporter().getId())
-                .reporterUsername(report.getReporter().getUsername())
-                .reportedUserId(report.getReportedUser().getId())
-                .reportedUserUsername(report.getReportedUser().getUsername())
-                .reason(report.getReason())
-                .timestamp(report.getTimestamp())
-                .status(report.getStatus())
-                .type(report.getType())
-                .build();
-    }
+private ReportResponse mapToResponse(Report report) {
+    return ReportResponse.builder()
+            .reportId(report.getReportId())
+            .reporterId(report.getReporter().getId())
+            .reporterUsername(report.getReporter().getUsername())
+            .reportedUserId(report.getReportedUser() != null ? report.getReportedUser().getId() : null)
+            .reportedUserUsername(report.getReportedUser() != null ? report.getReportedUser().getUsername() : null)
+            .reportedPostId(report.getReportedPost() != null ? report.getReportedPost().getId() : null)
+            .reason(report.getReason())
+            .timestamp(report.getTimestamp())
+            .status(report.getStatus())
+            .type(report.getType())
+            .build();
+}
 }

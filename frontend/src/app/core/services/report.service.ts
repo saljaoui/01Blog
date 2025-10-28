@@ -9,8 +9,12 @@ import { Observable } from 'rxjs';
 
 export class ReportService {
     private http = inject(HttpClient);
-    private apiUrl = environment.api.posts;
+    private apiUrl = environment.api.reports;
     reportUser(reportedUserId: string, reason: string): Observable<void> {
-        return this.http.post<void>(`${environment.api.reports}`, { reportedUserId, reason, type: "USER" });
+        return this.http.post<void>(`${this.apiUrl}`, { reportedUserId, reason, type: "USER" });
+    }
+
+    reportPost(reportedPostId: string, reason: string): Observable<void> {
+        return this.http.post<void>(`${this.apiUrl}`, { reportedPostId, reason, type: "POST" });
     }
 }

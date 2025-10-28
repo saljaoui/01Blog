@@ -39,6 +39,13 @@ public class ReportController {
         return ResponseEntity.ok(reportService.getAllReports());
     }
 
+    @PutMapping("/{reportId}/dismiss")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ReportResponse> dismissReport(@PathVariable UUID reportId) {
+        ReportResponse dismissed = reportService.dismissReport(reportId);
+        return ResponseEntity.ok(dismissed);
+    }
+
     @GetMapping("/report-status")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ReportStatusResponse> getReportStatus() {

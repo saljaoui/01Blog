@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { UserLogin, UserRegister } from '../models/user';
+import { ReportResponse } from '../models/report';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
@@ -15,5 +16,13 @@ export class AdminService {
 
     getStatus(): Observable<any> {
          return this.http.get<any>(`${this.apiUrl}/report-status`);
+    }
+
+    getAllReports(): Observable<ReportResponse[]> {
+        return this.http.get<ReportResponse[]>(this.apiUrl);
+    }
+
+    putDismiss(reportId: String): Observable<any> {
+        return this.http.put<any>(`${this.apiUrl}/${reportId}/dismiss`, {});
     }
 }

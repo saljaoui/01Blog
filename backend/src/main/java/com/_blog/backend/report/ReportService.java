@@ -47,9 +47,28 @@ public class ReportService {
         return mapToResponse(report);
     }
 
+    public ReportResponse dismissReport(UUID id) {
+            Report report = reportRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
+
+    report.setStatus(ReportStatus.RESOLVED);
+    reportRepository.save(report);
+
+    return mapToResponse(report);
+    }
+
     public List<ReportResponse> getAllReports() {
         return reportRepository.findAll().stream()
-                .map(this::mapToResponse)
+                .map(report -> ReportResponse.builder()
+                        .reportId(report.getReportId())
+                        .reporterId(report.getReporter().getId())
+                        .reporterUsername(report.getReporter().getUsername())
+                        .reportedUserId(report.getReportedUser().getId())
+                        .reportedUserUsername(report.getReportedUser().getUsername())
+                        .reason(report.getReason())
+                        .timestamp(report.getTimestamp())
+                        .status(report.getStatus())
+                        .build())
                 .toList();
     }
 
@@ -58,10 +77,10 @@ public class ReportService {
         Long totalPosts = postRepository.count();
         Long totalPendingReports = reportRepository.countByStatus(ReportStatus.PENDING);
         return ReportStatusResponse.builder()
-        .totalUsers(totalUsers)
-        .totalPosts(totalPosts)
-        .totalPendingReports(totalPendingReports)
-        .build();
+                .totalUsers(totalUsers)
+                .totalPosts(totalPosts)
+                .totalPendingReports(totalPendingReports)
+                .build();
     }
 
     public ReportResponse getReportById(UUID reportId) {

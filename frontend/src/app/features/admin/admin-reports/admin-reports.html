@@ -1,13 +1,14 @@
- <div class="admin-reports-page">
-        
-        <!-- Page Header with Filter -->
-        <div class="page-header">
-            <div class="d-flex justify-content-between align-items-start">
-                <div>
-                    <h1>Reports Management</h1>
-                    <p>Review and manage user reports and violations</p>
-                </div>
-                <div class="filter-section">
+<div class="admin-reports-page">
+
+    <!-- Page Header with Filter -->
+    <div class="page-header">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <h1>Reports Management</h1>
+                <p>Review and manage user reports and violations</p>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="filter-section me-3">
                     <label class="filter-label">Status:</label>
                     <select class="form-select filter-select">
                         <option>All Reports</option>
@@ -17,165 +18,119 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Reports Table -->
-        <div class="table-card">
-            <div class="table-responsive">
-                <table class="table reports-table mb-0">
-                    <thead>
-                        <tr>
-                            <th>Reporter</th>
-                            <th>Reported Item</th>
-                            <th>Reason</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th class="text-end">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- PENDING Report - Post -->
-                        <tr>
-                            <td>
-                                <a href="/profile/studentA" class="user-link">@studentA</a>
-                            </td>
-                            <td>
-                                <div class="reported-info">
-                                    <span class="type-badge post">Post</span>
-                                    <span>by <a href="/profile/authorName" class="user-link">@authorName</a></span>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="reason-text">Inappropriate language</span>
-                            </td>
-                            <td>Oct 8, 2025</td>
-                            <td>
-                                <span class="status-badge pending">Pending</span>
-                            </td>
-                            <td class="text-end">
-                                <button class="btn action-btn btn-view me-1">View</button>
-                                <button class="btn action-btn btn-delete-content me-1">Delete Post</button>
-                                <button class="btn action-btn btn-dismiss">Dismiss</button>
-                            </td>
-                        </tr>
+    <!-- Reports Table -->
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table reports-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Reporter</th>
+                        <th>Reported Item</th>
+                        <th>Reason</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let report of reports">
+                        <td>
+                            <a [href]="'/profile/' + report.reporterUsername" class="user-link">@{{
+                                report.reporterUsername }}</a>
+                        </td>
+                        <td>
+                            <div class="reported-info">
+                                <span class="type-badge user">User</span>
+                                <span><a [href]="'/profile/' + report.reportedUserUsername" class="user-link">@{{
+                                        report.reportedUserUsername }}</a></span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="reason-text">{{ report.reason }}</span>
+                        </td>
+                        <td>{{ report.timestamp | date:'MMM d, y' }}</td>
+                        <td>
+                            <span class="status-badge" [ngClass]="report.status.toLowerCase()">{{ report.status
+                                }}</span>
+                        </td>
+                        <td class="text-end">
+                            <button class="btn action-btn btn-view me-1" data-bs-toggle="modal"
+                                data-bs-target="#reportModal" (click)="onViewClick(report)">View</button>
+                            <button class="btn action-btn btn-delete-content me-1">Delete Post</button>
+                            <button class="btn action-btn btn-dismiss" (click)="onDismissClick(report.reportId)" >Dismiss</button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="reports.length === 0">
+                        <td colspan="6" class="text-center">No reports found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-                        <!-- PENDING Report - User -->
-                        <tr>
-                            <td>
-                                <a href="/profile/learnerZ" class="user-link">@learnerZ</a>
-                            </td>
-                            <td>
-                                <div class="reported-info">
-                                    <span class="type-badge user">User</span>
-                                    <span><a href="/profile/userXYZ" class="user-link">@userXYZ</a></span>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="reason-text">Spam behavior</span>
-                            </td>
-                            <td>Oct 7, 2025</td>
-                            <td>
-                                <span class="status-badge pending">Pending</span>
-                            </td>
-                            <td class="text-end">
-                                <button class="btn action-btn btn-view me-1">View</button>
-                                <button class="btn action-btn btn-ban me-1">Ban User</button>
-                                <button class="btn action-btn btn-dismiss">Dismiss</button>
-                            </td>
-                        </tr>
-
-                        <!-- PENDING Report - Post -->
-                        <tr>
-                            <td>
-                                <a href="/profile/monitor_user" class="user-link">@monitor_user</a>
-                            </td>
-                            <td>
-                                <div class="reported-info">
-                                    <span class="type-badge post">Post</span>
-                                    <span>by <a href="/profile/blogger22" class="user-link">@blogger22</a></span>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="reason-text">Misleading information</span>
-                            </td>
-                            <td>Oct 6, 2025</td>
-                            <td>
-                                <span class="status-badge pending">Pending</span>
-                            </td>
-                            <td class="text-end">
-                                <button class="btn action-btn btn-view me-1">View</button>
-                                <button class="btn action-btn btn-delete-content me-1">Delete Post</button>
-                                <button class="btn action-btn btn-dismiss">Dismiss</button>
-                            </td>
-                        </tr>
-
-                        <!-- RESOLVED Report -->
-                        <tr>
-                            <td>
-                                <a href="/profile/student99" class="user-link">@student99</a>
-                            </td>
-                            <td>
-                                <div class="reported-info">
-                                    <span class="type-badge user">User</span>
-                                    <span><a href="/profile/spammer" class="user-link">@spammer</a></span>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="reason-text">Offensive content</span>
-                            </td>
-                            <td>Oct 5, 2025</td>
-                            <td>
-                                <span class="status-badge resolved">Resolved</span>
-                            </td>
-                            <td class="text-end">
-                                <button class="btn action-btn btn-view">View</button>
-                            </td>
-                        </tr>
-
-                        <!-- RESOLVED Report -->
-                        <tr>
-                            <td>
-                                <a href="/profile/concerned_dev" class="user-link">@concerned_dev</a>
-                            </td>
-                            <td>
-                                <div class="reported-info">
-                                    <span class="type-badge post">Post</span>
-                                    <span>by <a href="/profile/bad_actor" class="user-link">@bad_actor</a></span>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="reason-text">Copyright violation</span>
-                            </td>
-                            <td>Oct 3, 2025</td>
-                            <td>
-                                <span class="status-badge resolved">Resolved</span>
-                            </td>
-                            <td class="text-end">
-                                <button class="btn action-btn btn-view">View</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- Report Details Modal -->
+    <div class="modal" *ngIf="selectedReport">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-between">
+                    <h5 class="modal-title" id="reportModalLabel">Report Details</h5>
+                    <button type="button" class="btn-close-white"
+                        (click)="closeModal()">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Reporter Information</h6>
+                            <p><strong>Username:</strong> @{{ selectedReport.reporterUsername }}</p>
+                            <p><strong>User ID:</strong> {{ selectedReport.reporterId }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Reported User Information</h6>
+                            <p><strong>Username:</strong> @{{ selectedReport.reportedUserUsername }}</p>
+                            <p><strong>User ID:</strong> {{ selectedReport.reportedUserId }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Report Details</h6>
+                            <p><strong>Report ID:</strong> {{ selectedReport.reportId }}</p>
+                            <p><strong>Reason:</strong> {{ selectedReport.reason }}</p>
+                            <p><strong>Status:</strong> <span class="status-badge"
+                                    [ngClass]="selectedReport.status.toLowerCase()">{{ selectedReport.status }}</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Timestamp</h6>
+                            <p>{{ selectedReport.timestamp | date:'medium' }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Pagination -->
-        <div class="pagination-wrapper">
-            <nav class="d-flex justify-content-end">
-                <ul class="pagination mb-0">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#">Previous</a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-
     </div>
+
+    <!-- Pagination -->
+    <div class="pagination-wrapper">
+        <nav class="d-flex justify-content-end">
+            <ul class="pagination mb-0">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Previous</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>

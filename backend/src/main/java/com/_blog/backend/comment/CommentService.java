@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com._blog.backend.auth.SecurityUtils;
-import com._blog.backend.comment.dto.CommentLikeRequest;
 import com._blog.backend.comment.dto.CommentLikeResponse;
 import com._blog.backend.comment.dto.CommentRequest;
 import com._blog.backend.comment.dto.CommentResponse;

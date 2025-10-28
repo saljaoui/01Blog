@@ -32,6 +32,7 @@
     "@editorjs/header": "^2.8.8",
     "@editorjs/image": "^2.10.3",
     "@editorjs/paragraph": "^2.11.7",
+    "@ng-bootstrap/ng-bootstrap": "^19.0.1",
     "bootstrap": "^5.3.8",
     "editorjs-video": "^1.1.0",
     "ng": "^0.0.0",

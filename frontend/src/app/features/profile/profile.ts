@@ -5,6 +5,7 @@ import { SidebarRight } from '../../components/sidebar-right/sidebar-right';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLinkActive, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ReportService } from '../../core/services/report.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 export class Profile implements OnInit {
   private userService = inject(UserService);
   private route = inject(ActivatedRoute);
+  private reportService = inject(ReportService);
   private router = inject(Router);
 
   user?: User;
@@ -160,7 +162,7 @@ export class Profile implements OnInit {
   submitReportUser() {
     if (!this.user || !this.reportForm.reason.trim()) return;
 
-    this.userService.reportUser(this.user.id, this.reportForm.reason).subscribe({
+    this.reportService.reportUser(this.user.id, this.reportForm.reason).subscribe({
       next: () => {
         alert('Report submitted successfully!');
         this.closeReportPopup();

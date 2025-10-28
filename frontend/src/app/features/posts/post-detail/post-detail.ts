@@ -165,9 +165,10 @@ export class PostDetail {
     this.showMenu = !this.showMenu;
   }
 
-  onReport() {
+  onReport(id: String) {
     // TODO: Implement report functionality
     alert('Report functionality not implemented yet.');
+
     this.showMenu = false;
   }
 

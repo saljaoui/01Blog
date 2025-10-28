@@ -40,6 +40,6 @@ export class UserService {
   }
 
   reportUser(reportedUserId: string, reason: string): Observable<void> {
-    return this.http.post<void>(`${environment.api.reports}`, { reportedUserId, reason });
+    return this.http.post<void>(`${environment.api.reports}`, { reportedUserId, reason, type: "USER" });
   }
 }

@@ -7,9 +7,15 @@ export interface ReportResponse {
   reason: string;
   timestamp: string;
   status: ReportStatus;
+  type: ReportType;
 }
 
 export enum ReportStatus {
   PENDING = 'PENDING',
   RESOLVED = 'RESOLVED'
+}
+
+export enum ReportType {
+  USER = 'USER',
+  POST = 'POST'
 }

@@ -40,6 +40,15 @@ export class AdminReports implements OnInit {
     this.selectedReport = null;
   }
 
+
+  onDeletePostClick(reportId: string) {
+  // this.adminService.deletePost(reportId).subscribe(...);
+}
+
+onBanUserClick(userId: string) {
+  // this.adminService.banUser(userId).subscribe(...);
+}
+
   onDismissClick(reportId: string) {
     this.adminService.putDismiss(reportId).subscribe({
       next: (updatedReport) => {
@@ -47,8 +56,6 @@ export class AdminReports implements OnInit {
         this.reports = this.reports.map(r =>
           r.reportId === updatedReport.reportId ? updatedReport : r
         );
-
-        alert('Report dismissed successfully');
       },
       error: (err) => {
         console.error(err);

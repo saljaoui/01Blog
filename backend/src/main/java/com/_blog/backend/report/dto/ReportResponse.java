@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com._blog.backend.report.ReportStatus;
+import com._blog.backend.report.ReportType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,4 +26,5 @@ public class ReportResponse {
     private String reason;
     private LocalDateTime timestamp;
     private ReportStatus status;
+    private ReportType type;
 }

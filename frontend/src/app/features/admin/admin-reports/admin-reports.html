@@ -56,10 +56,31 @@
                                 }}</span>
                         </td>
                         <td class="text-end">
+                            <!-- View button always visible -->
                             <button class="btn action-btn btn-view me-1" data-bs-toggle="modal"
-                                data-bs-target="#reportModal" (click)="onViewClick(report)">View</button>
-                            <button class="btn action-btn btn-delete-content me-1">Delete Post</button>
-                            <button class="btn action-btn btn-dismiss" (click)="onDismissClick(report.reportId)" >Dismiss</button>
+                                data-bs-target="#reportModal" (click)="onViewClick(report)">
+                                View
+                            </button>
+
+                            <!-- Delete Post button only for pending reports on posts -->
+                            <button class="btn action-btn btn-delete-content me-1"
+                                *ngIf="report.status === 'PENDING' && report.type === 'POST'"
+                                (click)="onDeletePostClick(report.reportId)">
+                                Delete Post
+                            </button>
+
+                            <!-- Ban User button only for pending reports on users -->
+                            <button class="btn action-btn btn-ban me-1"
+                                *ngIf="report.status === 'PENDING' && report.type === 'USER'"
+                                (click)="onBanUserClick(report.reportedUserId)">
+                                Ban User
+                            </button>
+
+                            <!-- Dismiss button visible for all pending reports -->
+                            <button class="btn action-btn btn-dismiss" *ngIf="report.status === 'PENDING'"
+                                (click)="onDismissClick(report.reportId)">
+                                Dismiss
+                            </button>
                         </td>
                     </tr>
                     <tr *ngIf="reports.length === 0">
@@ -76,8 +97,7 @@
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-between">
                     <h5 class="modal-title" id="reportModalLabel">Report Details</h5>
-                    <button type="button" class="btn-close-white"
-                        (click)="closeModal()">
+                    <button type="button" class="btn-close-white" (click)="closeModal()">
                     </button>
                 </div>
                 <div class="modal-body">

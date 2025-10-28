@@ -52,4 +52,8 @@ public class Report {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReportStatus status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ReportType type;
 }

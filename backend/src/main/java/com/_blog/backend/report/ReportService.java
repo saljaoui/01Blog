@@ -41,6 +41,7 @@ public class ReportService {
                 .reportedUser(reportedUser)
                 .reason(request.getReason())
                 .status(ReportStatus.PENDING)
+                .type(request.getType())
                 .build();
 
         reportRepository.save(report);
@@ -48,27 +49,18 @@ public class ReportService {
     }
 
     public ReportResponse dismissReport(UUID id) {
-            Report report = reportRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
+        Report report = reportRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
 
-    report.setStatus(ReportStatus.RESOLVED);
-    reportRepository.save(report);
+        report.setStatus(ReportStatus.RESOLVED);
+        reportRepository.save(report);
 
-    return mapToResponse(report);
+        return mapToResponse(report);
     }
 
     public List<ReportResponse> getAllReports() {
         return reportRepository.findAll().stream()
-                .map(report -> ReportResponse.builder()
-                        .reportId(report.getReportId())
-                        .reporterId(report.getReporter().getId())
-                        .reporterUsername(report.getReporter().getUsername())
-                        .reportedUserId(report.getReportedUser().getId())
-                        .reportedUserUsername(report.getReportedUser().getUsername())
-                        .reason(report.getReason())
-                        .timestamp(report.getTimestamp())
-                        .status(report.getStatus())
-                        .build())
+                .map(this::mapToResponse)
                 .toList();
     }
 
@@ -115,6 +107,7 @@ public class ReportService {
                 .reason(report.getReason())
                 .timestamp(report.getTimestamp())
                 .status(report.getStatus())
+                .type(report.getType())
                 .build();
     }
 }

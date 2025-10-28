@@ -71,17 +71,17 @@
             {{ block.data.text }}
           </p>
 
-              <!-- Delimiter -->
-    <div class="delimiter" *ngIf="block.type === 'delimiter'"></div>
+          <!-- Delimiter -->
+          <div class="delimiter" *ngIf="block.type === 'delimiter'"></div>
 
           <div class="img-wrap" *ngIf="block.type === 'image'">
             <img [src]="block.data.file.url" [alt]="block.data.caption || 'Post image'">
           </div>
 
-              <!-- Video -->
-    <div class="video-wrap" *ngIf="block.type === 'video'">
-      <video controls [src]="block.data.file.url"></video>
-    </div>
+          <!-- Video -->
+          <div class="video-wrap" *ngIf="block.type === 'video'">
+            <video controls [src]="block.data.file.url"></video>
+          </div>
 
         </ng-container>
       </div>
@@ -174,7 +174,9 @@
       </div>
     </section>
 
-    
+    <app-report-user-popup [show]="showReportPopup" [reason]="reportForm.reason"
+      (reasonChange)="reportForm.reason = $event" (close)="closeReportPopup()" (submit)="submitReportPost()">
+    </app-report-user-popup>
 
   </div>
 </div>

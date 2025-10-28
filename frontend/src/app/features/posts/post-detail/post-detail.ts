@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PostService } from '../../../core/services/post.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../../../core/models/post';
@@ -10,6 +10,7 @@ import { DateUtilsService } from '../../../core/services/utils/DateUtil.service'
 import { parseEditorJsContent } from '../../../core/utils/editorjs-parser';
 import { Comment, CommentRequest, CommentLikeRequest } from '../../../core/models/comment';
 import { FormsModule } from '@angular/forms';
+import { ReportService } from '../../../core/services/report.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -24,15 +25,19 @@ export class PostDetail {
   newCommentContent: string = '';
   showComments: boolean = false;
   showMenu: boolean = false;
+  showReportPopup: boolean = false;
+  reportForm = {
+    reason: ''
+  };
 
-  constructor(private postService: PostService,
-    private likeService: LikeService,
-    private saveService: SaveService,
-    private commentService: CommentService,
-    private route: ActivatedRoute,
-    private router: Router,
-    public dateUtils: DateUtilsService
-  ) { }
+postService = inject(PostService);
+likeService = inject(LikeService);
+saveService = inject(SaveService);
+commentService = inject(CommentService);
+route = inject(ActivatedRoute);
+router = inject(Router);
+dateUtils = inject(DateUtilsService);
+reportService = inject(ReportService)
 
   ngOnInit() {
     const postId = this.route.snapshot.paramMap.get('id');
@@ -57,6 +62,26 @@ export class PostDetail {
       this.loadComments();
     }
     this.showComments = !this.showComments;
+  }
+
+  closeReportPopup() {
+    this.showReportPopup = false;
+  }
+
+  submitReportPost() {
+    if (!this.post || !this.reportForm.reason.trim()) return;
+
+    this.reportService.reportPost(this.post.id, this.reportForm.reason).subscribe({
+      next: () => {
+        alert('Report submitted successfully!');
+        this.closeReportPopup();
+        this.reportForm.reason = '';
+      },
+      error: (err) => {
+        console.error('Error submitting report:', err);
+        alert('Failed to submit report. Please try again.');
+      }
+    });
   }
 
   loadComments() {

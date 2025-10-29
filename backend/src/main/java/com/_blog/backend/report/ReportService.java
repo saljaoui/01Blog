@@ -3,6 +3,7 @@ package com._blog.backend.report;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.id.uuid.UuidGenerator;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.api.ApiResponse;
@@ -16,6 +17,7 @@ import com._blog.backend.report.dto.ReportStatusResponse;
 import com._blog.backend.report.dto.ReportStatusUpdateRequest;
 import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
+import com._blog.backend.user.UserStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -79,6 +81,21 @@ public class ReportService {
                 .success(true)
                 .message("Report created successfully")
                 .build();
+    }
+
+    public ReportResponse banUserFromReport(UUID userId, UUID reportId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
+         user.setStatus(UserStatus.BANNED);
+         userRepository.save(user);
+
+        Report report = reportRepository.findById(reportId)
+                .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
+
+        report.setStatus(ReportStatus.RESOLVED);
+        reportRepository.save(report);
+
+        return mapToResponse(report);
     }
 
     public ReportResponse dismissReport(UUID id) {

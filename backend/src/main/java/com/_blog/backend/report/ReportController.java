@@ -73,4 +73,12 @@ public class ReportController {
         reportService.deleteReport(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{reportId}/ban/{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ReportResponse> banUserFromReport(
+            @PathVariable UUID reportId,
+            @PathVariable UUID userId) {
+        return ResponseEntity.ok(reportService.banUserFromReport(reportId, userId));
+    }
 }

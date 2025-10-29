@@ -1,5 +1,6 @@
 package com._blog.backend.user;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -57,6 +58,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column()
     private UserStatus status;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

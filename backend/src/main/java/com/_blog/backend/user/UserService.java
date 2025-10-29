@@ -1,5 +1,6 @@
 package com._blog.backend.user;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,6 +43,7 @@ public class UserService {
                 .id(UUID.randomUUID())
                 .role(role)
                 .status(UserStatus.ACTIVE)
+                .createdAt(LocalDateTime.now())
                 .build();
         userRepository.save(user);
         return user;
@@ -66,6 +68,7 @@ public class UserService {
                 .followersCount(followersCount)
                 .followingCount(followingCount)
                 .postsCount(postsCount)
+                .createdAt(user.getCreatedAt())
                 .build();
     }
 

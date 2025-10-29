@@ -1,5 +1,6 @@
 package com._blog.backend.user.dto;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -23,4 +24,5 @@ public class UserResponse {
     private long postsCount;
     private String email;
     private String role;
+    private LocalDateTime createdAt;
 }

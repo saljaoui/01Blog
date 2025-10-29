@@ -22,4 +22,5 @@ export interface User {
   followingCount: number;
   postsCount: number;
   currentUser: boolean;
+  createdAt: string;
 }

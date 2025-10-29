@@ -25,4 +25,8 @@ export class AdminService {
     putDismiss(reportId: String): Observable<any> {
         return this.http.put<any>(`${this.apiUrl}/${reportId}/dismiss`, {});
     }
+
+    banUser(reportId: string, userId: string): Observable<ReportResponse> {
+        return this.http.put<ReportResponse>(`${this.apiUrl}/${userId}/ban/${reportId}`, {});
+    }
 }

@@ -73,7 +73,7 @@
                             <!-- Ban User button only for pending reports on users -->
                             <button class="btn action-btn btn-ban me-1"
                                 *ngIf="report.status === 'PENDING' && report.type === 'USER'"
-                                (click)="onBanUserClick(report.reportedUserId)">
+                                (click)="onBanUserClick(report.reportedUserId, report.reportId)">
                                 Ban User
                             </button>
 

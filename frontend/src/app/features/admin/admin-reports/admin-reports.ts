@@ -45,8 +45,22 @@ export class AdminReports implements OnInit {
   // this.adminService.deletePost(reportId).subscribe(...);
 }
 
-onBanUserClick(userId: string) {
-  // this.adminService.banUser(userId).subscribe(...);
+onBanUserClick(userId: string, reportId: string) {
+  if (confirm('Are you sure you want to ban this user?')) {
+    this.adminService.banUser(reportId, userId).subscribe({
+      next: (updatedReport) => {
+        // Update the local list
+        this.reports = this.reports.map(r =>
+          r.reportId === updatedReport.reportId ? updatedReport : r
+        );
+        alert('User banned successfully');
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Failed to ban user');
+      }
+    });
+  }
 }
 
   onDismissClick(reportId: string) {

@@ -3,6 +3,8 @@ package com._blog.backend.user.dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com._blog.backend.user.UserStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +24,7 @@ public class UserResponse {
     private long followersCount;
     private long followingCount;
     private long postsCount;
+    private UserStatus status;
     private String email;
     private String role;
     private LocalDateTime createdAt;

@@ -30,7 +30,6 @@
                         <th>Registered</th>
                         <th>Posts</th>
                         <th>Status</th>
-                        <th>Reports</th>
                         <th class="text-end">Actions</th>
                     </tr>
                 </thead>
@@ -49,15 +48,13 @@
                                 {{ getStatusText(user) }}
                             </span>
                         </td>
-                        <td>
-                            <span class="reports-badge zero">0</span>
-                        </td>
+
                         <td class="text-end">
-                            <button *ngIf="user.role !== 'BANNED'" class="btn action-btn btn-ban me-1"
+                            <button *ngIf="user.status !== 'BANNED'" class="btn action-btn btn-ban me-1"
                                 (click)="banUser(user)">
                                 Ban
                             </button>
-                            <button *ngIf="user.role === 'BANNED'" class="btn action-btn btn-unban me-1"
+                            <button *ngIf="user.status === 'BANNED'" class="btn action-btn btn-unban me-1"
                                 (click)="unbanUser(user)">
                                 Unban
                             </button>

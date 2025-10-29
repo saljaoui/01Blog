@@ -23,6 +23,7 @@ export class AdminUsers implements OnInit {
   loadUsers() {
     this.adminService.getAllUsers().subscribe({
       next: (users) => {
+        console.log(">>>>>>>>>", users);
         this.users = users;
         this.filteredUsers = users;
       },
@@ -61,11 +62,11 @@ export class AdminUsers implements OnInit {
   }
 
   getStatusClass(user: User): string {
-    return user.role === 'BANNED' ? 'banned' : 'active';
+    return user.status === 'BANNED' ? 'banned' : 'active';
   }
 
   getStatusText(user: User): string {
-    return user.role === 'BANNED' ? 'Banned' : 'Active';
+    return user.status === 'BANNED' ? 'Banned' : 'Active';
   }
 
   banUser(user: User) {

@@ -17,6 +17,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+  status: string;
   bio: string
   role: string;
   followersCount: number;

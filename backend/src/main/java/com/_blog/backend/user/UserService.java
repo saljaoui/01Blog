@@ -7,10 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.SecurityUtils;
-import com._blog.backend.follow.Follow;
 import com._blog.backend.follow.FollowRepository;
 import com._blog.backend.post.PostRepository;
-import com._blog.backend.role.Role;
 import com._blog.backend.user.dto.UpdateProfileRequest;
 import com._blog.backend.user.dto.UserRequest;
 import com._blog.backend.user.dto.UserResponse;
@@ -43,6 +41,7 @@ public class UserService {
                 .password(request.getPassword())
                 .id(UUID.randomUUID())
                 .role(role)
+                .status(UserStatus.ACTIVE)
                 .build();
         userRepository.save(user);
         return user;

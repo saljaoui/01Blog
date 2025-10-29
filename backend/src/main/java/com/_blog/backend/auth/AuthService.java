@@ -10,6 +10,7 @@ import com._blog.backend.auth.dto.AuthResponse;
 import com._blog.backend.user.dto.UserRequest;
 import com._blog.backend.user.UserRepository;
 import com._blog.backend.user.UserService;
+import com._blog.backend.user.UserStatus;
 import com._blog.backend.user.User;
 
 import lombok.RequiredArgsConstructor;
@@ -52,7 +53,9 @@ public class AuthService {
                         userRequest.getUsername(),
                         userRequest.getPassword()));
 
-        User user = userRepository.findByUsername(userRequest.getUsername()).get();
+        User user = userRepository.findByUsername(userRequest.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
         String accessToken = jwtUtil.generateToken(user);
         RefreshToken refreshToken = refreshTokenService.create(user);
 

@@ -28,58 +28,58 @@ public class ReportService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
 
-public ApiResponse createReport(ReportRequest request) {
-    User reporter = SecurityUtils.getCurrentUser();
-    
-    Report.ReportBuilder reportBuilder = Report.builder()
-            .reportId(UUID.randomUUID())
-            .reporter(reporter)
-            .reason(request.getReason())
-            .status(ReportStatus.PENDING)
-            .type(request.getType());
+    public ApiResponse createReport(ReportRequest request) {
+        User reporter = SecurityUtils.getCurrentUser();
 
-    // Handle based on report type
-    if (request.getType() == ReportType.USER) {
-        if (request.getReportedUserId() == null) {
-            throw new IllegalArgumentException("Reported user ID is required for USER reports");
+        Report.ReportBuilder reportBuilder = Report.builder()
+                .reportId(UUID.randomUUID())
+                .reporter(reporter)
+                .reason(request.getReason())
+                .status(ReportStatus.PENDING)
+                .type(request.getType());
+
+        // Handle based on report type
+        if (request.getType() == ReportType.USER) {
+            if (request.getReportedUserId() == null) {
+                throw new IllegalArgumentException("Reported user ID is required for USER reports");
+            }
+
+            User reportedUser = userRepository.findById(request.getReportedUserId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Reported user not found"));
+
+            if (reporter.getId().equals(reportedUser.getId())) {
+                throw new IllegalArgumentException("Cannot report yourself");
+            }
+
+            reportBuilder.reportedUser(reportedUser);
+
+        } else if (request.getType() == ReportType.POST) {
+            if (request.getReportedPostId() == null) {
+                throw new IllegalArgumentException("Reported post ID is required for POST reports");
+            }
+
+            Post reportedPost = postRepository.findById(request.getReportedPostId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Reported post not found"));
+
+            if (reporter.getId().equals(reportedPost.getUser().getId())) {
+                throw new IllegalArgumentException("Cannot report your own post");
+            }
+
+            reportBuilder.reportedPost(reportedPost);
+
+        } else {
+            throw new IllegalArgumentException("Invalid report type");
         }
-        
-        User reportedUser = userRepository.findById(request.getReportedUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("Reported user not found"));
-        
-        if (reporter.getId().equals(reportedUser.getId())) {
-            throw new IllegalArgumentException("Cannot report yourself");
-        }
-        
-        reportBuilder.reportedUser(reportedUser);
-        
-    } else if (request.getType() == ReportType.POST) {
-        if (request.getReportedPostId() == null) {
-            throw new IllegalArgumentException("Reported post ID is required for POST reports");
-        }
-        
-        Post reportedPost = postRepository.findById(request.getReportedPostId())
-                .orElseThrow(() -> new ResourceNotFoundException("Reported post not found"));
-        
-        if (reporter.getId().equals(reportedPost.getUser().getId())) {
-            throw new IllegalArgumentException("Cannot report your own post");
-        }
-        
-        reportBuilder.reportedPost(reportedPost);
-        
-    } else {
-        throw new IllegalArgumentException("Invalid report type");
+
+        Report report = reportBuilder.build();
+        reportRepository.save(report);
+
+        // ✅ Return a clean API response
+        return ApiResponse.builder()
+                .success(true)
+                .message("Report created successfully")
+                .build();
     }
-
-    Report report = reportBuilder.build();
-    reportRepository.save(report);
-
-    // ✅ Return a clean API response
-    return ApiResponse.builder()
-            .success(true)
-            .message("Report created successfully")
-            .build();
-}
 
     public ReportResponse dismissReport(UUID id) {
         Report report = reportRepository.findById(id)
@@ -130,18 +130,31 @@ public ApiResponse createReport(ReportRequest request) {
         reportRepository.deleteById(reportId);
     }
 
-private ReportResponse mapToResponse(Report report) {
-    return ReportResponse.builder()
-            .reportId(report.getReportId())
-            .reporterId(report.getReporter().getId())
-            .reporterUsername(report.getReporter().getUsername())
-            .reportedUserId(report.getReportedUser() != null ? report.getReportedUser().getId() : null)
-            .reportedUserUsername(report.getReportedUser() != null ? report.getReportedUser().getUsername() : null)
-            .reportedPostId(report.getReportedPost() != null ? report.getReportedPost().getId() : null)
-            .reason(report.getReason())
-            .timestamp(report.getTimestamp())
-            .status(report.getStatus())
-            .type(report.getType())
-            .build();
-}
+    private ReportResponse mapToResponse(Report report) {
+        UUID reportedUserId = null;
+        String reportedUserUsername = null;
+
+        if (report.getReportedUser() != null) {
+            reportedUserId = report.getReportedUser().getId();
+            reportedUserUsername = report.getReportedUser().getUsername();
+        }
+
+        else if (report.getReportedPost() != null && report.getReportedPost().getUser() != null) {
+            reportedUserId = report.getReportedPost().getUser().getId();
+            reportedUserUsername = report.getReportedPost().getUser().getUsername();
+        }
+
+        return ReportResponse.builder()
+                .reportId(report.getReportId())
+                .reporterId(report.getReporter().getId())
+                .reporterUsername(report.getReporter().getUsername())
+                .reportedUserId(reportedUserId)
+                .reportedUserUsername(reportedUserUsername)
+                .reportedPostId(report.getReportedPost() != null ? report.getReportedPost().getId() : null)
+                .reason(report.getReason())
+                .timestamp(report.getTimestamp())
+                .status(report.getStatus())
+                .type(report.getType())
+                .build();
+    }
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.user.dto.UserResponse;
 import com._blog.backend.user.dto.UpdateProfileRequest;
 

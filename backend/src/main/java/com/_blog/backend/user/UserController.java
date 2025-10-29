@@ -1,6 +1,7 @@
 package com._blog.backend.user;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,5 +56,11 @@ public class UserController {
     public ResponseEntity<UserResponse> updateProfile(@AuthenticationPrincipal User user, @RequestBody UpdateProfileRequest request) {
         User updatedUser = userService.updateProfile(user, request);
         return ResponseEntity.ok(userService.getUserProfileWithStats(updatedUser));
+    }
+
+    @GetMapping("/admin/all")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 }

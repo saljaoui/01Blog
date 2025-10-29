@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-import { UserLogin, UserRegister } from '../models/user';
+import { UserLogin, UserRegister, User } from '../models/user';
 import { ReportResponse } from '../models/report';
 import { environment } from '../../../environments/environment.development';
 
@@ -13,6 +13,7 @@ import { environment } from '../../../environments/environment.development';
 export class AdminService {
     private http = inject(HttpClient);
     private apiUrl = environment.api.reports;
+    private usersApiUrl = environment.api.users;
 
     getStatus(): Observable<any> {
          return this.http.get<any>(`${this.apiUrl}/report-status`);
@@ -28,5 +29,9 @@ export class AdminService {
 
     banUser(reportId: string, userId: string): Observable<ReportResponse> {
         return this.http.put<ReportResponse>(`${this.apiUrl}/${userId}/ban/${reportId}`, {});
+    }
+
+    getAllUsers(): Observable<User[]> {
+        return this.http.get<User[]>(`${this.usersApiUrl}/admin/all`);
     }
 }

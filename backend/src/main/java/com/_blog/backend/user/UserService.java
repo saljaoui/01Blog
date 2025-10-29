@@ -87,4 +87,11 @@ public class UserService {
         user.setBio(request.getBio());
         return userRepository.save(user);
     }
+
+    public List<UserResponse> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(this::getUserProfileWithStats)
+                .toList();
+    }
 }

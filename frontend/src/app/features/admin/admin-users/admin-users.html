@@ -1,142 +1,96 @@
- <div class="admin-users-page">
-        <!-- Search and Filter Section -->
-        <div class="filters-section">
-            <div class="row g-3 align-items-center">
-                <div class="col-md-8">
-                    <input
-                        type="text"
-                        class="form-control search-input"
-                        placeholder="🔍 Search by username or email..." />
-                </div>
-                <div class="col-md-4">
-                    <div class="d-flex align-items-center gap-2">
-                        <label class="filter-label">Status:</label>
-                        <select class="form-select filter-select flex-grow-1">
-                            <option>All Users</option>
-                            <option>Active</option>
-                            <option>Banned</option>
-                        </select>
-                    </div>
+<div class="admin-users-page">
+    <!-- Search and Filter Section -->
+    <div class="filters-section">
+        <div class="row g-3 align-items-center">
+            <div class="col-md-8">
+                <input type="text" class="form-control search-input" placeholder="🔍 Search by username or email..."
+                    (input)="onSearch($event)" />
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex align-items-center gap-2">
+                    <label class="filter-label">Status:</label>
+                    <select class="form-select filter-select flex-grow-1" (change)="onStatusFilter($event)">
+                        <option>All Users</option>
+                        <option>Active</option>
+                        <option>Banned</option>
+                    </select>
                 </div>
             </div>
         </div>
-
-        <!-- Users Table -->
-        <div class="table-card">
-            <div class="table-responsive">
-                <table class="table users-table mb-0">
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Registered</th>
-                            <th>Posts</th>
-                            <th>Status</th>
-                            <th class="text-end">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Active User 1 -->
-                        <tr>
-                            <td>
-                                <a href="/profile/alex123" class="username-link">
-                                    @alex123
-                                </a>
-                            </td>
-                            <td>alex@example.com</td>
-                            <td>Jun 12, 2025</td>
-                            <td><strong>24</strong></td>
-                            <td>
-                                <span class="status-badge active">Active</span>
-                            </td>
-                            <td class="text-end">
-                                <button class="btn action-btn btn-ban me-1">Ban</button>
-                                <button class="btn action-btn btn-delete">Delete</button>
-                            </td>
-                        </tr>
-
-                        <!-- Banned User -->
-                        <tr class="banned-row">
-                            <td>
-                                <a href="/profile/lina_dev" class="username-link">
-                                    @lina_dev
-                                </a>
-                            </td>
-                            <td>lina@devmail.com</td>
-                            <td>Mar 28, 2025</td>
-                            <td><strong>12</strong></td>
-                            <td>
-                                <span class="status-badge banned">Banned</span>
-                            </td>
-                            <td class="text-end">
-                                <button class="btn action-btn btn-unban me-1">Unban</button>
-                                <button class="btn action-btn btn-delete">Delete</button>
-                            </td>
-                        </tr>
-
-                        <!-- Active User 2 -->
-                        <tr>
-                            <td>
-                                <a href="/profile/mark_s" class="username-link">
-                                    @mark_s
-                                </a>
-                            </td>
-                            <td>mark_s@gmail.com</td>
-                            <td>Feb 19, 2025</td>
-                            <td><strong>48</strong></td>
-                            <td>
-                                <span class="status-badge active">Active</span>
-                            </td>
-                            <td class="text-end">
-                                <button class="btn action-btn btn-ban me-1">Ban</button>
-                                <button class="btn action-btn btn-delete">Delete</button>
-                            </td>
-                        </tr>
-
-                        <!-- Active User 3 -->
-                        <tr>
-                            <td>
-                                <a href="/profile/sarah_j" class="username-link">
-                                    @sarah_j
-                                </a>
-                            </td>
-                            <td>sarah.j@mail.com</td>
-                            <td>Jan 05, 2025</td>
-                            <td><strong>87</strong></td>
-                            <td>
-                                <span class="status-badge active">Active</span>
-                            </td>
-                            <td class="text-end">
-                                <button class="btn action-btn btn-ban me-1">Ban</button>
-                                <button class="btn action-btn btn-delete">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Pagination -->
-        <div class="pagination-wrapper">
-            <nav class="d-flex justify-content-center">
-                <ul class="pagination mb-0">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#">Previous</a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-
     </div>
+
+    <!-- Users Table -->
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table users-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Registered</th>
+                        <th>Posts</th>
+                        <th>Status</th>
+                        <th>Reports</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of filteredUsers" [class.banned-row]="user.role === 'BANNED'">
+                        <td>
+                            <a [href]="'/profile/' + user.username" class="username-link">
+                                @{{ user.username }}
+                            </a>
+                        </td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ formatDate(user.createdAt) }}</td>
+                        <td><strong>{{ user.postsCount }}</strong></td>
+                        <td>
+                            <span class="status-badge" [class]="getStatusClass(user)">
+                                {{ getStatusText(user) }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="reports-badge zero">0</span>
+                        </td>
+                        <td class="text-end">
+                            <button *ngIf="user.role !== 'BANNED'" class="btn action-btn btn-ban me-1"
+                                (click)="banUser(user)">
+                                Ban
+                            </button>
+                            <button *ngIf="user.role === 'BANNED'" class="btn action-btn btn-unban me-1"
+                                (click)="unbanUser(user)">
+                                Unban
+                            </button>
+                            <button class="btn action-btn btn-delete" (click)="deleteUser(user)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-wrapper">
+        <nav class="d-flex justify-content-center">
+            <ul class="pagination mb-0">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Previous</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

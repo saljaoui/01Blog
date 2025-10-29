@@ -262,6 +262,33 @@
     color: #ccc;
 }
 
+
+/* Reports Badge */
+.reports-badge {
+    padding: 0.25rem 0.55rem;
+    border-radius: 16px;
+    font-size: 10px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.reports-badge.zero {
+    background: #e5e5e5;
+    color: #666;
+}
+
+.reports-badge.warning {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.reports-badge.danger {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fca5a5;
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .users-table th:nth-child(3),

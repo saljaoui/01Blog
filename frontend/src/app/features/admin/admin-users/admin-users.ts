@@ -13,8 +13,10 @@ export class AdminUsers implements OnInit {
   private adminService = inject(AdminService);
   users: User[] = [];
   filteredUsers: User[] = [];
+  displayedUsers: User[] = [];
   searchTerm = '';
   statusFilter = 'All Users';
+  displayedCount = 10;
 
   ngOnInit() {
     this.loadUsers();
@@ -26,6 +28,7 @@ export class AdminUsers implements OnInit {
         console.log(">>>>>>>>>", users);
         this.users = users;
         this.filteredUsers = users;
+        this.displayedUsers = this.filteredUsers.slice(0, this.displayedCount);
       },
       error: (error) => {
         console.error('Error loading users:', error);
@@ -54,6 +57,13 @@ export class AdminUsers implements OnInit {
         (this.statusFilter === 'Banned' && user.status === 'BANNED');
       return matchesSearch && matchesStatus;
     });
+    this.displayedCount = 10;
+    this.displayedUsers = this.filteredUsers.slice(0, this.displayedCount);
+  }
+
+  loadMore() {
+    this.displayedCount += 10;
+    this.displayedUsers = this.filteredUsers.slice(0, this.displayedCount);
   }
 
   formatDate(dateString: string): string {

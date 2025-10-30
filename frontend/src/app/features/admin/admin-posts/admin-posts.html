@@ -3,7 +3,7 @@
     <!-- Search Section -->
     <div class="search-section">
         <div class="search-container">
-            <input type="text" class="search-input" placeholder="Search by author username..." (input)="onSearch($event)" />
+            <input type="text" class="search-input" placeholder=" Search by author name..." (input)="onSearch($event)" />
         </div>
     </div>
 
@@ -19,13 +19,13 @@
                         <th>Likes</th>
                         <th>Comments</th>
                         <th>Reports</th>
-                        <th class="text-center">Actions</th>
+                        <th class="text-end">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     <tr *ngFor="let post of displayedPosts"
                         [class.reported-row]="post.reportsCount && post.reportsCount > 0">
-                        <td>
+                        <td >
                             <a [href]="'/profile/' + post.authorUsername" class="author-link">@{{ post.authorUsername
                                 }}</a>
                         </td>
@@ -42,7 +42,7 @@
                                 [class]="(post.reportsCount && post.reportsCount > 0) ? 'danger' : 'zero'">{{
                                 post.reportsCount || 0 }}</span>
                         </td>
-                        <td class="text-center">
+                        <td class="text-end">
                             <a  [routerLink]="['/posts', post.id]" class="text-decoration-none">
                                 <button class="btn action-btn btn-view me-1">View</button>
                             </a>

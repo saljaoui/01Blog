@@ -24,6 +24,7 @@ public class PostResponse {
     private long savesCount;            // Full EditorJS JSON
     private boolean saved;
     private long commentsCount;
+    private long reportsCount;
     
     // Author info
     private UUID authorId;

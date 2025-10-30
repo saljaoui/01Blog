@@ -11,6 +11,7 @@ import com._blog.backend.like.LikeRepository;
 import com._blog.backend.notification.NotificationService;
 import com._blog.backend.post.dto.PostRequest;
 import com._blog.backend.post.dto.PostResponse;
+import com._blog.backend.report.ReportRepository;
 import com._blog.backend.save.SavedRepository;
 import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class PostService {
     private final PostRepository postRepository;
     private final LikeRepository likeRepository;
+    private final ReportRepository reportRepository;
     private final SavedRepository savedRepository;
     private final CommentRepository commentRepository;
     private final NotificationService notificationService;
@@ -59,6 +61,7 @@ public class PostService {
             .savesCount(savedRepository.countByPost(post))
             .saved(savedRepository.existsByPostAndUser(post, user))
             .commentsCount(commentRepository.countByPost(post))
+            .reportsCount(reportRepository.countByReportedPost_Id(post.getId()))
             .authorId(post.getUser().getId())
             .authorUsername(post.getUser().getUsername())
             .authorFirstName(post.getUser().getFirstName())

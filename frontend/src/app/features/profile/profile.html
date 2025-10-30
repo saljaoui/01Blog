@@ -79,7 +79,17 @@
                 </div>
             </div>
         </div>
+
+            <!-- Posts Section -->
+    
+        <div class="content-wrapper">
+            
+                <app-post-card *ngFor="let post of posts" [post]="post"></app-post-card>
+        
+        </div>
+    
     </main>
+    
 
     <!-- EDIT PROFILE POPUP -->
     <div class="edit-profile-popup" *ngIf="showEditPopup">
@@ -116,6 +126,8 @@
         (close)="closeReportPopup()"
         (submit)="submitReportUser()">
     </app-report-user-popup>
+
+
 
     <!-- Right Sidebar -->
     <app-sidebar-right></app-sidebar-right>

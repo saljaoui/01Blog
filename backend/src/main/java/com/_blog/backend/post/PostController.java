@@ -49,12 +49,17 @@ public class PostController {
     public ResponseEntity<PostResponse> getPostById(@PathVariable UUID postId) {
          System.out.println(">>>>>>>>>>> postId: " + postId);
         PostResponse post = postService.getPostById(postId);
-       
+
         if (post != null) {
             return ResponseEntity.ok(post);
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<PostResponse>> getPostsByUser(@PathVariable UUID userId) {
+        return ResponseEntity.ok(postService.getPostsByUser(userId));
     }
 
 @PostMapping("/upload-video")

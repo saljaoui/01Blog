@@ -13,6 +13,7 @@ import com._blog.backend.post.dto.PostRequest;
 import com._blog.backend.post.dto.PostResponse;
 import com._blog.backend.save.SavedRepository;
 import com._blog.backend.user.User;
+import com._blog.backend.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +25,7 @@ public class PostService {
     private final SavedRepository savedRepository;
     private final CommentRepository commentRepository;
     private final NotificationService notificationService;
+    private final UserRepository userRepository;
 
     public PostResponse create(PostRequest postRequest) {
         User user = SecurityUtils.getCurrentUser();
@@ -89,6 +91,33 @@ public class PostService {
                 .owner(post.getUser().getId().equals(SecurityUtils.getCurrentUser().getId()))
                 .build())
             .orElse(null);
+    }
+
+    public List<PostResponse> getPostsByUser(UUID userId) {
+        User currentUser = SecurityUtils.getCurrentUser();
+        User targetUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+        return postRepository.findByUser(targetUser).stream()
+            .map(post -> PostResponse
+            .builder()
+            .id(post.getId())
+            .title(post.getTitle())
+            .content(post.getContent())
+            .likesCount(likeRepository.countByPost(post))
+            .liked(likeRepository.existsByPostAndUser(post, currentUser))
+            .savesCount(savedRepository.countByPost(post))
+            .saved(savedRepository.existsByPostAndUser(post, currentUser))
+            .commentsCount(commentRepository.countByPost(post))
+            .authorId(post.getUser().getId())
+            .authorUsername(post.getUser().getUsername())
+            .authorFirstName(post.getUser().getFirstName())
+            .authorLastName(post.getUser().getLastName())
+            .createdAt(post.getCreatedAt())
+            .updatedAt(post.getUpdatedAt())
+            .owner(post.getUser().getId().equals(currentUser.getId()))
+            .build()
+            )
+            .toList();
     }
 
     public static PostResponse toPostResponse(Post post, User user) {

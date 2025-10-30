@@ -20,6 +20,10 @@ export class PostService {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
+  getPostsByUser(userId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/user/${userId}`);
+  }
+
   deletePost(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }

@@ -7,10 +7,13 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLinkActive, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ReportService } from '../../core/services/report.service';
+import { PostService } from '../../core/services/post.service';
+import { PostCard } from '../../components/post-card/post-card';
+import { parseEditorJsContent } from '../../core/utils/editorjs-parser';
 
 @Component({
   selector: 'app-profile',
-  imports: [SidebarRight, ReportUserPopup, CommonModule, FormsModule],
+  imports: [SidebarRight, ReportUserPopup, CommonModule, FormsModule, PostCard],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })
@@ -19,6 +22,7 @@ export class Profile implements OnInit {
   private userService = inject(UserService);
   private route = inject(ActivatedRoute);
   private reportService = inject(ReportService);
+  private postService = inject(PostService);
   private router = inject(Router);
 
   user?: User;
@@ -28,6 +32,7 @@ export class Profile implements OnInit {
   showEditPopup: boolean = false;
   showMenu: boolean = false;
   showReportPopup: boolean = false;
+  posts: any[] = [];
   editForm = {
     firstName: '',
     lastName: '',
@@ -60,9 +65,26 @@ export class Profile implements OnInit {
         if (!user.currentUser) {
           this.checkFollowStatus();
         }
+        this.loadUserPosts();
       },
       error: (err) => {
         console.error('Error fetching user:', err);
+      }
+    });
+  }
+
+  loadUserPosts(): void {
+    if (!this.user) return;
+
+    this.postService.getPostsByUser(this.user.id).subscribe({
+      next: (posts: any[]) => {
+        this.posts = posts.map(post => ({
+          ...post,
+          parsedContent: parseEditorJsContent(post.content)
+        }));
+      },
+      error: (err) => {
+        console.error('Error fetching user posts:', err);
       }
     });
   }

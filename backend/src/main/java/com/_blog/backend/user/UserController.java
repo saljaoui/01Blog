@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com._blog.backend.user.dto.UserResponse;
+import com._blog.backend.report.dto.ReportResponse;
 import com._blog.backend.user.dto.UpdateProfileRequest;
 
 import lombok.RequiredArgsConstructor;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/users")
@@ -41,8 +43,6 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserProfileWithStats(user));
     }
 
-    
-
     @GetMapping("/search")
     public ResponseEntity<List<UserResponse>> searchUsers(@RequestParam String username) {
         List<User> users = userService.searchUsersByUsername(username);
@@ -53,7 +53,8 @@ public class UserController {
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<UserResponse> updateProfile(@AuthenticationPrincipal User user, @RequestBody UpdateProfileRequest request) {
+    public ResponseEntity<UserResponse> updateProfile(@AuthenticationPrincipal User user,
+            @RequestBody UpdateProfileRequest request) {
         User updatedUser = userService.updateProfile(user, request);
         return ResponseEntity.ok(userService.getUserProfileWithStats(updatedUser));
     }
@@ -63,4 +64,11 @@ public class UserController {
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
+
+    @PutMapping("/{userId}/status")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserResponse> toggleUserStatus(@PathVariable UUID userId) {
+        return ResponseEntity.ok(userService.toggleUserStatus(userId));
+    }
+
 }

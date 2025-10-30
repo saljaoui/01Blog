@@ -47,7 +47,7 @@ export class AdminReports implements OnInit {
 
 onBanUserClick(userId: string, reportId: string) {
   if (confirm('Are you sure you want to ban this user?')) {
-    this.adminService.banUser(reportId, userId).subscribe({
+    this.adminService.banUserFromReport(reportId, userId).subscribe({
       next: (updatedReport) => {
         // Update the local list
         this.reports = this.reports.map(r =>

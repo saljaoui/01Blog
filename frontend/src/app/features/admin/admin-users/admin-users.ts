@@ -48,10 +48,10 @@ export class AdminUsers implements OnInit {
   applyFilters() {
     this.filteredUsers = this.users.filter(user => {
       const matchesSearch = user.username.toLowerCase().includes(this.searchTerm) ||
-                           user.email.toLowerCase().includes(this.searchTerm);
+        user.email.toLowerCase().includes(this.searchTerm);
       const matchesStatus = this.statusFilter === 'All Users' ||
-                           (this.statusFilter === 'Active' && user.role !== 'BANNED') ||
-                           (this.statusFilter === 'Banned' && user.role === 'BANNED');
+        (this.statusFilter === 'Active' && user.status !== 'BANNED') ||
+        (this.statusFilter === 'Banned' && user.status === 'BANNED');
       return matchesSearch && matchesStatus;
     });
   }
@@ -69,14 +69,19 @@ export class AdminUsers implements OnInit {
     return user.status === 'BANNED' ? 'Banned' : 'Active';
   }
 
-  banUser(user: User) {
-    // TODO: Implement ban functionality
-    console.log('Ban user:', user.username);
-  }
+  toggleUserStatus(user: User) {
+    console.log('Unbanning user:', user.username);
 
-  unbanUser(user: User) {
-    // TODO: Implement unban functionality
-    console.log('Unban user:', user.username);
+    this.adminService.toggleUserStatus(user.id).subscribe({
+      next: (data) => {
+        // Update local user status
+        user.status = data.status;
+        console.log('User successfully unbanned:', data);
+      },
+      error: (err) => {
+        console.error('Error unbanning user:', err);
+      }
+    });
   }
 
   deleteUser(user: User) {

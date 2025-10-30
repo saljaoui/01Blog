@@ -8,8 +8,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.SecurityUtils;
+import com._blog.backend.exception.ResourceNotFoundException;
 import com._blog.backend.follow.FollowRepository;
 import com._blog.backend.post.PostRepository;
+import com._blog.backend.report.dto.ReportResponse;
 import com._blog.backend.user.dto.UpdateProfileRequest;
 import com._blog.backend.user.dto.UserRequest;
 import com._blog.backend.user.dto.UserResponse;
@@ -56,7 +58,6 @@ public class UserService {
         User currentUser = SecurityUtils.getCurrentUser();
         boolean isCurrentUser = currentUser != null && currentUser.getId().equals(user.getId());
 
-
         return UserResponse.builder()
                 .id(user.getId())
                 .username(user.getUsername())
@@ -95,5 +96,19 @@ public class UserService {
         return users.stream()
                 .map(this::getUserProfileWithStats)
                 .toList();
+    }
+
+    public UserResponse toggleUserStatus(UUID userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("user not found"));
+        if (user.getStatus().equals(UserStatus.BANNED)) {
+            user.setStatus(UserStatus.ACTIVE);
+        } else {
+            user.setStatus(UserStatus.BANNED);
+        }
+
+        userRepository.save(user);
+
+        return getUserProfileWithStats(user);
     }
 }

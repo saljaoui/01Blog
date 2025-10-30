@@ -3,7 +3,7 @@
     <div class="filters-section">
         <div class="row g-3 align-items-center">
             <div class="col-md-8">
-                <input type="text" class="form-control search-input" placeholder="🔍 Search by username or email..."
+                <input type="text" class="form-control search-input" placeholder="Search by username or email..."
                     (input)="onSearch($event)" />
             </div>
             <div class="col-md-4">
@@ -51,11 +51,11 @@
 
                         <td class="text-end">
                             <button *ngIf="user.status !== 'BANNED'" class="btn action-btn btn-ban me-1"
-                                (click)="banUser(user)">
+                                (click)="toggleUserStatus(user)">
                                 Ban
                             </button>
                             <button *ngIf="user.status === 'BANNED'" class="btn action-btn btn-unban me-1"
-                                (click)="unbanUser(user)">
+                                (click)="toggleUserStatus(user)">
                                 Unban
                             </button>
                             <button class="btn action-btn btn-delete" (click)="deleteUser(user)">

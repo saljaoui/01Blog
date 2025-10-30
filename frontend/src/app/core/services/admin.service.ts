@@ -27,9 +27,17 @@ export class AdminService {
         return this.http.put<any>(`${this.apiUrl}/${reportId}/dismiss`, {});
     }
 
-    banUser(reportId: string, userId: string): Observable<ReportResponse> {
+    banUserFromReport(reportId: string, userId: string): Observable<ReportResponse> {
         return this.http.put<ReportResponse>(`${this.apiUrl}/${userId}/ban/${reportId}`, {});
     }
+
+    toggleUserStatus(userId: string): Observable<ReportResponse> {
+        return this.http.put<ReportResponse>(`${this.usersApiUrl}/${userId}/status`, {});
+    }
+
+    // banUser(reportId: string, userId: string): Observable<ReportResponse> {
+    //     return this.http.put<ReportResponse>(`${this.apiUrl}/${userId}/ban/${reportId}`, {});
+    // }
 
     getAllUsers(): Observable<User[]> {
         return this.http.get<User[]>(`${this.usersApiUrl}/admin/all`);

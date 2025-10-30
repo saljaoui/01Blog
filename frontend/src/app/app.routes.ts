@@ -21,7 +21,7 @@ import { noAuthGuard } from './core/guard/no-auth-guard';
 import { CreatePost } from './features/posts/create-post/create-post';
 import { PostDetail } from './features/posts/post-detail/post-detail';
 import { Profile } from './features/profile/profile';
-import { EditPost } from './features/posts/edit-post/edit-post';
+// import { EditPost } from './features/posts/edit-post/edit-post';
 
 
 export const routes: Routes = [
@@ -47,10 +47,9 @@ export const routes: Routes = [
       { path: 'settings', component: Settings },
       { path: 'notifications', component: Notifications },
       { path: 'create-post', component: CreatePost },
-      { path: 'edit-post/:id', component: EditPost },
+      { path: 'edit-post/:id', component: CreatePost },
       { path: 'posts/:id', component: PostDetail },
       { path: 'profile/:username', component: Profile },
-
 
       {
         path: 'admin',
@@ -65,6 +64,6 @@ export const routes: Routes = [
       }
     ]
   },
-  
+
   { path: '**', redirectTo: '' }
 ];

@@ -48,21 +48,13 @@ public class PostService {
         return new PostResponse();
     }
 
-    public PostResponse updatePost(PostRequest postRequest) {
-        User user = SecurityUtils.getCurrentUser();
-        Post post = Post.builder()
-                .id(UUID.randomUUID())
-                .user(user)
-                .title(postRequest.getTitle())
-                .content(postRequest.getContent())
-                .build();
-
+    public PostResponse updatePost(UUID postId, PostRequest postRequest) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("post not found"));
         if (post != null) {
+            post.setContent(postRequest.getContent());
+            post.setTitle(postRequest.getTitle());
             postRepository.save(post);
         }
-
-        // Create notifications for followers
-        notificationService.createNewPostNotification(post);
 
         return new PostResponse();
     }

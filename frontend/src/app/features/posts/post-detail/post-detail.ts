@@ -56,6 +56,8 @@ reportService = inject(ReportService)
         console.error('Error fetching post details:', error);
       }
     });
+    console.log("this.post", this.post);
+    
   }
 
   onCommentClick() {

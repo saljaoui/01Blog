@@ -145,17 +145,24 @@ export class CreatePost implements OnInit, OnDestroy {
     this.postService.createPost(postData).subscribe({
       next: res => {
         console.log('Post created!', res);
-        this.router.navigate(['/posts', res.id]);
+        this.router.navigate(['/home']);
       },
       error: err => console.error('Create error:', err)
     });
 
   }
 
-  updatePost() {
+  async updatePost() {
+        if (!this.editor) return;
+
+    const output = await this.editor.save();
+    const postData = {
+      title: this.title,
+      content: JSON.stringify(output.blocks)
+    };
+
     if (this.postId) {
-      // Update existing post
-      this.postService.updatePost(this.postId, {}).subscribe({
+      this.postService.updatePost(this.postId, postData).subscribe({
         next: res => {
           console.log('Post updated!', res);
           this.router.navigate(['/posts', this.postId]);

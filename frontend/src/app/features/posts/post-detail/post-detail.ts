@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { PostService } from '../../../core/services/post.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Post } from '../../../core/models/post';
 import { LikeService } from '../../../core/services/like.service';
 import { SaveService } from '../../../core/services/save.service';
@@ -15,7 +15,7 @@ import { ReportUserPopup } from '../../../components/report-user-popup/report-us
 
 @Component({
   selector: 'app-post-detail',
-  imports: [CommonModule, FormsModule, ReportUserPopup],
+  imports: [CommonModule, FormsModule, ReportUserPopup, RouterLink],
   templateUrl: './post-detail.html',
   styleUrls: ['./post-detail.scss']
 })

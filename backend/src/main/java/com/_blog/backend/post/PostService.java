@@ -37,63 +37,83 @@ public class PostService {
                 .title(postRequest.getTitle())
                 .content(postRequest.getContent())
                 .build();
-      
-        postRepository.save(post);
+
+        if (post != null) {
+            postRepository.save(post);
+        }
 
         // Create notifications for followers
         notificationService.createNewPostNotification(post);
 
         return new PostResponse();
     }
-    
+
+    public PostResponse updatePost(PostRequest postRequest) {
+        User user = SecurityUtils.getCurrentUser();
+        Post post = Post.builder()
+                .id(UUID.randomUUID())
+                .user(user)
+                .title(postRequest.getTitle())
+                .content(postRequest.getContent())
+                .build();
+
+        if (post != null) {
+            postRepository.save(post);
+        }
+
+        // Create notifications for followers
+        notificationService.createNewPostNotification(post);
+
+        return new PostResponse();
+    }
+
     public List<PostResponse> getAllPosts() {
         User user = SecurityUtils.getCurrentUser();
         UUID currentUserId = user.getId();
 
         return postRepository.findAll().stream()
-            .map(post -> PostResponse
-            .builder()
-            .id(post.getId())
-            .title(post.getTitle())
-            .content(post.getContent())
-            .likesCount(likeRepository.countByPost(post))
-            .liked(likeRepository.existsByPostAndUser(post, user))
-            .savesCount(savedRepository.countByPost(post))
-            .saved(savedRepository.existsByPostAndUser(post, user))
-            .commentsCount(commentRepository.countByPost(post))
-            .reportsCount(reportRepository.countByReportedPost_Id(post.getId()))
-            .authorId(post.getUser().getId())
-            .authorUsername(post.getUser().getUsername())
-            .authorFirstName(post.getUser().getFirstName())
-            .authorLastName(post.getUser().getLastName())
-            .createdAt(post.getCreatedAt())
-            .updatedAt(post.getUpdatedAt())
-            .owner(post.getUser().getId().equals(currentUserId))
-            .build()
-            )
-            .toList();
+                .map(post -> PostResponse
+                        .builder()
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .likesCount(likeRepository.countByPost(post))
+                        .liked(likeRepository.existsByPostAndUser(post, user))
+                        .savesCount(savedRepository.countByPost(post))
+                        .saved(savedRepository.existsByPostAndUser(post, user))
+                        .commentsCount(commentRepository.countByPost(post))
+                        .reportsCount(reportRepository.countByReportedPost_Id(post.getId()))
+                        .authorId(post.getUser().getId())
+                        .authorUsername(post.getUser().getUsername())
+                        .authorFirstName(post.getUser().getFirstName())
+                        .authorLastName(post.getUser().getLastName())
+                        .createdAt(post.getCreatedAt())
+                        .updatedAt(post.getUpdatedAt())
+                        .owner(post.getUser().getId().equals(currentUserId))
+                        .build())
+                .toList();
     }
 
     public PostResponse getPostById(UUID postId) {
         return postRepository.findById(postId)
-            .map(post -> PostResponse.builder()
-                .id(post.getId())
-                .title(post.getTitle())
-                .content(post.getContent())
-                .likesCount(likeRepository.countByPost(post))
-                .liked(likeRepository.existsByPostAndUser(post, SecurityUtils.getCurrentUser()))
-                .savesCount(savedRepository.countByPost(post))
-                .saved(savedRepository.existsByPostAndUser(post, SecurityUtils.getCurrentUser()))
-                .commentsCount(commentRepository.countByPost(post))
-                .authorId(post.getUser().getId())
-                .authorUsername(post.getUser().getUsername())
-                .authorFirstName(post.getUser().getFirstName())
-                .authorLastName(post.getUser().getLastName())
-                .createdAt(post.getCreatedAt())
-                .updatedAt(post.getUpdatedAt())
-                .owner(post.getUser().getId().equals(SecurityUtils.getCurrentUser().getId()))
-                .build())
-            .orElse(null);
+                .map(post -> PostResponse.builder()
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .likesCount(likeRepository.countByPost(post))
+                        .liked(likeRepository.existsByPostAndUser(post, SecurityUtils.getCurrentUser()))
+                        .savesCount(savedRepository.countByPost(post))
+                        .saved(savedRepository.existsByPostAndUser(post, SecurityUtils.getCurrentUser()))
+                        .commentsCount(commentRepository.countByPost(post))
+                        .authorId(post.getUser().getId())
+                        .authorUsername(post.getUser().getUsername())
+                        .authorFirstName(post.getUser().getFirstName())
+                        .authorLastName(post.getUser().getLastName())
+                        .createdAt(post.getCreatedAt())
+                        .updatedAt(post.getUpdatedAt())
+                        .owner(post.getUser().getId().equals(SecurityUtils.getCurrentUser().getId()))
+                        .build())
+                .orElse(null);
     }
 
     public List<PostResponse> getPostsByUser(UUID userId) {
@@ -101,26 +121,25 @@ public class PostService {
         User targetUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
         return postRepository.findByUser(targetUser).stream()
-            .map(post -> PostResponse
-            .builder()
-            .id(post.getId())
-            .title(post.getTitle())
-            .content(post.getContent())
-            .likesCount(likeRepository.countByPost(post))
-            .liked(likeRepository.existsByPostAndUser(post, currentUser))
-            .savesCount(savedRepository.countByPost(post))
-            .saved(savedRepository.existsByPostAndUser(post, currentUser))
-            .commentsCount(commentRepository.countByPost(post))
-            .authorId(post.getUser().getId())
-            .authorUsername(post.getUser().getUsername())
-            .authorFirstName(post.getUser().getFirstName())
-            .authorLastName(post.getUser().getLastName())
-            .createdAt(post.getCreatedAt())
-            .updatedAt(post.getUpdatedAt())
-            .owner(post.getUser().getId().equals(currentUser.getId()))
-            .build()
-            )
-            .toList();
+                .map(post -> PostResponse
+                        .builder()
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .likesCount(likeRepository.countByPost(post))
+                        .liked(likeRepository.existsByPostAndUser(post, currentUser))
+                        .savesCount(savedRepository.countByPost(post))
+                        .saved(savedRepository.existsByPostAndUser(post, currentUser))
+                        .commentsCount(commentRepository.countByPost(post))
+                        .authorId(post.getUser().getId())
+                        .authorUsername(post.getUser().getUsername())
+                        .authorFirstName(post.getUser().getFirstName())
+                        .authorLastName(post.getUser().getLastName())
+                        .createdAt(post.getCreatedAt())
+                        .updatedAt(post.getUpdatedAt())
+                        .owner(post.getUser().getId().equals(currentUser.getId()))
+                        .build())
+                .toList();
     }
 
     public static PostResponse toPostResponse(Post post, User user) {

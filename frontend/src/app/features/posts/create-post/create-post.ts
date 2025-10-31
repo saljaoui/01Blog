@@ -11,6 +11,7 @@ import VideoTool from 'editorjs-video';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../core/services/auth.service';
 import { PostService } from '../../../core/services/post.service';
+import { parseEditorJsContent } from '../../../core/utils/editorjs-parser';
 
 @Component({
   selector: 'app-create-post',
@@ -34,7 +35,7 @@ export class CreatePost implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.form = this.fb.group({
-      title: [''],
+      title: '',
       content: ['']
     });
   }
@@ -44,16 +45,38 @@ export class CreatePost implements OnInit, OnDestroy {
 
     if (this.postId) {
       // Edit mode: load existing post
-      this.postService.getPostById(this.postId).subscribe((post: any) => {
-        this.title = post.title;
+      this.postService.getPostById(this.postId).subscribe(async (post: any) => {
+        // this.title = post.title;
+        console.log("this.title >>>>>>>>", post);
+
         this.form.patchValue({
           title: post.title,
           content: post.content
         });
-        // Load content into EditorJS if needed
+
         if (this.editor && post.content) {
-          const blocks = JSON.parse(post.content);
-          this.editor.render({ blocks });
+          const parsed = parseEditorJsContent(post.content);
+          console.log("parsed", parsed.blocks);
+          if (post.content) {
+            try {
+              // Wait for editor to be ready before rendering
+              await this.editor.isReady;
+
+              const parsed = parseEditorJsContent(post.content);
+              console.log("parsed", parsed.blocks);
+
+              this.title = post.title;
+              this.editor.render({
+                time: Date.now(),
+                blocks: parsed.blocks,
+                version: '2.28.0'
+              });
+
+              console.log('Content rendered!');
+            } catch (error) {
+              console.error('Render error', error);
+            }
+          }
         }
       });
     }
@@ -110,27 +133,34 @@ export class CreatePost implements OnInit, OnDestroy {
 
     const output = await this.editor.save();
     const postData = {
-      title: this.form.value.title,
+      title: this.title,
       content: JSON.stringify(output.blocks)
     };
 
+    console.log('postData !', postData);
+
+
+
+
+    this.postService.createPost(postData).subscribe({
+      next: res => {
+        console.log('Post created!', res);
+        this.router.navigate(['/posts', res.id]);
+      },
+      error: err => console.error('Create error:', err)
+    });
+
+  }
+
+  updatePost() {
     if (this.postId) {
       // Update existing post
-      this.postService.updatePost(this.postId, postData).subscribe({
+      this.postService.updatePost(this.postId, {}).subscribe({
         next: res => {
           console.log('Post updated!', res);
           this.router.navigate(['/posts', this.postId]);
         },
         error: err => console.error('Update error:', err)
-      });
-    } else {
-      // Create new post
-      this.postService.createPost(postData).subscribe({
-        next: res => {
-          console.log('Post created!', res);
-          this.router.navigate(['/posts', res.id]);
-        },
-        error: err => console.error('Create error:', err)
       });
     }
   }

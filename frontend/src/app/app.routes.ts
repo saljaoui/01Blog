@@ -21,8 +21,6 @@ import { noAuthGuard } from './core/guard/no-auth-guard';
 import { CreatePost } from './features/posts/create-post/create-post';
 import { PostDetail } from './features/posts/post-detail/post-detail';
 import { Profile } from './features/profile/profile';
-// import { EditPost } from './features/posts/edit-post/edit-post';
-
 
 export const routes: Routes = [
   {

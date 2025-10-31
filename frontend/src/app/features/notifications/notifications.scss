@@ -237,3 +237,145 @@ $border-color: #dcdcdc;
     height: 36px;
   }
 }
+
+
+.no-notifications {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  min-height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated gradient background overlay */
+.no-notifications::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%);
+  }
+}
+
+/* SVG Icon Styling */
+.no-notifications svg {
+  width: 120px;
+  height: 120px;
+  color: #6a6a6a;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: fadeInScale 0.6s ease-out forwards;
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.2));
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fadeInScale {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Text Styling */
+.no-notifications p {
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease-out 0.3s forwards;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.3px;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating particles effect */
+.no-notifications::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 50px 50px, 80px 80px;
+  background-position: 0 0, 40px 40px;
+  animation: floatParticles 20s linear infinite;
+}
+
+@keyframes floatParticles {
+  to {
+    transform: translateY(-50px);
+  }
+}
+
+/* Hover effect */
+.no-notifications:hover svg {
+  transform: scale(1.1) rotate(5deg);
+  transition: transform 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .no-notifications {
+    padding: 3rem 1.5rem;
+    min-height: 300px;
+    border-radius: 12px;
+  }
+  
+  .no-notifications svg {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .no-notifications p {
+    font-size: 1.1rem;
+    margin-top: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .no-notifications {
+    padding: 2.5rem 1rem;
+    min-height: 250px;
+  }
+  
+  .no-notifications svg {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .no-notifications p {
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+}

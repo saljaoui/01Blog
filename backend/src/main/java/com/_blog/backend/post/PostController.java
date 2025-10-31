@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,9 +46,14 @@ public class PostController {
         return ResponseEntity.ok(postService.create(postRequest));
     }
 
+    @PutMapping
+    public ResponseEntity<PostResponse> updatePost(@RequestBody PostRequest postRequest) {
+        return ResponseEntity.ok(postService.updatePost(postRequest));
+    }
+
     @GetMapping("/{postId}")
     public ResponseEntity<PostResponse> getPostById(@PathVariable UUID postId) {
-         System.out.println(">>>>>>>>>>> postId: " + postId);
+        System.out.println(">>>>>>>>>>> postId: " + postId);
         PostResponse post = postService.getPostById(postId);
 
         if (post != null) {
@@ -62,68 +68,66 @@ public class PostController {
         return ResponseEntity.ok(postService.getPostsByUser(userId));
     }
 
-@PostMapping("/upload-video")
-public ResponseEntity<Map<String, Object>> uploadVideo(@RequestParam("video") MultipartFile file) {
-    try {
-        // 1. Create folder if doesn't exist
-        File uploadDir = new File(UPLOAD_FOLDER_VIDEOS);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
+    @PostMapping("/upload-video")
+    public ResponseEntity<Map<String, Object>> uploadVideo(@RequestParam("video") MultipartFile file) {
+        try {
+            // 1. Create folder if doesn't exist
+            File uploadDir = new File(UPLOAD_FOLDER_VIDEOS);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            // 2. Create unique filename
+            String originalName = file.getOriginalFilename();
+            String extension = originalName.substring(originalName.lastIndexOf("."));
+            String newFileName = UUID.randomUUID().toString() + extension;
+
+            // 3. Save file to disk
+            Path filePath = Paths.get(UPLOAD_FOLDER_VIDEOS + newFileName);
+            Files.write(filePath, file.getBytes());
+
+            // 4. Create public URL for the video
+            String videoUrl = "http://localhost:8080/api/posts/videos/" + newFileName;
+
+            // 5. Return EditorJS-compatible response
+            Map<String, Object> response = Map.of(
+                    "success", 1,
+                    "file", Map.of("url", videoUrl));
+
+            System.out.println("Video uploaded successfully: " + videoUrl);
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", 0,
+                    "message", "Video upload failed: " + e.getMessage()));
         }
-
-        // 2. Create unique filename
-        String originalName = file.getOriginalFilename();
-        String extension = originalName.substring(originalName.lastIndexOf("."));
-        String newFileName = UUID.randomUUID().toString() + extension;
-
-        // 3. Save file to disk
-        Path filePath = Paths.get(UPLOAD_FOLDER_VIDEOS + newFileName);
-        Files.write(filePath, file.getBytes());
-
-        // 4. Create public URL for the video
-        String videoUrl = "http://localhost:8080/api/posts/videos/" + newFileName;
-
-        // 5. Return EditorJS-compatible response
-        Map<String, Object> response = Map.of(
-            "success", 1,
-            "file", Map.of("url", videoUrl)
-        );
-
-        System.out.println("Video uploaded successfully: " + videoUrl);
-        return ResponseEntity.ok(response);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        return ResponseEntity.badRequest().body(Map.of(
-            "success", 0,
-            "message", "Video upload failed: " + e.getMessage()
-        ));
     }
-}
 
-@GetMapping("/videos/{filename}")
-public ResponseEntity<byte[]> getVideo(@PathVariable String filename) {
-    try {
-        // 1. Read file from disk
-        Path filePath = Paths.get(UPLOAD_FOLDER_VIDEOS + filename);
-        byte[] videoBytes = Files.readAllBytes(filePath);
+    @GetMapping("/videos/{filename}")
+    public ResponseEntity<byte[]> getVideo(@PathVariable String filename) {
+        try {
+            // 1. Read file from disk
+            Path filePath = Paths.get(UPLOAD_FOLDER_VIDEOS + filename);
+            byte[] videoBytes = Files.readAllBytes(filePath);
 
-        // 2. Determine content type (usually video/mp4 or similar)
-        String contentType = Files.probeContentType(filePath);
-        if (contentType == null) {
-            contentType = "video/mp4"; // default
+            // 2. Determine content type (usually video/mp4 or similar)
+            String contentType = Files.probeContentType(filePath);
+            if (contentType == null) {
+                contentType = "video/mp4"; // default
+            }
+
+            // 3. Return video file
+            return ResponseEntity.ok()
+                    .header("Content-Type", contentType)
+                    .body(videoBytes);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.notFound().build();
         }
-
-        // 3. Return video file
-        return ResponseEntity.ok()
-                .header("Content-Type", contentType)
-                .body(videoBytes);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        return ResponseEntity.notFound().build();
     }
-}
 
     @PostMapping("/upload-image")
     public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam("image") MultipartFile file) {

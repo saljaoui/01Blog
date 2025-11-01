@@ -66,6 +66,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/api/posts/images/**").permitAll()
                         .requestMatchers("/api/posts/videos/**").permitAll()
+                        .requestMatchers("/api/users/avatars/**").permitAll()
                         // .requestMatchers("/api/reports").hasRole("USER")
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session

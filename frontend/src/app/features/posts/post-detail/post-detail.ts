@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PostService } from '../../../core/services/post.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Post } from '../../../core/models/post';
@@ -12,10 +12,11 @@ import { Comment, CommentRequest, CommentLikeRequest } from '../../../core/model
 import { FormsModule } from '@angular/forms';
 import { ReportService } from '../../../core/services/report.service';
 import { ReportUserPopup } from '../../../components/report-user-popup/report-user-popup';
+import { ConfirmDeletePopup } from '../../../components/confirm-delete-popup/confirm-delete-popup';
 
 @Component({
   selector: 'app-post-detail',
-  imports: [CommonModule, FormsModule, ReportUserPopup, RouterLink],
+  imports: [CommonModule, FormsModule, ReportUserPopup, RouterLink, ConfirmDeletePopup],
   templateUrl: './post-detail.html',
   styleUrls: ['./post-detail.scss']
 })
@@ -27,6 +28,8 @@ export class PostDetail {
   showComments: boolean = false;
   showMenu: boolean = false;
   showReportPopup: boolean = false;
+  showDeletePopup: boolean = false;
+  postToDelete: Post | null = null;
   reportForm = {
     reason: ''
   };
@@ -198,18 +201,32 @@ reportService = inject(ReportService)
     this.showMenu = false;
   }
 
-  onDelete() {
-    if (confirm('Are you sure you want to delete this post?')) {
-      const postId = this.route.snapshot.paramMap.get('id');
-      this.postService.deletePost(postId!).subscribe({
-        next: () => {
-          this.router.navigate(['/dashboard']);
-        },
-        error: (err: any) => console.error('Delete post error', err)
-      });
-    }
+  onDelete(post: Post) {
+    this.postToDelete = post;
+    this.showDeletePopup = true;
     this.showMenu = false;
   }
+
+    confirmDeletePost() {
+    if (this.postToDelete) {
+      this.postService.deletePost(this.postToDelete.id).subscribe({
+        next: () => {
+          this.showDeletePopup = false;
+          this.postToDelete = null;
+          this.router.navigate(['/home'])
+        },
+        error: (error) => {
+          console.error('Error deleting post:', error);
+        }
+      });
+    }
+  }
+
+  cancelDeletePost() {
+    this.showDeletePopup = false;
+    this.postToDelete = null;
+  }
+
 
   onEdit() {
     const postId = this.route.snapshot.paramMap.get('id');

@@ -43,7 +43,7 @@ public class UserService {
                 .password(request.getPassword())
                 .id(UUID.randomUUID())
                 .role(role)
-                .avatarUrl("http://localhost:8080/api/uploads/avatars/default-avatar.png")
+                .avatarUrl("http://localhost:8080/api/users/avatars/default-avatar.png")
                 .status(UserStatus.ACTIVE)
                 .createdAt(LocalDateTime.now())
                 .build();

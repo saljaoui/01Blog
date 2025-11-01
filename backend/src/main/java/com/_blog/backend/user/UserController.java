@@ -16,6 +16,10 @@ import com._blog.backend.user.dto.UserResponse;
 import com._blog.backend.user.dto.UpdateProfileRequest;
 
 import lombok.RequiredArgsConstructor;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,6 +28,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private static final String UPLOAD_FOLDER_AVATARS = "uploads/avatars/"; 
 
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUserProfile(@AuthenticationPrincipal User user) {
@@ -72,6 +77,31 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable UUID userId) {
         userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/avatars/{filename}")
+        public ResponseEntity<byte[]> getAvatar(@PathVariable String filename) {
+
+        try {
+            // 1. Read file from disk
+            Path filePath = Paths.get(UPLOAD_FOLDER_AVATARS + filename);
+            byte[] imageBytes = Files.readAllBytes(filePath);
+
+            // 2. Determine content type
+            String contentType = Files.probeContentType(filePath);
+            if (contentType == null) {
+                contentType = "image/jpeg"; // default
+            }
+
+            // 3. Return image
+            return ResponseEntity.ok()
+                    .header("Content-Type", contentType)
+                    .body(imageBytes);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

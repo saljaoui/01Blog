@@ -12,8 +12,8 @@ export class PostService {
   private http = inject(HttpClient);
   private apiUrl = environment.api.posts;
 
-  getAllPosts(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  getAllPosts(page: number = 0, size: number = 10): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}?page=${page}&size=${size}`);
   }
 
   getPostById(id: string | null): Observable<any> {

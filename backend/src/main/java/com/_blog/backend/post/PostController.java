@@ -37,8 +37,10 @@ public class PostController {
     private PostService postService;
 
     @GetMapping
-    public ResponseEntity<List<PostResponse>> getPosts() {
-        return ResponseEntity.ok(postService.getAllPosts());
+    public ResponseEntity<List<PostResponse>> getPosts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(postService.getAllPosts(page, size));
     }
 
     @PostMapping

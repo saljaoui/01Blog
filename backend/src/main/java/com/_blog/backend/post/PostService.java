@@ -3,6 +3,8 @@ package com._blog.backend.post;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.SecurityUtils;
@@ -59,11 +61,11 @@ public class PostService {
         return new PostResponse();
     }
 
-    public List<PostResponse> getAllPosts() {
+    public List<PostResponse> getAllPosts(int page, int size) {
         User user = SecurityUtils.getCurrentUser();
         UUID currentUserId = user.getId();
 
-        return postRepository.findAll().stream()
+        return postRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"))).stream()
                 .map(post -> PostResponse
                         .builder()
                         .id(post.getId())
@@ -85,6 +87,10 @@ public class PostService {
                         .owner(post.getUser().getId().equals(currentUserId))
                         .build())
                 .toList();
+    }
+
+    public List<PostResponse> getAllPosts() {
+        return getAllPosts(0, Integer.MAX_VALUE);
     }
 
     public PostResponse getPostById(UUID postId) {

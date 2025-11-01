@@ -13,20 +13,43 @@ import { CommonModule } from '@angular/common';
 })
 export class Home implements OnInit {
   posts: any[] = [];
+  currentPage: number = 0;
+  pageSize: number = 5; // Load 5 posts at a time
+  isLoading: boolean = false;
+  hasMorePosts: boolean = true;
 
   constructor(private postService: PostService) {}
 
   ngOnInit(): void {
-    this.postService.getAllPosts().subscribe({
+    this.loadPosts();
+  }
+
+  loadPosts(): void {
+    if (this.isLoading || !this.hasMorePosts) return;
+
+    this.isLoading = true;
+    this.postService.getAllPosts(this.currentPage, this.pageSize).subscribe({
       next: (res: any[]) => {
-        this.posts = res.map(post => ({
-          ...post,
-          parsedContent: parseEditorJsContent(post.content)
-        }));
+        if (res.length === 0) {
+          this.hasMorePosts = false;
+        } else {
+          const newPosts = res.map(post => ({
+            ...post,
+            parsedContent: parseEditorJsContent(post.content)
+          }));
+          this.posts = [...this.posts, ...newPosts];
+          this.currentPage++;
+        }
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Failed to fetch posts', err);
+        this.isLoading = false;
       }
     });
+  }
+
+  loadMorePosts(): void {
+    this.loadPosts();
   }
 }

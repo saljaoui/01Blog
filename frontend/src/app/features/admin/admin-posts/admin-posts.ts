@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { PostService } from '../../../core/services/post.service';
 import { Post } from '../../../core/models/post';
 import { RouterLink } from '@angular/router';
+import { ConfirmDeletePopup } from '../../../components/confirm-delete-popup/confirm-delete-popup';
 
 @Component({
   selector: 'app-admin-posts',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ConfirmDeletePopup],
   templateUrl: './admin-posts.html',
   styleUrl: './admin-posts.scss'
 })
@@ -17,6 +18,8 @@ export class AdminPosts implements OnInit {
   displayedPosts: Post[] = [];
   searchTerm = '';
   displayedCount = 10;
+  showDeletePopup = false;
+  postToDelete: Post | null = null;
 
   ngOnInit() {
     this.loadPosts();
@@ -67,6 +70,28 @@ export class AdminPosts implements OnInit {
   }
 
   deletePost(post: Post) {
-    console.log('Delete post:', post.id);
+    this.postToDelete = post;
+    this.showDeletePopup = true;
+  }
+
+  confirmDeletePost() {
+    if (this.postToDelete) {
+      this.postService.deletePost(this.postToDelete.id).subscribe({
+        next: () => {
+          this.posts = this.posts.filter(p => p.id !== this.postToDelete!.id);
+          this.applyFilters();
+          this.showDeletePopup = false;
+          this.postToDelete = null;
+        },
+        error: (error) => {
+          console.error('Error deleting post:', error);
+        }
+      });
+    }
+  }
+
+  cancelDeletePost() {
+    this.showDeletePopup = false;
+    this.postToDelete = null;
   }
 }

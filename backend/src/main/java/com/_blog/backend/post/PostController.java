@@ -10,6 +10,8 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,6 +70,15 @@ public class PostController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<PostResponse>> getPostsByUser(@PathVariable UUID userId) {
         return ResponseEntity.ok(postService.getPostsByUser(userId));
+    }
+
+    @DeleteMapping("/{postId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deletePost(@PathVariable UUID postId) {
+        System.out.println(">>>>>>>>>>>>>>>>postId:");
+        System.out.println(postId);
+        postService.deletePost(postId);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/upload-video")

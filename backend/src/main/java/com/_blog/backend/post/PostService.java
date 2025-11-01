@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.comment.CommentRepository;
+import com._blog.backend.like.Like;
 import com._blog.backend.like.LikeRepository;
 import com._blog.backend.notification.NotificationService;
 import com._blog.backend.post.dto.PostRequest;
 import com._blog.backend.post.dto.PostResponse;
+import com._blog.backend.report.Report;
 import com._blog.backend.report.ReportRepository;
+import com._blog.backend.save.Saved;
 import com._blog.backend.save.SavedRepository;
 import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
@@ -162,5 +165,18 @@ public class PostService {
                 .updatedAt(post.getUpdatedAt())
                 .owner(post.getUser().getId().equals(user.getId()))
                 .build();
+    }
+
+    public void deletePost(UUID postId) {
+        System.out.println("🛠️ Starting deletion of post with ID: " + postId);
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("❌ Post not found"));
+        System.out.println("✅ Post found: " + post.getId());
+
+        // Now delete the post
+        System.out.println("🔥 Deleting the post itself: " + postId);
+        postRepository.delete(post);
+        System.out.println("✅ Post deletion complete: " + postId);
     }
 }

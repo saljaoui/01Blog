@@ -112,4 +112,10 @@ public class UserService {
 
         return getUserProfileWithStats(user);
     }
+
+    public void deleteUser(UUID userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("user not found"));
+        userRepository.delete(user);
+    }
 }

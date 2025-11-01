@@ -1,6 +1,11 @@
 package com._blog.backend.post;
 
 import com._blog.backend.user.User;
+import com._blog.backend.comment.Comment;
+import com._blog.backend.like.Like;
+import com._blog.backend.report.Report;
+import com._blog.backend.save.Saved;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +16,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -42,4 +48,17 @@ public class Post {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    // Cascade relationships for automatic deletion
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Saved> savedPosts;
+
+    @OneToMany(mappedBy = "reportedPost", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Report> reports;
 }

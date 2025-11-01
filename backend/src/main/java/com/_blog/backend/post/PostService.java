@@ -101,6 +101,7 @@ public class PostService {
                         .authorUsername(post.getUser().getUsername())
                         .authorFirstName(post.getUser().getFirstName())
                         .authorLastName(post.getUser().getLastName())
+                        .authorAvatar(post.getUser().getAvatarUrl())
                         .createdAt(post.getCreatedAt())
                         .updatedAt(post.getUpdatedAt())
                         .owner(post.getUser().getId().equals(SecurityUtils.getCurrentUser().getId()))

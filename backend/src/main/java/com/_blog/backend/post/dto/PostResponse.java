@@ -31,6 +31,7 @@ public class PostResponse {
     private String authorUsername;
     private String authorFirstName;
     private String authorLastName;
+    private String authorAvatar;
     private boolean owner;
     
     // Time

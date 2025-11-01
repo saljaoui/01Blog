@@ -26,6 +26,8 @@ export class SidebarLeft {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
         this.user = user;
+        console.log("user ::::::", user);
+        
       },
       error: (err) => {
         console.error('Error fetching user:', err);

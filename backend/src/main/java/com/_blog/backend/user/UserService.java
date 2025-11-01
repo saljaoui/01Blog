@@ -11,7 +11,6 @@ import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.exception.ResourceNotFoundException;
 import com._blog.backend.follow.FollowRepository;
 import com._blog.backend.post.PostRepository;
-import com._blog.backend.report.dto.ReportResponse;
 import com._blog.backend.user.dto.UpdateProfileRequest;
 import com._blog.backend.user.dto.UserRequest;
 import com._blog.backend.user.dto.UserResponse;
@@ -44,6 +43,7 @@ public class UserService {
                 .password(request.getPassword())
                 .id(UUID.randomUUID())
                 .role(role)
+                .avatarUrl("http://localhost:8080/api/posts/images/default-avatar.png")
                 .status(UserStatus.ACTIVE)
                 .createdAt(LocalDateTime.now())
                 .build();
@@ -66,6 +66,7 @@ public class UserService {
                 .lastName(user.getLastName())
                 .role(user.getRole().name())
                 .bio(user.getBio())
+                .avatarUrl(user.getAvatarUrl())
                 .status(user.getStatus())
                 .currentUser(isCurrentUser)
                 .followersCount(followersCount)

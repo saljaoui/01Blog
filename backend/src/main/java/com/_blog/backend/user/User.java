@@ -45,6 +45,9 @@ public class User implements UserDetails {
     @Column(length = 500)
     private String bio;
 
+    @Column(nullable = false)
+    private String avatarUrl;
+
     @Column(nullable = false, length = 100)
     private String password;
 

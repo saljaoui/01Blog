@@ -3,6 +3,8 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { UserService } from '../../core/services/user.service';
+import { User } from '../../core/models/user';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,6 +18,8 @@ export class Header implements OnInit, OnDestroy {
   isNotificationsOpen = signal(false);
   private authService = inject(AuthService);
   private notificationService = inject(NotificationService);
+  private userService = inject(UserService);
+  currentUser = signal<User | null>(null);
   unreadCount = signal(0);
   private subscription: Subscription = new Subscription();
 
@@ -23,6 +27,7 @@ export class Header implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadUnreadCount();
+    this.loadCurrentUser();
     this.subscription.add(
       this.notificationService.unreadCount$.subscribe(count => {
         this.unreadCount.set(count);
@@ -41,6 +46,17 @@ export class Header implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Error loading unread count:', error);
+      }
+    });
+  }
+
+  loadCurrentUser() {
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.currentUser.set(user);
+      },
+      error: (error) => {
+        console.error('Error loading current user:', error);
       }
     });
   }

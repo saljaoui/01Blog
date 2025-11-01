@@ -35,7 +35,7 @@
   left: 0;
   right: 0;
   height: 10px;
-  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.12));
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.12));
 }
 
 /* Avatar */
@@ -52,6 +52,7 @@
   justify-content: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   position: relative;
+  background-color: #fff;
   transition: transform 0.25s ease;
 }
 
@@ -121,22 +122,22 @@
     max-width: 210px;
     padding: 12px;
   }
-  
+
   .profile-cover {
     height: 42px;
     margin-bottom: -24px;
   }
-  
+
   .profile-avatar {
     width: 56px;
     height: 56px;
     margin-top: -26px;
   }
-  
+
   .profile-name {
     font-size: 13.5px;
   }
-  
+
   .stat-value {
     font-size: 13.5px;
   }
@@ -149,38 +150,38 @@
     padding: 11px;
     border-radius: 14px;
   }
-  
+
   .profile-cover {
     height: 40px;
     margin-bottom: -22px;
     border-radius: 9px;
   }
-  
+
   .profile-avatar {
     width: 54px;
     height: 54px;
     margin-top: -25px;
     margin-bottom: 7px;
   }
-  
+
   .profile-name {
     font-size: 13px;
     margin-bottom: 2px;
   }
-  
+
   .profile-username {
     font-size: 11.5px;
     margin-bottom: 7px;
   }
-  
+
   .profile-stats {
     padding-top: 7px;
   }
-  
+
   .stat-value {
     font-size: 13px;
   }
-  
+
   .stat-label {
     font-size: 10.5px;
   }
@@ -193,13 +194,13 @@
     padding: 10px;
     border-radius: 14px;
   }
-  
+
   .profile-cover {
     height: 38px;
     margin-bottom: -20px;
     border-radius: 8px;
   }
-  
+
   .profile-avatar {
     width: 50px;
     height: 50px;
@@ -207,25 +208,25 @@
     margin-bottom: 6px;
     border-width: 2px;
   }
-  
+
   .profile-name {
     font-size: 12.5px;
   }
-  
+
   .profile-username {
     font-size: 11px;
     margin-bottom: 6px;
   }
-  
+
   .profile-stats {
     padding-top: 6px;
     gap: 2px;
   }
-  
+
   .stat-value {
     font-size: 12.5px;
   }
-  
+
   .stat-label {
     font-size: 10px;
   }
@@ -238,37 +239,37 @@
     padding: 10px;
     border-radius: 12px;
   }
-  
+
   .profile-cover {
     height: 36px;
     margin-bottom: -19px;
   }
-  
+
   .profile-avatar {
     width: 48px;
     height: 48px;
     margin-top: -22px;
     margin-bottom: 6px;
   }
-  
+
   .profile-name {
     font-size: 12px;
     margin-bottom: 1px;
   }
-  
+
   .profile-username {
     font-size: 10.5px;
     margin-bottom: 6px;
   }
-  
+
   .profile-stats {
     padding-top: 6px;
   }
-  
+
   .stat-value {
     font-size: 12px;
   }
-  
+
   .stat-label {
     font-size: 9.5px;
   }
@@ -280,31 +281,31 @@
     max-width: 170px;
     padding: 9px;
   }
-  
+
   .profile-cover {
     height: 34px;
     margin-bottom: -18px;
   }
-  
+
   .profile-avatar {
     width: 46px;
     height: 46px;
     margin-top: -21px;
     margin-bottom: 5px;
   }
-  
+
   .profile-name {
     font-size: 11.5px;
   }
-  
+
   .profile-username {
     font-size: 10px;
   }
-  
+
   .stat-value {
     font-size: 11.5px;
   }
-  
+
   .stat-label {
     font-size: 9px;
   }
@@ -316,30 +317,30 @@
     max-width: 160px;
     padding: 8px;
   }
-  
+
   .profile-cover {
     height: 32px;
     margin-bottom: -17px;
   }
-  
+
   .profile-avatar {
     width: 44px;
     height: 44px;
     margin-top: -20px;
   }
-  
+
   .profile-name {
     font-size: 11px;
   }
-  
+
   .profile-username {
     font-size: 9.5px;
   }
-  
+
   .stat-value {
     font-size: 11px;
   }
-  
+
   .stat-label {
     font-size: 8.5px;
   }

@@ -61,11 +61,10 @@
                         <button class="btn profile-btn d-flex align-items-center" type="button"
                             (click)="toggleDropdown()">
                             <div class="profile-avatar">
-                                <img src="https://i.pinimg.com/736x/9d/61/39/9d61392cfa6b5d8ae7c89de50f6aa1f9.jpg"
+                                <img src="{{currentUser()?.avatarUrl}}"
                                     alt="Profile Avatar">
                             </div>
-                            <span class="ms-2 d-none d-lg-inline profile-name">Soufian
-                                Alj</span>
+                            <span class="ms-2 d-none d-lg-inline profile-name">{{ currentUser()?.firstName }} {{ currentUser()?.lastName }}</span>
                             <i class="bi ms-2 d-none d-lg-inline" [class.bi-chevron-down]="!isOpen()"
                                 [class.bi-chevron-up]="isOpen()"></i>
                         </button>
@@ -74,8 +73,8 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <div class="dropdown-header">
-                                    <strong>Soufian Aljaoui</strong>
-                                    <div class="d-block text-muted"></div>
+                                    <strong>{{ currentUser()?.firstName }} {{ currentUser()?.lastName }}</strong>
+                                    <div class="d-block text-muted">@{{ currentUser()?.username }}</div>
                                 </div>
                             </li>
                             <li>

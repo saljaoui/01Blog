@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com._blog.backend.user.dto.UserResponse;
-import com._blog.backend.report.dto.ReportResponse;
 import com._blog.backend.user.dto.UpdateProfileRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -33,13 +32,9 @@ public class UserController {
     @GetMapping("/{username}")
     public ResponseEntity<UserResponse> getUserProfileByUsername(@PathVariable String username) {
         User user = userService.findByUsername(username);
-        System.out.println(">>>>>>>username:");
-        System.out.println(username);
-
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.ok(userService.getUserProfileWithStats(user));
     }
 

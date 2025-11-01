@@ -20,6 +20,7 @@ public class UserResponse {
     private String firstName;
     private String lastName;
     private String bio;
+    private String avatarUrl;
     private boolean currentUser;
     private long followersCount;
     private long followingCount;

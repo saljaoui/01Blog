@@ -20,6 +20,7 @@ export interface User {
   status: string;
   bio: string
   role: string;
+  avatarUrl: string;
   followersCount: number;
   followingCount: number;
   postsCount: number;

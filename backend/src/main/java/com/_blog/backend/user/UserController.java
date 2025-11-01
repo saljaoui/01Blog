@@ -1,16 +1,19 @@
 package com._blog.backend.user;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com._blog.backend.user.dto.UserResponse;
 import com._blog.backend.user.dto.UpdateProfileRequest;
@@ -28,7 +31,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private static final String UPLOAD_FOLDER_AVATARS = "uploads/avatars/"; 
+    private static final String UPLOAD_FOLDER_AVATARS = "uploads/avatars/";
 
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUserProfile(@AuthenticationPrincipal User user) {
@@ -53,12 +56,25 @@ public class UserController {
         return ResponseEntity.ok(userResponses);
     }
 
-    @PutMapping("/profile")
-    public ResponseEntity<UserResponse> updateProfile(@AuthenticationPrincipal User user,
-            @RequestBody UpdateProfileRequest request) {
-        User updatedUser = userService.updateProfile(user, request);
-        return ResponseEntity.ok(userService.getUserProfileWithStats(updatedUser));
+@PutMapping(value = "/profile", consumes = { MediaType.APPLICATION_JSON_VALUE,
+        MediaType.MULTIPART_FORM_DATA_VALUE })
+public ResponseEntity<UserResponse> updateProfile(
+        @AuthenticationPrincipal User user,
+        @ModelAttribute UpdateProfileRequest request,
+        @RequestPart(value = "avatar", required = false) MultipartFile avatar) {
+
+    User updatedUser;
+    
+    if (avatar != null && !avatar.isEmpty()) {
+        // Update profile WITH avatar
+        updatedUser = userService.updateProfileWithAvatar(user, request, avatar);
+    } else {
+        // Update profile WITHOUT avatar
+        updatedUser = userService.updateProfile(user, request);
     }
+
+    return ResponseEntity.ok(userService.getUserProfileWithStats(updatedUser));
+}
 
     @GetMapping("/admin/all")
     @PreAuthorize("hasRole('ADMIN')")
@@ -80,7 +96,7 @@ public class UserController {
     }
 
     @GetMapping("/avatars/{filename}")
-        public ResponseEntity<byte[]> getAvatar(@PathVariable String filename) {
+    public ResponseEntity<byte[]> getAvatar(@PathVariable String filename) {
 
         try {
             // 1. Read file from disk

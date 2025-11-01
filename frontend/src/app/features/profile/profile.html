@@ -7,8 +7,7 @@
                 <div class="cover-photo"></div>
                 <div class="profile-image-wrapper">
                     <div class="profile-image">
-                        <img src="{{user.avatarUrl}}"
-                            alt="Profile image">
+                        <img src="{{user.avatarUrl}}" alt="Profile image">
                     </div>
                 </div>
                 <div class="profile-content">
@@ -80,16 +79,16 @@
             </div>
         </div>
 
-            <!-- Posts Section -->
-    
+        <!-- Posts Section -->
+
         <div class="content-wrapper">
-            
-                <app-post-card *ngFor="let post of posts" [post]="post"></app-post-card>
-        
+
+            <app-post-card *ngFor="let post of posts" [post]="post"></app-post-card>
+
         </div>
-    
+
     </main>
-    
+
 
     <!-- EDIT PROFILE POPUP -->
     <div class="edit-profile-popup" *ngIf="showEditPopup">
@@ -97,6 +96,31 @@
         <div class="popup-content">
             <h2>Edit Profile</h2>
             <form (ngSubmit)="submitEditProfile()">
+                <div class="form-group">
+                    <label for="avatar">Profile Picture</label>
+
+                    <!-- Hidden file input -->
+                    <input type="file" id="avatar" (change)="onAvatarChange($event)" name="avatar" accept="image/*"
+                        #fileInput style="display: none;">
+
+                    <!-- Clickable avatar preview -->
+                    <div class="avatar-upload" (click)="fileInput.click()">
+                        <img *ngIf="editForm.avatarPreview; else placeholder" [src]="editForm.avatarPreview"
+                            alt="Avatar preview">
+
+                        <ng-template #placeholder>
+                            <div class="avatar-placeholder">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" />
+                                    <path d="M12 14c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z" />
+                                </svg>
+                                <span>Click to upload</span>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="firstName">First Name</label>
                     <input id="firstName" [(ngModel)]="editForm.firstName" name="firstName" required>
@@ -119,12 +143,8 @@
     </div>
 
     <!-- REPORT PROFILE POPUP -->
-    <app-report-user-popup
-        [show]="showReportPopup"
-        [reason]="reportForm.reason"
-        (reasonChange)="reportForm.reason = $event"
-        (close)="closeReportPopup()"
-        (submit)="submitReportUser()">
+    <app-report-user-popup [show]="showReportPopup" [reason]="reportForm.reason"
+        (reasonChange)="reportForm.reason = $event" (close)="closeReportPopup()" (submit)="submitReportUser()">
     </app-report-user-popup>
 
 

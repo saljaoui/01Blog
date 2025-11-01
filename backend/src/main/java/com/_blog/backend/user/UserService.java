@@ -1,11 +1,18 @@
 package com._blog.backend.user;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.exception.ResourceNotFoundException;
@@ -24,6 +31,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
     private final PostRepository postRepository;
+    private static final String UPLOAD_FOLDER_AVATARS = "uploads/avatars/";
 
     public User createUser(UserRequest request) {
 
@@ -89,6 +97,47 @@ public class UserService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setBio(request.getBio());
+        return userRepository.save(user);
+    }
+
+    public User updateProfileWithAvatar(User user, UpdateProfileRequest request, MultipartFile avatar) {
+        // Update basic info
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setBio(request.getBio());
+
+        // Handle avatar upload - SAME LOGIC AS POSTS
+        if (avatar != null && !avatar.isEmpty()) {
+            try {
+                // 1. Create folder if doesn't exist
+                File uploadDir = new File(UPLOAD_FOLDER_AVATARS);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                // 2. Create unique filename
+                String originalName = avatar.getOriginalFilename();
+                String extension = originalName.substring(originalName.lastIndexOf("."));
+                String newFileName = user.getId() + "_" + System.currentTimeMillis() + extension;
+
+                // 3. Save file to disk
+                Path filePath = Paths.get(UPLOAD_FOLDER_AVATARS + newFileName);
+                Files.write(filePath, avatar.getBytes());
+
+                // 4. Create public URL for the avatar
+                String avatarUrl = "http://localhost:8080/api/users/avatars/" + newFileName;
+
+                // 5. Save URL to user
+                user.setAvatarUrl(avatarUrl);
+
+                System.out.println("Avatar uploaded successfully: " + avatarUrl);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException("Failed to upload avatar: " + e.getMessage());
+            }
+        }
+
         return userRepository.save(user);
     }
 

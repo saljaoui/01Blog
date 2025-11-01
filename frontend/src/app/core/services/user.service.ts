@@ -35,9 +35,7 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiUrl}/search?username=${username}`);
   }
 
-  updateProfile(profileData: { firstName: string; lastName: string; bio: string }): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/profile`, profileData);
+  updateProfile(formData: FormData): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/profile`, formData);
   }
-
-
 }

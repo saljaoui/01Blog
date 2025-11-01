@@ -36,7 +36,9 @@ export class Profile implements OnInit {
   editForm = {
     firstName: '',
     lastName: '',
-    bio: ''
+    bio: '',
+    avatar: null as File | null,
+    avatarPreview: ''
   };
   reportForm = {
     reason: ''
@@ -131,7 +133,9 @@ export class Profile implements OnInit {
       this.editForm = {
         firstName: this.user.firstName,
         lastName: this.user.lastName,
-        bio: this.user.bio || ''
+        bio: this.user.bio || '',
+        avatar: null,
+        avatarPreview: this.user.avatarUrl || ''
       };
     }
     this.showEditPopup = true;
@@ -143,15 +147,40 @@ export class Profile implements OnInit {
 
   closeEditPopup() {
     this.showEditPopup = false;
+    this.editForm.avatar = null;
+    this.editForm.avatarPreview = '';
+  }
+
+  onAvatarChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.editForm.avatar = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.editForm.avatarPreview = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   submitEditProfile(): void {
     if (!this.user) return;
 
-
     console.log("this.editForm", this.editForm);
 
-    this.userService.updateProfile(this.editForm).subscribe({
+    const formData = new FormData();
+
+    // Always add profile data
+    formData.append('firstName', this.editForm.firstName);
+    formData.append('lastName', this.editForm.lastName);
+    formData.append('bio', this.editForm.bio);
+
+    // Add avatar if present
+    if (this.editForm.avatar) {
+      formData.append('avatar', this.editForm.avatar);
+    }
+
+    this.userService.updateProfile(formData).subscribe({
       next: (updatedUser: User) => {
         this.user = updatedUser;
         this.closeEditPopup();

@@ -15,6 +15,7 @@ public class NotificationResponse {
     private UUID actorId;
     private String actorFirstName;
     private String actorLastName;
+    private String actorAvatar;
     private NotificationType type;
     private UUID postId;
     private UUID commentId;

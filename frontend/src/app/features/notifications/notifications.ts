@@ -28,6 +28,8 @@ export class Notifications implements OnInit {
     this.notificationService.getNotifications().subscribe({
       next: (notifications) => {
         this.notifications = notifications;
+        console.log("this.notifications", this.notifications);
+        
       },
       error: (error) => {
         console.error('Error loading notifications:', error);
@@ -52,7 +54,7 @@ export class Notifications implements OnInit {
         // Update local state
         const notification = this.notifications.find(n => n.id === notificationId);
         if (notification) {
-          notification.isRead = true;
+          notification.read = true;
           this.unreadCount = Math.max(0, this.unreadCount - 1);
         }
         // Update the service's unread count

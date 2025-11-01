@@ -165,6 +165,7 @@ public class NotificationService {
             .actorId(notification.getActor().getId())
             .actorFirstName(notification.getActor().getFirstName())
             .actorLastName(notification.getActor().getLastName())
+            .actorAvatar(notification.getActor().getAvatarUrl())
             .type(notification.getType())
             .postId(notification.getPostId())
             .commentId(notification.getCommentId())

@@ -3,6 +3,7 @@ export interface Notification {
   actorId: string;
   actorFirstName: string;
   actorLastName: string;
+  actorAvatar?: string;
   type: string;
   postId?: string;
   commentId?: string;

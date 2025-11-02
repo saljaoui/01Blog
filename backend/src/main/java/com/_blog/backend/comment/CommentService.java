@@ -98,42 +98,19 @@ public class CommentService {
     public long getCommentCount(Post post) {
         return commentRepository.countByPost(post);
     }
-    
-    /**
-     * Delete a comment (by owner or admin)
-     */
+
     @Transactional
     public void deleteComment(UUID commentId, String username) {
-        // Find comment
         Comment comment = commentRepository.findById(commentId)
             .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
 
-        // Check permission: owner or admin
         if (!comment.getUser().getUsername().equals(username)) {
             throw new UnauthorizedException("You don't have permission to delete this comment");
         }
 
-        // Delete all associated likes first
         commentLikeRepository.deleteAllByComment(comment);
 
-        // Then delete the comment
         commentRepository.delete(comment);
-    }
-    
-    /**
-     * Delete all comments for a post (called when deleting a post)
-     */
-    @Transactional
-    public void deleteCommentsByPostId(UUID postId) {
-        commentRepository.deleteByPostId(postId);
-    }
-    
-    /**
-     * Delete all comments by a user (called when deleting/banning a user)
-     */
-    @Transactional
-    public void deleteCommentsByUserId(UUID userId) {
-        commentRepository.deleteByUserId(userId);
     }
     
     @Transactional
@@ -183,8 +160,4 @@ public class CommentService {
                 .orElseThrow(() -> new IllegalArgumentException("Comment not found"));
         return commentLikeRepository.countByComment(comment);
     }
-
-    /**
-     * Helper method to map Comment entity to CommentResponse DTO
-     */
 }

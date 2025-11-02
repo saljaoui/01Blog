@@ -9,6 +9,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.stereotype.Component;
+import org.springframework.lang.NonNull;
 
 import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
@@ -25,10 +26,9 @@ import lombok.RequiredArgsConstructor;
 public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
-
     @Override
     protected void doFilterInternal(
-            HttpServletRequest req, HttpServletResponse res, FilterChain filterChain)
+            @NonNull HttpServletRequest req, @NonNull HttpServletResponse res, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
         final String authHeader = req.getHeader("Authorization");

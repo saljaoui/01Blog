@@ -19,12 +19,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "refresh_tokens")
 @Getter
 @Setter
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
+@Table(name = "refresh_tokens")
 public class RefreshToken {
 
     @Id

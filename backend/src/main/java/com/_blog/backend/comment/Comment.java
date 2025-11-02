@@ -24,10 +24,10 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "comments")
 public class Comment {
     @Id
@@ -47,7 +47,6 @@ public class Comment {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-        // Cascade relationships for automatic deletion
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CommentLike> likes;
 }   

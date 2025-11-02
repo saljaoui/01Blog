@@ -23,39 +23,36 @@ import com._blog.backend.comment.dto.CommentResponse;
 import com._blog.backend.user.User;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@RestController  // ✅ Changed from @RestControllerAdvice
+@RestController
+@AllArgsConstructor
 @RequestMapping("/api/comments")
 public class CommentController {
 
-    @Autowired
-    private CommentService commentService;
+    private final CommentService commentService;
 
-    // Create a comment on a specific post
-    @PostMapping("/post/{postId}")  // ✅ Added postId in path
+    @PostMapping("/post/{postId}")
     public ResponseEntity<CommentResponse> createComment(
             @PathVariable UUID postId,
             @Valid @RequestBody CommentRequest request) {
 
-                User user = SecurityUtils.getCurrentUser();
-        
+        User user = SecurityUtils.getCurrentUser();
+
         CommentResponse response = commentService.createComment(
-            postId, 
-            request, 
-            user.getUsername()
-            );
-        
+                postId,
+                request,
+                user.getUsername());
+
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    // Get all comments for a specific post
-    @GetMapping("/post/{postId}")  // ✅ Changed path to be more RESTful
+    @GetMapping("/post/{postId}")
     public ResponseEntity<List<CommentResponse>> getCommentsByPost(@PathVariable UUID postId) {
-        List<CommentResponse> comments = commentService.getCommentsByPostId(postId);
-        return ResponseEntity.ok(comments);  // ✅ Return actual data
+        return ResponseEntity.ok(commentService.getCommentsByPostId(postId));
     }
 
-    // Delete a comment
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(@PathVariable UUID commentId) {
         User user = SecurityUtils.getCurrentUser();
@@ -63,17 +60,13 @@ public class CommentController {
         return ResponseEntity.noContent().build();
     }
 
-    // Toggle like on a comment
     @PostMapping("/like")
     public ResponseEntity<CommentLikeResponse> toggleCommentLike(@RequestBody CommentLikeRequest request) {
-        CommentLikeResponse response = commentService.toggleCommentLike(request.getCommentId());
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(commentService.toggleCommentLike(request.getCommentId()));
     }
 
-    // Get like status for a comment
     @GetMapping("/like")
     public ResponseEntity<CommentLikeResponse> getCommentLikeStatus(@RequestParam UUID commentId) {
-        CommentLikeResponse response = commentService.getCommentLikeStatus(commentId);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(commentService.getCommentLikeStatus(commentId));
     }
 }

@@ -28,6 +28,10 @@ export class PostService {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 
+  deletePostFromUser(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+
   createPost(postData: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, postData);
   }

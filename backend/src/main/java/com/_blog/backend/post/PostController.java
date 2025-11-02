@@ -11,6 +11,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.post.dto.PostRequest;
 import com._blog.backend.post.dto.PostResponse;
+import com._blog.backend.user.Role;
+import com._blog.backend.user.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -73,10 +78,24 @@ public class PostController {
     }
 
     @DeleteMapping("/{postId}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deletePost(@PathVariable UUID postId) {
         System.out.println(">>>>>>>>>>>>>>>>postId:");
         System.out.println(postId);
+
+        // Check if the current user is the owner or an admin
+        Post post = postService.getPostEntityById(postId);
+        if (post == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User currentUser = SecurityUtils.getCurrentUser();
+        boolean isOwner = post.getUser().getId().equals(currentUser.getId());
+        boolean isAdmin = currentUser.getRole().equals(Role.ADMIN);
+
+        if (!isOwner && !isAdmin) {
+            return ResponseEntity.status(403).build();
+        }
+
         postService.deletePost(postId);
         return ResponseEntity.noContent().build();
     }

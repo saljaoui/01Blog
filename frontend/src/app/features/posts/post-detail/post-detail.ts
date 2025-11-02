@@ -34,14 +34,14 @@ export class PostDetail {
     reason: ''
   };
 
-postService = inject(PostService);
-likeService = inject(LikeService);
-saveService = inject(SaveService);
-commentService = inject(CommentService);
-route = inject(ActivatedRoute);
-router = inject(Router);
-dateUtils = inject(DateUtilsService);
-reportService = inject(ReportService)
+  postService = inject(PostService);
+  likeService = inject(LikeService);
+  saveService = inject(SaveService);
+  commentService = inject(CommentService);
+  route = inject(ActivatedRoute);
+  router = inject(Router);
+  dateUtils = inject(DateUtilsService);
+  reportService = inject(ReportService)
 
   ngOnInit() {
     const postId = this.route.snapshot.paramMap.get('id');
@@ -60,7 +60,7 @@ reportService = inject(ReportService)
       }
     });
     console.log("this.post", this.post);
-    
+
   }
 
   onCommentClick() {
@@ -207,9 +207,9 @@ reportService = inject(ReportService)
     this.showMenu = false;
   }
 
-    confirmDeletePost() {
+  confirmDeletePost() {
     if (this.postToDelete) {
-      this.postService.deletePost(this.postToDelete.id).subscribe({
+      this.postService.deletePostFromUser(this.postToDelete.id).subscribe({
         next: () => {
           this.showDeletePopup = false;
           this.postToDelete = null;

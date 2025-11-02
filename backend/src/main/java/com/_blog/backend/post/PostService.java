@@ -167,6 +167,10 @@ public class PostService {
                 .build();
     }
 
+    public Post getPostEntityById(UUID postId) {
+        return postRepository.findById(postId).orElse(null);
+    }
+
     public void deletePost(UUID postId) {
         System.out.println("🛠️ Starting deletion of post with ID: " + postId);
 

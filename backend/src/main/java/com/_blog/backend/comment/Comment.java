@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import com._blog.backend.like.Like;
 import com._blog.backend.post.Post;
 import com._blog.backend.user.User;
 

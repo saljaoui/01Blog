@@ -39,7 +39,7 @@ public class Notification {
     private User recipient;
 
     @ManyToOne
-    @JoinColumn(name = "actor_id", nullable = false)
+    @JoinColumn(name = "actor_id", nullable = true)
     private User actor;
 
     @Enumerated(EnumType.STRING)

@@ -149,6 +149,9 @@ public class UserService {
     public UserResponse toggleUserStatus(UUID userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("user not found"));
+        if (user.getRole() == Role.ADMIN) {
+            throw new IllegalArgumentException("Cannot change status of an admin user");
+        }
         if (user.getStatus().equals(UserStatus.BANNED)) {
             user.setStatus(UserStatus.ACTIVE);
         } else {
@@ -163,6 +166,9 @@ public class UserService {
     public void deleteUser(UUID userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("user not found"));
+        if (user.getRole() == Role.ADMIN) {
+            throw new IllegalArgumentException("Cannot delete an admin user");
+        }
         userRepository.delete(user);
     }
 }

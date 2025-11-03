@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import EditorJS from '@editorjs/editorjs';
@@ -12,16 +12,19 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../core/services/auth.service';
 import { PostService } from '../../../core/services/post.service';
 import { parseEditorJsContent } from '../../../core/utils/editorjs-parser';
+import { Popup } from '../../../components/popup/popup';
 
 @Component({
   selector: 'app-create-post',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, Popup],
   templateUrl: './create-post.html',
   styleUrls: ['./create-post.scss']
 })
 export class CreatePost implements OnInit, OnDestroy {
   editor?: EditorJS;
+  @ViewChild('popup') popup!: Popup;
+
   form: FormGroup;
   postId: string | null = null;
   title: string = '';
@@ -139,15 +142,13 @@ export class CreatePost implements OnInit, OnDestroy {
 
     console.log('postData !', postData);
 
-
-
-
     this.postService.createPost(postData).subscribe({
       next: res => {
         console.log('Post created!', res);
+        this.popup.show('Post created successfully.', true);
         this.router.navigate(['/home']);
       },
-      error: err => console.error('Create error:', err)
+      error: err => this.popup.show(err.error.message, false)
     });
 
   }

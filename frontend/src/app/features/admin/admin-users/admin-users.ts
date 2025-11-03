@@ -1,16 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminService } from '../../../core/services/admin.service';
 import { User } from '../../../core/models/user';
 import { ConfirmDeletePopup } from '../../../components/confirm-delete-popup/confirm-delete-popup';
+import { Popup } from '../../../components/popup/popup';
 
 @Component({
   selector: 'app-admin-users',
-  imports: [CommonModule, ConfirmDeletePopup],
+  imports: [CommonModule, ConfirmDeletePopup, Popup],
   templateUrl: './admin-users.html',
   styleUrl: './admin-users.scss'
 })
 export class AdminUsers implements OnInit {
+   @ViewChild('popup') popup!: Popup;
   private adminService = inject(AdminService);
   users: User[] = [];
   filteredUsers: User[] = [];
@@ -90,9 +92,11 @@ export class AdminUsers implements OnInit {
         // Update local user status
         user.status = data.status;
         console.log('User successfully unbanned:', data);
+        this.popup.show(`User ${String(data.status) === 'BANNED' ? 'banned' : 'unbanned'} successfully.`, true);
       },
       error: (err) => {
         console.error('Error unbanning user:', err);
+        this.popup.show(err.error.message, false);
       }
     });
   }
@@ -112,11 +116,13 @@ export class AdminUsers implements OnInit {
           this.displayedUsers = this.displayedUsers.filter(u => u.id !== this.userToDelete!.id);
           this.showDeletePopup = false;
           this.userToDelete = null;
+          this.popup.show('User deleted successfully.', true);
         },
         error: (err) => {
           console.error('Error deleting user:', err);
           this.showDeletePopup = false;
           this.userToDelete = null;
+          this.popup.show(err.error.message, false);
         }
       });
     }

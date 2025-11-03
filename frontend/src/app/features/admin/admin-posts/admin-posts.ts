@@ -1,17 +1,19 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostService } from '../../../core/services/post.service';
 import { Post } from '../../../core/models/post';
 import { RouterLink } from '@angular/router';
 import { ConfirmDeletePopup } from '../../../components/confirm-delete-popup/confirm-delete-popup';
+import { Popup } from '../../../components/popup/popup';
 
 @Component({
   selector: 'app-admin-posts',
-  imports: [CommonModule, RouterLink, ConfirmDeletePopup],
+  imports: [CommonModule, RouterLink, ConfirmDeletePopup, Popup],
   templateUrl: './admin-posts.html',
   styleUrl: './admin-posts.scss'
 })
 export class AdminPosts implements OnInit {
+  @ViewChild('popup') popup!: Popup;
   private postService = inject(PostService);
   posts: Post[] = [];
   filteredPosts: Post[] = [];
@@ -82,9 +84,13 @@ export class AdminPosts implements OnInit {
           this.applyFilters();
           this.showDeletePopup = false;
           this.postToDelete = null;
+          this.popup.show('Post deleted successfully.', true);
         },
         error: (error) => {
           console.error('Error deleting post:', error);
+          this.popup.show('Failed to delete post. Please try again.', false);
+          this.showDeletePopup = false;
+          this.postToDelete = null;
         }
       });
     }

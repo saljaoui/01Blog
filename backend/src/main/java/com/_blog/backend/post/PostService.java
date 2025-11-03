@@ -32,6 +32,8 @@ public class PostService {
     private final UserRepository userRepository;
 
     public PostResponse create(PostRequest postRequest) {
+        validatePostRequest(postRequest);
+        
         User user = SecurityUtils.getCurrentUser();
         Post post = Post.builder()
                 .id(UUID.randomUUID())
@@ -49,6 +51,28 @@ public class PostService {
 
         return new PostResponse();
     }
+
+    private void validatePostRequest(PostRequest postRequest) {
+    if (postRequest == null) {
+        throw new IllegalArgumentException("Post request cannot be null");
+    }
+    
+    if (postRequest.getTitle() == null || postRequest.getTitle().trim().isEmpty()) {
+        throw new IllegalArgumentException("Post title cannot be null or empty");
+    }
+    
+    if (postRequest.getTitle().length() > 255) {
+        throw new IllegalArgumentException("Post title cannot exceed 255 characters");
+    }
+    
+    if (postRequest.getContent() == null || postRequest.getContent().trim().isEmpty()) {
+        throw new IllegalArgumentException("Post content cannot be null or empty");
+    }
+    
+    if (postRequest.getContent().length() > 10000) {
+        throw new IllegalArgumentException("Post content cannot exceed 10000 characters");
+    }
+}
 
     public PostResponse updatePost(UUID postId, PostRequest postRequest) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("post not found"));

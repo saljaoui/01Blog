@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserRegister } from '../../../core/models/user';
 import { CommonModule } from '@angular/common';
+import { Popup } from '../../../components/popup/popup';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule, CommonModule, RouterLink],
+  imports: [FormsModule, CommonModule, RouterLink, Popup],
   templateUrl: './register.html',
   styleUrl: '../../../../styles/auth.scss'
 })
 export class Register {
-  
+    @ViewChild('popup') popup!: Popup;
   passwordVisible: boolean = false;
   isSubmitting = false;
   userRegister: UserRegister = {
@@ -37,6 +38,7 @@ export class Register {
       },
       error: (err) => {
         console.error('Login failed', err);
+        this.popup.show(err.error.message || 'Registration failed. Please try again.', false);
         this.isSubmitting = false;
       }
     })

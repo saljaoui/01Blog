@@ -26,12 +26,30 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse register(UserRequest userRequest) {
+        // --- 🔎 Simple validation checks ---
+        if (userRequest.getUsername() == null || userRequest.getUsername().length() < 3) {
+            throw new IllegalArgumentException("Username must be at least 3 characters long");
+        }
+
+        if (userRequest.getPassword() == null || userRequest.getPassword().length() < 7) {
+            throw new IllegalArgumentException("Password must be at least 7 characters long");
+        }
+
+        if (userRequest.getFirstName() == null || userRequest.getFirstName().trim().isEmpty()) {
+            throw new IllegalArgumentException("First name cannot be empty");
+        }
+
+        if (userRequest.getLastName() == null || userRequest.getLastName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Last name cannot be empty");
+        }
+
+        // --- 🧠 Uniqueness checks ---
         if (userRepository.existsByUsername(userRequest.getUsername())) {
-            throw new UserAlreadyExistsException("Username is already taken");
+            throw new IllegalArgumentException("Username is already taken");
         }
 
         if (userRepository.existsByEmail(userRequest.getEmail())) {
-            throw new UserAlreadyExistsException("Email is already in use");
+            throw new IllegalArgumentException("Email is already in use");
         }
 
         userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));

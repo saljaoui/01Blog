@@ -32,6 +32,7 @@ export class Register {
         this.isSubmitting = true;
         console.log('Login successful', res);
         localStorage.setItem('token', res.accessToken);
+        this.popup.show('Login successful.', true);
         setTimeout(() => {
           this.router.navigate(['/home']);
         }, 300);

@@ -25,6 +25,10 @@ public class SavedService {
     @Transactional
     public SavedResponse toggleSave(UUID postId) {
         User user = SecurityUtils.getCurrentUser();
+        if (postId == null) {
+            throw new IllegalStateException("User must be authenticated to save a post");
+        }
+
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
@@ -39,6 +43,9 @@ public class SavedService {
                     .post(post)
                     .user(user)
                     .build();
+            if (saved == null) {
+                throw new IllegalArgumentException("Saved entity cannot be null");
+            }
             savedRepository.save(saved);
         }
 
@@ -63,7 +70,7 @@ public class SavedService {
                 .saved(isSaved)
                 .savesCount(savedsCount)
                 .build();
-    }  
+    }
 
     public boolean isSavedByUser(Post post, User user) {
         return savedRepository.existsByPostAndUser(post, user);

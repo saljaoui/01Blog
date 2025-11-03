@@ -39,6 +39,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             try {
                 String userId = jwtUtil.extractUserId(accessToken);
                 UUID uuid = UUID.fromString(userId);
+                if (uuid == null) {
+                    throw new IllegalArgumentException("Invalid user ID in token");
+                }
                 Optional<User> userOptional = userRepository.findById(uuid);
 
                 if (userOptional.isPresent() && SecurityContextHolder.getContext().getAuthentication() == null) {

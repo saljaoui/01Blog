@@ -10,7 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com._blog.backend.auth.RefreshToken;
-import com._blog.backend.comment.Comment;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

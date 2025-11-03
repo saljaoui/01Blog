@@ -21,7 +21,6 @@ import com._blog.backend.comment.dto.CommentRequest;
 import com._blog.backend.comment.dto.CommentResponse;
 import com._blog.backend.user.User;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -34,7 +33,7 @@ public class CommentController {
     @PostMapping("/post/{postId}")
     public ResponseEntity<CommentResponse> createComment(
             @PathVariable UUID postId,
-            @Valid @RequestBody CommentRequest request) {
+            @RequestBody CommentRequest request) {
 
         User user = SecurityUtils.getCurrentUser();
 

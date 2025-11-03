@@ -26,6 +26,10 @@ public class LikeService {
     public LikeResponse toggleLike(UUID postId) {
         User user = SecurityUtils.getCurrentUser();
 
+        if (postId == null) {
+            throw new IllegalStateException("User must be authenticated to like a post");
+        }
+
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
@@ -38,6 +42,9 @@ public class LikeService {
                     .post(post)
                     .user(user)
                     .build();
+            if (like == null) {
+                throw new IllegalArgumentException("Like entity cannot be null");
+            }
             likeRepository.save(like);
 
             // Create notification for the post author
@@ -68,6 +75,10 @@ public class LikeService {
     }
 
     public long getLikeCount(UUID postId) {
+        if (postId == null) {
+            throw new IllegalArgumentException("Post ID cannot be null");
+        }
+        
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("Post not found"));
         return likeRepository.countByPost(post);

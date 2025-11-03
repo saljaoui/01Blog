@@ -35,21 +35,24 @@ public class CommentService {
     public CommentResponse createComment(UUID postId, CommentRequest commentRequest, String username) {
         // Find the post
         Post post = postRepository.findById(postId)
-            .orElseThrow(() -> new ResourceNotFoundException("Post not found with id: " + postId));
-        
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found with id: " + postId));
+
         // Find the user
         User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found: " + username));
-        
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + username));
+
         // Create comment
         Comment comment = Comment.builder()
-        .id(UUID.randomUUID())
-        .content(commentRequest.getContent())
-        .post(post)
-        .user(user)
-        .createdAt(LocalDateTime.now())
-        .build()
-        ;
+                .id(UUID.randomUUID())
+                .content(commentRequest.getContent())
+                .post(post)
+                .user(user)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        if (comment.getContent() == null || comment.getContent().trim().isEmpty()) {
+            throw new IllegalArgumentException("Comment content cannot be empty");
+        }
 
         Comment savedComment = commentRepository.save(comment);
 
@@ -57,42 +60,42 @@ public class CommentService {
         notificationService.createCommentNotification(postId, username);
 
         return CommentResponse
-            .builder()
-            .id(savedComment.getId())
-            .content(savedComment.getContent())
-            .authorId(savedComment.getUser().getId())
-            .authorFirstName(savedComment.getUser().getFirstName())
-            .authorLastName(savedComment.getUser().getLastName())
-            .postId(savedComment.getPost().getId())
-            .createdAt(savedComment.getCreatedAt())
-            .build()
-            ;
+                .builder()
+                .id(savedComment.getId())
+                .content(savedComment.getContent())
+                .authorId(savedComment.getUser().getId())
+                .authorFirstName(savedComment.getUser().getFirstName())
+                .authorLastName(savedComment.getUser().getLastName())
+                .postId(savedComment.getPost().getId())
+                .createdAt(savedComment.getCreatedAt())
+                .build();
     }
-    
+
     @Transactional(readOnly = true)
     public List<CommentResponse> getCommentsByPostId(UUID postId) {
         // Verify post exists
+        if (postId == null) {
+            throw new IllegalArgumentException("Post ID cannot be null");
+        }
+
         if (!postRepository.existsById(postId)) {
             throw new ResourceNotFoundException("Post not found with id: " + postId);
         }
-        
+
         List<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtDesc(postId);
-        
-        return comments.stream()  
-            .map(post -> CommentResponse
-            .builder()
-            .id(post.getId())
-            .content(post.getContent())
-            .authorId(post.getUser().getId())
-            .authorFirstName(post.getUser().getFirstName())
-            .authorLastName(post.getUser().getLastName())
-            .createdAt(post.getCreatedAt())
-            .build()
-            )
-            .toList()
-            ;
+
+        return comments.stream()
+                .map(post -> CommentResponse
+                        .builder()
+                        .id(post.getId())
+                        .content(post.getContent())
+                        .authorId(post.getUser().getId())
+                        .authorFirstName(post.getUser().getFirstName())
+                        .authorLastName(post.getUser().getLastName())
+                        .createdAt(post.getCreatedAt())
+                        .build())
+                .toList();
     }
-    
 
     @Transactional(readOnly = true)
     public long getCommentCount(Post post) {
@@ -101,8 +104,12 @@ public class CommentService {
 
     @Transactional
     public void deleteComment(UUID commentId, String username) {
+        if (commentId == null) {
+            throw new IllegalArgumentException("Comment ID cannot be null");
+        }
+
         Comment comment = commentRepository.findById(commentId)
-            .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
+                .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
 
         if (!comment.getUser().getUsername().equals(username)) {
             throw new UnauthorizedException("You don't have permission to delete this comment");
@@ -112,10 +119,14 @@ public class CommentService {
 
         commentRepository.delete(comment);
     }
-    
+
     @Transactional
     public CommentLikeResponse toggleCommentLike(UUID commentId) {
         User user = SecurityUtils.getCurrentUser();
+
+        if (commentId == null) {
+            throw new IllegalArgumentException("Comment ID cannot be null");
+        }
 
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
@@ -129,6 +140,9 @@ public class CommentService {
                     .comment(comment)
                     .user(user)
                     .build();
+            if (like == null) {
+                throw new IllegalArgumentException("CommentLike cannot be null");
+            }
             commentLikeRepository.save(like);
         }
 
@@ -143,6 +157,10 @@ public class CommentService {
     public CommentLikeResponse getCommentLikeStatus(UUID commentId) {
         User user = SecurityUtils.getCurrentUser();
 
+        if (commentId == null) {
+            throw new IllegalArgumentException("Comment ID cannot be null");
+        }
+
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
 
@@ -156,6 +174,10 @@ public class CommentService {
     }
 
     public long getCommentLikeCount(UUID commentId) {
+        if (commentId == null) {
+            throw new IllegalArgumentException("Comment ID cannot be null");
+        }
+        
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("Comment not found"));
         return commentLikeRepository.countByComment(comment);

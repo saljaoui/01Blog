@@ -3,7 +3,6 @@ package com._blog.backend.report;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.id.uuid.UuidGenerator;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.api.ApiResponse;
@@ -19,7 +18,6 @@ import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
 import com._blog.backend.user.UserStatus;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -74,6 +72,9 @@ public class ReportService {
         }
 
         Report report = reportBuilder.build();
+        if (report == null) {
+            throw new IllegalArgumentException("Report entity cannot be null");
+        }
         reportRepository.save(report);
 
         // ✅ Return a clean API response
@@ -84,6 +85,10 @@ public class ReportService {
     }
 
     public ReportResponse banUserFromReport(UUID userId, UUID reportId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("User ID cannot be null");
+        }
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
          user.setStatus(UserStatus.BANNED);
@@ -99,6 +104,10 @@ public class ReportService {
     }
 
     public ReportResponse dismissReport(UUID id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Report ID cannot be null");
+        }
+
         Report report = reportRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
 
@@ -126,12 +135,20 @@ public class ReportService {
     }
 
     public ReportResponse getReportById(UUID reportId) {
+        if (reportId == null) {
+            throw new IllegalArgumentException("Report ID cannot be null");
+        }
+
         Report report = reportRepository.findById(reportId)
                 .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
         return mapToResponse(report);
     }
 
     public ReportResponse updateReportStatus(UUID reportId, ReportStatusUpdateRequest request) {
+        if (reportId == null) {
+            throw new IllegalArgumentException("Report ID cannot be null");
+        }
+
         Report report = reportRepository.findById(reportId)
                 .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
 
@@ -141,6 +158,10 @@ public class ReportService {
     }
 
     public void deleteReport(UUID reportId) {
+        if (reportId == null) {
+            throw new IllegalArgumentException("Report ID cannot be null");
+        }
+        
         if (!reportRepository.existsById(reportId)) {
             throw new ResourceNotFoundException("Report not found");
         }

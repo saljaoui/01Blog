@@ -18,49 +18,56 @@ public class FollowService {
     private final UserRepository userRepository;
     private final NotificationService notificationService;
 
-    public void follow(User follower, String followingId) {
+    public void follow(User follower, UUID followingId) {
         User following = getUser(followingId);
         if (!followRepository.existsByFollowerAndFollowing(follower, following)) {
-            followRepository.save(Follow.builder()
+            Follow follow = Follow.builder()
                     .follower(follower)
                     .following(following)
-                    .build());
+                    .build();
+            if (follow == null) {
+                throw new IllegalArgumentException("Follow relationship cannot be null");
+            }
+            followRepository.save(follow);
 
-            // Create notification for the user being followed
             notificationService.createFollowNotification(following.getUsername(), follower.getUsername());
         }
     }
 
-    public void unfollow(User follower, String followingId) {
+    public void unfollow(User follower, UUID followingId) {
         User following = getUser(followingId);
         followRepository.findByFollowerAndFollowing(follower, following)
                 .ifPresent(followRepository::delete);
     }
 
-    public boolean isFollowing(User follower, String followingId) {
+    public boolean isFollowing(User follower, UUID followingId) {
         return followRepository.existsByFollowerAndFollowing(follower, getUser(followingId));
     }
 
-    public long getFollowersCount(String userId) {
+    public long getFollowersCount(UUID userId) {
         return followRepository.countByFollowing(getUser(userId));
     }
 
-    public long getFollowingCount(String userId) {
+    public long getFollowingCount(UUID userId) {
         return followRepository.countByFollower(getUser(userId));
     }
 
-    public List<User> getFollowers(String userId) {
+    public List<User> getFollowers(UUID userId) {
         return followRepository.findAllByFollowing(getUser(userId))
                 .stream().map(Follow::getFollower).toList();
     }
 
-    public List<User> getFollowing(String userId) {
+    public List<User> getFollowing(UUID userId) {
         return followRepository.findAllByFollower(getUser(userId))
                 .stream().map(Follow::getFollowing).toList();
     }
 
-    private User getUser(String id) {
-        return userRepository.findById(UUID.fromString(id))
+    private User getUser(UUID id) {
+        if (id == null) {
+            throw new IllegalArgumentException("User ID cannot be null");
+        }
+        
+        return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

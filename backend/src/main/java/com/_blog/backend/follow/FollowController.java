@@ -31,14 +31,4 @@ public class FollowController {
     public ResponseEntity<Boolean> status(@PathVariable UUID userId, @AuthenticationPrincipal User currentUser) {
         return ResponseEntity.ok(followService.isFollowing(currentUser, userId));
     }
-
-    @GetMapping("/{userId}/followers")
-    public ResponseEntity<List<?>> followers(@PathVariable UUID userId) {
-        return ResponseEntity.ok(followService.getFollowers(userId));
-    }
-
-    @GetMapping("/{userId}/following")
-    public ResponseEntity<List<?>> following(@PathVariable UUID userId) {
-        return ResponseEntity.ok(followService.getFollowing(userId));
-    }
 }

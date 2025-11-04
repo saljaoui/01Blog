@@ -135,6 +135,7 @@ export class CreatePost implements OnInit, OnDestroy {
     if (!this.editor) return;
 
     const output = await this.editor.save();
+
     const postData = {
       title: this.title,
       content: JSON.stringify(output.blocks)

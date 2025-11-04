@@ -51,6 +51,10 @@ export class PostDetail {
           ...post,
           parsedContent: parseEditorJsContent(post.content)
         };
+        // this.post.parsedContent.forEach((block: any) => {
+        //   console.log('Block type:', block.type, 'Data:', block.data);
+        // });
+
         this.createdAt = this.dateUtils.formatDate(post.createdAt);
         console.log('Post details:', this.post);
 

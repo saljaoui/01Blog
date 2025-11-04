@@ -52,16 +52,6 @@ public class FollowService {
         return followRepository.countByFollower(getUser(userId));
     }
 
-    public List<User> getFollowers(UUID userId) {
-        return followRepository.findAllByFollowing(getUser(userId))
-                .stream().map(Follow::getFollower).toList();
-    }
-
-    public List<User> getFollowing(UUID userId) {
-        return followRepository.findAllByFollower(getUser(userId))
-                .stream().map(Follow::getFollowing).toList();
-    }
-
     private User getUser(UUID id) {
         if (id == null) {
             throw new IllegalArgumentException("User ID cannot be null");

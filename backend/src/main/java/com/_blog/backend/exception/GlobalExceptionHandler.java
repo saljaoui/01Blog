@@ -2,67 +2,67 @@ package com._blog.backend.exception;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import jakarta.servlet.http.HttpServletRequest;
 
-@RestControllerAdvice  // ✅ Changed from @ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
     
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleUserAlreadyExists(
             UserAlreadyExistsException ex,
             HttpServletRequest req) {
-        ErrorResponse err = new ErrorResponse(
-                HttpStatus.CONFLICT.value(),
-                "Conflict",
-                ex.getMessage(),
-                req.getRequestURI());
-        return new ResponseEntity<>(err, HttpStatus.CONFLICT);
+        return buildErrorResponse(ex.getMessage(), HttpStatus.CONFLICT, req);
     }
 
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<ErrorResponse> handleInvalidCredentials(
             InvalidCredentialsException ex,
             HttpServletRequest req) {
-        ErrorResponse err = new ErrorResponse(
-                HttpStatus.UNAUTHORIZED.value(),
-                "Unauthorized",
-                ex.getMessage(),
-                req.getRequestURI());
-        return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
+        return buildErrorResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED, req);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleBadCredentials(
+            BadCredentialsException ex,
+            HttpServletRequest req) {
+        return buildErrorResponse("Invalid username or password", HttpStatus.UNAUTHORIZED, req);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFound(
-            ResourceNotFoundException ex,  // ✅ Added missing comma
+            ResourceNotFoundException ex,
             HttpServletRequest req) {
-        ErrorResponse error = new ErrorResponse(
-                HttpStatus.NOT_FOUND.value(),
-                "Not Found",  // ✅ Added error type
-                ex.getMessage(),
-                req.getRequestURI());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        return buildErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND, req);
     }
-    
+
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<ErrorResponse> handleUnauthorized(
             UnauthorizedException ex,
-            HttpServletRequest req) {  // ✅ Added HttpServletRequest for consistency
-        ErrorResponse error = new ErrorResponse(
-                HttpStatus.FORBIDDEN.value(),
-                "Forbidden",  // ✅ Added error type
-                ex.getMessage(),
-                req.getRequestURI());
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+            HttpServletRequest req) {
+        return buildErrorResponse(ex.getMessage(), HttpStatus.FORBIDDEN, req);
     }
-    
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorResponse> handleBadRequest(
+            BadRequestException ex,
+            HttpServletRequest req) {
+        return buildErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST, req);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgument(
+            IllegalArgumentException ex,
+            HttpServletRequest req) {
+        return buildErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST, req);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(
             MethodArgumentNotValidException ex) {
@@ -74,16 +74,27 @@ public class GlobalExceptionHandler {
         });
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
-    
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(
             Exception ex,
-            HttpServletRequest req) {  // ✅ Added HttpServletRequest
+            HttpServletRequest req) {
+        return buildErrorResponse(
+                "An unexpected error occurred: " + ex.getMessage(), 
+                HttpStatus.INTERNAL_SERVER_ERROR, 
+                req);
+    }
+
+    // Private builder method for clean code
+    private ResponseEntity<ErrorResponse> buildErrorResponse(
+            String message, 
+            HttpStatus status, 
+            HttpServletRequest req) {
         ErrorResponse error = new ErrorResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                "Internal Server Error",  // ✅ Added error type
-                "An unexpected error occurred: " + ex.getMessage(),  // ✅ Include exception message
+                status.value(),
+                status.getReasonPhrase(),
+                message,
                 req.getRequestURI());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        return ResponseEntity.status(status).body(error);
     }
 }

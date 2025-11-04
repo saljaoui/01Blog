@@ -1,4 +1,6 @@
 <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100 py-4">
+    <app-popup #popup></app-popup>
+
     <div class="main-container d-flex position-relative">
         <div class="left-section d-flex align-items-center justify-content-center flex-fill">
             <div class="geometric-shape shape-1"></div>
@@ -24,15 +26,15 @@
             <form id="loginForm" (ngSubmit)="onSubmit()">
                 <div class="form-group mb-3">
                     <label for="email" class="form-label">Username</label>
-                    <input type="text" class="form-control" [(ngModel)]="userLogin.username" id="username" name="username" placeholder="yourname@gmail.com" required>
+                    <input type="text" class="form-control" [(ngModel)]="userLogin.username" id="username"
+                        name="username" placeholder="yourname@gmail.com" required>
                 </div>
 
                 <div class="form-group mb-4">
                     <label for="password" class="form-label">Password</label>
                     <div class="password-wrapper">
                         <input [type]="passwordVisible ? 'text' : 'password'" id="password" name="password"
-                            class="form-control" [(ngModel)]="userLogin.password" placeholder="••••••••••••"
-                            required>
+                            class="form-control" [(ngModel)]="userLogin.password" placeholder="••••••••••••" required>
                         <button type="button" class="eye-icon" (click)="togglePassword()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

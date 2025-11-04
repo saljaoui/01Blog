@@ -17,7 +17,7 @@ export class Notifications implements OnInit {
   constructor(
     private notificationService: NotificationService,
     private dateUtils: DateUtilsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadNotifications();
@@ -29,7 +29,7 @@ export class Notifications implements OnInit {
       next: (notifications) => {
         this.notifications = notifications;
         console.log("this.notifications", this.notifications);
-        
+
       },
       error: (error) => {
         console.error('Error loading notifications:', error);
@@ -46,7 +46,7 @@ export class Notifications implements OnInit {
         console.error('Error loading unread count:', error);
       }
     });
-       }
+  }
 
   markAsRead(notificationId: number) {
     this.notificationService.markAsRead(notificationId).subscribe({
@@ -54,8 +54,10 @@ export class Notifications implements OnInit {
         // Update local state
         const notification = this.notifications.find(n => n.id === notificationId);
         if (notification) {
+          if (!notification.read) {
+            this.unreadCount = Math.max(0, this.unreadCount - 1);
+          }
           notification.read = true;
-          this.unreadCount = Math.max(0, this.unreadCount - 1);
         }
         // Update the service's unread count
         this.notificationService.updateUnreadCount(this.unreadCount);

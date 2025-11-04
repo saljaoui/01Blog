@@ -13,7 +13,7 @@ import { Popup } from '../../../components/popup/popup';
   styleUrl: '../../../../styles/auth.scss'
 })
 export class Register {
-    @ViewChild('popup') popup!: Popup;
+  @ViewChild('popup') popup!: Popup;
   passwordVisible: boolean = false;
   isSubmitting = false;
   userRegister: UserRegister = {

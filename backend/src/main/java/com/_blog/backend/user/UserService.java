@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com._blog.backend.auth.RefreshTokenRepository;
 import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.exception.ResourceNotFoundException;
 import com._blog.backend.follow.FollowRepository;
@@ -20,6 +21,7 @@ import com._blog.backend.user.dto.UpdateProfileRequest;
 import com._blog.backend.user.dto.UserRequest;
 import com._blog.backend.user.dto.UserResponse;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,6 +31,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
     private final PostRepository postRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
     private static final String UPLOAD_FOLDER_AVATARS = "uploads/avatars/";
 
     public User createUser(UserRequest request) {
@@ -146,6 +149,7 @@ public class UserService {
                 .toList();
     }
 
+    @Transactional
     public UserResponse toggleUserStatus(UUID userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("user not found"));
@@ -156,10 +160,10 @@ public class UserService {
             user.setStatus(UserStatus.ACTIVE);
         } else {
             user.setStatus(UserStatus.BANNED);
+            refreshTokenRepository.deleteByUser(user);
         }
 
         userRepository.save(user);
-
         return getUserProfileWithStats(user);
     }
 

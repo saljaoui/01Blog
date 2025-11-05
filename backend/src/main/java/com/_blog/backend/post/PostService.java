@@ -39,7 +39,7 @@ public class PostService {
                 .id(UUID.randomUUID())
                 .user(user)
                 .title(postRequest.getTitle())
-                .content(postRequest.getContent())
+                .content(postRequest.getContent().replaceAll("&nbsp;", "").trim())
                 .build();
 
         if (post != null) {

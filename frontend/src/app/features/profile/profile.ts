@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/models/user';
 import { SidebarRight } from '../../components/sidebar-right/sidebar-right';
@@ -10,15 +10,17 @@ import { ReportService } from '../../core/services/report.service';
 import { PostService } from '../../core/services/post.service';
 import { PostCard } from '../../components/post-card/post-card';
 import { parseEditorJsContent } from '../../core/utils/editorjs-parser';
+import { Popup } from '../../components/popup/popup';
 
 @Component({
   selector: 'app-profile',
-  imports: [SidebarRight, ReportUserPopup, CommonModule, FormsModule, PostCard],
+  imports: [SidebarRight, ReportUserPopup, CommonModule, FormsModule, PostCard, Popup],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })
 
 export class Profile implements OnInit {
+  @ViewChild('popup') popup!: Popup;
   private userService = inject(UserService);
   private route = inject(ActivatedRoute);
   private reportService = inject(ReportService);
@@ -219,12 +221,13 @@ export class Profile implements OnInit {
     this.reportService.reportUser(this.user.id, this.reportForm.reason).subscribe({
       next: () => {
         alert('Report submitted successfully!');
+        this.popup.show('Report submitted successfully.', true);
         this.closeReportPopup();
         this.reportForm.reason = '';
       },
       error: (err) => {
         console.error('Error submitting report:', err);
-        alert('Failed to submit report. Please try again.');
+        this.popup.show(err.error.message, false);
       }
     });
   }

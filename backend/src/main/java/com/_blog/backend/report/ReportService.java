@@ -40,15 +40,22 @@ public class ReportService {
 
         // Handle based on report type
         if (request.getType() == ReportType.USER) {
-            if (request.getReportedUserId() == null) {
-                throw new IllegalArgumentException("Reported user ID is required for USER reports");
-            }
 
             User reportedUser = userRepository.findById(request.getReportedUserId())
                     .orElseThrow(() -> new ResourceNotFoundException("Reported user not found"));
-
+                    
             if (reporter.getId().equals(reportedUser.getId())) {
                 throw new IllegalArgumentException("Cannot report yourself");
+            }
+            if (reportedUser.getStatus() == UserStatus.BANNED) {
+                throw new IllegalArgumentException("Cannot report a banned user");
+            }
+            if (reportedUser.getRole().equals("ADMIN")) {
+                throw new IllegalArgumentException("Cannot report an admin user");
+            }
+
+            if (request.getReportedUserId() == null) {
+                throw new IllegalArgumentException("Reported user ID is required for USER reports");
             }
 
             reportBuilder.reportedUser(reportedUser);
@@ -91,8 +98,8 @@ public class ReportService {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
-         user.setStatus(UserStatus.BANNED);
-         userRepository.save(user);
+        user.setStatus(UserStatus.BANNED);
+        userRepository.save(user);
 
         Report report = reportRepository.findById(reportId)
                 .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
@@ -161,7 +168,7 @@ public class ReportService {
         if (reportId == null) {
             throw new IllegalArgumentException("Report ID cannot be null");
         }
-        
+
         if (!reportRepository.existsById(reportId)) {
             throw new ResourceNotFoundException("Report not found");
         }

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.comment.CommentRepository;
+import com._blog.backend.follow.Follow;
+import com._blog.backend.follow.FollowRepository;
 import com._blog.backend.like.LikeRepository;
 import com._blog.backend.notification.NotificationService;
 import com._blog.backend.post.dto.PostRequest;
@@ -30,6 +32,7 @@ public class PostService {
     private final CommentRepository commentRepository;
     private final NotificationService notificationService;
     private final UserRepository userRepository;
+    private final FollowRepository followRepository;
 
     public PostResponse create(PostRequest postRequest) {
         validatePostRequest(postRequest);
@@ -155,6 +158,42 @@ public class PostService {
                         .savesCount(savedRepository.countByPost(post))
                         .saved(savedRepository.existsByPostAndUser(post, currentUser))
                         .commentsCount(commentRepository.countByPost(post))
+                        .authorId(post.getUser().getId())
+                        .authorUsername(post.getUser().getUsername())
+                        .authorFirstName(post.getUser().getFirstName())
+                        .authorLastName(post.getUser().getLastName())
+                        .authorAvatar(post.getUser().getAvatarUrl())
+                        .createdAt(post.getCreatedAt())
+                        .updatedAt(post.getUpdatedAt())
+                        .owner(post.getUser().getId().equals(currentUser.getId()))
+                        .build())
+                .toList();
+    }
+
+    public List<PostResponse> getFollowedPosts(int page, int size) {
+        User currentUser = SecurityUtils.getCurrentUser();
+
+        // Get list of users that the current user is following
+        List<User> followedUsers = followRepository.findAllByFollower(currentUser).stream()
+                .map(Follow::getFollowing)
+                .toList();
+
+        if (followedUsers.isEmpty()) {
+            return List.of(); // Return empty list if no followed users
+        }
+
+        return postRepository.findByUserIn(followedUsers, PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"))).stream()
+                .map(post -> PostResponse
+                        .builder()
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .likesCount(likeRepository.countByPost(post))
+                        .liked(likeRepository.existsByPostAndUser(post, currentUser))
+                        .savesCount(savedRepository.countByPost(post))
+                        .saved(savedRepository.existsByPostAndUser(post, currentUser))
+                        .commentsCount(commentRepository.countByPost(post))
+                        .reportsCount(reportRepository.countByReportedPost_Id(post.getId()))
                         .authorId(post.getUser().getId())
                         .authorUsername(post.getUser().getUsername())
                         .authorFirstName(post.getUser().getFirstName())

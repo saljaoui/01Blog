@@ -47,6 +47,13 @@ public class PostController {
         return ResponseEntity.ok(postService.getAllPosts(page, size));
     }
 
+    @GetMapping("/followed")
+    public ResponseEntity<List<PostResponse>> getFollowedPosts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(postService.getFollowedPosts(page, size));
+    }
+
     @PostMapping
     public ResponseEntity<PostResponse> createPost(@RequestBody PostRequest postRequest) {
         return ResponseEntity.ok(postService.create(postRequest));

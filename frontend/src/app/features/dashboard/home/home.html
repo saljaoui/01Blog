@@ -6,7 +6,8 @@
             <div class="pills-header">
                 <h1 class="header-title">Explore Articles</h1>
                 <div class="category-pills">
-                    <div class="pill active">All Posts</div>
+                    <div class="pill" [class.active]="currentFilter === 'all'" (click)="switchFilter('all')">All Posts</div>
+                    <div class="pill" [class.active]="currentFilter === 'followed'" (click)="switchFilter('followed')">Followed Posts</div>
                 </div>
             </div>
 

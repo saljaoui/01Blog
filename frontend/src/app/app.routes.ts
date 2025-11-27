@@ -39,6 +39,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'home', component: Home },
+      { path: 'home/fallowd-posts', component: Home },
       { path: 'saved-posts', component: SavedPosts },
       { path: 'privacy', component: Privacy },
       { path: 'about', component: About },

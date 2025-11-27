@@ -16,6 +16,10 @@ export class PostService {
     return this.http.get<any[]>(`${this.apiUrl}?page=${page}&size=${size}`);
   }
 
+  getFollowedPosts(page: number = 0, size: number = 10): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/followed?page=${page}&size=${size}`);
+  }
+
   getPostById(id: string | null): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }

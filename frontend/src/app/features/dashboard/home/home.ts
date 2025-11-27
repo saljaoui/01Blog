@@ -17,6 +17,7 @@ export class Home implements OnInit {
   pageSize: number = 5; // Load 5 posts at a time
   isLoading: boolean = false;
   hasMorePosts: boolean = true;
+  currentFilter: 'all' | 'followed' = 'all';
 
   constructor(private postService: PostService) {}
 
@@ -28,7 +29,8 @@ export class Home implements OnInit {
     if (this.isLoading || !this.hasMorePosts) return;
 
     this.isLoading = true;
-    this.postService.getAllPosts(this.currentPage, this.pageSize).subscribe({
+    const serviceMethod = this.currentFilter === 'followed' ? this.postService.getFollowedPosts(this.currentPage, this.pageSize) : this.postService.getAllPosts(this.currentPage, this.pageSize);
+    serviceMethod.subscribe({
       next: (res: any[]) => {
         if (res.length === 0) {
           this.hasMorePosts = false;
@@ -50,6 +52,15 @@ export class Home implements OnInit {
   }
 
   loadMorePosts(): void {
+    this.loadPosts();
+  }
+
+  switchFilter(filter: 'all' | 'followed'): void {
+    if (this.currentFilter === filter) return;
+    this.currentFilter = filter;
+    this.posts = [];
+    this.currentPage = 0;
+    this.hasMorePosts = true;
     this.loadPosts();
   }
 }

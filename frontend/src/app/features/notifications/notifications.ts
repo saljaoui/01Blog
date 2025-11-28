@@ -55,15 +55,12 @@ export class Notifications implements OnInit {
         const notification = this.notifications.find(n => n.id === notificationId);
         if (notification) {
           if (!notification.read) {
-            // Was unread, now read: decrement unread count
             this.unreadCount = Math.max(0, this.unreadCount - 1);
           } else {
-            // Was read, now unread: increment unread count
             this.unreadCount += 1;
           }
           notification.read = !notification.read;
         }
-        // Update the service's unread count
         this.notificationService.updateUnreadCount(this.unreadCount);
       },
       error: (error) => {

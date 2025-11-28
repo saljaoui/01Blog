@@ -42,4 +42,12 @@ public class NotificationController {
         notificationService.markAsRead(id, user.getUsername());
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/{id}/toggle")
+    public ResponseEntity<Void> toggleRead(@PathVariable Long id) {
+        User user = SecurityUtils.getCurrentUser();
+        notificationService.toggleRead(id, user.getUsername());
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -49,21 +49,25 @@ export class Notifications implements OnInit {
   }
 
   markAsRead(notificationId: number) {
-    this.notificationService.markAsRead(notificationId).subscribe({
+    this.notificationService.toggleRead(notificationId).subscribe({
       next: () => {
         // Update local state
         const notification = this.notifications.find(n => n.id === notificationId);
         if (notification) {
           if (!notification.read) {
+            // Was unread, now read: decrement unread count
             this.unreadCount = Math.max(0, this.unreadCount - 1);
+          } else {
+            // Was read, now unread: increment unread count
+            this.unreadCount += 1;
           }
-          notification.read = true;
+          notification.read = !notification.read;
         }
         // Update the service's unread count
         this.notificationService.updateUnreadCount(this.unreadCount);
       },
       error: (error) => {
-        console.error('Error marking notification as read:', error);
+        console.error('Error toggling notification read status:', error);
       }
     });
   }

@@ -67,6 +67,31 @@ public class NotificationService {
     }
 
     @Transactional
+    public void toggleRead(Long notificationId, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + username));
+
+        if (notificationId == null) {
+            throw new IllegalArgumentException("Notification ID cannot be null");
+        }
+
+        Notification notification = notificationRepository.findById(notificationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Notification not found"));
+
+        if (!notification.getRecipient().equals(user)) {
+            throw new IllegalArgumentException("Notification does not belong to user");
+        }
+
+        if (notification.isRead()) {
+            notification.setRead(false);
+        } else {
+            notification.setRead(true);
+        }
+
+        notificationRepository.save(notification);
+    }
+
+    @Transactional
     public void createLikeNotification(UUID postId, String actorUsername) {
         if (postId == null) {
             throw new IllegalArgumentException("Post ID cannot be null");

@@ -40,6 +40,10 @@ export class NotificationService {
     return this.http.put<void>(`${this.apiUrl}/${notificationId}/read`, {});
   }
 
+  toggleRead(notificationId: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${notificationId}/toggle`, {});
+  }
+
   updateUnreadCount(count: number): void {
     this.unreadCountSubject.next(count);
   }

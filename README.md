@@ -47,14 +47,14 @@
 ## 🛠️ Tech Stack
 
 ### Backend
-- **Java Spring Boot** – REST API framework
-- **Spring Security + JWT** – Authentication and authorization
+- **Java Spring Boot 3.5.5** – REST API framework
+- **Spring Security + JWT + Refresh Tokens** – Authentication and authorization
 - **JPA / Hibernate** – Object-relational mapping
 - **PostgreSQL / MySQL** – Database management
 - **File Storage** – Local or AWS S3 for media handling
 
 ### Frontend
-- **Angular** – Modern web framework
+- **Angular 20** – Modern web framework
 - **Angular Material & Bootstrap** – UI components and styling
 - **RxJS** – Reactive programming for asynchronous operations
 - **Responsive Design** – Mobile-friendly interface
@@ -79,7 +79,7 @@
 - ✅ JSON request/response format
 
 ### Authentication & Security
-- ✅ User authentication implemented using JWT tokens
+- ✅ User authentication implemented using JWT tokens with refresh tokens
 - ✅ Passwords stored with BCrypt hashing algorithm
 - ✅ Role-based access control (RBAC) for admin and user roles
 - ✅ User sessions and authentication tokens securely managed
@@ -136,9 +136,6 @@
 - ✅ Proper error handling and user feedback
 
 ### 🎁 Bonus Features
-- ✅ Real-time notifications when subscribed users publish posts
-- ✅ Infinite scrolling on post feed
-- ✅ Dark mode toggle available
 - ✅ Admin analytics dashboard (posts count, reported users)
 - ✅ Markdown support in post editor
 
@@ -149,7 +146,7 @@
 ### Prerequisites
 - Java 11+ and Maven
 - Node.js and npm
-- PostgreSQL or MySQL database
+- PostgreSQL
 - Docker (optional)
 
 ### Backend Setup
@@ -169,8 +166,8 @@ spring.datasource.password=your_password
 
 3. Build and run
 ```bash
-mvn clean install
-mvn spring-boot:run
+./mvnw clean
+./mvnw spring-boot:run
 ```
 
 ### Frontend Setup
@@ -204,31 +201,122 @@ docker-compose up -d
 
 ```
 01blog/
+├── create_blogdb.zsh          # Database creation script
+├── docker-compose.yml          # Docker Compose configuration
+├── README.md                   # Project documentation
+├── start.sh                    # Start script
+├── stop.sh                     # Stop script
+├── audit/                      # Audit directory
+│   └── README.md
 ├── backend/                    # Spring Boot REST API
+│   ├── .gitattributes
+│   ├── .gitignore
+│   ├── backend.log
+│   ├── Dockerfile
+│   ├── mvnw                     # Maven wrapper
+│   ├── mvnw.cmd
+│   ├── pom.xml
 │   ├── src/
-│   │   ├── main/java/
-│   │   │   ├── controller/     # API endpoints
-│   │   │   ├── service/        # Business logic
-│   │   │   ├── repository/     # Database access
-│   │   │   ├── entity/         # JPA entities
-│   │   │   ├── security/       # JWT & Spring Security
-│   │   │   └── config/         # Configuration
-│   │   └── resources/
-│   │       └── application.properties
-│   └── pom.xml
-│
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   │   └── com/
+│   │   │   │       └── _blog/
+│   │   │   │           └── backend/
+│   │   │   │               ├── api/          # API utilities
+│   │   │   │               ├── auth/         # Authentication & JWT
+│   │   │   │               ├── comment/      # Comment management
+│   │   │   │               ├── config/       # Configuration classes
+│   │   │   │               ├── exception/    # Exception handling
+│   │   │   │               ├── follow/       # User following
+│   │   │   │               ├── like/         # Post likes
+│   │   │   │               ├── notification/ # Notifications
+│   │   │   │               ├── post/         # Post management
+│   │   │   │               ├── report/       # Reporting system
+│   │   │   │               ├── save/         # Saved posts
+│   │   │   │               └── user/         # User management
+│   │   │   └── resources/
+│   │   │       └── application.properties
+│   │   └── test/
+│   │       └── java/
+│   │           └── com/
+│   │               └── _blog/
+│   │                   └── backend/
+│   ├── target/                 # Build output
+│   └── uploads/                # File uploads
 ├── frontend/                   # Angular application
+│   ├── .editorconfig
+│   ├── .gitignore
+│   ├── angular.json
+│   ├── Dockerfile
+│   ├── frontend.log
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── README.md
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.spec.json
+│   ├── public/
+│   │   └── favicon.ico
 │   ├── src/
+│   │   ├── index.html
+│   │   ├── main.ts
+│   │   ├── styles.scss
 │   │   ├── app/
-│   │   │   ├── components/     # Angular components
-│   │   │   ├── services/       # HTTP services
-│   │   │   ├── guards/         # Route guards
-│   │   │   ├── models/         # TypeScript models
-│   │   │   └── interceptors/   # HTTP interceptors
-│   │   └── assets/
-│   └── angular.json
-│
-└── docker-compose.yml
+│   │   │   ├── app.config.ts
+│   │   │   ├── app.html
+│   │   │   ├── app.routes.ts
+│   │   │   ├── app.scss
+│   │   │   ├── app.ts
+│   │   │   ├── components/      # Reusable components
+│   │   │   │   ├── admin-nav/
+│   │   │   │   ├── confirm-delete-popup/
+│   │   │   │   ├── header/
+│   │   │   │   ├── popup/
+│   │   │   │   ├── post-card/
+│   │   │   │   ├── profile-card/
+│   │   │   │   ├── report-user-popup/
+│   │   │   │   ├── sidebar-left/
+│   │   │   │   └── sidebar-right/
+│   │   │   ├── core/            # Core functionality
+│   │   │   │   ├── guard/       # Route guards
+│   │   │   │   ├── interceptor/ # HTTP interceptors
+│   │   │   │   ├── models/      # TypeScript models
+│   │   │   │   ├── services/    # HTTP services
+│   │   │   │   └── utils/       # Utilities
+│   │   │   ├── features/        # Feature modules
+│   │   │   │   ├── about/
+│   │   │   │   ├── admin/
+│   │   │   │   │   ├── admin-dashboard/
+│   │   │   │   │   ├── admin-posts/
+│   │   │   │   │   ├── admin-reports/
+│   │   │   │   │   └── admin-users/
+│   │   │   │   ├── auth/
+│   │   │   │   │   ├── login/
+│   │   │   │   │   └── register/
+│   │   │   │   ├── dashboard/
+│   │   │   │   │   ├── home/
+│   │   │   │   │   └── welcome/
+│   │   │   │   ├── notifications/
+│   │   │   │   ├── posts/
+│   │   │   │   │   ├── create-post/
+│   │   │   │   │   └── post-detail/
+│   │   │   │   ├── privacy/
+│   │   │   │   ├── profile/
+│   │   │   │   ├── saved-posts/
+│   │   │   │   ├── settings/
+│   │   │   │   └── (register? wait, auth has login and register)
+│   │   │   ├── layouts/         # Layout components
+│   │   │   │   ├── admin-layout/
+│   │   │   │   ├── auth-layout/
+│   │   │   │   └── main-layout/
+│   │   ├── environments/        # Environment configurations
+│   │   ├── styles/              # Global styles
+│   │   └── types/               # TypeScript type definitions
+└── README_ASSETS/              # README images
+    ├── admin.png
+    ├── home.png
+    ├── login.png
+    └── wlc.png
 ```
 
 ---
@@ -331,4 +419,4 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 
 ---
 
-**Last Updated**: November 2025
+**Last Updated**: November 2024

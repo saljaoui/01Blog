@@ -14,11 +14,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com._blog.backend.auth.RefreshTokenRepository;
 import com._blog.backend.auth.SecurityUtils;
+import com._blog.backend.auth.dto.RegisterRequest;
 import com._blog.backend.exception.ResourceNotFoundException;
 import com._blog.backend.follow.FollowRepository;
 import com._blog.backend.post.PostRepository;
 import com._blog.backend.user.dto.UpdateProfileRequest;
-import com._blog.backend.user.dto.UserRequest;
 import com._blog.backend.user.dto.UserResponse;
 
 import jakarta.transaction.Transactional;
@@ -34,7 +34,7 @@ public class UserService {
     private final RefreshTokenRepository refreshTokenRepository;
     private static final String UPLOAD_FOLDER_AVATARS = "uploads/avatars/";
 
-    public User createUser(UserRequest request) {
+    public User createUser(RegisterRequest request) {
 
         Role role;
         if ("admin".equals(request.getUsername())) {

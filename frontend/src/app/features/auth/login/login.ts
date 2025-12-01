@@ -37,8 +37,8 @@ export class Login {
 
       },
       error: (err) => {
-        // console.error('Login failed', err);
-        this.popup.show(err.error.message || 'Login failed. Please try again.', false);
+        console.error('Login failed >>>>>>>>>>', err.error);
+        this.popup.show(Object.values(err.error)[0] as string || 'Login failed. Please try again.', false);
         this.isSubmitting = false;
       }
     })

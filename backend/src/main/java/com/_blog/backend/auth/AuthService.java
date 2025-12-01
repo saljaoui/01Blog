@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import com._blog.backend.exception.BadRequestException;
 import com._blog.backend.exception.InvalidCredentialsException;
 import com._blog.backend.auth.dto.AuthResponse;
-import com._blog.backend.user.dto.UserRequest;
+import com._blog.backend.auth.dto.LoginRequest;
+import com._blog.backend.auth.dto.RegisterRequest;
 import com._blog.backend.user.UserRepository;
 import com._blog.backend.user.UserService;
 import com._blog.backend.user.User;
@@ -27,9 +28,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
 
-    public AuthResponse register(UserRequest userRequest) {
-        // Validation checks
-        validateRegistrationInput(userRequest);
+    public AuthResponse register(RegisterRequest userRequest) {
 
         // Uniqueness checks
         checkUserUniqueness(userRequest);
@@ -48,7 +47,7 @@ public class AuthService {
                 refreshToken.getTokenHash());
     }
 
-    public AuthResponse login(UserRequest userRequest) {
+    public AuthResponse login(LoginRequest userRequest) {
 
         // Validate input
         if (userRequest.getUsername() == null || userRequest.getPassword() == null) {
@@ -81,29 +80,7 @@ public class AuthService {
         return new AuthResponse();
     }
 
-    private void validateRegistrationInput(UserRequest userRequest) {
-        if (userRequest.getUsername() == null || userRequest.getUsername().length() < 3) {
-            throw new BadRequestException("Username must be at least 3 characters long");
-        }
-
-        if (userRequest.getPassword() == null || userRequest.getPassword().length() < 7) {
-            throw new BadRequestException("Password must be at least 7 characters long");
-        }
-
-        if (userRequest.getFirstName() == null || userRequest.getFirstName().trim().isEmpty()) {
-            throw new BadRequestException("First name cannot be empty");
-        }
-
-        if (userRequest.getLastName() == null || userRequest.getLastName().trim().isEmpty()) {
-            throw new BadRequestException("Last name cannot be empty");
-        }
-
-        if (userRequest.getEmail() == null || userRequest.getEmail().trim().isEmpty()) {
-            throw new BadRequestException("Email cannot be empty");
-        }
-    }
-
-    private void checkUserUniqueness(UserRequest userRequest) {
+    private void checkUserUniqueness(RegisterRequest userRequest) {
         if (userRepository.existsByUsername(userRequest.getUsername())) {
             throw new BadRequestException("Username is already taken");
         }

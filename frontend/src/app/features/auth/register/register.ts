@@ -38,8 +38,10 @@ export class Register {
         }, 300);
       },
       error: (err) => {
+
+        
         console.error('Login failed', err);
-        this.popup.show(err.error.message || 'Registration failed. Please try again.', false);
+        this.popup.show(Object.values(err.error)[0] as string || 'Registration failed. Please try again.', false);
         this.isSubmitting = false;
       }
     })

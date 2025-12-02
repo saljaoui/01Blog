@@ -1,10 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserRegister } from '../../../core/models/user';
 import { CommonModule } from '@angular/common';
+import { ErrorHandler } from '../../../core/utils/error-handler';
 import { Popup } from '../../../components/popup/popup';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -14,39 +16,66 @@ import { Popup } from '../../../components/popup/popup';
 })
 export class Register {
   @ViewChild('popup') popup!: Popup;
-  passwordVisible: boolean = false;
+  
+  passwordVisible = false;
   isSubmitting = false;
+  
   userRegister: UserRegister = {
-    username: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: ""
+    username: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  };
+
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
+  onSubmit(): void {
+    if (this.isSubmitting) return;
+    
+    // Validate empty fields
+    if (!this.userRegister.username.trim() || 
+        !this.userRegister.firstName.trim() || 
+        !this.userRegister.lastName.trim() || 
+        !this.userRegister.email.trim() || 
+        !this.userRegister.password.trim()) {
+      this.popup.show('Please fill in all fields.', false);
+      return;
+    }
+
+    // Basic email validation
+    if (!this.isValidEmail(this.userRegister.email)) {
+      this.popup.show('Please enter a valid email address.', false);
+      return;
+    }
+
+    this.isSubmitting = true;
+
+    this.authService.register(this.userRegister)
+      .pipe(finalize(() => this.isSubmitting = false))
+      .subscribe({
+        next: (res: any) => {
+          localStorage.setItem('token', res.accessToken);
+          this.popup.show('Registration successful.', true);
+          setTimeout(() => this.router.navigate(['/home']), 300);
+        },
+        error: (err) => {
+          const errorMessage = ErrorHandler.extractErrorMessage(
+            err,
+            'Registration failed. Please try again.'
+          );
+          this.popup.show(errorMessage, false);
+        }
+      });
   }
 
-  constructor(private authService: AuthService, private router: Router) { }
-
-  onSubmit() {
-    this.authService.register(this.userRegister).subscribe({
-      next: (res: any) => {
-        this.isSubmitting = true;
-        console.log('Login successful', res);
-        localStorage.setItem('token', res.accessToken);
-        this.popup.show('Login successful.', true);
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 300);
-      },
-      error: (err) => {
-
-        
-        console.error('Login failed', err);
-        this.popup.show(Object.values(err.error)[0] as string || 'Registration failed. Please try again.', false);
-        this.isSubmitting = false;
-      }
-    })
-  }
-  togglePassword() {
+  togglePassword(): void {
     this.passwordVisible = !this.passwordVisible;
+  }
+
+  private isValidEmail(email: string): boolean {
+    const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i;
+    return emailPattern.test(email);
   }
 }

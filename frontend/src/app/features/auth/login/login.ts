@@ -1,10 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UserLogin } from '../../../core/models/user';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { Popup } from '../../../components/popup/popup';
+import { finalize } from 'rxjs';
+import { ErrorHandler } from '../../../core/utils/error-handler';
 
 @Component({
   selector: 'app-login',
@@ -12,39 +14,43 @@ import { Popup } from '../../../components/popup/popup';
   templateUrl: './login.html',
   styleUrl: '../../../../styles/auth.scss'
 })
-
 export class Login {
   @ViewChild('popup') popup!: Popup;
-  passwordVisible: boolean = false;
+  
+  passwordVisible = false;
   isSubmitting = false;
+  
   userLogin: UserLogin = {
-    username: "",
-    password: ""
+    username: '',
+    password: ''
+  };
+
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
+  onSubmit(): void {
+    if (this.isSubmitting) return;
+    
+    this.isSubmitting = true;
+
+    this.authService.login(this.userLogin)
+      .pipe(finalize(() => this.isSubmitting = false))
+      .subscribe({
+        next: () => {
+          this.popup.show('Login successful.', true);
+          setTimeout(() => this.router.navigate(['/home']), 300);
+        },
+        error: (err) => {
+          const errorMessage = ErrorHandler.extractErrorMessage(
+            err, 
+            'Login failed. Please try again.'
+          );
+          this.popup.show(errorMessage, false);
+        }
+      });
   }
 
-  constructor(private authService: AuthService, private router: Router) { }
-
-  onSubmit() {
-    console.log('click it');
-    this.authService.login(this.userLogin).subscribe({
-      next: (res: any) => {
-        this.isSubmitting = true;
-        console.log('Login successful', res);
-        this.popup.show('Login successful.', true);
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 300);
-
-      },
-      error: (err) => {
-        console.error('Login failed >>>>>>>>>>', err.error);
-        this.popup.show(Object.values(err.error)[0] as string || 'Login failed. Please try again.', false);
-        this.isSubmitting = false;
-      }
-    })
-  }
-
-  togglePassword() {
+  togglePassword(): void {
     this.passwordVisible = !this.passwordVisible;
   }
 }

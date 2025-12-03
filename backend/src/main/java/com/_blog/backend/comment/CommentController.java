@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.comment.dto.CommentLikeRequest;
 import com._blog.backend.comment.dto.CommentLikeResponse;
 import com._blog.backend.comment.dto.CommentRequest;
 import com._blog.backend.comment.dto.CommentResponse;
 import com._blog.backend.user.User;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -33,14 +34,13 @@ public class CommentController {
     @PostMapping("/post/{postId}")
     public ResponseEntity<CommentResponse> createComment(
             @PathVariable UUID postId,
-            @RequestBody CommentRequest request) {
-
-        User user = SecurityUtils.getCurrentUser();
+            @Valid @RequestBody CommentRequest request,
+            @AuthenticationPrincipal User user) {
 
         CommentResponse response = commentService.createComment(
                 postId,
                 request,
-                user.getUsername());
+                user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -51,19 +51,20 @@ public class CommentController {
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<Void> deleteComment(@PathVariable UUID commentId) {
-        User user = SecurityUtils.getCurrentUser();
-        commentService.deleteComment(commentId, user.getUsername());
+    public ResponseEntity<Void> deleteComment(@PathVariable UUID commentId, @AuthenticationPrincipal User user) {
+        commentService.deleteComment(commentId, user.getId());
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/like")
-    public ResponseEntity<CommentLikeResponse> toggleCommentLike(@RequestBody CommentLikeRequest request) {
-        return ResponseEntity.ok(commentService.toggleCommentLike(request.getCommentId()));
+    public ResponseEntity<CommentLikeResponse> toggleCommentLike(@Valid @RequestBody CommentLikeRequest request,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(commentService.toggleCommentLike(request.getCommentId(), user));
     }
 
     @GetMapping("/like")
-    public ResponseEntity<CommentLikeResponse> getCommentLikeStatus(@RequestParam UUID commentId) {
-        return ResponseEntity.ok(commentService.getCommentLikeStatus(commentId));
+    public ResponseEntity<CommentLikeResponse> getCommentLikeStatus(@RequestParam UUID commentId,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(commentService.getCommentLikeStatus(commentId, user));
     }
 }

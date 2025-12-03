@@ -17,7 +17,6 @@ import com._blog.backend.notification.NotificationService;
 import com._blog.backend.post.Post;
 import com._blog.backend.post.PostRepository;
 import com._blog.backend.user.User;
-import com._blog.backend.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,17 +27,12 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final CommentLikeRepository commentLikeRepository;
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
     private final NotificationService notificationService;
 
     @Transactional
-    public CommentResponse createComment(UUID postId, CommentRequest commentRequest, String username) {
-
+    public CommentResponse createComment(UUID postId, CommentRequest commentRequest, User user) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found with id: " + postId));
-
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + username));
 
         Comment comment = Comment.builder()
                 .id(UUID.randomUUID())
@@ -48,24 +42,10 @@ public class CommentService {
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        if (comment.getContent() == null || comment.getContent().trim().isEmpty()) {
-            throw new IllegalArgumentException("Comment content cannot be empty");
-        }
-
         Comment savedComment = commentRepository.save(comment);
+        notificationService.createCommentNotification(postId, user.getUsername());
 
-        notificationService.createCommentNotification(postId, username);
-
-        return CommentResponse
-                .builder()
-                .id(savedComment.getId())
-                .content(savedComment.getContent())
-                .authorId(savedComment.getUser().getId())
-                .authorFirstName(savedComment.getUser().getFirstName())
-                .authorLastName(savedComment.getUser().getLastName())
-                .postId(savedComment.getPost().getId())
-                .createdAt(savedComment.getCreatedAt())
-                .build();
+        return mapToResponse(savedComment);
     }
 
     @Transactional(readOnly = true)
@@ -77,14 +57,14 @@ public class CommentService {
         List<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtDesc(postId);
 
         return comments.stream()
-                .map(post -> CommentResponse
+                .map(comment -> CommentResponse
                         .builder()
-                        .id(post.getId())
-                        .content(post.getContent())
-                        .authorId(post.getUser().getId())
-                        .authorFirstName(post.getUser().getFirstName())
-                        .authorLastName(post.getUser().getLastName())
-                        .createdAt(post.getCreatedAt())
+                        .id(comment.getId())
+                        .content(comment.getContent())
+                        .authorId(comment.getUser().getId())
+                        .authorFirstName(comment.getUser().getFirstName())
+                        .authorLastName(comment.getUser().getLastName())
+                        .createdAt(comment.getCreatedAt())
                         .build())
                 .toList();
     }
@@ -95,23 +75,21 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteComment(UUID commentId, String username) {
+    public void deleteComment(UUID commentId, UUID userId) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Comment not found with id: " + commentId));
 
-        if (!comment.getUser().getUsername().equals(username)) {
-            throw new UnauthorizedException("You don't have permission to delete this comment");
+        if (!comment.getUser().getId().equals(userId)) {
+            throw new UnauthorizedException(
+                    "You don't have permission to delete this comment");
         }
-
-        commentLikeRepository.deleteAllByComment(comment);
 
         commentRepository.delete(comment);
     }
 
     @Transactional
-    public CommentLikeResponse toggleCommentLike(UUID commentId) {
-        User user = SecurityUtils.getCurrentUser();
-
+    public CommentLikeResponse toggleCommentLike(UUID commentId, User user) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
 
@@ -124,9 +102,6 @@ public class CommentService {
                     .comment(comment)
                     .user(user)
                     .build();
-            if (like == null) {
-                throw new IllegalArgumentException("CommentLike cannot be null");
-            }
             commentLikeRepository.save(like);
         }
 
@@ -138,9 +113,7 @@ public class CommentService {
                 .build();
     }
 
-    public CommentLikeResponse getCommentLikeStatus(UUID commentId) {
-        User user = SecurityUtils.getCurrentUser();
-
+    public CommentLikeResponse getCommentLikeStatus(UUID commentId, User user) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
 
@@ -157,5 +130,17 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("Comment not found"));
         return commentLikeRepository.countByComment(comment);
+    }
+
+    private CommentResponse mapToResponse(Comment comment) {
+        return CommentResponse.builder()
+                .id(comment.getId())
+                .content(comment.getContent())
+                .authorId(comment.getUser().getId())
+                .authorFirstName(comment.getUser().getFirstName())
+                .authorLastName(comment.getUser().getLastName())
+                .postId(comment.getPost().getId())
+                .createdAt(comment.getCreatedAt())
+                .build();
     }
 }

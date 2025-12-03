@@ -10,9 +10,7 @@ import com._blog.backend.post.Post;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, UUID> {
-
     List<Comment> findByPostIdOrderByCreatedAtDesc(UUID postId);
 
     long countByPost(Post post);
-
 }

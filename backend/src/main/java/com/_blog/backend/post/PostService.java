@@ -80,7 +80,7 @@ public class PostService {
     public PostResponse updatePost(UUID postId, PostRequest postRequest) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("post not found"));
         if (post != null) {
-            post.setContent(postRequest.getContent());
+            post.setContent(postRequest.getContent().replaceAll("&nbsp;", ""));
             post.setTitle(postRequest.getTitle());
             postRepository.save(post);
         }

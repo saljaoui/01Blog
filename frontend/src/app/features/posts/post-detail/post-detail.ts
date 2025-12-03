@@ -158,6 +158,7 @@ export class PostDetail implements OnInit {
     this.commentService.createComment(postId!, commentRequest).subscribe({
       next: (newComment) => {
         this.comments.unshift(newComment);
+        newComment.owner = true;
         this.newCommentContent = '';
         if (this.post) {
           this.post.commentsCount = (this.post.commentsCount || 0) + 1;

@@ -13,6 +13,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { PostService } from '../../../core/services/post.service';
 import { parseEditorJsContent } from '../../../core/utils/editorjs-parser';
 import { Popup } from '../../../components/popup/popup';
+import { ErrorHandler } from '../../../core/utils/error-handler';
 
 @Component({
   selector: 'app-create-post',
@@ -22,13 +23,14 @@ import { Popup } from '../../../components/popup/popup';
   styleUrls: ['./create-post.scss']
 })
 export class CreatePost implements OnInit, OnDestroy {
+  // Properties
   editor?: EditorJS;
   @ViewChild('popup') popup!: Popup;
-
   form: FormGroup;
   postId: string | null = null;
   title: string = '';
 
+  // Dependency Injection
   constructor(
     private authService: AuthService,
     private postService: PostService,
@@ -43,47 +45,22 @@ export class CreatePost implements OnInit, OnDestroy {
     });
   }
 
+  // ===== LIFECYCLE HOOKS =====
   ngOnInit(): void {
     this.postId = this.route.snapshot.paramMap.get('id');
+    this.initializeEditor();
 
     if (this.postId) {
-      // Edit mode: load existing post
-      this.postService.getPostById(this.postId).subscribe(async (post: any) => {
-        // this.title = post.title;
-        console.log("this.title >>>>>>>>", post);
-
-        this.form.patchValue({
-          title: post.title,
-          content: post.content
-        });
-
-        if (this.editor && post.content) {
-          const parsed = parseEditorJsContent(post.content);
-          console.log("parsed", parsed.blocks);
-          if (post.content) {
-            try {
-              // Wait for editor to be ready before rendering
-              await this.editor.isReady;
-
-              const parsed = parseEditorJsContent(post.content);
-              console.log("parsed", parsed.blocks);
-
-              this.title = post.title;
-              this.editor.render({
-                time: Date.now(),
-                blocks: parsed.blocks,
-                version: '2.28.0'
-              });
-
-              console.log('Content rendered!');
-            } catch (error) {
-              console.error('Render error', error);
-            }
-          }
-        }
-      });
+      this.loadExistingPost();
     }
+  }
 
+  ngOnDestroy(): void {
+    this.editor?.destroy();
+  }
+
+  // ===== EDITOR CONFIGURATION =====
+  private initializeEditor(): void {
     this.editor = new EditorJS({
       holder: 'editorjs',
       placeholder: 'Start writing your post...',
@@ -131,6 +108,42 @@ export class CreatePost implements OnInit, OnDestroy {
     });
   }
 
+  // ===== POST OPERATIONS =====
+  private loadExistingPost(): void {
+    this.postService.getPostById(this.postId!).subscribe(async (post: any) => {
+      console.log("this.title >>>>>>>>", post);
+
+      this.form.patchValue({
+        title: post.title,
+        content: post.content
+      });
+
+      if (this.editor && post.content) {
+        const parsed = parseEditorJsContent(post.content);
+        console.log("parsed", parsed.blocks);
+        if (post.content) {
+          try {
+            await this.editor.isReady;
+
+            const parsed = parseEditorJsContent(post.content);
+            console.log("parsed", parsed.blocks);
+
+            this.title = post.title;
+            this.editor.render({
+              time: Date.now(),
+              blocks: parsed.blocks,
+              version: '2.28.0'
+            });
+
+            console.log('Content rendered!');
+          } catch (error) {
+            console.error('Render error', error);
+          }
+        }
+      }
+    });
+  }
+
   async savePost() {
     if (!this.editor) return;
 
@@ -149,13 +162,12 @@ export class CreatePost implements OnInit, OnDestroy {
         this.popup.show('Post created successfully.', true);
         this.router.navigate(['/home']);
       },
-      error: err => this.popup.show(err.error.message, false)
+      error: err => this.popup.show(ErrorHandler.extractErrorMessage(err), false)
     });
-
   }
 
   async updatePost() {
-        if (!this.editor) return;
+    if (!this.editor) return;
 
     const output = await this.editor.save();
     const postData = {
@@ -172,9 +184,5 @@ export class CreatePost implements OnInit, OnDestroy {
         error: err => console.error('Update error:', err)
       });
     }
-  }
-
-  ngOnDestroy(): void {
-    this.editor?.destroy();
   }
 }

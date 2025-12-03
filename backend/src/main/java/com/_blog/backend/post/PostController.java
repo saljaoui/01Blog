@@ -27,6 +27,7 @@ import com._blog.backend.post.dto.PostResponse;
 import com._blog.backend.user.Role;
 import com._blog.backend.user.User;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -55,7 +56,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostResponse> createPost(@RequestBody PostRequest postRequest) {
+    public ResponseEntity<PostResponse> createPost(@Valid @RequestBody PostRequest postRequest) {
         return ResponseEntity.ok(postService.create(postRequest));
     }
 
@@ -66,7 +67,6 @@ public class PostController {
 
     @GetMapping("/{postId}")
     public ResponseEntity<PostResponse> getPostById(@PathVariable UUID postId) {
-        System.out.println(">>>>>>>>>>> postId: " + postId);
         PostResponse post = postService.getPostById(postId);
 
         if (post != null) {

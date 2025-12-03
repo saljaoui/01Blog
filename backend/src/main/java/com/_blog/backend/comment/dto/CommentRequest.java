@@ -9,6 +9,6 @@ import lombok.Data;
 @Builder
 public class CommentRequest {
     @NotBlank(message = "Comment content must not be empty")
-    @Size(min = 5, max = 2000, message = "Comment must be between 5 and 2000 characters")
+    @Size(min = 1, max = 2000, message = "Comment must be between 5 and 2000 characters")
     private String content;
 }

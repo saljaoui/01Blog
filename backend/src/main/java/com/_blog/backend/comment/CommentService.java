@@ -49,7 +49,7 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
-    public List<CommentResponse> getCommentsByPostId(UUID postId) {
+    public List<CommentResponse> getCommentsByPostId(UUID postId, UUID userId) {
         if (!postRepository.existsById(postId)) {
             throw new ResourceNotFoundException("Post not found with id: " + postId);
         }
@@ -64,6 +64,7 @@ public class CommentService {
                         .authorId(comment.getUser().getId())
                         .authorFirstName(comment.getUser().getFirstName())
                         .authorLastName(comment.getUser().getLastName())
+                        .owner(comment.getUser().getId().equals(userId))
                         .createdAt(comment.getCreatedAt())
                         .build())
                 .toList();

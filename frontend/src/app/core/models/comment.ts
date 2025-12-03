@@ -4,6 +4,7 @@ export interface Comment {
   authorId: string;
   authorFirstName: string;
   authorLastName: string;
+  owner: boolean;
   postId: string;
   createdAt: string;
   liked?: boolean;

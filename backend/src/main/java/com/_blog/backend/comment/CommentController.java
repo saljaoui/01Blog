@@ -46,8 +46,8 @@ public class CommentController {
     }
 
     @GetMapping("/post/{postId}")
-    public ResponseEntity<List<CommentResponse>> getCommentsByPost(@PathVariable UUID postId) {
-        return ResponseEntity.ok(commentService.getCommentsByPostId(postId));
+    public ResponseEntity<List<CommentResponse>> getCommentsByPost(@PathVariable UUID postId, @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(commentService.getCommentsByPostId(postId, user.getId()));
     }
 
     @DeleteMapping("/{commentId}")

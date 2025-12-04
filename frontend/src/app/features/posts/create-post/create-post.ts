@@ -179,9 +179,10 @@ export class CreatePost implements OnInit, OnDestroy {
       this.postService.updatePost(this.postId, postData).subscribe({
         next: res => {
           console.log('Post updated!', res);
+          this.popup.show('Post updated successfully.', true);
           this.router.navigate(['/posts', this.postId]);
         },
-        error: err => console.error('Update error:', err)
+        error: err => this.popup.show(ErrorHandler.extractErrorMessage(err), false)
       });
     }
   }

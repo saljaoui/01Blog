@@ -61,7 +61,7 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<PostResponse> updatePost(@PathVariable UUID postId, @RequestBody PostRequest postRequest) {
+    public ResponseEntity<PostResponse> updatePost(@PathVariable UUID postId, @Valid @RequestBody PostRequest postRequest) {
         return ResponseEntity.ok(postService.updatePost(postId, postRequest));
     }
 
@@ -83,9 +83,6 @@ public class PostController {
 
     @DeleteMapping("/{postId}")
     public ResponseEntity<Void> deletePost(@PathVariable UUID postId) {
-        System.out.println(">>>>>>>>>>>>>>>>postId:");
-        System.out.println(postId);
-
         // Check if the current user is the owner or an admin
         Post post = postService.getPostEntityById(postId);
         if (post == null) {

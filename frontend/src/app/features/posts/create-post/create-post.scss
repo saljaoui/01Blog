@@ -76,3 +76,11 @@ button.cancel:hover {
   background-color: #e5e7eb;
   border-color: #1a1a1a;
 }
+
+::ng-deep {
+  .ce-toolbar {
+    &[style*="top: -"] {
+      top: 0 !important;
+    }
+  }
+}

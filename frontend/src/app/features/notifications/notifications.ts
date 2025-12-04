@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { SidebarRight } from '../../components/sidebar-right/sidebar-right';
 import { NotificationService, NotificationResponse } from '../../core/services/notification.service';
 import { CommonModule } from '@angular/common';
@@ -11,25 +11,26 @@ import { DateUtilsService } from '../../core/services/utils/DateUtil.service';
   styleUrl: './notifications.scss'
 })
 export class Notifications implements OnInit {
+  // Properties
   notifications: NotificationResponse[] = [];
   unreadCount: number = 0;
 
-  constructor(
-    private notificationService: NotificationService,
-    private dateUtils: DateUtilsService
-  ) { }
+  // Dependency Injection
+  private notificationService = inject(NotificationService);
+  private dateUtils = inject(DateUtilsService);
 
+  // ===== LIFECYCLE HOOKS =====
   ngOnInit() {
     this.loadNotifications();
     this.loadUnreadCount();
   }
 
+  // ===== DATA LOADING =====
   loadNotifications() {
     this.notificationService.getNotifications().subscribe({
       next: (notifications) => {
         this.notifications = notifications;
         console.log("this.notifications", this.notifications);
-
       },
       error: (error) => {
         console.error('Error loading notifications:', error);
@@ -48,6 +49,7 @@ export class Notifications implements OnInit {
     });
   }
 
+  // ===== NOTIFICATION ACTIONS =====
   markAsRead(notificationId: number) {
     this.notificationService.toggleRead(notificationId).subscribe({
       next: () => {
@@ -69,6 +71,7 @@ export class Notifications implements OnInit {
     });
   }
 
+  // ===== UTILITY METHODS =====
   formatDate(dateString: string): string {
     return this.dateUtils.formatDate(dateString);
   }

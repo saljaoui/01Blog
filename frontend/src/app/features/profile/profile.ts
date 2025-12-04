@@ -18,15 +18,9 @@ import { Popup } from '../../components/popup/popup';
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })
-
 export class Profile implements OnInit {
+  // Properties
   @ViewChild('popup') popup!: Popup;
-  private userService = inject(UserService);
-  private route = inject(ActivatedRoute);
-  private reportService = inject(ReportService);
-  private postService = inject(PostService);
-  private router = inject(Router);
-
   user?: User;
   currentUsername?: string;
   isFollowing: boolean = false;
@@ -35,6 +29,7 @@ export class Profile implements OnInit {
   showMenu: boolean = false;
   showReportPopup: boolean = false;
   posts: any[] = [];
+  
   editForm = {
     firstName: '',
     lastName: '',
@@ -42,10 +37,19 @@ export class Profile implements OnInit {
     avatar: null as File | null,
     avatarPreview: ''
   };
+  
   reportForm = {
     reason: ''
   };
 
+  // Injected Services
+  private userService = inject(UserService);
+  private route = inject(ActivatedRoute);
+  private reportService = inject(ReportService);
+  private postService = inject(PostService);
+  private router = inject(Router);
+
+  // ===== LIFECYCLE HOOKS =====
   ngOnInit(): void {
     this.currentUsername = this.route.snapshot.paramMap.get('username') || '';
 
@@ -60,6 +64,7 @@ export class Profile implements OnInit {
     }
   }
 
+  // ===== USER PROFILE OPERATIONS =====
   loadUserProfile(): void {
     if (!this.currentUsername) return;
 
@@ -77,22 +82,6 @@ export class Profile implements OnInit {
     });
   }
 
-  loadUserPosts(): void {
-    if (!this.user) return;
-
-    this.postService.getPostsByUser(this.user.id).subscribe({
-      next: (posts: any[]) => {
-        this.posts = posts.map(post => ({
-          ...post,
-          parsedContent: parseEditorJsContent(post.content)
-        }));
-      },
-      error: (err) => {
-        console.error('Error fetching user posts:', err);
-      }
-    });
-  }
-
   checkFollowStatus(): void {
     if (!this.user) return;
     this.userService.isFollowing(this.user.id).subscribe({
@@ -105,6 +94,7 @@ export class Profile implements OnInit {
     });
   }
 
+  // ===== FOLLOW ACTIONS =====
   onFollowClick(): void {
     if (!this.user || this.isLoading) return;
 
@@ -129,7 +119,24 @@ export class Profile implements OnInit {
     });
   }
 
+  // ===== POST OPERATIONS =====
+  loadUserPosts(): void {
+    if (!this.user) return;
 
+    this.postService.getPostsByUser(this.user.id).subscribe({
+      next: (posts: any[]) => {
+        this.posts = posts.map(post => ({
+          ...post,
+          parsedContent: parseEditorJsContent(post.content)
+        }));
+      },
+      error: (err) => {
+        console.error('Error fetching user posts:', err);
+      }
+    });
+  }
+
+  // ===== EDIT PROFILE ACTIONS =====
   onEditProfile() {
     if (this.user) {
       this.editForm = {
@@ -141,10 +148,6 @@ export class Profile implements OnInit {
       };
     }
     this.showEditPopup = true;
-  }
-
-  onMenuKlick() {
-    this.showMenu = !this.showMenu;
   }
 
   closeEditPopup() {
@@ -193,6 +196,11 @@ export class Profile implements OnInit {
     });
   }
 
+  // ===== MENU & REPORT ACTIONS =====
+  onMenuKlick() {
+    this.showMenu = !this.showMenu;
+  }
+
   onShareClick() {
     const link = window.location.href;
 
@@ -231,5 +239,4 @@ export class Profile implements OnInit {
       }
     });
   }
-
 }

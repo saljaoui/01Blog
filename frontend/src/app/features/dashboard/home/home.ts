@@ -12,24 +12,31 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.scss'
 })
 export class Home implements OnInit {
+  // Properties
   posts: any[] = [];
   currentPage: number = 0;
-  pageSize: number = 5; // Load 5 posts at a time
+  pageSize: number = 5;
   isLoading: boolean = false;
   hasMorePosts: boolean = true;
   currentFilter: 'all' | 'followed' = 'all';
 
+  // Dependency Injection
   constructor(private postService: PostService) {}
 
+  // ===== LIFECYCLE HOOKS =====
   ngOnInit(): void {
     this.loadPosts();
   }
 
+  // ===== DATA LOADING =====
   loadPosts(): void {
     if (this.isLoading || !this.hasMorePosts) return;
 
     this.isLoading = true;
-    const serviceMethod = this.currentFilter === 'followed' ? this.postService.getFollowedPosts(this.currentPage, this.pageSize) : this.postService.getAllPosts(this.currentPage, this.pageSize);
+    const serviceMethod = this.currentFilter === 'followed' 
+      ? this.postService.getFollowedPosts(this.currentPage, this.pageSize) 
+      : this.postService.getAllPosts(this.currentPage, this.pageSize);
+      
     serviceMethod.subscribe({
       next: (res: any[]) => {
         if (res.length === 0) {
@@ -51,10 +58,12 @@ export class Home implements OnInit {
     });
   }
 
+  // ===== PAGINATION ACTIONS =====
   loadMorePosts(): void {
     this.loadPosts();
   }
 
+  // ===== FILTER ACTIONS =====
   switchFilter(filter: 'all' | 'followed'): void {
     if (this.currentFilter === filter) return;
     this.currentFilter = filter;

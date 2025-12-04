@@ -12,15 +12,19 @@ import { Post } from '../../core/models/post';
   styleUrl: './saved-posts.scss'
 })
 export class SavedPosts implements OnInit {
-  private saveService = inject(SaveService);
-
+  // Properties
   savedPosts: Post[] = [];
   isLoading: boolean = false;
 
+  // Injected Services
+  private saveService = inject(SaveService);
+
+  // ===== LIFECYCLE HOOKS =====
   ngOnInit(): void {
     this.loadSavedPosts();
   }
 
+  // ===== DATA LOADING =====
   loadSavedPosts(): void {
     this.isLoading = true;
     this.saveService.getSavedPosts().subscribe({

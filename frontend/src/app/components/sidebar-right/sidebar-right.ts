@@ -2,7 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/models/user';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -12,23 +11,27 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './sidebar-right.scss'
 })
 export class SidebarRight implements OnInit {
-  private userService = inject(UserService);
-
+  // Properties
   searchQuery: string = '';
   users: User[] = [];
   isSearching: boolean = false;
 
+  // Injected Services
+  private userService = inject(UserService);
+
+  // ===== LIFECYCLE HOOKS =====
   ngOnInit(): void {
-    // Load default users or popular users
     this.loadDefaultUsers();
   }
 
-  loadDefaultUsers(): void {
-    // For now, we'll load some default users or leave empty
+  // ===== DATA LOADING =====
+  private loadDefaultUsers(): void {
+    // Load default users or popular users
     // In a real app, you might load popular users or recent users
     this.users = [];
   }
 
+  // ===== SEARCH ACTIONS =====
   onSearch(): void {
     if (!this.searchQuery.trim()) {
       this.loadDefaultUsers();

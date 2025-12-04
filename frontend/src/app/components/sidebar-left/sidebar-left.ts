@@ -14,20 +14,37 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrl: './sidebar-left.scss'
 })
 export class SidebarLeft implements OnInit, OnDestroy {
-  private userService = inject(UserService);
-  private destroy$ = new Subject<void>();
-  
+  // Properties
   user?: User;
   isAdmin = false;
-
+  
+  // Input Properties
   @Input() isOpen = false;
 
+  // RxJS Cleanup
+  private destroy$ = new Subject<void>();
+
+  // Injected Services
+  private userService = inject(UserService);
+
+  // ===== HOST BINDINGS =====
   @HostBinding('class.open')
   get isOpenClass() {
     return this.isOpen;
   }
 
+  // ===== LIFECYCLE HOOKS =====
   ngOnInit(): void {
+    this.loadCurrentUser();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  // ===== DATA LOADING =====
+  private loadCurrentUser(): void {
     this.userService.getCurrentUser()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -40,10 +57,5 @@ export class SidebarLeft implements OnInit, OnDestroy {
           console.error('Error fetching user:', err);
         }
       });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

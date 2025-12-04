@@ -8,14 +8,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './confirm-delete-popup.scss'
 })
 export class ConfirmDeletePopup {
+  // Input Properties
   @Input() show: boolean = false;
   @Input() title: string = 'Confirm Delete';
   @Input() message: string = 'Are you sure you want to delete this item?';
   @Input() item: any = null;
 
+  // Output Events
   @Output() confirm = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
 
+  // ===== EVENT HANDLERS =====
   onConfirm() {
     this.confirm.emit();
   }

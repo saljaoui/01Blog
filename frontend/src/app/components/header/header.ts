@@ -14,32 +14,36 @@ import { Subscription } from 'rxjs';
   styleUrl: './header.scss'
 })
 export class Header implements OnInit, OnDestroy {
+  // Signal States
   isOpen = signal(false);
   isNotificationsOpen = signal(false);
+  currentUser = signal<User | null>(null);
+  unreadCount = signal(0);
+
+  // Subscriptions
+  private subscription: Subscription = new Subscription();
+
+  // Output Events
+  @Output() toggleSidebar = new EventEmitter<void>();
+
+  // Injected Services
   private authService = inject(AuthService);
   private notificationService = inject(NotificationService);
   private userService = inject(UserService);
-  currentUser = signal<User | null>(null);
-  unreadCount = signal(0);
-  private subscription: Subscription = new Subscription();
 
-  @Output() toggleSidebar = new EventEmitter<void>();
-
+  // ===== LIFECYCLE HOOKS =====
   ngOnInit() {
     this.loadUnreadCount();
     this.loadCurrentUser();
-    this.subscription.add(
-      this.notificationService.unreadCount$.subscribe(count => {
-        this.unreadCount.set(count);
-      })
-    );
+    this.subscribeToNotificationUpdates();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  loadUnreadCount() {
+  // ===== DATA LOADING =====
+  private loadUnreadCount() {
     this.notificationService.getUnreadCount().subscribe({
       next: (count) => {
         this.unreadCount.set(count);
@@ -50,7 +54,7 @@ export class Header implements OnInit, OnDestroy {
     });
   }
 
-  loadCurrentUser() {
+  private loadCurrentUser() {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
         this.currentUser.set(user);
@@ -61,10 +65,19 @@ export class Header implements OnInit, OnDestroy {
     });
   }
 
+  private subscribeToNotificationUpdates() {
+    this.subscription.add(
+      this.notificationService.unreadCount$.subscribe(count => {
+        this.unreadCount.set(count);
+      })
+    );
+  }
+
   refreshUnreadCount() {
     this.loadUnreadCount();
   }
 
+  // ===== UI TOGGLE ACTIONS =====
   toggleDropdown() {
     this.isOpen.update((v: boolean) => !v);
     // Close notifications when opening profile dropdown
@@ -87,6 +100,7 @@ export class Header implements OnInit, OnDestroy {
     this.toggleSidebar.emit();
   }
 
+  // ===== EVENT HANDLERS =====
   @HostListener('document:click', ['$event'])
   closeDropdown(event: MouseEvent) {
     const target = event.target as HTMLElement;
@@ -100,10 +114,9 @@ export class Header implements OnInit, OnDestroy {
     if (!target.closest('.notifications-dropdown')) {
       this.isNotificationsOpen.set(false);
     }
-
-    // Close sidebar if click is outside on mobile - handled by parent component
   }
 
+  // ===== AUTHENTICATION ACTIONS =====
   logout() {
     console.log('Logout clicked');
     this.isOpen.set(false);

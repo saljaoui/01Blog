@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-popup',
@@ -8,11 +8,13 @@ import { Component, Input } from '@angular/core';
   styleUrl: './popup.scss',
 })
 export class Popup {
+  // Properties
   message = '';
   type: 'success' | 'error' = 'success';
   visible = false;
 
-  show(message: string, type: boolean) {
+  // ===== PUBLIC API =====
+  show(message: string, type: boolean): void {
     this.message = message;
     this.type = type ? 'success' : 'error';
     this.visible = true;

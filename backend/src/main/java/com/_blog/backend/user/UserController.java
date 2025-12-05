@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com._blog.backend.user.dto.UserResponse;
+
+import jakarta.validation.Valid;
+
 import com._blog.backend.user.dto.UpdateProfileRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -56,25 +59,25 @@ public class UserController {
         return ResponseEntity.ok(userResponses);
     }
 
-@PutMapping(value = "/profile", consumes = { MediaType.APPLICATION_JSON_VALUE,
-        MediaType.MULTIPART_FORM_DATA_VALUE })
-public ResponseEntity<UserResponse> updateProfile(
-        @AuthenticationPrincipal User user,
-        @ModelAttribute UpdateProfileRequest request,
-        @RequestPart(value = "avatar", required = false) MultipartFile avatar) {
+    @PutMapping(value = "/profile", consumes = { MediaType.APPLICATION_JSON_VALUE,
+            MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<UserResponse> updateProfile(
+            @AuthenticationPrincipal User user,
+            @Valid @ModelAttribute UpdateProfileRequest request,
+            @RequestPart(value = "avatar", required = false) MultipartFile avatar) {
 
-    User updatedUser;
-    
-    if (avatar != null && !avatar.isEmpty()) {
-        // Update profile WITH avatar
-        updatedUser = userService.updateProfileWithAvatar(user, request, avatar);
-    } else {
-        // Update profile WITHOUT avatar
-        updatedUser = userService.updateProfile(user, request);
+        User updatedUser;
+
+        if (avatar != null && !avatar.isEmpty()) {
+            // Update profile WITH avatar
+            updatedUser = userService.updateProfileWithAvatar(user, request, avatar);
+        } else {
+            // Update profile WITHOUT avatar
+            updatedUser = userService.updateProfile(user, request);
+        }
+
+        return ResponseEntity.ok(userService.getUserProfileWithStats(updatedUser));
     }
-
-    return ResponseEntity.ok(userService.getUserProfileWithStats(updatedUser));
-}
 
     @GetMapping("/admin/all")
     @PreAuthorize("hasRole('ADMIN')")

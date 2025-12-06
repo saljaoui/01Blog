@@ -41,9 +41,9 @@ export class AdminReports implements OnInit {
   }
 
 
-  onDeletePostClick(reportId: string) {
+  onDeletePostClick(postId: string, reportId: string) {
     if (confirm('Are you sure you want to delete this post?')) {
-      this.adminService.deletePost(reportId).subscribe({
+      this.adminService.deletePost(postId).subscribe({
         next: () => {
           // Remove the report from the list after deleting the post
           this.reports = this.reports.filter(r => r.reportId !== reportId);

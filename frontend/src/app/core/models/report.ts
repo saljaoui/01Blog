@@ -4,6 +4,7 @@ export interface ReportResponse {
   reporterUsername: string;
   reportedUserId: string;
   reportedUserUsername: string;
+  reportedPostId: string;
   reason: string;
   timestamp: string;
   status: ReportStatus;

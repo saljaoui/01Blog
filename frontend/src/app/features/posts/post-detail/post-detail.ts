@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { PostService } from '../../../core/services/post.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Post } from '../../../core/models/post';
@@ -13,10 +13,12 @@ import { FormsModule } from '@angular/forms';
 import { ReportService } from '../../../core/services/report.service';
 import { ReportUserPopup } from '../../../components/report-user-popup/report-user-popup';
 import { ConfirmDeletePopup } from '../../../components/confirm-delete-popup/confirm-delete-popup';
+import { Popup } from '../../../components/popup/popup';
+import { ErrorHandler } from '../../../core/utils/error-handler';
 
 @Component({
   selector: 'app-post-detail',
-  imports: [CommonModule, FormsModule, ReportUserPopup, RouterLink, ConfirmDeletePopup],
+  imports: [CommonModule, FormsModule, ReportUserPopup, RouterLink, ConfirmDeletePopup, Popup],
   templateUrl: './post-detail.html',
   styleUrls: ['./post-detail.scss']
 })
@@ -25,6 +27,7 @@ export class PostDetail implements OnInit {
   post!: any;
   createdAt?: string;
   comments: Comment[] = [];
+  @ViewChild('popup') popup!: Popup;
   newCommentContent: string = '';
   showComments: boolean = false;
   showMenu: boolean = false;
@@ -57,6 +60,7 @@ export class PostDetail implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching post details:', error);
+        this.popup.show(ErrorHandler.extractErrorMessage(error), false);
       }
     });
   }
@@ -71,7 +75,10 @@ export class PostDetail implements OnInit {
           this.post.likesCount = res.likesCount;
         }
       },
-      error: (err) => console.error('Like error', err)
+      error: (err) => {
+        console.error('Like error', err);
+        this.popup.show(ErrorHandler.extractErrorMessage(err), false);
+      }
     });
   }
 
@@ -84,7 +91,10 @@ export class PostDetail implements OnInit {
           this.post.savesCount = res.savesCount;
         }
       },
-      error: (err) => console.error('Save error', err)
+      error: (err) => {
+        console.error('Save error', err);
+        this.popup.show(ErrorHandler.extractErrorMessage(err), false);
+      }
     });
   }
 
@@ -110,6 +120,7 @@ export class PostDetail implements OnInit {
         },
         error: (error) => {
           console.error('Error deleting post:', error);
+          this.popup.show(ErrorHandler.extractErrorMessage(error), false);
         }
       });
     }
@@ -139,12 +150,16 @@ export class PostDetail implements OnInit {
               comment.liked = likeStatus.liked;
               comment.likesCount = likeStatus.likesCount;
             },
-            error: (err) => console.error('Error fetching comment like status', err)
+            error: (err) => {
+              console.error('Error fetching comment like status', err);
+              this.popup.show(ErrorHandler.extractErrorMessage(err), false);
+            }
           });
         });
       },
       error: (error) => {
         console.error('Error fetching comments:', error);
+        this.popup.show(ErrorHandler.extractErrorMessage(error), false);
       }
     });
   }
@@ -163,9 +178,11 @@ export class PostDetail implements OnInit {
         if (this.post) {
           this.post.commentsCount = (this.post.commentsCount || 0) + 1;
         }
+        this.popup.show("Your comment has been created.", true);
       },
       error: (error) => {
         console.error('Error creating comment:', error);
+        this.popup.show(ErrorHandler.extractErrorMessage(error), false);
       }
     });
   }
@@ -189,8 +206,12 @@ export class PostDetail implements OnInit {
           if (this.post) {
             this.post.commentsCount = (this.post.commentsCount || 0) - 1;
           }
+          this.popup.show("Your comment has been deleted.", true);
         },
-        error: (err) => console.error('Comment delete error', err)
+        error: (err) => {
+          console.error('Comment delete error', err);
+          this.popup.show(ErrorHandler.extractErrorMessage(err), false);
+        }
       });
     }
   }
@@ -218,13 +239,13 @@ export class PostDetail implements OnInit {
 
     this.reportService.reportPost(this.post.id, this.reportForm.reason).subscribe({
       next: () => {
-        alert('Report submitted successfully!');
+        this.popup.show("Report submitted successfully!", true);
         this.closeReportPopup();
         this.reportForm.reason = '';
       },
       error: (err) => {
         console.error('Error submitting report:', err);
-        alert('Failed to submit report. Please try again.');
+        this.popup.show(ErrorHandler.extractErrorMessage(err), false);
       }
     });
   }

@@ -3,6 +3,8 @@ package com._blog.backend.report;
 import java.util.List;
 import java.util.UUID;
 
+
+import org.hibernate.usertype.UserType;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.api.ApiResponse;
@@ -14,10 +16,12 @@ import com._blog.backend.report.dto.ReportRequest;
 import com._blog.backend.report.dto.ReportResponse;
 import com._blog.backend.report.dto.ReportStatusResponse;
 import com._blog.backend.report.dto.ReportStatusUpdateRequest;
+import com._blog.backend.user.Role;
 import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
 import com._blog.backend.user.UserStatus;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -28,9 +32,10 @@ public class ReportService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
 
-    public ApiResponse createReport(ReportRequest request) {
-        User reporter = SecurityUtils.getCurrentUser();
+    @Transactional
+    public ApiResponse createReport(ReportRequest request, User reporter) {
 
+        // Validate report type & entity existence
         Report.ReportBuilder reportBuilder = Report.builder()
                 .reportId(UUID.randomUUID())
                 .reporter(reporter)
@@ -38,29 +43,35 @@ public class ReportService {
                 .status(ReportStatus.PENDING)
                 .type(request.getType());
 
-        // Handle based on report type
         if (request.getType() == ReportType.USER) {
+
+            if (request.getReportedUserId() == null) {
+                throw new IllegalArgumentException("Reported user ID is required for USER reports");
+            }
 
             User reportedUser = userRepository.findById(request.getReportedUserId())
                     .orElseThrow(() -> new ResourceNotFoundException("Reported user not found"));
-                    
+
             if (reporter.getId().equals(reportedUser.getId())) {
                 throw new IllegalArgumentException("Cannot report yourself");
             }
             if (reportedUser.getStatus() == UserStatus.BANNED) {
                 throw new IllegalArgumentException("Cannot report a banned user");
             }
-            if (reportedUser.getRole().equals("ADMIN")) {
+            if (reportedUser.getRole().equals(Role.ADMIN)) {
                 throw new IllegalArgumentException("Cannot report an admin user");
             }
 
-            if (request.getReportedUserId() == null) {
-                throw new IllegalArgumentException("Reported user ID is required for USER reports");
+            // ✅ Prevent duplicate report
+            boolean alreadyReported = reportRepository.existsByReporterAndReportedUser(reporter, reportedUser);
+            if (alreadyReported) {
+                throw new IllegalArgumentException("You have already reported this user");
             }
 
             reportBuilder.reportedUser(reportedUser);
 
         } else if (request.getType() == ReportType.POST) {
+
             if (request.getReportedPostId() == null) {
                 throw new IllegalArgumentException("Reported post ID is required for POST reports");
             }
@@ -72,6 +83,12 @@ public class ReportService {
                 throw new IllegalArgumentException("Cannot report your own post");
             }
 
+            // ✅ Prevent duplicate report
+            boolean alreadyReported = reportRepository.existsByReporterAndReportedPost(reporter, reportedPost);
+            if (alreadyReported) {
+                throw new IllegalArgumentException("You have already reported this post");
+            }
+
             reportBuilder.reportedPost(reportedPost);
 
         } else {
@@ -79,12 +96,8 @@ public class ReportService {
         }
 
         Report report = reportBuilder.build();
-        if (report == null) {
-            throw new IllegalArgumentException("Report entity cannot be null");
-        }
         reportRepository.save(report);
 
-        // ✅ Return a clean API response
         return ApiResponse.builder()
                 .success(true)
                 .message("Report created successfully")

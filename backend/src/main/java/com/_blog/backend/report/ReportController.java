@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com._blog.backend.report.dto.ReportRequest;
 import com._blog.backend.report.dto.ReportResponse;
 import com._blog.backend.report.dto.ReportStatusResponse;
 import com._blog.backend.report.dto.ReportStatusUpdateRequest;
+import com._blog.backend.user.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,8 +32,8 @@ public class ReportController {
     private final ReportService reportService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse> createReport(@RequestBody ReportRequest request) {
-        return ResponseEntity.ok(reportService.createReport(request));
+    public ResponseEntity<ApiResponse> createReport(@RequestBody ReportRequest request, @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(reportService.createReport(request, user));
     }
 
     @GetMapping

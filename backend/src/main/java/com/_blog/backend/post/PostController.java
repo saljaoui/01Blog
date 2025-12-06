@@ -62,7 +62,8 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<PostResponse> updatePost(@PathVariable UUID postId, @Valid @RequestBody PostRequest postRequest, @AuthenticationPrincipal User user) {
+    public ResponseEntity<PostResponse> updatePost(@PathVariable UUID postId,
+            @Valid @RequestBody PostRequest postRequest, @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(postService.updatePost(postId, postRequest, user.getId()));
     }
 
@@ -105,25 +106,46 @@ public class PostController {
     @PostMapping("/upload-video")
     public ResponseEntity<Map<String, Object>> uploadVideo(@RequestParam("video") MultipartFile file) {
         try {
-            // 1. Create folder if doesn't exist
+            // 1. Validate file is not empty
+            if (file.isEmpty()) {
+                throw new IllegalArgumentException("Video file is empty");
+            }
+
+            // 2. Validate file size (e.g., max 50 MB)
+            long MAX_SIZE = 50 * 1024 * 1024; // 50 MB
+            if (file.getSize() > MAX_SIZE) {
+                throw new IllegalArgumentException("Video file exceeds 50 MB limit");
+            }
+
+            // 3. Validate file type (allow only mp4, mov, mkv)
+            String contentType = file.getContentType();
+            if (contentType == null ||
+                    (!contentType.equals("video/mp4") &&
+                            !contentType.equals("video/quicktime") && // .mov
+                            !contentType.equals("video/x-matroska"))) { // .mkv
+                throw new IllegalArgumentException("Only MP4, MOV, MKV videos are allowed");
+            }
+
+            // 4. Create folder if doesn't exist
             File uploadDir = new File(UPLOAD_FOLDER_VIDEOS);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
             }
 
-            // 2. Create unique filename
+            // 5. Create unique filename
             String originalName = file.getOriginalFilename();
+            @SuppressWarnings("null")
             String extension = originalName.substring(originalName.lastIndexOf("."));
             String newFileName = UUID.randomUUID().toString() + extension;
 
-            // 3. Save file to disk
+            // 6. Save file to disk
             Path filePath = Paths.get(UPLOAD_FOLDER_VIDEOS + newFileName);
             Files.write(filePath, file.getBytes());
 
-            // 4. Create public URL for the video
+            // 7. Create public URL
             String videoUrl = "http://localhost:8080/api/posts/videos/" + newFileName;
 
-            // 5. Return EditorJS-compatible response
+            // 8. Return EditorJS-compatible response
             Map<String, Object> response = Map.of(
                     "success", 1,
                     "file", Map.of("url", videoUrl));
@@ -164,33 +186,56 @@ public class PostController {
     }
 
     @PostMapping("/upload-image")
-    public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam("image") MultipartFile file) {
+    public ResponseEntity<Map<String, Object>> uploadImage(
+            @RequestParam("image") MultipartFile file) {
 
         try {
-            // 1. Create folder if doesn't exist
+            // 1. Validate file is not empty
+            if (file.isEmpty()) {
+                throw new IllegalArgumentException("File is empty");
+            }
+
+            // 2. Validate file size (e.g., max 5 MB)
+            long MAX_SIZE = 5 * 1024 * 1024; // 5 MB
+            if (file.getSize() > MAX_SIZE) {
+                throw new IllegalArgumentException("File size exceeds 5 MB limit");
+            }
+
+            // 3. Validate file type (allow only image)
+            String contentType = file.getContentType();
+            if (contentType == null ||
+                    (!contentType.equals("image/png") &&
+                            !contentType.equals("image/jpeg") &&
+                            !contentType.equals("image/jpg") &&
+                            !contentType.equals("image/gif"))) {
+                throw new IllegalArgumentException("Only PNG, JPG, JPEG, GIF images are allowed");
+            }
+
+            // 4. Create folder if doesn't exist
             File uploadDir = new File(UPLOAD_FOLDER_IMAGES);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
             }
 
-            // 2. Create unique filename
+            // 5. Create unique filename
             String originalName = file.getOriginalFilename();
+            @SuppressWarnings("null")
             String extension = originalName.substring(originalName.lastIndexOf("."));
             String newFileName = UUID.randomUUID().toString() + extension;
 
-            // 3. Save file to disk
+            // 6. Save file to disk
             Path filePath = Paths.get(UPLOAD_FOLDER_IMAGES + newFileName);
             Files.write(filePath, file.getBytes());
 
-            // 4. Create URL to access the image
+            // 7. Create URL to access the image
             String imageUrl = "http://localhost:8080/api/posts/images/" + newFileName;
 
-            // 5. Return response in EditorJS format
+            // 8. Return response in EditorJS format
             Map<String, Object> response = Map.of(
                     "success", 1,
                     "file", Map.of("url", imageUrl));
 
-            System.out.println("Upload success! URL: " + imageUrl); // Debug log
+            System.out.println("Upload success! URL: " + imageUrl);
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {

@@ -17,20 +17,30 @@ public class FollowService {
     private final UserRepository userRepository;
     private final NotificationService notificationService;
 
+    @Transactional
     public void follow(User follower, UUID followingId) {
         User following = getUser(followingId);
-        if (!followRepository.existsByFollowerAndFollowing(follower, following)) {
-            Follow follow = Follow.builder()
-                    .follower(follower)
-                    .following(following)
-                    .build();
-            if (follow == null) {
-                throw new IllegalArgumentException("Follow relationship cannot be null");
-            }
-            followRepository.save(follow);
 
-            notificationService.createFollowNotification(following.getUsername(), follower.getUsername());
+        // Prevent self-follow
+        if (follower.getId().equals(following.getId())) {
+            throw new IllegalArgumentException("You cannot follow yourself");
         }
+
+        // Prevent duplicates
+        boolean alreadyFollowing = followRepository.existsByFollowerAndFollowing(follower, following);
+        if (alreadyFollowing) {
+            return; // silently ignore or throw exception if you prefer
+        }
+
+        Follow follow = Follow.builder()
+                .follower(follower)
+                .following(following)
+                .build();
+
+        followRepository.save(follow);
+
+        // Notification
+        notificationService.createFollowNotification(following.getUsername(), follower.getUsername());
     }
 
     public void unfollow(User follower, UUID followingId) {
@@ -55,7 +65,7 @@ public class FollowService {
         if (id == null) {
             throw new IllegalArgumentException("User ID cannot be null");
         }
-        
+
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }

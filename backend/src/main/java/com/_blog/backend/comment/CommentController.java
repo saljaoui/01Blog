@@ -19,8 +19,6 @@ import com._blog.backend.comment.dto.CommentLikeRequest;
 import com._blog.backend.comment.dto.CommentLikeResponse;
 import com._blog.backend.comment.dto.CommentRequest;
 import com._blog.backend.comment.dto.CommentResponse;
-import com._blog.backend.post.Post;
-import com._blog.backend.post.PostRepository;
 import com._blog.backend.user.User;
 
 import jakarta.validation.Valid;

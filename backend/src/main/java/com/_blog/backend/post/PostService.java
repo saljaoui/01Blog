@@ -36,7 +36,7 @@ public class PostService {
 
     public PostResponse create(PostRequest postRequest) {
         validatePostRequest(postRequest);
-        
+
         User user = SecurityUtils.getCurrentUser();
         Post post = Post.builder()
                 .id(UUID.randomUUID())
@@ -56,34 +56,38 @@ public class PostService {
     }
 
     private void validatePostRequest(PostRequest postRequest) {
-    if (postRequest == null) {
-        throw new IllegalArgumentException("Post request cannot be null");
-    }
-    
-    if (postRequest.getTitle() == null || postRequest.getTitle().trim().isEmpty()) {
-        throw new IllegalArgumentException("Post title cannot be null or empty");
-    }
-    
-    if (postRequest.getTitle().length() > 255) {
-        throw new IllegalArgumentException("Post title cannot exceed 255 characters");
-    }
-    
-    if (postRequest.getContent() == null || postRequest.getContent().trim().isEmpty()) {
-        throw new IllegalArgumentException("Post content cannot be null or empty");
-    }
-    
-    if (postRequest.getContent().length() > 10000) {
-        throw new IllegalArgumentException("Post content cannot exceed 10000 characters");
-    }
-}
-
-    public PostResponse updatePost(UUID postId, PostRequest postRequest) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("post not found"));
-        if (post != null) {
-            post.setContent(postRequest.getContent().replaceAll("&nbsp;", ""));
-            post.setTitle(postRequest.getTitle());
-            postRepository.save(post);
+        if (postRequest == null) {
+            throw new IllegalArgumentException("Post request cannot be null");
         }
+
+        if (postRequest.getTitle() == null || postRequest.getTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("Post title cannot be null or empty");
+        }
+
+        if (postRequest.getTitle().length() > 255) {
+            throw new IllegalArgumentException("Post title cannot exceed 255 characters");
+        }
+
+        if (postRequest.getContent() == null || postRequest.getContent().trim().isEmpty()) {
+            throw new IllegalArgumentException("Post content cannot be null or empty");
+        }
+
+        if (postRequest.getContent().length() > 10000) {
+            throw new IllegalArgumentException("Post content cannot exceed 10000 characters");
+        }
+    }
+
+    public PostResponse updatePost(UUID postId, PostRequest postRequest, UUID userId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        if (!post.getUser().getId().equals(userId)) {
+            throw new RuntimeException("You are not allowed to edit this post");
+        }
+
+        post.setContent(postRequest.getContent().replaceAll("&nbsp;", ""));
+        post.setTitle(postRequest.getTitle());
+        postRepository.save(post);
 
         return new PostResponse();
     }
@@ -182,7 +186,9 @@ public class PostService {
             return List.of(); // Return empty list if no followed users
         }
 
-        return postRepository.findByUserIn(followedUsers, PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"))).stream()
+        return postRepository
+                .findByUserIn(followedUsers, PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt")))
+                .stream()
                 .map(post -> PostResponse
                         .builder()
                         .id(post.getId())

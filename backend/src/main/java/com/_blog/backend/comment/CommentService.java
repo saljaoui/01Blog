@@ -4,8 +4,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.comment.dto.CommentLikeResponse;
@@ -91,6 +95,11 @@ public class CommentService {
 
     @Transactional
     public CommentLikeResponse toggleCommentLike(UUID commentId, User user) {
+
+        if (user == null) {
+            throw new AccessDeniedException("User must be authenticated to like a comment");
+        }
+
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
 

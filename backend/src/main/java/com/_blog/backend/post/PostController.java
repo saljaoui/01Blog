@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,8 +62,8 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<PostResponse> updatePost(@PathVariable UUID postId, @Valid @RequestBody PostRequest postRequest) {
-        return ResponseEntity.ok(postService.updatePost(postId, postRequest));
+    public ResponseEntity<PostResponse> updatePost(@PathVariable UUID postId, @Valid @RequestBody PostRequest postRequest, @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(postService.updatePost(postId, postRequest, user.getId()));
     }
 
     @GetMapping("/{postId}")

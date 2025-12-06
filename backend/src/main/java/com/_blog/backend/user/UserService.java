@@ -118,6 +118,7 @@ public class UserService {
 
                 // 2. Create unique filename
                 String originalName = avatar.getOriginalFilename();
+                @SuppressWarnings("null")
                 String extension = originalName.substring(originalName.lastIndexOf("."));
                 String newFileName = user.getId() + "_" + System.currentTimeMillis() + extension;
 

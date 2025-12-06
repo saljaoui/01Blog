@@ -84,16 +84,16 @@ public class PostController {
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<Void> deletePost(@PathVariable UUID postId) {
+    public ResponseEntity<Void> deletePost(@PathVariable UUID postId, @AuthenticationPrincipal User user) {
         // Check if the current user is the owner or an admin
         Post post = postService.getPostEntityById(postId);
-        if (post == null) {
-            return ResponseEntity.notFound().build();
-        }
+        // if (post == null) {
+        //     return ResponseEntity.notFound().build();
+        // }
 
-        User currentUser = SecurityUtils.getCurrentUser();
-        boolean isOwner = post.getUser().getId().equals(currentUser.getId());
-        boolean isAdmin = currentUser.getRole().equals(Role.ADMIN);
+        
+        boolean isOwner = post.getUser().getId().equals(user.getId());
+        boolean isAdmin = user.getRole().equals(Role.ADMIN);
 
         if (!isOwner && !isAdmin) {
             return ResponseEntity.status(403).build();

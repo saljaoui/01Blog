@@ -46,4 +46,8 @@ export class AdminService {
     deleteUser(userId: string): Observable<any> {
         return this.http.delete<any>(`${this.usersApiUrl}/${userId}`);
     }
+
+    deletePost(postId: string): Observable<any> {
+        return this.http.delete<any>(`${environment.api.posts}/${postId}`);
+    }
 }

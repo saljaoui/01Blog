@@ -42,8 +42,20 @@ export class AdminReports implements OnInit {
 
 
   onDeletePostClick(reportId: string) {
-  // this.adminService.deletePost(reportId).subscribe(...);
-}
+    if (confirm('Are you sure you want to delete this post?')) {
+      this.adminService.deletePost(reportId).subscribe({
+        next: () => {
+          // Remove the report from the list after deleting the post
+          this.reports = this.reports.filter(r => r.reportId !== reportId);
+          alert('Post deleted successfully');
+        },
+        error: (err: any) => {
+          console.error(err);
+          alert('Failed to delete post');
+        }
+      });
+    }
+  }
 
 onBanUserClick(userId: string, reportId: string) {
   if (confirm('Are you sure you want to ban this user?')) {

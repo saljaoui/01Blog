@@ -9,25 +9,34 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/follows")
-@RequiredArgsConstructor 
+@RequiredArgsConstructor
 public class FollowController {
 
     private final FollowService followService;
 
     @PostMapping("/{userId}")
     public ResponseEntity<Void> follow(@PathVariable UUID userId, @AuthenticationPrincipal User currentUser) {
+        if (userId == null) {
+            return ResponseEntity.badRequest().build();
+        }
         followService.follow(currentUser, userId);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> unfollow(@PathVariable UUID userId, @AuthenticationPrincipal User currentUser) {
+        if (userId == null) {
+            return ResponseEntity.badRequest().build();
+        }
         followService.unfollow(currentUser, userId);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{userId}/status")
     public ResponseEntity<Boolean> status(@PathVariable UUID userId, @AuthenticationPrincipal User currentUser) {
+        if (userId == null) {
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.ok(followService.isFollowing(currentUser, userId));
     }
 }

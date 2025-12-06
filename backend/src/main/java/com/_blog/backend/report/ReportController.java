@@ -22,6 +22,7 @@ import com._blog.backend.report.dto.ReportStatusResponse;
 import com._blog.backend.report.dto.ReportStatusUpdateRequest;
 import com._blog.backend.user.User;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -32,7 +33,7 @@ public class ReportController {
     private final ReportService reportService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse> createReport(@RequestBody ReportRequest request, @AuthenticationPrincipal User user) {
+    public ResponseEntity<ApiResponse> createReport(@Valid @RequestBody ReportRequest request, @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(reportService.createReport(request, user));
     }
 

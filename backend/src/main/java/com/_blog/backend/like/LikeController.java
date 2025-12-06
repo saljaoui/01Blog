@@ -12,6 +12,8 @@ import com._blog.backend.like.dto.LikeRequest;
 import com._blog.backend.like.dto.LikeResponse;
 import com._blog.backend.user.User;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/likes")
 @RequiredArgsConstructor
@@ -20,7 +22,7 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping
-    public ResponseEntity<LikeResponse> toggleLike(@RequestBody LikeRequest likeRequest, @AuthenticationPrincipal User user) {
+    public ResponseEntity<LikeResponse> toggleLike(@Valid @RequestBody LikeRequest likeRequest, @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(likeService.toggleLike(likeRequest.getPostId(), user));
     }
 

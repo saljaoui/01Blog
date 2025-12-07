@@ -12,7 +12,7 @@ import { Popup } from '../../../components/popup/popup';
   styleUrl: './admin-users.scss'
 })
 export class AdminUsers implements OnInit {
-   @ViewChild('popup') popup!: Popup;
+  @ViewChild('popup') popup!: Popup;
   private adminService = inject(AdminService);
   users: User[] = [];
   filteredUsers: User[] = [];
@@ -22,6 +22,8 @@ export class AdminUsers implements OnInit {
   displayedCount = 10;
   showDeletePopup = false;
   userToDelete: User | null = null;
+  showBanPopup = false;
+  userToBan: User | null = null;
 
   ngOnInit() {
     this.loadUsers();
@@ -131,5 +133,23 @@ export class AdminUsers implements OnInit {
   cancelDeleteUser() {
     this.showDeletePopup = false;
     this.userToDelete = null;
+  }
+
+  banUser(user: User) {
+    this.userToBan = user;
+    this.showBanPopup = true;
+  }
+
+  confirmBanUser() {
+    if (this.userToBan) {
+      this.toggleUserStatus(this.userToBan);
+      this.showBanPopup = false;
+      this.userToBan = null;
+    }
+  }
+
+  cancelBanUser() {
+    this.showBanPopup = false;
+    this.userToBan = null;
   }
 }

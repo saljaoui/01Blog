@@ -13,6 +13,7 @@ export class ConfirmDeletePopup {
   @Input() title: string = 'Confirm Delete';
   @Input() message: string = 'Are you sure you want to delete this item?';
   @Input() item: any = null;
+  @Input() confirmButtonText: string = 'Delete';
 
   // Output Events
   @Output() confirm = new EventEmitter<void>();

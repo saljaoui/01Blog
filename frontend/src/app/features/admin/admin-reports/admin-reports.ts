@@ -1,18 +1,25 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminService } from '../../../core/services/admin.service';
 import { ReportResponse } from '../../../core/models/report';
+import { ConfirmDeletePopup } from '../../../components/confirm-delete-popup/confirm-delete-popup';
+import { Popup } from '../../../components/popup/popup';
 
 @Component({
   selector: 'app-admin-reports',
-  imports: [CommonModule],
+  imports: [CommonModule, ConfirmDeletePopup, Popup],
   templateUrl: './admin-reports.html',
   styleUrl: './admin-reports.scss'
 })
 export class AdminReports implements OnInit {
+  @ViewChild('popup') popup!: Popup;
   reports: ReportResponse[] = [];
   selectedReport: ReportResponse | null = null;
   private adminService = inject(AdminService);
+  showDeletePostPopup = false;
+  postToDelete: { postId: string; reportId: string } | null = null;
+  showBanUserPopup = false;
+  userToBan: { userId: string; reportId: string } | null = null;
 
   ngOnInit() {
     this.loadReports();
@@ -42,37 +49,65 @@ export class AdminReports implements OnInit {
 
 
   onDeletePostClick(postId: string, reportId: string) {
-    if (confirm('Are you sure you want to delete this post?')) {
-      this.adminService.deletePost(postId).subscribe({
+    this.postToDelete = { postId, reportId };
+    this.showDeletePostPopup = true;
+  }
+
+  confirmDeletePost() {
+    if (this.postToDelete) {
+      this.adminService.deletePost(this.postToDelete.postId).subscribe({
         next: () => {
           // Remove the report from the list after deleting the post
-          this.reports = this.reports.filter(r => r.reportId !== reportId);
-          alert('Post deleted successfully');
+          this.reports = this.reports.filter(r => r.reportId !== this.postToDelete!.reportId);
+          this.showDeletePostPopup = false;
+          this.postToDelete = null;
+          this.popup.show('Post deleted successfully.', true);
         },
         error: (err: any) => {
           console.error(err);
-          alert('Failed to delete post');
+          this.showDeletePostPopup = false;
+          this.postToDelete = null;
+          this.popup.show('Failed to delete post.', false);
         }
       });
     }
   }
 
+  cancelDeletePost() {
+    this.showDeletePostPopup = false;
+    this.postToDelete = null;
+  }
+
 onBanUserClick(userId: string, reportId: string) {
-  if (confirm('Are you sure you want to ban this user?')) {
-    this.adminService.banUserFromReport(reportId, userId).subscribe({
+  this.userToBan = { userId, reportId };
+  this.showBanUserPopup = true;
+}
+
+confirmBanUser() {
+  if (this.userToBan) {
+    this.adminService.banUserFromReport(this.userToBan.reportId, this.userToBan.userId).subscribe({
       next: (updatedReport) => {
         // Update the local list
         this.reports = this.reports.map(r =>
           r.reportId === updatedReport.reportId ? updatedReport : r
         );
-        alert('User banned successfully');
+        this.showBanUserPopup = false;
+        this.userToBan = null;
+        this.popup.show('User banned successfully.', true);
       },
       error: (err) => {
         console.error(err);
-        alert('Failed to ban user');
+        this.showBanUserPopup = false;
+        this.userToBan = null;
+        this.popup.show('Failed to ban user.', false);
       }
     });
   }
+}
+
+cancelBanUser() {
+  this.showBanUserPopup = false;
+  this.userToBan = null;
 }
 
   onDismissClick(reportId: string) {
@@ -88,5 +123,12 @@ onBanUserClick(userId: string, reportId: string) {
         alert('Failed to dismiss report');
       }
     });
+  }
+
+  truncateReason(reason: string): string {
+    if (reason.length > 50) {
+      return reason.slice(0, 50) + '...';
+    }
+    return reason;
   }
 }

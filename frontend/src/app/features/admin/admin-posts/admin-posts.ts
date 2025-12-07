@@ -28,7 +28,7 @@ export class AdminPosts implements OnInit {
   }
 
   loadPosts() {
-    this.postService.getAllPosts().subscribe({
+    this.postService.getAllPosts(0, this.displayedCount).subscribe({
       next: (posts) => {
         console.log("Posts loaded:", posts);
         this.posts = posts;

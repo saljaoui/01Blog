@@ -19,7 +19,10 @@ export class AdminPosts implements OnInit {
   filteredPosts: Post[] = [];
   displayedPosts: Post[] = [];
   searchTerm = '';
-  displayedCount = 10;
+  currentPage: number = 0;
+  pageSize: number = 10;
+  isLoading: boolean = false;
+  hasMorePosts: boolean = true;
   showDeletePopup = false;
   postToDelete: Post | null = null;
 
@@ -28,15 +31,23 @@ export class AdminPosts implements OnInit {
   }
 
   loadPosts() {
-    this.postService.getAllPosts(0, this.displayedCount).subscribe({
+    if (this.isLoading || !this.hasMorePosts) return;
+
+    this.isLoading = true;
+    this.postService.getAllPosts(this.currentPage, this.pageSize).subscribe({
       next: (posts) => {
-        console.log("Posts loaded:", posts);
-        this.posts = posts;
-        this.filteredPosts = posts;
-        this.displayedPosts = this.filteredPosts.slice(0, this.displayedCount);
+        if (posts.length === 0) {
+          this.hasMorePosts = false;
+        } else {
+          this.posts = [...this.posts, ...posts];
+          this.currentPage++;
+        }
+        this.applyFilters();
+        this.isLoading = false;
       },
       error: (error) => {
         console.error('Error loading posts:', error);
+        this.isLoading = false;
       }
     });
   }
@@ -53,13 +64,11 @@ export class AdminPosts implements OnInit {
         post.authorName?.toLowerCase().includes(this.searchTerm);
       return matchesSearch;
     });
-    this.displayedCount = 10;
-    this.displayedPosts = this.filteredPosts.slice(0, this.displayedCount);
+    this.displayedPosts = this.filteredPosts;
   }
 
   loadMore() {
-    this.displayedCount += 10;
-    this.displayedPosts = this.filteredPosts.slice(0, this.displayedCount);
+    this.loadPosts();
   }
 
   formatDate(dateString: string): string {

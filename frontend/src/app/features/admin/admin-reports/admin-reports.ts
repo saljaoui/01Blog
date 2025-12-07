@@ -14,7 +14,9 @@ import { Popup } from '../../../components/popup/popup';
 export class AdminReports implements OnInit {
   @ViewChild('popup') popup!: Popup;
   reports: ReportResponse[] = [];
+  filteredReports: ReportResponse[] = [];
   selectedReport: ReportResponse | null = null;
+  selectedStatus = 'All Reports';
   private adminService = inject(AdminService);
   showDeletePostPopup = false;
   postToDelete: { postId: string; reportId: string } | null = null;
@@ -31,11 +33,26 @@ export class AdminReports implements OnInit {
         console.log(reports);
 
         this.reports = reports;
+        this.applyFilters();
       },
       error: (error) => {
         console.error('Error loading reports:', error);
       }
     });
+  }
+
+  onStatusFilterChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    this.selectedStatus = target.value;
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    if (this.selectedStatus === 'All Reports') {
+      this.filteredReports = this.reports;
+    } else {
+      this.filteredReports = this.reports.filter(report => report.status === this.selectedStatus.toUpperCase());
+    }
   }
 
   onViewClick(report: ReportResponse) {
@@ -59,6 +76,7 @@ export class AdminReports implements OnInit {
         next: () => {
           // Remove the report from the list after deleting the post
           this.reports = this.reports.filter(r => r.reportId !== this.postToDelete!.reportId);
+          this.applyFilters();
           this.showDeletePostPopup = false;
           this.postToDelete = null;
           this.popup.show('Post deleted successfully.', true);
@@ -91,6 +109,7 @@ confirmBanUser() {
         this.reports = this.reports.map(r =>
           r.reportId === updatedReport.reportId ? updatedReport : r
         );
+        this.applyFilters();
         this.showBanUserPopup = false;
         this.userToBan = null;
         this.popup.show('User banned successfully.', true);

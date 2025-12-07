@@ -10,7 +10,7 @@
             <div class="d-flex align-items-center">
                 <div class="filter-section me-3">
                     <label class="filter-label">Status:</label>
-                    <select class="form-select filter-select">
+                    <select class="form-select filter-select" (change)="onStatusFilterChange($event)">
                         <option>All Reports</option>
                         <option>Pending</option>
                         <option>Resolved</option>
@@ -35,7 +35,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let report of reports">
+                    <tr *ngFor="let report of filteredReports">
                         <td>
                             <a [href]="'/profile/' + report.reporterUsername" class="user-link">@{{
                                 report.reporterUsername }}</a>

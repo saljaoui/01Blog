@@ -116,7 +116,7 @@ export class PostDetail implements OnInit {
         next: () => {
           this.showDeletePopup = false;
           this.postToDelete = null;
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home'], { queryParams: { success: 'post-deleted' } });
         },
         error: (error) => {
           console.error('Error deleting post:', error);

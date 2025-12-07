@@ -159,8 +159,7 @@ export class CreatePost implements OnInit, OnDestroy {
     this.postService.createPost(postData).subscribe({
       next: res => {
         console.log('Post created!', res);
-        this.popup.show('Post created successfully.', true);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home'], { queryParams: { success: 'post-created' } });
       },
       error: err => this.popup.show(ErrorHandler.extractErrorMessage(err), false)
     });

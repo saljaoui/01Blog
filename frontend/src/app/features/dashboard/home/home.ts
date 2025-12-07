@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, inject } from '@angular/core';
 import { SidebarRight } from '../../../components/sidebar-right/sidebar-right';
 import { PostService } from '../../../core/services/post.service';
 import { PostCard } from '../../../components/post-card/post-card';
 import { parseEditorJsContent } from '../../../core/utils/editorjs-parser';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { Popup } from '../../../components/popup/popup';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, SidebarRight, PostCard],
+  imports: [CommonModule, SidebarRight, PostCard, Popup],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
-export class Home implements OnInit {
+export class Home implements OnInit, AfterViewInit {
   // Properties
   posts: any[] = [];
   currentPage: number = 0;
@@ -19,13 +21,25 @@ export class Home implements OnInit {
   isLoading: boolean = false;
   hasMorePosts: boolean = true;
   currentFilter: 'all' | 'followed' = 'all';
+  @ViewChild('popup') popup!: Popup;
 
   // Dependency Injection
-  constructor(private postService: PostService) {}
+  private postService = inject(PostService);
+  private route = inject(ActivatedRoute);
 
   // ===== LIFECYCLE HOOKS =====
   ngOnInit(): void {
     this.loadPosts();
+  }
+
+  ngAfterViewInit(): void {
+    this.route.queryParams.subscribe(params => {
+      if (params['success'] === 'post-created') {
+        this.popup.show('Post created successfully.', true);
+      } else if (params['success'] === 'post-deleted') {
+        this.popup.show('Post deleted successfully.', true);
+      }
+    });
   }
 
   // ===== DATA LOADING =====

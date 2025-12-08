@@ -35,10 +35,6 @@ export class AdminService {
         return this.http.put<ReportResponse>(`${this.usersApiUrl}/${userId}/status`, {});
     }
 
-    // banUser(reportId: string, userId: string): Observable<ReportResponse> {
-    //     return this.http.put<ReportResponse>(`${this.apiUrl}/${userId}/ban/${reportId}`, {});
-    // }
-
     getAllUsers(): Observable<User[]> {
         return this.http.get<User[]>(`${this.usersApiUrl}/admin/all`);
     }

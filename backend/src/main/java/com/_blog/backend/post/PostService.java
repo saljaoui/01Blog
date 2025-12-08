@@ -34,10 +34,7 @@ public class PostService {
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
 
-    public PostResponse create(PostRequest postRequest) {
-        validatePostRequest(postRequest);
-
-        User user = SecurityUtils.getCurrentUser();
+    public PostResponse create(PostRequest postRequest, User user) {
         Post post = Post.builder()
                 .id(UUID.randomUUID())
                 .user(user)
@@ -55,28 +52,6 @@ public class PostService {
         return new PostResponse();
     }
 
-    private void validatePostRequest(PostRequest postRequest) {
-        if (postRequest == null) {
-            throw new IllegalArgumentException("Post request cannot be null");
-        }
-
-        if (postRequest.getTitle() == null || postRequest.getTitle().trim().isEmpty()) {
-            throw new IllegalArgumentException("Post title cannot be null or empty");
-        }
-
-        if (postRequest.getTitle().length() > 255) {
-            throw new IllegalArgumentException("Post title cannot exceed 255 characters");
-        }
-
-        if (postRequest.getContent() == null || postRequest.getContent().trim().isEmpty()) {
-            throw new IllegalArgumentException("Post content cannot be null or empty");
-        }
-
-        if (postRequest.getContent().length() > 10000) {
-            throw new IllegalArgumentException("Post content cannot exceed 10000 characters");
-        }
-    }
-
     public PostResponse updatePost(UUID postId, PostRequest postRequest, UUID userId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
@@ -85,15 +60,14 @@ public class PostService {
             throw new RuntimeException("You are not allowed to edit this post");
         }
 
-        post.setContent(postRequest.getContent().replaceAll("&nbsp;", ""));
+        post.setContent(postRequest.getContent().replaceAll("&nbsp;", "").trim());
         post.setTitle(postRequest.getTitle());
         postRepository.save(post);
 
         return new PostResponse();
     }
 
-    public List<PostResponse> getAllPosts(int page, int size) {
-        User user = SecurityUtils.getCurrentUser();
+    public List<PostResponse> getAllPosts(int page, int size, User user) {
         UUID currentUserId = user.getId();
 
         return postRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"))).stream()
@@ -120,20 +94,16 @@ public class PostService {
                 .toList();
     }
 
-    public List<PostResponse> getAllPosts() {
-        return getAllPosts(0, Integer.MAX_VALUE);
-    }
-
-    public PostResponse getPostById(UUID postId) {
+    public PostResponse getPostById(UUID postId, User user) {
         return postRepository.findById(postId)
                 .map(post -> PostResponse.builder()
                         .id(post.getId())
                         .title(post.getTitle())
                         .content(post.getContent())
                         .likesCount(likeRepository.countByPost(post))
-                        .liked(likeRepository.existsByPostAndUser(post, SecurityUtils.getCurrentUser()))
+                        .liked(likeRepository.existsByPostAndUser(post, user))
                         .savesCount(savedRepository.countByPost(post))
-                        .saved(savedRepository.existsByPostAndUser(post, SecurityUtils.getCurrentUser()))
+                        .saved(savedRepository.existsByPostAndUser(post, user))
                         .commentsCount(commentRepository.countByPost(post))
                         .authorId(post.getUser().getId())
                         .authorUsername(post.getUser().getUsername())
@@ -142,13 +112,12 @@ public class PostService {
                         .authorAvatar(post.getUser().getAvatarUrl())
                         .createdAt(post.getCreatedAt())
                         .updatedAt(post.getUpdatedAt())
-                        .owner(post.getUser().getId().equals(SecurityUtils.getCurrentUser().getId()))
+                        .owner(post.getUser().getId().equals(user.getId()))
                         .build())
                 .orElse(null);
     }
 
-    public List<PostResponse> getPostsByUser(UUID userId) {
-        User currentUser = SecurityUtils.getCurrentUser();
+    public List<PostResponse> getPostsByUser(UUID userId, User user) {
         User targetUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
         return postRepository.findByUser(targetUser).stream()
@@ -158,9 +127,9 @@ public class PostService {
                         .title(post.getTitle())
                         .content(post.getContent())
                         .likesCount(likeRepository.countByPost(post))
-                        .liked(likeRepository.existsByPostAndUser(post, currentUser))
+                        .liked(likeRepository.existsByPostAndUser(post, user))
                         .savesCount(savedRepository.countByPost(post))
-                        .saved(savedRepository.existsByPostAndUser(post, currentUser))
+                        .saved(savedRepository.existsByPostAndUser(post, user))
                         .commentsCount(commentRepository.countByPost(post))
                         .authorId(post.getUser().getId())
                         .authorUsername(post.getUser().getUsername())
@@ -169,16 +138,15 @@ public class PostService {
                         .authorAvatar(post.getUser().getAvatarUrl())
                         .createdAt(post.getCreatedAt())
                         .updatedAt(post.getUpdatedAt())
-                        .owner(post.getUser().getId().equals(currentUser.getId()))
+                        .owner(post.getUser().getId().equals(user.getId()))
                         .build())
                 .toList();
     }
 
-    public List<PostResponse> getFollowedPosts(int page, int size) {
-        User currentUser = SecurityUtils.getCurrentUser();
+    public List<PostResponse> getFollowedPosts(int page, int size, User user) {
 
         // Get list of users that the current user is following
-        List<User> followedUsers = followRepository.findAllByFollower(currentUser).stream()
+        List<User> followedUsers = followRepository.findAllByFollower(user).stream()
                 .map(Follow::getFollowing)
                 .toList();
 
@@ -195,9 +163,9 @@ public class PostService {
                         .title(post.getTitle())
                         .content(post.getContent())
                         .likesCount(likeRepository.countByPost(post))
-                        .liked(likeRepository.existsByPostAndUser(post, currentUser))
+                        .liked(likeRepository.existsByPostAndUser(post, user))
                         .savesCount(savedRepository.countByPost(post))
-                        .saved(savedRepository.existsByPostAndUser(post, currentUser))
+                        .saved(savedRepository.existsByPostAndUser(post, user))
                         .commentsCount(commentRepository.countByPost(post))
                         .reportsCount(reportRepository.countByReportedPost_Id(post.getId()))
                         .authorId(post.getUser().getId())
@@ -207,7 +175,7 @@ public class PostService {
                         .authorAvatar(post.getUser().getAvatarUrl())
                         .createdAt(post.getCreatedAt())
                         .updatedAt(post.getUpdatedAt())
-                        .owner(post.getUser().getId().equals(currentUser.getId()))
+                        .owner(post.getUser().getId().equals(user.getId()))
                         .build())
                 .toList();
     }

@@ -45,20 +45,22 @@ public class PostController {
     @GetMapping
     public ResponseEntity<List<PostResponse>> getPosts(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(postService.getAllPosts(page, size));
+            @RequestParam(defaultValue = "10") int size,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(postService.getAllPosts(page, size, user));
     }
 
     @GetMapping("/followed")
     public ResponseEntity<List<PostResponse>> getFollowedPosts(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(postService.getFollowedPosts(page, size));
+            @RequestParam(defaultValue = "10") int size,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(postService.getFollowedPosts(page, size, user));
     }
 
     @PostMapping
-    public ResponseEntity<PostResponse> createPost(@Valid @RequestBody PostRequest postRequest) {
-        return ResponseEntity.ok(postService.create(postRequest));
+    public ResponseEntity<PostResponse> createPost(@Valid @RequestBody PostRequest postRequest, @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(postService.create(postRequest, user));
     }
 
     @PutMapping("/{postId}")
@@ -68,8 +70,8 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<PostResponse> getPostById(@PathVariable UUID postId) {
-        PostResponse post = postService.getPostById(postId);
+    public ResponseEntity<PostResponse> getPostById(@PathVariable UUID postId, @AuthenticationPrincipal User user) {
+        PostResponse post = postService.getPostById(postId, user);
 
         if (post != null) {
             return ResponseEntity.ok(post);
@@ -79,18 +81,14 @@ public class PostController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<PostResponse>> getPostsByUser(@PathVariable UUID userId) {
-        return ResponseEntity.ok(postService.getPostsByUser(userId));
+    public ResponseEntity<List<PostResponse>> getPostsByUser(@PathVariable UUID userId, @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(postService.getPostsByUser(userId, user));
     }
 
     @DeleteMapping("/{postId}")
     public ResponseEntity<Void> deletePost(@PathVariable UUID postId, @AuthenticationPrincipal User user) {
         // Check if the current user is the owner or an admin
         Post post = postService.getPostEntityById(postId);
-        // if (post == null) {
-        //     return ResponseEntity.notFound().build();
-        // }
-
         
         boolean isOwner = post.getUser().getId().equals(user.getId());
         boolean isAdmin = user.getRole().equals(Role.ADMIN);

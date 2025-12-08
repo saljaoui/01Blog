@@ -16,6 +16,6 @@ public class PostRequest {
     private String title;
 
     @NotBlank(message = "Content is required")
-    @Size(min = 100, max = 50000, message = "Content must be 100-50000 characters")
+    @Size(min = 100, max = 15000, message = "Content must be 100-15000 characters")
     private String content;
 }

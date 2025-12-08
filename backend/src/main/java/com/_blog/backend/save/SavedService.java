@@ -5,7 +5,6 @@ import java.util.UUID;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
-import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.post.Post;
 import com._blog.backend.post.PostRepository;
 import com._blog.backend.save.dto.SavedResponse;

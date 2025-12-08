@@ -5,13 +5,9 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.comment.dto.CommentLikeResponse;
 import com._blog.backend.comment.dto.CommentRequest;
 import com._blog.backend.comment.dto.CommentResponse;

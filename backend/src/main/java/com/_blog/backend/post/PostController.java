@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.post.dto.PostRequest;
 import com._blog.backend.post.dto.PostResponse;
 import com._blog.backend.user.Role;

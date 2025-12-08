@@ -4,11 +4,9 @@ import java.util.List;
 import java.util.UUID;
 
 
-import org.hibernate.usertype.UserType;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.api.ApiResponse;
-import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.exception.ResourceNotFoundException;
 import com._blog.backend.post.Post;
 import com._blog.backend.post.PostRepository;

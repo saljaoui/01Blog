@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.like.dto.LikeResponse;
 import com._blog.backend.notification.NotificationService;
 import com._blog.backend.post.Post;
@@ -59,8 +58,7 @@ public class LikeService {
                 .build();
     }
 
-    public LikeResponse getLikeStatus(UUID postId) {
-        User user = SecurityUtils.getCurrentUser();
+    public LikeResponse getLikeStatus(UUID postId, User user) {
 
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found"));

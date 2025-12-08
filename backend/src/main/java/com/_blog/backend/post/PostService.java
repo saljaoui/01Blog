@@ -7,7 +7,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com._blog.backend.auth.SecurityUtils;
 import com._blog.backend.comment.CommentRepository;
 import com._blog.backend.follow.Follow;
 import com._blog.backend.follow.FollowRepository;

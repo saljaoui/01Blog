@@ -27,7 +27,7 @@ public class LikeController {
     }
 
     @GetMapping
-    public ResponseEntity<LikeResponse> getLikes(@RequestParam UUID postId) {
-        return ResponseEntity.ok(likeService.getLikeStatus(postId));
+    public ResponseEntity<LikeResponse> getLikes(@RequestParam UUID postId, @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(likeService.getLikeStatus(postId, user));
     }
 }

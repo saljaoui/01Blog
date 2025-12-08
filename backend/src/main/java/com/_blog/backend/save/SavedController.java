@@ -3,10 +3,12 @@ package com._blog.backend.save;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import com._blog.backend.save.dto.SavedRequest;
 import com._blog.backend.save.dto.SavedResponse;
+import com._blog.backend.user.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,13 +20,13 @@ public class SavedController {
     private final  SavedService savedPostService;
 
     @PostMapping
-    public ResponseEntity<SavedResponse> toggleLike(@RequestBody SavedRequest savedRequest) {
-        return ResponseEntity.ok(savedPostService.toggleSave(savedRequest.getPostId()));
+    public ResponseEntity<SavedResponse> toggleLike(@RequestBody SavedRequest savedRequest, @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(savedPostService.toggleSave(savedRequest.getPostId(), user));
     }
 
     @GetMapping
-    public ResponseEntity<SavedResponse> getLikes(@RequestParam UUID postId) {
-        return ResponseEntity.ok(savedPostService.getLikeStatus(postId));
+    public ResponseEntity<SavedResponse> getLikes(@RequestParam UUID postId, @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(savedPostService.getLikeStatus(postId, user));
     }
 
     @GetMapping("/posts")

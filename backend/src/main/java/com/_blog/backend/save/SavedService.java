@@ -2,6 +2,7 @@ package com._blog.backend.save;
 
 import java.util.UUID;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import com._blog.backend.auth.SecurityUtils;
@@ -23,8 +24,7 @@ public class SavedService {
     private final com._blog.backend.comment.CommentRepository commentRepository;
 
     @Transactional
-    public SavedResponse toggleSave(UUID postId) {
-        User user = SecurityUtils.getCurrentUser();
+    public SavedResponse toggleSave(UUID postId, @AuthenticationPrincipal User user) {
         if (postId == null) {
             throw new IllegalStateException("User must be authenticated to save a post");
         }
@@ -57,8 +57,8 @@ public class SavedService {
                 .build();
     }
 
-    public SavedResponse getLikeStatus(UUID postId) {
-        User user = SecurityUtils.getCurrentUser();
+    public SavedResponse getLikeStatus(UUID postId, User user) {
+
 
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found"));

@@ -38,10 +38,11 @@ export class Home implements OnInit, AfterViewInit {
         this.popup.show('Post created successfully.', true);
       } else if (params['success'] === 'post-deleted') {
         this.popup.show('Post deleted successfully.', true);
+      } else if (params['success'] === 'post-notFound') {
+        this.popup.show('Post not found or access denied.', false);
       }
     });
   }
-
   // ===== DATA LOADING =====
   loadPosts(): void {
     if (this.isLoading || !this.hasMorePosts) return;

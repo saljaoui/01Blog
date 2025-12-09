@@ -211,6 +211,19 @@
     transform: translateY(-1px);
 }
 
+.btn-hide {
+    background: transparent;
+    color: #f97316;
+    border-color: #fed7aa;
+}
+
+.btn-hide:hover {
+    background: #f97316;
+    color: #fff;
+    border-color: #f97316;
+    transform: translateY(-1px);
+}
+
 /* Pagination */
 .pagination-wrapper {
     background: white;

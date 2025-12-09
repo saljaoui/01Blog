@@ -33,6 +33,8 @@ public class PostResponse {
     private String authorLastName;
     private String authorAvatar;
     private boolean owner;
+
+    private boolean hidden;
     
     // Time
     private LocalDateTime createdAt;

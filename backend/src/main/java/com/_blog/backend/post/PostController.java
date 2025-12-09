@@ -86,7 +86,7 @@ public class PostController {
     public ResponseEntity<Void> deletePost(@PathVariable UUID postId, @AuthenticationPrincipal User user) {
         // Check if the current user is the owner or an admin
         Post post = postService.getPostEntityById(postId);
-        
+
         boolean isOwner = post.getUser().getId().equals(user.getId());
         boolean isAdmin = user.getRole().equals(Role.ADMIN);
 
@@ -96,6 +96,28 @@ public class PostController {
 
         postService.deletePost(postId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{postId}/hide")
+    public ResponseEntity<Void> hidePost(@PathVariable UUID postId, @AuthenticationPrincipal User user) {
+        // Only admins can hide posts
+        if (!user.getRole().equals(Role.ADMIN)) {
+            return ResponseEntity.status(403).build();
+        }
+
+        postService.hidePost(postId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{postId}/unhide")
+    public ResponseEntity<Void> unhidePost(@PathVariable UUID postId, @AuthenticationPrincipal User user) {
+        // Only admins can unhide posts
+        if (!user.getRole().equals(Role.ADMIN)) {
+            return ResponseEntity.status(403).build();
+        }
+
+        postService.unhidePost(postId);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/upload-video")

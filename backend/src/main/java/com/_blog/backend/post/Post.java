@@ -42,6 +42,9 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    @Column(nullable = false)
+    private boolean hidden = false;
+
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;

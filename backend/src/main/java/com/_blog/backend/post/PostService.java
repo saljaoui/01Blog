@@ -16,6 +16,7 @@ import com._blog.backend.post.dto.PostRequest;
 import com._blog.backend.post.dto.PostResponse;
 import com._blog.backend.report.ReportRepository;
 import com._blog.backend.save.SavedRepository;
+import com._blog.backend.user.Role;
 import com._blog.backend.user.User;
 import com._blog.backend.user.UserRepository;
 
@@ -70,6 +71,7 @@ public class PostService {
         UUID currentUserId = user.getId();
 
         return postRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"))).stream()
+                .filter(post -> !post.isHidden() || user.getRole().equals(Role.ADMIN))
                 .map(post -> PostResponse
                         .builder()
                         .id(post.getId())
@@ -89,6 +91,7 @@ public class PostService {
                         .createdAt(post.getCreatedAt())
                         .updatedAt(post.getUpdatedAt())
                         .owner(post.getUser().getId().equals(currentUserId))
+                        .hidden(post.isHidden())
                         .build())
                 .toList();
     }
@@ -223,5 +226,19 @@ public class PostService {
         System.out.println("🔥 Deleting the post itself: " + postId);
         postRepository.delete(post);
         System.out.println("✅ Post deletion complete: " + postId);
+    }
+
+    public void hidePost(UUID postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+        post.setHidden(true);
+        postRepository.save(post);
+    }
+
+    public void unhidePost(UUID postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+        post.setHidden(false);
+        postRepository.save(post);
     }
 }

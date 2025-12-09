@@ -22,4 +22,5 @@ export interface Post {
 
   liked?: boolean;
   saved?: boolean;
+  hidden?: boolean;
 }

@@ -109,4 +109,17 @@ export class AdminPosts implements OnInit {
     this.showDeletePopup = false;
     this.postToDelete = null;
   }
+
+  hidePost(post: Post) {
+    this.postService.hidePost(post.id).subscribe({
+      next: () => {
+        post.hidden = true;
+        this.popup.show('Post hidden successfully.', true);
+      },
+      error: (error) => {
+        console.error('Error hiding post:', error);
+        this.popup.show('Failed to hide post. Please try again.', false);
+      }
+    });
+  }
 }

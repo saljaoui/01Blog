@@ -98,25 +98,14 @@ public class PostController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{postId}/hide")
-    public ResponseEntity<Void> hidePost(@PathVariable UUID postId, @AuthenticationPrincipal User user) {
-        // Only admins can hide posts
+    @PutMapping("/{postId}/toggle-hide")
+    public ResponseEntity<Void> togglePostVisibility(@PathVariable UUID postId, @AuthenticationPrincipal User user) {
+        // Only admins can toggle post visibility
         if (!user.getRole().equals(Role.ADMIN)) {
             return ResponseEntity.status(403).build();
         }
 
-        postService.hidePost(postId);
-        return ResponseEntity.ok().build();
-    }
-
-    @PutMapping("/{postId}/unhide")
-    public ResponseEntity<Void> unhidePost(@PathVariable UUID postId, @AuthenticationPrincipal User user) {
-        // Only admins can unhide posts
-        if (!user.getRole().equals(Role.ADMIN)) {
-            return ResponseEntity.status(403).build();
-        }
-
-        postService.unhidePost(postId);
+        postService.togglePostVisibility(postId);
         return ResponseEntity.ok().build();
     }
 

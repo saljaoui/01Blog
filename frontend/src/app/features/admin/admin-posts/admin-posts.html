@@ -48,7 +48,7 @@
                                 <button class="btn action-btn btn-view me-1"> View </button>
                             </a>
                             <button class="btn action-btn btn-delete" (click)="deletePost(post)"> Delete </button>
-                            <button class="btn action-btn btn-hide" (click)="hidePost(post)"> Hide </button>
+                            <button class="btn action-btn btn-hide" (click)="togglePostVisibility(post)"> {{ post.hidden ? 'Unhide' : 'Hide' }} </button>
                         </td>
                     </tr>
                 </tbody>

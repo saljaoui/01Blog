@@ -43,7 +43,7 @@ public class Post {
     private String content;
 
     @Column(nullable = false)
-    private boolean hidden = false;
+    private boolean hidden;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

@@ -110,15 +110,16 @@ export class AdminPosts implements OnInit {
     this.postToDelete = null;
   }
 
-  hidePost(post: Post) {
-    this.postService.hidePost(post.id).subscribe({
+  togglePostVisibility(post: Post) {
+    this.postService.togglePostVisibility(post.id).subscribe({
       next: () => {
-        post.hidden = true;
-        this.popup.show('Post hidden successfully.', true);
+        post.hidden = !post.hidden;
+        const message = post.hidden ? 'Post hidden successfully.' : 'Post unhidden successfully.';
+        this.popup.show(message, true);
       },
-      error: (error) => {
-        console.error('Error hiding post:', error);
-        this.popup.show('Failed to hide post. Please try again.', false);
+      error: (error: any) => {
+        console.error('Error toggling post visibility:', error);
+        this.popup.show('Failed to toggle post visibility. Please try again.', false);
       }
     });
   }

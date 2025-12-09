@@ -31,12 +31,8 @@ export class PostService {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 
-  hidePost(id: string): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}/hide`, {});
-  }
-
-  unhidePost(id: string): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}/unhide`, {});
+  togglePostVisibility(id: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}/toggle-hide`, {});
   }
 
   deletePostFromUser(id: string): Observable<any> {

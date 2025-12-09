@@ -39,6 +39,7 @@ public class PostService {
                 .id(UUID.randomUUID())
                 .user(user)
                 .title(postRequest.getTitle())
+                .hidden(false)
                 .content(postRequest.getContent().replaceAll("&nbsp;", "").trim())
                 .build();
 
@@ -228,17 +229,10 @@ public class PostService {
         System.out.println("✅ Post deletion complete: " + postId);
     }
 
-    public void hidePost(UUID postId) {
+    public void togglePostVisibility(UUID postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
-        post.setHidden(true);
-        postRepository.save(post);
-    }
-
-    public void unhidePost(UUID postId) {
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("Post not found"));
-        post.setHidden(false);
+        post.setHidden(!post.isHidden());
         postRepository.save(post);
     }
 }

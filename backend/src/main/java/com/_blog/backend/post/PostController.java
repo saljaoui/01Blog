@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,8 +37,7 @@ public class PostController {
     private static final String UPLOAD_FOLDER_IMAGES = "uploads/images/";
     private static final String UPLOAD_FOLDER_VIDEOS = "uploads/videos/";
 
-    @Autowired
-    private PostService postService;
+    private final PostService postService;
 
     @GetMapping
     public ResponseEntity<List<PostResponse>> getPosts(

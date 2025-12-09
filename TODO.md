@@ -1,2 +1,0 @@
-- [ ] Add toggleRead method to NotificationService
-- [ ] Update markAsRead method in Notifications component to use toggleRead and adjust local state

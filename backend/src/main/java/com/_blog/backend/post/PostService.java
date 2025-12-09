@@ -99,6 +99,7 @@ public class PostService {
 
     public PostResponse getPostById(UUID postId, User user) {
         return postRepository.findById(postId)
+                .filter(post -> !post.isHidden() || user.getRole().equals(Role.ADMIN))
                 .map(post -> PostResponse.builder()
                         .id(post.getId())
                         .title(post.getTitle())
@@ -124,6 +125,7 @@ public class PostService {
         User targetUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
         return postRepository.findByUser(targetUser).stream()
+                .filter(post -> !post.isHidden() || user.getRole().equals(Role.ADMIN))
                 .map(post -> PostResponse
                         .builder()
                         .id(post.getId())
@@ -160,6 +162,7 @@ public class PostService {
         return postRepository
                 .findByUserIn(followedUsers, PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt")))
                 .stream()
+                .filter(post -> !post.isHidden() || user.getRole().equals(Role.ADMIN))
                 .map(post -> PostResponse
                         .builder()
                         .id(post.getId())

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com._blog.backend.post.Post;
 import com._blog.backend.post.PostRepository;
 import com._blog.backend.save.dto.SavedResponse;
+import com._blog.backend.user.Role;
 import com._blog.backend.user.User;
 
 import jakarta.transaction.Transactional;
@@ -30,6 +31,11 @@ public class SavedService {
 
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        // Check if post is hidden and user is not admin
+        if (post.isHidden() && !user.getRole().equals(Role.ADMIN)) {
+            throw new IllegalArgumentException("Cannot save hidden post");
+        }
 
         boolean alreadySaved = savedRepository.existsByPostAndUser(post, user);
 

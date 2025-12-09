@@ -63,7 +63,7 @@ public class PostController {
     @PutMapping("/{postId}")
     public ResponseEntity<PostResponse> updatePost(@PathVariable UUID postId,
             @Valid @RequestBody PostRequest postRequest, @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(postService.updatePost(postId, postRequest, user.getId()));
+        return ResponseEntity.ok(postService.updatePost(postId, postRequest, user));
     }
 
     @GetMapping("/{postId}")
@@ -94,7 +94,7 @@ public class PostController {
             return ResponseEntity.status(403).build();
         }
 
-        postService.deletePost(postId);
+        postService.deletePost(postId, user);
         return ResponseEntity.noContent().build();
     }
 

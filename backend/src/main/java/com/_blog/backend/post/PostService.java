@@ -53,12 +53,16 @@ public class PostService {
         return new PostResponse();
     }
 
-    public PostResponse updatePost(UUID postId, PostRequest postRequest, UUID userId) {
+    public PostResponse updatePost(UUID postId, PostRequest postRequest, User user) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
-        if (!post.getUser().getId().equals(userId)) {
+        if (!post.getUser().getId().equals(user.getId()) && !user.getRole().equals(Role.ADMIN)) {
             throw new RuntimeException("You are not allowed to edit this post");
+        }
+
+        if (post.isHidden() && !user.getRole().equals(Role.ADMIN)) {
+            throw new RuntimeException("Cannot update a hidden post");
         }
 
         post.setContent(postRequest.getContent().replaceAll("&nbsp;", "").trim());
@@ -215,7 +219,7 @@ public class PostService {
         return postRepository.findById(postId).orElse(null);
     }
 
-    public void deletePost(UUID postId) {
+    public void deletePost(UUID postId, User user) {
         System.out.println("🛠️ Starting deletion of post with ID: " + postId);
 
         if (postId == null) {
@@ -225,6 +229,10 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("❌ Post not found"));
         System.out.println("✅ Post found: " + post.getId());
+
+        if (post.isHidden() && !user.getRole().equals(Role.ADMIN)) {
+            throw new RuntimeException("Cannot delete a hidden post");
+        }
 
         // Now delete the post
         System.out.println("🔥 Deleting the post itself: " + postId);

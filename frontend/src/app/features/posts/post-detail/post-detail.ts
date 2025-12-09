@@ -49,8 +49,21 @@ export class PostDetail implements OnInit {
   // Lifecycle Hook
   ngOnInit() {
     const postId = this.route.snapshot.paramMap.get('id');
+    if (!postId) {
+      this.router.navigate(['/home']);
+      this.popup.show('Post not found.', false);
+      return;
+    }
+
     this.postService.getPostById(postId).subscribe({
       next: (post) => {
+        if (!post) {
+          // Post not found or hidden
+          this.router.navigate(['/home']);
+          this.popup.show('Post not found.', false);
+          return;
+        }
+
         this.post = {
           ...post,
           parsedContent: parseEditorJsContent(post.content)
@@ -60,7 +73,14 @@ export class PostDetail implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching post details:', error);
-        this.popup.show(ErrorHandler.extractErrorMessage(error), false);
+
+        // Check if it's a 404 or forbidden error
+        if (error.status === 404 || error.status === 403) {
+          this.router.navigate(['/home']);
+          this.popup.show('Post not found.', false);
+        } else {
+          this.popup.show(ErrorHandler.extractErrorMessage(error), false);
+        }
       }
     });
   }

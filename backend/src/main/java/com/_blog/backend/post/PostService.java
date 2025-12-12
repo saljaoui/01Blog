@@ -195,11 +195,11 @@ public class PostService {
                 .id(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())
-                .likesCount(0L) // Will be set by caller if needed
-                .liked(false) // Will be set by caller if needed
-                .savesCount(0L) // Will be set by caller if needed
-                .saved(false) // Will be set by caller if needed
-                .commentsCount(0L) // Will be set by caller if needed
+                .likesCount(0L)
+                .liked(false)
+                .savesCount(0L)
+                .saved(false)
+                .commentsCount(0L)
                 .authorId(post.getUser().getId())
                 .authorUsername(post.getUser().getUsername())
                 .authorFirstName(post.getUser().getFirstName())

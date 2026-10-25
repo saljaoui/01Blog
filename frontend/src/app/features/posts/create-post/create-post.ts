@@ -13,6 +13,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { PostService } from '../../../core/services/post.service';
 import { parseEditorJsContent } from '../../../core/utils/editorjs-parser';
 import { Popup } from '../../../components/popup/popup';
+import { environment } from '../../../../environments/environment';
 import { ErrorHandler } from '../../../core/utils/error-handler';
 
 @Component({
@@ -76,7 +77,7 @@ export class CreatePost implements OnInit, OnDestroy {
                 const formData = new FormData();
                 formData.append('image', file);
                 return this.http.post<any>(
-                  'http://localhost:8080/api/posts/upload-image',
+                  `${environment.api.posts}/upload-image`,
                   formData,
                   { headers: { Authorization: `Bearer ${this.authService.getAccessToken()}` } }
                 ).toPromise()
@@ -94,7 +95,7 @@ export class CreatePost implements OnInit, OnDestroy {
                 const formData = new FormData();
                 formData.append('video', file);
                 return this.http.post<any>(
-                  'http://localhost:8080/api/posts/upload-video',
+                  `${environment.api.posts}/upload-video`,
                   formData,
                   { headers: { Authorization: `Bearer ${this.authService.getAccessToken()}` } }
                 ).toPromise()

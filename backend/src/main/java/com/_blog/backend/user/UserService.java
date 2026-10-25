@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +35,9 @@ public class UserService {
     private final RefreshTokenRepository refreshTokenRepository;
     private static final String UPLOAD_FOLDER_AVATARS = "uploads/avatars/";
 
+    @Value("${app.base-url}")
+    private String baseUrl;
+
     public User createUser(RegisterRequest request) {
 
         Role role;
@@ -52,7 +56,7 @@ public class UserService {
                 .password(request.getPassword())
                 .id(UUID.randomUUID())
                 .role(role)
-                .avatarUrl("http://localhost:8080/api/users/avatars/default-avatar.png")
+                .avatarUrl(baseUrl + "/api/users/avatars/default-avatar.png")
                 .status(UserStatus.ACTIVE)
                 .createdAt(LocalDateTime.now())
                 .build();
@@ -127,7 +131,7 @@ public class UserService {
                 Files.write(filePath, avatar.getBytes());
 
                 // 4. Create public URL for the avatar
-                String avatarUrl = "http://localhost:8080/api/users/avatars/" + newFileName;
+                String avatarUrl = baseUrl + "/api/users/avatars/" + newFileName;
 
                 // 5. Save URL to user
                 user.setAvatarUrl(avatarUrl);

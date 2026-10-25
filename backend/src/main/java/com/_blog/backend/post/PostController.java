@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,6 +39,9 @@ public class PostController {
     private static final String UPLOAD_FOLDER_VIDEOS = "uploads/videos/";
 
     private final PostService postService;
+
+    @Value("${app.base-url}")
+    private String baseUrl;
 
     @GetMapping
     public ResponseEntity<List<PostResponse>> getPosts(
@@ -149,7 +153,7 @@ public class PostController {
             Files.write(filePath, file.getBytes());
 
             // 7. Create public URL
-            String videoUrl = "http://localhost:8080/api/posts/videos/" + newFileName;
+            String videoUrl = baseUrl + "/api/posts/videos/" + newFileName;
 
             // 8. Return EditorJS-compatible response
             Map<String, Object> response = Map.of(
@@ -234,7 +238,7 @@ public class PostController {
             Files.write(filePath, file.getBytes());
 
             // 7. Create URL to access the image
-            String imageUrl = "http://localhost:8080/api/posts/images/" + newFileName;
+            String imageUrl = baseUrl + "/api/posts/images/" + newFileName;
 
             // 8. Return response in EditorJS format
             Map<String, Object> response = Map.of(

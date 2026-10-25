@@ -1,14 +1,25 @@
-# Multi-stage build for Spring Boot backend
-FROM openjdk:17.0.2-jdk-slim AS build
-WORKDIR /app
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src ./src
-RUN chmod +x mvnw
-RUN ./mvnw clean package -DskipTests
+# ---------- Build stage ----------
+FROM maven:3.9-eclipse-temurin-17 AS build
+WORKDIR /build
 
-FROM openjdk:17.0.2-jdk-slim
-COPY --from=build /app/target/*.jar app.jar
+# Download dependencies first so they are cached between builds
+COPY pom.xml .
+RUN mvn -B -q dependency:go-offline
+
+COPY src ./src
+RUN mvn -B -q -DskipTests package
+
+# ---------- Runtime stage ----------
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+
+COPY --from=build /build/target/*.jar app.jar
+COPY uploads/avatars/default-avatar.png uploads/avatars/default-avatar.png
+RUN mkdir -p uploads/images uploads/videos
+
+# Low-memory JVM settings for small containers (override with JAVA_OPTS)
+ENV JAVA_OPTS="-Xmx256m -Xss512k -XX:MaxMetaspaceSize=150m -XX:+UseSerialGC -XX:TieredStopAtLevel=1"
+ENV PORT=8080
+
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar /app/app.jar"]

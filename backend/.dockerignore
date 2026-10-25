@@ -1,0 +1,10 @@
+target/
+.mvn/wrapper/maven-wrapper.jar
+*.log
+.idea/
+.vscode/
+*.iml
+uploads/images/
+uploads/videos/
+uploads/avatars/*
+!uploads/avatars/default-avatar.png
